@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+      .navbar-brand, .inform{
+        color: #007bff; /* Blue color */
+        font-weight: bold;
+        font-size: 24px; /* Adjust font size as needed */
+      }
+
+      .custom-list {
+        font-size: 12px;
+      }
+      .custom-list li{
+    text-align: left;
+      }
+
+      .box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 180px;
+        }
+
+        .center-box {
+            border: 1px solid #ddd;
+            padding: 10px;
+            height: 60px;
+        }
+
+        .left, .right {
+            margin: 0;
+        }
+        .boxed{
+            
+            padding-left: 0px;
+            padding-right: 0px;
+        }
+        input{
+            height: 40px;
+            margin: 5px;
+        }
+        .button{
+            
+        }
+        .row{
+            margin-right: 0px;
+            width: 100%;
+        }
+        .BigContainer {
+            margin-bottom: 100px;
+        }   
+        .container p{
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+        }
+        p{
+            height: 24px;
+            margin-bottom: 0px;
+        }
+    </style>
+
+    <title>Hello, world!</title>
+  </head>
+  <body>
+    
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">다방</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="#">지도</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">분양</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">관심목록</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">방내놓기</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">MY 비대면계약</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  권순호님
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="#">문자문의</a>
+                  <a class="dropdown-item" href="#">전화문의</a>
+                  <a class="dropdown-item" href="#">1:1 문의내역</a>
+                  <a class="dropdown-item" href="#">허위매물 신고내역</a>
+                  <a class="dropdown-item" href="#">내정보</a>    
+                  <div class="dropdown-divider"></div>
+                  <a class="dropdown-item" href="#">로그아웃</a>
+                </div>
+              </li>
+          </ul>
+        </div>
+      </nav>
+      <br>
+      <br>
+
+    <div class="container text-center">
+        <h1>방내놓기</h1>
+        <button type="button" class="btn btn-primary">ㅎㅇ</button>
+    
+        <br><br><br>
+    
+        <div>
+            <ul class="custom-list">
+                <li>·전/ 월세 매물만 등록할 수 있습니다. 매매는 다방허브에서만 등록하실 수 있습니다. 소유중인 공실 매매와 다중 매물 등록을 한번에 하고 싶다면 다방허브를 이용해주세요. <a href="#">다방허브 바로가기</a> </li>
+                <li>·1개의 매물만 등록 가능하며, 다방에서 직거래로 표시됩니다.</li>
+                <li>·주소를 다르게 입력할 경우 허위매물로 신고될 수 있으니 꼭 동일하게 입력 바랍니다.</li>
+                <li>·등록한 매물은 30일 간 노출됩니다.</li>
+            </ul>
+        </div>
+        <br><br>
+        
+    
+    </div>
+<div class="BigContainer">
+
+    <div style="display: flex; justify-content: space-between;">
+        <h3 class="inform" style="margin-left: 150px;">매물정보</h3>
+        <span style="text-align: right; margin-right: 270px;">*필수입력</span>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 left boxed">
+                <div class="box">
+                    <p>매물유형</p>
+                </div>
+            </div>
+            <div class="col-md-3 center boxed">
+                <div class="center-box">
+                    <p>주택/빌라</p>
+                </div>
+                <div class="center-box">
+                    <p>오피스텔</p>
+                </div>
+                <div class="center-box">
+                    <p>아파트</p>
+                </div>
+            </div>
+            <div class="col-md-6 right boxed">
+                <div class="box">
+                    <p>오피스텔</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 left boxed">
+                <div class="box">
+                    <p>매물주소</p>
+                </div>
+            </div>
+            <div class="col-md-9 right boxed">
+                <div class="box">
+                    <div>
+                        <p>주소검색</p>
+                        <input type="text"><button class="btn" type="button">Primary</button>
+                    </div>
+                    <div>
+                        <p>동 입력</p>
+                        <input type="text"><input type="text"><button class="btn" type="button">Primary</button>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 left boxed">
+                <div class="box" style="height: 120px;">
+                    <p>매물크기</p>
+                </div>
+            </div>
+            <div class="col-md-9 right boxed">
+                <div class="box" style="height: 120px;">
+                    <div>
+                        <p>전용면적</p>
+                        <input type="text" placeholder="평수 입력"> = <input type="text" placeholder="m2">
+                    </div>             
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 left boxed" >
+                <div class="box" style="height: 210px;">
+                    <p>방 정보</p>
+                </div>
+            </div>
+            <div class="col-md-9 right boxed">
+                <div class="box" style="height: 210px;"> 
+                    <div>
+                        <div>
+                            <p>방 수</p>
+                            <input type="text" placeholder="개">
+                        </div>
+                        <div>
+                            <p>방 거실형태</p>
+                            <p><input type="radio">오픈형 <input type="radio">분리형</p>
+                        </div>
+                        <div>
+                            <p>방 특징(선택)</p>
+                            <p><input type="radio">신축 <input type="radio">큰길가 <input type="radio">반려동물</p>
+                        </div>
+                    </div>             
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+
+    <div style="display: flex; justify-content: space-between;">
+        <h3 class="inform" style="margin-left: 150px;">거래정보</h3>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 left boxed">
+                <div class="box" style="height: 60px;">
+                    <p>거래종류</p>
+                </div>
+            </div>  
+            <div class="col-md-9 right boxed">
+                <div class="box" style="height: 60px;">
+                   <p><input type="radio" name="" id=""> 전세 <input type="radio" name="" id=""> 월세</p> 
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 left boxed">
+                <div class="box" style="height: 120px;">
+                    <p>가격 정보</p>
+                </div>
+            </div>
+            <div class="col-md-9 right boxed">
+                <div class="box" style="height: 120px;">
+                    <div>
+                        <p>전세가</p>
+                        <input type="text" placeholder="만원">
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 left boxed">
+                <div class="box" style="height: 150px;">
+                    <p>공용관리비</p>
+                </div>
+            </div>
+            <div class="col-md-9 right boxed">
+                <div class="box" style="height: 150px;">
+                    <div>
+                        <div style="margin-bottom: 10px ;">
+                            <p>관리비 여부</p>
+                            <p><input type="radio" name="" id=""> 있음 <input type="radio" name="" id=""> 없음</p> 
+                        </div>
+                        <div>
+                            <p>관리비</p>
+                            <input type="text" placeholder="원">
+                        </div>
+                    </div>             
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-2 left boxed">
+                <div class="box">
+                    <p>입주 가능 일자</p>
+                </div>
+            </div>
+            <div class="col-md-9 right boxed">
+                <div class="box">
+                    <div>
+                        
+                    </div>             
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </body>
+</html>
