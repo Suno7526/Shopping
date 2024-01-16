@@ -5,6 +5,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import Button from 'react-bootstrap/Button';
+import Accordion from 'react-bootstrap/Accordion';
 
 function App() {
   return (
@@ -84,19 +86,19 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col-md-2 left boxed">
-          <div className="box">
+          <div className="box" style={{height: 160}}>
             <p>매물주소</p>
           </div>
         </div>
         <div className="col-md-9 right boxed">
-          <div className="box">
+          <div className="box" style={{height: 160}}>
             <div>
               <p>주소검색</p>
-              <input type="text" /><button className="btn" type="button">Primary</button>
+              <input type="text" /><Button variant="primary">검색</Button>{' '}
             </div>
             <div>
-              <p>동 입력</p>
-              <input type="text" /><input type="text" /><button className="btn" type="button">Primary</button>
+              <p>나머지 주소 입력</p>
+              <input type="text" />
             </div>                    
           </div>
         </div>
@@ -105,12 +107,12 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col-md-2 left boxed">
-          <div className="box" style={{height: 120}}>
+          <div className="box" style={{height: 100}}>
             <p>매물크기</p>
           </div>
         </div>
         <div className="col-md-9 right boxed">
-          <div className="box" style={{height: 120}}>
+          <div className="box" style={{height: 100}}>
             <div>
               <p>전용면적</p>
               <input type="text" placeholder="평수 입력" /> = <input type="text" placeholder="m2" />
@@ -122,12 +124,12 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col-md-2 left boxed">
-          <div className="box" style={{height: 250}}>
+          <div className="box" style={{height: 200}}>
             <p>방 정보</p>
           </div>
         </div>
         <div className="col-md-9 right boxed">
-          <div className="box" style={{height: 250}}> 
+          <div className="box" style={{height: 200}}> 
             <div>
               <div>
                 <p>방 수</p>
@@ -135,11 +137,11 @@ function App() {
               </div>
               <div>
                 <p>방 거실형태</p>
-                <p><input type="radio" />오픈형 <input type="radio" />분리형</p>
+                <p><input type="radio" />오픈형 &nbsp; <input type="radio" />분리형</p>
               </div>
               <div>
                 <p>방 특징(선택)</p>
-                <p><input type="radio" />신축 <input type="radio" />큰길가 <input type="radio" />반려동물</p>
+                <p><input type="radio" />신축 &nbsp;<input type="radio" />큰길가 &nbsp;<input type="radio" />반려동물</p>
               </div>
             </div>             
           </div>
@@ -147,7 +149,12 @@ function App() {
       </div>
     </div>
   </div>
-  <div>
+
+
+
+
+
+  <div className="BigContainer">
     <div style={{display: 'flex', justifyContent: 'space-between'}}>
       <h3 className="inform" style={{marginLeft: 150}}>거래정보</h3>
     </div>
@@ -160,7 +167,7 @@ function App() {
         </div>  
         <div className="col-md-9 right boxed">
           <div className="box" style={{height: 50}}>
-            <p><input type="radio" name id /> 전세 <input type="radio" name id /> 월세</p> 
+            <p><input type="radio" name id /> 전세 &nbsp;<input type="radio" name id /> 월세 &nbsp;</p> 
           </div>
         </div>
       </div>
@@ -168,12 +175,12 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col-md-2 left boxed">
-          <div className="box" style={{height: 120}}>
+          <div className="box" style={{height: 100}}>
             <p>가격 정보</p>
           </div>
         </div>
         <div className="col-md-9 right boxed">
-          <div className="box" style={{height: 120}}>
+          <div className="box" style={{height: 100}}>
             <div>
               <p>전세가</p>
               <input type="text" placeholder="만원" />
@@ -185,16 +192,16 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col-md-2 left boxed">
-          <div className="box" style={{height: 180}}>
+          <div className="box" style={{height: 160}}>
             <p>공용관리비</p>
           </div>
         </div>
         <div className="col-md-9 right boxed">
-          <div className="box" style={{height: 180}}>
+          <div className="box" style={{height: 160}}>
             <div>
               <div style={{marginBottom: 10}}>
                 <p>관리비 여부</p>
-                <p><input type="radio" name id /> 있음 <input type="radio" name id /> 없음</p> 
+                <p><input type="radio"/> 있음 &nbsp;<input type="radio" /> 없음 &nbsp;</p> 
               </div>
               <div>
                 <p>관리비</p>
@@ -208,19 +215,146 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col-md-2 left boxed">
-          <div className="box">
+          <div className="box" style={{height: 50}}>
             <p>입주 가능 일자</p>
           </div>
         </div>
         <div className="col-md-9 right boxed">
-          <div className="box">
-            <div>
-            </div>             
+          <div className="box" style={{height: 50}}>
+          <p><input type="radio"/> 즉시입주 &nbsp;<input type="radio" /> 일자선택 &nbsp; <input type="date" /> <input type="checkbox"/> 협의 가능 </p>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
+
+
+  <div className="BigContainer">
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <h3 className="inform" style={{marginLeft: 150}}>추가정보</h3>
+    </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-2 left boxed">
+          <div className="box" style={{height: 160}}>
+            <p>층수</p>
+          </div>
+        </div>  
+        <div className="col-md-9 right boxed">
+          <div className="box" style={{height: 160}}>
+            <div>
+              <p>전체 층수</p>
+              <input type="text" />
+            </div>
+            <div>
+              <p>현재 층수</p>
+              <input type="text" />
+            </div>                    
+          </div>  
+        </div>
+      </div>
+    </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-2 left boxed">
+          <div className="box" style={{height: 70}}>
+            <p>욕실 수</p>
+          </div>
+        </div>
+        <div className="col-md-9 right boxed">
+          <div className="box" style={{height: 70}}>
+            <div>
+              <input type="text" placeholder="개" />
+            </div>                    
+          </div>
+        </div>
+      </div>
+    </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-2 left boxed">
+          <div className="box" style={{height: 60}}>
+            <p>주차 가능 여부</p>
+          </div>
+        </div>
+        <div className="col-md-9 right boxed">
+          <div className="box" style={{height: 60}}>
+          <p><input type="radio"/> 불가능 &nbsp;<input type="radio" /> 가능 &nbsp; <input type="text" placeholder='총 가능 주차수'/></p>         
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div className="BigContainer">
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <h3 className="inform" style={{marginLeft: 150}}>사진추가</h3>
+    </div>
+    <div className="container">
+      <div className="row">
+        <div className="col-md-2 left boxed">
+          <div className="box" style={{height: 60}}>
+            <p>일반사진</p>
+          </div>
+        </div>  
+        <div className="col-md-9 right boxed">
+          <div className="box" style={{height: 60}}>
+          <Button variant="primary">사진등록</Button>{' '}
+          </div>  
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <div className="BigContainer">
+
+    <div style={{display: 'flex', justifyContent: 'space-between'}}>
+      <h3 className="inform" style={{marginLeft: 150}}>상세설명</h3>
+    </div>
+
+    <div className="container">
+      <div className="row">
+        <div className="col-md-2 left boxed">
+          <div className="box" style={{height: 60}}>
+            <p>제목</p>
+          </div>
+        </div>  
+        <div className="col-md-9 right boxed">
+          <div className="box" style={{height: 60}}>
+            <input type='text'></input>
+          </div>  
+        </div>
+      </div>
+    </div>
+
+    <div className="container">
+      <div className="row">
+        <div className="col-md-2 left boxed">
+          <div className="box" style={{height: 50}}>
+            <p>제목</p>
+          </div>
+        </div>  
+        <div className="col-md-9 right boxed">
+          <div className="box" style={{height: 50}}>
+          <Button variant="primary">사진등록</Button>{' '}
+          </div>  
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
 </div>
 
       
