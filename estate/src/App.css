@@ -1,0 +1,63 @@
+*{
+  margin: 0px;
+  padding: 0px;
+}
+.navbar-brand, .inform{
+color: #007bff; /* Blue color */
+font-weight: bold;
+font-size: 24px; /* Adjust font size as needed */
+}
+
+.custom-list {
+font-size: 12px;
+}
+.custom-list li{
+text-align: left;
+}
+
+.box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  height: 180px;
+}
+
+div.boxed {
+  padding: 0px;
+} 
+
+.center-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  height: 60px;
+}
+
+.left, .right {
+  margin: 0;
+}
+
+input{
+  height: 40px;
+  margin: 5px;
+}
+.button{
+  
+}
+.row{
+  margin: 0px;
+  width: 100%;
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+.BigContainer {
+  margin-bottom: 100px;
+}   
+.container p{
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+p{
+  height: 24px;
+  margin-bottom: 0px;
+}
