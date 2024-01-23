@@ -1,5 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
@@ -7,10 +9,15 @@ import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 
-function App() {
+
+const URL = "https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade";
+
+function App() {  
+
+  
   return (
     <div className="App">
-
+      
 <div>
 <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -330,7 +337,7 @@ function App() {
         </div>  
         <div className="col-md-9 right boxed">
           <div className="box" style={{height: 60}}>
-            <input type='text'></input>
+            <input type='text' style={{width: 700}}></input>
           </div>  
         </div>
       </div>
@@ -339,13 +346,15 @@ function App() {
     <div className="container">
       <div className="row">
         <div className="col-md-2 left boxed">
-          <div className="box" style={{height: 50}}>
-            <p>제목</p>
+          <div className="box" style={{height: 250}}>
+            <p>상세설명</p>
           </div>
         </div>  
         <div className="col-md-9 right boxed">
-          <div className="box" style={{height: 50}}>
-          <Button variant="primary">사진등록</Button>{' '}
+          <div className="box" style={{height: 250}}>
+          <textarea>
+            hello121212
+          </textarea>
           </div>  
         </div>
       </div>
