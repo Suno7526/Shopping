@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -10,18 +9,36 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 
 
-const URL = "https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade";
-
 function App() {  
-
+  //https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?serviceKey=ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVBB3YqcZUTkg8Mi482pO24BYX%2Fw%3D%3D&LAWD_CD=11110&DEAL_YMD=201512
+  const API_KEY="ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVBB3YqcZUTkg8Mi482pO24BYX%2Fw%3D%3D"
+  const LAWD_CD="11110";
+  const DEAL_YMD="201512";
+  const url = `https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?serviceKey=${API_KEY}&LAWD_CD=${LAWD_CD}&DEAL_YMD=${DEAL_YMD}`
+  // const URL = `https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?serviceKey=${API_KEY}`;
   
+  const [result, setResult] = useState();
+  const searchData = async () => {
+    try {
+      const response = await axios({
+        method: 'get',
+        url: url
+      });
+      console.log(response.data); // API 응답 데이터 콘솔 출력
+      setResult(response.data);
+    } catch (error) {
+      // 에러 처리
+      console.error("데이터 가져오기 오류:", error);
+    }
+  };
+
   return (
     <div className="App">
       
 <div>
 <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">다방</Navbar.Brand>
+        <Navbar.Brand href="#home">다방{result.response.body.items.item[0].거래금액}</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
@@ -100,7 +117,7 @@ function App() {
           <div className="box" style={{height: 160}}>
             <div>
               <p>주소검색</p>
-              <input type="text" /><Button variant="primary">검색</Button>{' '}
+              <input type="text" /><Button id="search" variant="primary" onClick={searchData}>검색</Button>{' '}
             </div>
             <div>
               <p>나머지 주소 입력</p>
