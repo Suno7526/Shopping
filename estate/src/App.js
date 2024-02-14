@@ -9,14 +9,12 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Button from 'react-bootstrap/Button';
 
 
-function App() {  
-  //https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?serviceKey=ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVBB3YqcZUTkg8Mi482pO24BYX%2Fw%3D%3D&LAWD_CD=11110&DEAL_YMD=201512
-  const API_KEY="ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVBB3YqcZUTkg8Mi482pO24BYX%2Fw%3D%3D"
-  const LAWD_CD="11110";
-  const DEAL_YMD="201512";
-  const url = `https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?serviceKey=${API_KEY}&LAWD_CD=${LAWD_CD}&DEAL_YMD=${DEAL_YMD}`
-  // const URL = `https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?serviceKey=${API_KEY}`;
-  
+function App() {
+  const API_KEY = "ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVBB3YqcZUTkg8Mi482pO24BYX%2Fw%3D%3D";
+  const LAWD_CD = "11110";
+  const DEAL_YMD = "201512";
+  const url = `https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?serviceKey=${API_KEY}&LAWD_CD=${LAWD_CD}&DEAL_YMD=${DEAL_YMD}`;
+
   const [result, setResult] = useState();
   const searchData = async () => {
     try {
@@ -30,7 +28,22 @@ function App() {
       // 에러 처리
       console.error("데이터 가져오기 오류:", error);
     }
-  };
+  }; // 중괄호 추가
+
+  const [serverData, setServerData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:8000/");
+        setServerData(Array.isArray(response.data) ? response.data : [response.data]);
+      } catch (error) {
+        console.error("서버 통신 오류:", error);
+      }
+    };
+  
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
@@ -38,7 +51,7 @@ function App() {
 <div>
 <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
-        <Navbar.Brand href="#home">다방{result.response.body.items.item[0].거래금액}</Navbar.Brand>
+        <Navbar.Brand href="#home">다방</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ms-auto">
@@ -65,10 +78,15 @@ function App() {
   <br />
   <div className="container text-center">
     <h1>방내놓기</h1>
+      <ul>
+        {serverData.map((message, idx) => (
+          <li key={`${idx}-${message}`}>{message}</li>
+        ))}
+      </ul>
     <br /><br /><br />
     <div>
       <ul className="custom-list">
-        <li>·전/ 월세 매물만 등록할 수 있습니다. 매매는 다방허브에서만 등록하실 수 있습니다. 소유중인 공실 매매와 다중 매물 등록을 한번에 하고 싶다면 다방허브를 이용해주세요. <a href="#">다방허브 바로가기</a> </li>
+        <li>·전/ 월세 매물만 등록할 수 있습니다. 매매는 다방허브에서만 등록하실 수 있습니다. 소유중인 공실 매매와 다중 매물 등록을 한번에 하고 싶다면 다방허브를 이용해주세요.</li>
         <li>·1개의 매물만 등록 가능하며, 다방에서 직거래로 표시됩니다.</li>
         <li>·주소를 다르게 입력할 경우 허위매물로 신고될 수 있으니 꼭 동일하게 입력 바랍니다.</li>
         <li>·등록한 매물은 30일 간 노출됩니다.</li>
