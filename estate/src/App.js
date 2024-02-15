@@ -44,6 +44,36 @@ function App() {
   
     fetchData();
   }, []);
+  
+
+  // const [data, setData] = useState([]);
+
+  // useEffect(() => {
+  //     putSpringData();
+  // }, []);
+  
+  // async function putSpringData() {
+  //     try {
+  //         const response = await axios.get("http://localhost:8000/test");
+  //         console.log(response.data);
+  //         setData(response.data);
+  //     } catch (error) {
+  //         console.error("데이터 가져오기 오류:", error);
+  //         // 여기에서 사용자에게 표시할 에러 메시지를 추가할 수 있습니다.
+  //     }
+  // }
+
+  {/* <div>
+                {data ? data.map((datas)=>(
+                    <div key={datas.no}>
+                        <div>번호: {datas.no}</div>
+                        <div>타입: {datas.type}</div>
+                        <div>제목: {datas.title}</div>
+                        <div>내용: {datas.content}</div>
+                    </div>
+                )) : ''}
+            </div> */}
+  
 
   return (
     <div className="App">
@@ -83,6 +113,8 @@ function App() {
           <li key={`${idx}-${message}`}>{message}</li>
         ))}
       </ul>
+
+
     <br /><br /><br />
     <div>
       <ul className="custom-list">
