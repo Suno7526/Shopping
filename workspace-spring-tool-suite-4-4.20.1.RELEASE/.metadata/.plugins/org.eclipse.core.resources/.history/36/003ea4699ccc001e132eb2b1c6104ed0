@@ -10,15 +10,4 @@ import jakarta.persistence.ManyToOne;
 @Entity
 public class ViewHistory {
 	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long viewCode;
-	
-	@ManyToOne
-	@JoinColumn(name = "userCode")
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name = "productCode")
-	private Product product;
 }
