@@ -64,7 +64,7 @@ public class Product {
 	private String image;
 	
 	@Column
-	private String infomation;
+	private Long infomation;
 	
 	@Column
 	private Timestamp createDate;
