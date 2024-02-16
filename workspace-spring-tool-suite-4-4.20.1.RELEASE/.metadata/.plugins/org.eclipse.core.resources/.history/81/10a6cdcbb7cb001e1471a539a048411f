@@ -1,0 +1,5 @@
+package com.example.estate.repository;
+
+public interface UserRepository {
+
+}

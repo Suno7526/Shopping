@@ -1,0 +1,11 @@
+package com.example.estate.repository;
+
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.example.estate.entity.UserEntity;
+
+public interface UserRepository extends JpaRepository<UserEntity,Integer>{
+
+
+}

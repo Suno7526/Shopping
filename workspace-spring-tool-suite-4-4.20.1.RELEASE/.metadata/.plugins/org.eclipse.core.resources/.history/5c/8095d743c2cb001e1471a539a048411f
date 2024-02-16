@@ -1,0 +1,21 @@
+package com.example.estate.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.example.estate.entity.UserEntity;
+import com.example.estate.repository.UserRepository;
+
+@Service
+public class UserService {
+	@Autowired
+    private UserRepository userRepository;
+
+
+    public List<UserEntity> getUserList() {
+        List<UserEntity> users = userRepository.findAll();
+        return users;
+    }
+}
