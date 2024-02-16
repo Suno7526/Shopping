@@ -1,9 +1,12 @@
 package com.example.estate.controller;
 
-import java.util.List;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.estate.entity.User;
@@ -15,10 +18,19 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 public class UserController {
+	
+	@Autowired
 	private UserService userService;
 
-	/*
-	 * @GetMapping("/test") public List<User> getUserList() { return
-	 * userService.getUserList(); }
-	 */
+	@CrossOrigin 
+	@PostMapping("/user") 
+	public ResponseEntity<?> save(@RequestBody User user){
+		return new ResponseEntity<>(userService.save(user), HttpStatus.CREATED);
+	}
+	
+	@CrossOrigin 
+	@GetMapping("/user") 
+	public ResponseEntity<?> findAll() { 
+		return new ResponseEntity<>(userService.findAll(), HttpStatus.OK); 
+	} 
 }
