@@ -1,0 +1,15 @@
+package com.example.estate.dto;
+import lombok.Data;
+
+@Data
+public class ProductDTO {
+    private String name;
+    private String address;
+    private int price;
+	public Object getName() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
+

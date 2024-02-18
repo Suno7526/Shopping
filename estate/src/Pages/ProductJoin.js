@@ -1,29 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 const ProductJoin = () => {
-
-const API_KEY = "ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVBB3YqcZUTkg8Mi482pO24BYX%2Fw%3D%3D";
-  const LAWD_CD = "11110";
-  const DEAL_YMD = "201512";
-  const url = `https://cors-anywhere.herokuapp.com/http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcAptTrade?serviceKey=${API_KEY}&LAWD_CD=${LAWD_CD}&DEAL_YMD=${DEAL_YMD}`;
-
-  const [result, setResult] = useState();
-  const searchData = async () => {
-    try {
-      const response = await axios({
-        method: 'get',
-        url: url
-      });
-      console.log(response.data); // API 응답 데이터 콘솔 출력
-      setResult(response.data);
-    } catch (error) {
-      // 에러 처리
-      console.error("데이터 가져오기 오류:", error);
-    }
-  }; // 중괄호 추가
 
   const [serverData, setServerData] = useState([]);
 
@@ -40,13 +19,115 @@ const API_KEY = "ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVB
     fetchData();
   }, []);
 
+    const [productData, setProductData] = useState({
+      name: '',
+      address: '',
+      price: '',
+    });
+  
+    const handleInputChange = (e) => {
+      const { name, value } = e.target;
+      setProductData({ ...productData, [name]: value });
+    };
+  
+    const handleSubmit = async () => {
+      try {
+        const response = await axios.post('http://localhost:8000/saveProduct', productData);
+        console.log(response.data);
+        alert("완료")
+      } catch (error) {
+        alert("실패")
+        console.error('Error saving product:', error);
+      }
+    };
+
     return (
         <div className="App">
     <meta charSet="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>매물 등록</title>
-    <style dangerouslySetInnerHTML={{__html: "\n        /* 스타일링을 원하는 대로 수정하세요 */\n        body {\n            font-family: 'Noto Sans KR', sans-serif;\n            margin: 0;\n            padding: 0;\n            background-color: #f5f5f5;\n            color: #333;\n        }\n\n        #branding {\n            color: #4a9fff;\n            font-size: 30px;\n            margin: 10px;\n            text-align: center;\n        }\n\n        #property-form {\n            background-color: #fff;\n            padding: 30px;\n            border-radius: 10px;\n            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);\n            text-align: left;\n            margin: 20px auto;\n            width: 40%; /* 전체 너비의 n%로 조정 */\n        }\n\n        label {\n            display: block;\n            margin-bottom: 8px;\n            font-weight: bold;\n        }\n\n        input {\n            width: 100%;\n            padding: 10px;\n            margin-bottom: 15px;\n            box-sizing: border-box;\n        }\n\n        textarea {\n            width: 100%;\n            padding: 10px;\n            margin-bottom: 15px;\n            box-sizing: border-box;\n            resize: vertical; /* 수직 크기 조절 가능 */\n        }\n\n        h2 {\n            font-size: 20px;\n            margin-top: 15px;\n        }\n\n        .price-info-form {\n            margin-top: 20px;\n            border-top: 1px solid #ccc; /* 상단 경계선 추가 */\n            padding-top: 20px; /* 상단 패딩 추가 */\n        }\n\n        .detail-info-form,\n        .description-form {\n            margin-top: 20px;\n            border-top: 1px solid #ccc; /* 상단 경계선 추가 */\n            padding-top: 20px; /* 상단 패딩 추가 */\n        }\n\n        button {\n            background-color: #4a9fff;\n            color: #fff;\n            padding: 10px 15px;\n            border: none;\n            border-radius: 5px;\n            cursor: pointer;\n            display: block;\n            margin: 0 auto; /* 가운데 정렬 */\n        }\n\n        .detail-info-form input {\n            margin-top: 5px;\n        }\n\n        .gray-text {\n            color: #888;\n        }\n\n        #property-image-preview {\n            max-width: 100%;\n            height: auto;\n            border-radius: 10px;\n            margin-top: 20px;\n        }\n    " }} />
-    <div id="branding">매물 등록</div>
+    <style dangerouslySetInnerHTML={{__html: `
+    /* 스타일링을 원하는 대로 수정하세요 */
+    body {
+        font-family: 'Noto Sans KR', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        color: #333;
+    }
+
+    #branding {
+        color: #4a9fff;
+        font-size: 30px;
+        margin: 10px;
+        text-align: center;
+    }
+
+    #property-form {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        margin: 20px auto;
+        width: 40%; /* 전체 너비의 n%로 조정 */
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+    }
+
+    input, textarea {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    textarea {
+        resize: vertical; /* 수직 크기 조절 가능 */
+    }
+
+    h2 {
+        font-size: 20px;
+        margin-top: 15px;
+    }
+
+    .price-info-form, .detail-info-form, .description-form {
+        margin-top: 20px;
+        border-top: 1px solid #ccc; /* 상단 경계선 추가 */
+        padding-top: 20px; /* 상단 패딩 추가 */
+    }
+
+    button {
+        background-color: #4a9fff;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        display: block;
+        margin: 0 auto; /* 가운데 정렬 */
+    }
+
+    .detail-info-form input {
+        margin-top: 5px;
+    }
+
+    .gray-text {
+        color: #888;
+    }
+
+    #property-image-preview {
+        max-width: 100%;
+        height: auto;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+`}} />
+<div id="branding">매물 등록</div>
     
     <div id="property-form">
       <form encType="multipart/form-data">
@@ -55,24 +136,49 @@ const API_KEY = "ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVB
         <li key={`${idx}-${message}`}>{message}</li>
         ))}
     </ul>
-        <label htmlFor="property-name">매물명:</label>
-        <input type="text" id="property-name" defaultValue required />
+    <label htmlFor="productName">상품명:</label>
+      <input
+        type="text"
+        id="productName"
+        name="name"  // 수정: 프로퍼티 이름을 name으로 변경
+        value={productData.name}  // 수정: 프로퍼티 이름을 name으로 변경
+        onChange={handleInputChange}
+      />
 
-        <label htmlFor="property-location">위치:</label>
-        <input type="text" id="property-location" defaultValue required />
+      <label htmlFor="productLocation">위치:</label>
+      <input
+        type="text"
+        id="productLocation"
+        name="address"  // 수정: 프로퍼티 이름을 address로 변경
+        value={productData.address}  // 수정: 프로퍼티 이름을 address로 변경
+        onChange={handleInputChange}
+      />
 
-        <label htmlFor="property-price">가격:</label>
-        <input type="text" id="property-price" defaultValue required />
+      <label htmlFor="productPrice">가격:</label>
+      <input
+        type="text"
+        id="productPrice"
+        name="price"  // 수정: 프로퍼티 이름을 price로 변경
+        value={productData.price}  // 수정: 프로퍼티 이름을 price로 변경
+        onChange={handleInputChange}
+      />
 
+      <button type="button" onClick={handleSubmit}>상품 등록</button>
+      
         <div id="property-details">
           <label htmlFor="property-image">사진 업로드:</label>
-          <input type="file" id="property-image" name="property-image" accept="image/" onChange="previewImage()" />
+          <input 
+          type="file" 
+          id="property-image" 
+          name="property-image" 
+          accept="image/" 
+          />
           <img id="property-image-preview" src="#" alt="미리보기" />
 
 
           <div className="price-info-form">
             <h2>가격 정보</h2>
-            <form>
+            
               <label htmlFor="monthly-rent">월세:</label>
               <input type="text" id="monthly-rent" name="monthly-rent" />
 
@@ -87,7 +193,7 @@ const API_KEY = "ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVB
 
               <label htmlFor="monthly-expense">한달 예상 주거비용:</label>
               <input type="text" id="monthly-expense" name="monthly-expense" />
-            </form>
+            
           </div>
 
           <div className="detail-info-form">
@@ -141,8 +247,9 @@ const API_KEY = "ZSfaM%2FLZuHLIyZjsPt9c4Oe2N0ASRCvSPSVKyMv3zGb2WoJHQzFUWGtQb9cVB
             <label htmlFor="property-description">상세 설명</label>
             <textarea id="property-description" name="property-description" rows={5} placeholder="상세 설명을 남겨주세요!" className="gray-text" defaultValue={""} />
           </div>
-          <button type="button" onClick="redirectToSignup()">매물 등록</button>
-        </div></form>
+          <button type="button">매물 등록</button>
+          </div>
+        </form>
     </div>
     </div>
     );

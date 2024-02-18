@@ -9,9 +9,41 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Product {
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,40 +53,40 @@ public class Product {
 	@JoinColumn(name = "userCode")
 	private User user;
 	
-	@Column(nullable = false)
+	@Column
 	private String type;
 	
-	@Column(nullable = false, length = 200)
+	@Column(length = 200)
 	private String address;
 	
 	@Column(nullable = false, length = 50)
 	private String name;
 	
-	@Column(nullable = false)
+	@Column
 	private double area;
 	
-	@Column(nullable = false)
+	@Column
 	private int room;
 	
-	@Column(nullable = false)
+	@Column
 	private String transactionType;
 	
-	@Column(nullable = false)
+	@Column(length = 50)
 	private int price;
 	
-	@Column(nullable = false)
+	@Column
 	private int cost;
 	
 	@Column
 	private Timestamp moveDate;
 	
-	@Column(nullable = false)
+	@Column
 	private int floor;
 	
-	@Column(nullable = false)
+	@Column
 	private int bathroom;
 	
-	@Column(nullable = false)
+	@Column
 	private int parking;
 	
 	@Column
@@ -74,5 +106,6 @@ public class Product {
 	
 	@Column
 	private Timestamp deletionDate;
+
 
 }
