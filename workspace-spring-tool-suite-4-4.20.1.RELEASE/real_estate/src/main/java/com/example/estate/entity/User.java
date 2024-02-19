@@ -18,7 +18,7 @@ public class User {
 	private Long userCode;
 	
 	@Column(nullable = false, length = 45, unique = true)
-	private String userId;
+	private String email;
 	
 	@Column(nullable = false, length = 100)
 	private String password;
@@ -31,6 +31,9 @@ public class User {
 	
 	@Column(nullable = false, length = 300)
 	private String address;
+	
+	@Column(nullable = false, length = 50)
+	private String birth;
 	
 	@CreationTimestamp
 	private Timestamp createDate;

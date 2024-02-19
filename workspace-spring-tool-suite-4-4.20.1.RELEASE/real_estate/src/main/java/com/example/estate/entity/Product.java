@@ -56,11 +56,11 @@ public class Product {
 	@Column
 	private String type;
 	
-	@Column(length = 200)
-	private String address;
+	@Column(nullable = false, length = 200)
+    private String address;
 	
-	@Column(nullable = false, length = 50)
-	private String name;
+	@Column(nullable = false)
+    private String name;
 	
 	@Column
 	private double area;
@@ -71,8 +71,8 @@ public class Product {
 	@Column
 	private String transactionType;
 	
-	@Column(length = 50)
-	private int price;
+	@Column(nullable = false)
+    private int price;
 	
 	@Column
 	private int cost;
