@@ -1,6 +1,53 @@
 import React from 'react';
+import axios from 'axios';
+import { useState } from 'react'; // useEffect를 사용하지 않기 때문에 import 제거
 
 const Join = () => {
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+    confirmPassword: '',
+    name: '',
+    phonePrefix: '',
+    phoneMiddle: '',
+    phoneSuffix: '',
+    year: 2022,
+    month: 1,
+    day: 1,
+    address: '',
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async () => {
+    // 비밀번호와 비밀번호 확인이 다를 경우 알림
+    if (formData.password !== formData.confirmPassword) {
+      alert('비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+      return;
+    }
+
+    try {
+      const response = await axios.post('http://localhost:8000/saveUser', {
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+        phoneNumber: `${formData.phonePrefix}-${formData.phoneMiddle}-${formData.phoneSuffix}`,
+        address: formData.address,
+        birth: `${formData.year}-${formData.month}-${formData.day}`,
+      });
+
+      alert(response.data); // 서버에서의 응답을 알림으로 표시 (수정 필요)
+    } catch (error) {
+      console.error('Error during signup:', error);
+    }
+  };
+
   return (
     <div>
       <meta charSet="UTF-8" />
@@ -114,47 +161,119 @@ const Join = () => {
       <div id="signup-container">
         <div id="signup-heading">회원가입</div>
         <label htmlFor="email">이메일</label>
-        <input type="text" id="email" placeholder="이메일" />
+        <input
+          type="text"
+          id="email"
+          placeholder="이메일"
+          name="email"
+          value={formData.email}
+          onChange={handleInputChange}
+        />
         <label htmlFor="password">비밀번호</label>
-        <input type="password" id="password" placeholder="비밀번호" />
+        <input
+          type="password"
+          id="password"
+          placeholder="비밀번호"
+          name="password"
+          value={formData.password}
+          onChange={handleInputChange}
+        />
         <label htmlFor="confirm-password">비밀번호 확인</label>
         <input
           type="password"
-          id="confirm-password"
+          id="confirmPassword"
           placeholder="비밀번호 확인"
+          name="confirmPassword"
+          value={formData.confirmPassword}
+          onChange={handleInputChange}
         />
         <label htmlFor="name">이름</label>
-        <input type="text" id="name" placeholder="이름" />
+        <input
+          type="text"
+          id="name"
+          placeholder="이름"
+          name="name"
+          value={formData.name}
+          onChange={handleInputChange}
+        />
         <div id="phone-label-container">
           <label htmlFor="phone-prefix">전화번호</label>
           <label htmlFor="phone-middle" />
           <label htmlFor="phone-suffix" />
         </div>
         <div id="phone-container">
-          <input type="text" id="phone-prefix" placeholder={10} />
-          <input type="text" id="phone-middle" placeholder={1234} />
-          <input type="text" id="phone-suffix" placeholder={5678} />
+          <input
+            type="text"
+            id="phone-prefix"
+            name="phonePrefix"
+            value={formData.phonePrefix}
+            placeholder={10}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            id="phone-middle"
+            name="phoneMiddle"
+            value={formData.phoneMiddle}
+            placeholder={1234}
+            onChange={handleInputChange}
+          />
+          <input
+            type="text"
+            id="phone-suffix"
+            name="phoneSuffix"
+            value={formData.phoneSuffix}
+            placeholder={5678}
+            onChange={handleInputChange}
+          />
         </div>
+        <label htmlFor="address">주소</label>
+        <input
+          type="text"
+          id="address"
+          placeholder="주소"
+          name="address"
+          value={formData.address}
+          onChange={handleInputChange}
+        />
         <div className="date-label-container">
           <label htmlFor="year">년도</label>
           <label htmlFor="month">월</label>
           <label htmlFor="day">일</label>
         </div>
         <div className="date-container">
-          <select id="year">
+          <select
+            id="year"
+            name="year"
+            value={formData.year}
+            onChange={handleInputChange}
+          >
             <option value={2022}>2022</option>
+            <option value={2021}>2021</option>
             {/* 다른 년도 옵션들 추가 */}
           </select>
-          <select id="month">
+          <select
+            id="month"
+            name="month"
+            value={formData.month}
+            onChange={handleInputChange}
+          >
             <option value={1}>01</option>
             {/* 다른 월 옵션들 추가 */}
           </select>
-          <select id="day">
+          <select
+            id="day"
+            name="day"
+            value={formData.day}
+            onChange={handleInputChange}
+          >
             <option value={1}>01</option>
             {/* 다른 일 옵션들 추가 */}
           </select>
         </div>
-        <button id="signup-button">가입하기</button>
+        <button id="signup-button" onClick={handleSubmit}>
+          가입하기
+        </button>
         <button id="cancel-button">가입취소</button>
       </div>
     </div>
