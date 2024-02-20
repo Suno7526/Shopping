@@ -25,6 +25,23 @@ const Join = () => {
     }));
   };
 
+  const validateEmail = (email) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const validateName = (name) => {
+    const nameRegex = /^[가-힣]+$/;
+    return nameRegex.test(name);
+  };
+
+  const validatePhoneNumber = (phoneNumber) => {
+    // 전화번호의 경우 원하는 규칙에 맞게 정규표현식을 작성해야 합니다.
+    // 예: 010-1234-5678 형태의 번호를 허용하는 경우
+    const phoneRegex = /^\d{3}-\d{4}-\d{4}$/;
+    return phoneRegex.test(phoneNumber);
+  };
+
   const handleSubmit = async () => {
     // 비밀번호와 비밀번호 확인이 다를 경우 알림
     if (formData.password !== formData.confirmPassword) {
@@ -32,6 +49,29 @@ const Join = () => {
       return;
     }
 
+    // 이메일 유효성 검사
+    if (!validateEmail(formData.email)) {
+      alert('유효한 이메일 주소를 입력하세요.');
+      return;
+    }
+
+    // 이름 유효성 검사
+    if (!validateName(formData.name)) {
+      alert('한글 이름을 입력하세요.');
+      return;
+    }
+
+    // 전화번호 유효성 검사
+    if (
+      !validatePhoneNumber(
+        `${formData.phonePrefix}-${formData.phoneMiddle}-${formData.phoneSuffix}`,
+      )
+    ) {
+      alert('유효한 전화번호를 입력하세요.');
+      return;
+    }
+
+    // 나머지 코드는 그대로 유지
     try {
       const response = await axios.post('http://localhost:8000/saveUser', {
         email: formData.email,
@@ -47,7 +87,6 @@ const Join = () => {
       console.error('Error during signup:', error);
     }
   };
-
   return (
     <div>
       <meta charSet="UTF-8" />
@@ -242,35 +281,60 @@ const Join = () => {
           <label htmlFor="day">일</label>
         </div>
         <div className="date-container">
+          {/* 년도 선택 */}
           <select
             id="year"
             name="year"
             value={formData.year}
             onChange={handleInputChange}
           >
-            <option value={2022}>2022</option>
-            <option value={2021}>2021</option>
-            {/* 다른 년도 옵션들 추가 */}
+            {Array.from({ length: 125 }, (_, index) => {
+              const year = 2024 - index;
+              return (
+                <option key={year} value={year}>
+                  {year}
+                </option>
+              );
+            })}
           </select>
+
+          {/* 월 선택 */}
           <select
             id="month"
             name="month"
             value={formData.month}
             onChange={handleInputChange}
           >
-            <option value={1}>01</option>
-            {/* 다른 월 옵션들 추가 */}
+            {Array.from({ length: 12 }, (_, index) => {
+              const month = index + 1;
+              const paddedMonth = month.toString().padStart(2, '0');
+              return (
+                <option key={month} value={month}>
+                  {paddedMonth}
+                </option>
+              );
+            })}
           </select>
+
+          {/* 일 선택 */}
           <select
             id="day"
             name="day"
             value={formData.day}
             onChange={handleInputChange}
           >
-            <option value={1}>01</option>
-            {/* 다른 일 옵션들 추가 */}
+            {Array.from({ length: 31 }, (_, index) => {
+              const day = index + 1;
+              const paddedDay = day.toString().padStart(2, '0');
+              return (
+                <option key={day} value={day}>
+                  {paddedDay}
+                </option>
+              );
+            })}
           </select>
         </div>
+
         <button id="signup-button" onClick={handleSubmit}>
           가입하기
         </button>
