@@ -28,6 +28,13 @@ public class UserService {
 	     userRepository.save(user);
 	 }
 
-	
+	 @Transactional
+	    public boolean validateLogin(String email, String password) {
+	        // Retrieve the user by email from the database
+	        User user = userRepository.findByEmail(email);
+
+	        // Check if the user exists and if the password matches
+	        return user != null && user.getPassword().equals(password);
+	    }
 	
 }

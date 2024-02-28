@@ -27,4 +27,17 @@ public class UserController {
 		userService.saveUser(userDTO);
         return new ResponseEntity<>("User saved successfully", HttpStatus.OK);
     }
+	
+	@PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
+        // Call a service method to check if the provided credentials are valid
+        boolean isValidLogin = userService.validateLogin(userDTO.getEmail(), userDTO.getPassword());
+
+        if (isValidLogin) {
+            return new ResponseEntity<>("Login successful", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Invalid credentials", HttpStatus.UNAUTHORIZED);
+        }
+    }
+	
 }

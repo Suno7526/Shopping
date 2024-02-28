@@ -1,9 +1,11 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
+  const [isLogin, setIsLogin] = useState(false); //로그인 관리
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -18,8 +20,27 @@ const Home = () => {
     fetchProducts();
   }, []);
 
+  useEffect(() => {
+    setIsLogin(sessionStorage.getItem('userName') !== null);
+  }, []);
+
+  useEffect(() => {
+    console.log('로그인 됐어 ?  ', isLogin);
+  }, [isLogin]);
+
   return (
     <div>
+      {/* 로그인이 되어있다면 */}
+      {isLogin ? (
+        <Link to={`/MyPage`} className="nav-link text-black ">
+          {sessionStorage.getItem('userEmail')}
+          {sessionStorage.getItem('userName')}
+        </Link>
+      ) : (
+        <Link to={`/UserLogin`} className="nav-link text-black">
+          로그인
+        </Link>
+      )}
       <h1>메인홈페이지</h1>
       <ul>
         {products.map((product) => (
@@ -42,16 +63,16 @@ const Home = () => {
           }}
         />
         {/* 로그인, 회원가입 버튼 추가 */}
-        <button id="login-btn" onclick="location.href='login.html';">
+        <button id="login-btn" onClick="location.href='login.html';">
           로그인
         </button>
-        <button id="signup-btn" onclick="location.href='register.html';">
+        <button id="signup-btn" onClick="location.href='register.html';">
           회원가입
         </button>
-        <button id="wishlistBtn" onclick="location.href='Watchlist.html'">
+        <button id="wishlistBtn" onClick="location.href='Watchlist.html'">
           관심목록
         </button>
-        <button id="goroom" onclick="location.href='#####.html'">
+        <button id="goroom" onClick="location.href='#####.html'">
           마이페이지
         </button>
         <header>
