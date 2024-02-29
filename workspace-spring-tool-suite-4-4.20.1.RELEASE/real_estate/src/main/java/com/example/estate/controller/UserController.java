@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.estate.dto.UserDTO;
+import com.example.estate.entity.User;
 import com.example.estate.service.UserService;
 
 import lombok.AllArgsConstructor;
@@ -23,15 +23,15 @@ public class UserController {
 
 	@CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/saveUser")
-    public ResponseEntity<String> saveUser(@RequestBody UserDTO userDTO){
-		userService.saveUser(userDTO);
+    public ResponseEntity<String> saveUser(@RequestBody User user){
+		userService.saveUser(user);
         return new ResponseEntity<>("User saved successfully", HttpStatus.OK);
     }
 	
 	@PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<String> login(@RequestBody User user) {
         // Call a service method to check if the provided credentials are valid
-        boolean isValidLogin = userService.validateLogin(userDTO.getEmail(), userDTO.getPassword());
+        boolean isValidLogin = userService.validateLogin(user.getEmail(), user.getPassword());
 
         if (isValidLogin) {
             return new ResponseEntity<>("Login successful", HttpStatus.OK);

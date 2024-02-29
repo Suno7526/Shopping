@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.example.estate.dto.ProductDTO;
 import com.example.estate.entity.Product;
 import com.example.estate.service.ProductService;
 
@@ -20,8 +19,8 @@ public class ProductController {
 
     @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/saveProduct")
-    public ResponseEntity<String> saveProduct(@RequestBody ProductDTO productDTO) {
-        productService.saveProduct(productDTO);
+    public ResponseEntity<String> saveProduct(@RequestBody Product product) {
+        productService.saveProduct(product);
         return new ResponseEntity<>("Product saved successfully", HttpStatus.OK);
     }
     

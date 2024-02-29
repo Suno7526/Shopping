@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.estate.dto.ProductDTO;
 import com.example.estate.entity.Product;
 import com.example.estate.repository.ProductRepository;
 
@@ -17,11 +16,10 @@ public class ProductService {
  private ProductRepository productRepository;
 
  @Transactional
- public void saveProduct(ProductDTO productDTO) {
-     Product product = new Product();
-     product.setName(productDTO.getName());
-     product.setAddress(productDTO.getAddress());
-     product.setPrice(productDTO.getPrice());
+ public void saveProduct(Product product) {
+     product.setName(product.getName());
+     product.setAddress(product.getAddress());
+     product.setPrice(product.getPrice());
 
      productRepository.save(product);
  }

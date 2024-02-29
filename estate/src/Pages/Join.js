@@ -83,6 +83,7 @@ const Join = () => {
       });
 
       alert(response.data); // 서버에서의 응답을 알림으로 표시 (수정 필요)
+      document.location.href = '/Home';
     } catch (error) {
       console.error('Error during signup:', error);
     }
