@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Join from './Join';
@@ -21,7 +21,6 @@ const UserLogin = () => {
         console.log('Login successful');
 
         // Save user information in sessionStorage
-        sessionStorage.setItem('userName', response.data.name);
         sessionStorage.setItem('userEmail', email);
         document.location.href = '/Home';
       } else {

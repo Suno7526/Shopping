@@ -1,14 +1,10 @@
 package com.example.estate.entity;
 
-import java.sql.Timestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,87 +23,79 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long productCode;
 	
-	@ManyToOne
-	@JoinColumn(name = "userCode")
-	private User user;
 	
 	@Column
-	private String type;
-	
-	@Column(nullable = false, length = 200)
-    private String address;
-	
-	@Column(nullable = false)
-    private String name;
+	private String productName;
 	
 	@Column
-	private double area;
+	private int productPrice;
 	
 	@Column
-	private int room;
+	private String infomation;
 	
 	@Column
-	private String transactionType;
-	
-	@Column(nullable = false)
-    private int price;
+	private int productStuck;
 	
 	@Column
-	private int cost;
+	private String companyName;
 	
 	@Column
-	private Timestamp moveDate;
-	
-	@Column
-	private int floor;
-	
-	@Column
-	private int bathroom;
-	
-	@Column
-	private int parking;
-	
-	@Column
-	private String options;
-	
-	@Column
-	private String image;
-	
-	@Column
-	private Long infomation;
-	
-	@Column
-	private Timestamp createDate;
+	private String productImage;
 
-	@Column
-	private Timestamp updatedDate;
-	
-	@Column
-	private Timestamp deletionDate;
-
-
-	public String getAddress() {
-		return address;
+	public Long getProductCode() {
+		return productCode;
 	}
 
-	public void setAddress(String address) {
-		this.address = address;
+	public void setProductCode(Long productCode) {
+		this.productCode = productCode;
 	}
 
-	public String getName() {
-		return name;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getProductPrice() {
+		return productPrice;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setProductPrice(int productPrice) {
+		this.productPrice = productPrice;
+	}
+
+	public String getInfomation() {
+		return infomation;
+	}
+
+	public void setInfomation(String infomation) {
+		this.infomation = infomation;
+	}
+
+	public int getProductStuck() {
+		return productStuck;
+	}
+
+	public void setProductStuck(int productStuck) {
+		this.productStuck = productStuck;
+	}
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
+
+	public String getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(String productImage) {
+		this.productImage = productImage;
 	}
 	
 }

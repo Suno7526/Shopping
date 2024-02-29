@@ -17,9 +17,9 @@ public class ProductService {
 
  @Transactional
  public void saveProduct(Product product) {
-     product.setName(product.getName());
-     product.setAddress(product.getAddress());
-     product.setPrice(product.getPrice());
+     product.setProductName(product.getProductName());
+     product.setInfomation(product.getInfomation());
+     product.setProductPrice(product.getProductPrice());
 
      productRepository.save(product);
  }

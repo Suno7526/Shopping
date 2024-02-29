@@ -3,27 +3,10 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 
 const ProductJoin = () => {
-  const [serverData, setServerData] = useState([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/');
-        setServerData(
-          Array.isArray(response.data) ? response.data : [response.data],
-        );
-      } catch (error) {
-        console.error('서버 통신 오류:', error);
-      }
-    };
-
-    fetchData();
-  }, []);
-
   const [productData, setProductData] = useState({
-    name: '',
-    address: '',
-    price: '',
+    productName: '',
+    infomation: '',
+    productPrice: '',
   });
 
   const handleInputChange = (e) => {
@@ -34,7 +17,11 @@ const ProductJoin = () => {
 
   const handleSubmit = async () => {
     try {
-      if (!productData.name || !productData.address || !productData.price) {
+      if (
+        !productData.productName ||
+        !productData.infomation ||
+        !productData.productPrice
+      ) {
         // 필수 필드 중 하나라도 비어 있을 경우 알림 메시지 표시
         alert('상품명, 위치, 가격을 입력해주세요.');
         return;
@@ -146,26 +133,21 @@ const ProductJoin = () => {
 
       <div id="property-form">
         <form encType="multipart/form-data">
-          <ul>
-            {serverData.map((message, idx) => (
-              <li key={`${idx}-${message}`}>{message}</li>
-            ))}
-          </ul>
           <label htmlFor="productName">상품명:</label>
           <input
             type="text"
             id="productName"
-            name="name" // 수정: 프로퍼티 이름을 name으로 변경
-            value={productData.name} // 수정: 프로퍼티 이름을 name으로 변경
+            name="productName" // 수정: 프로퍼티 이름을 name으로 변경
+            value={productData.productName} // 수정: 프로퍼티 이름을 name으로 변경
             onChange={handleInputChange}
           />
 
-          <label htmlFor="productLocation">위치:</label>
+          <label htmlFor="infomation">설명:</label>
           <input
             type="text"
-            id="productLocation"
-            name="address" // 수정: 프로퍼티 이름을 address로 변경
-            value={productData.address} // 수정: 프로퍼티 이름을 address로 변경
+            id="infomation"
+            name="infomation" // 수정: 프로퍼티 이름을 address로 변경
+            value={productData.infomation} // 수정: 프로퍼티 이름을 address로 변경
             onChange={handleInputChange}
           />
 
@@ -173,8 +155,8 @@ const ProductJoin = () => {
           <input
             type="text"
             id="productPrice"
-            name="price" // 수정: 프로퍼티 이름을 price로 변경
-            value={productData.price} // 수정: 프로퍼티 이름을 price로 변경
+            name="productPrice" // 수정: 프로퍼티 이름을 price로 변경
+            value={productData.productPrice} // 수정: 프로퍼티 이름을 price로 변경
             onChange={handleInputChange}
           />
 

@@ -34,7 +34,7 @@ const Home = () => {
       {isLogin ? (
         <Link to={`/MyPage`} className="nav-link text-black ">
           {sessionStorage.getItem('userEmail')}
-          {sessionStorage.getItem('userName')}
+          <br></br>
         </Link>
       ) : (
         <Link to={`/UserLogin`} className="nav-link text-black">
@@ -45,9 +45,9 @@ const Home = () => {
       <ul>
         {products.map((product) => (
           <li key={product.productCode}>
-            <h2>이름: {product.name}</h2>
-            <p>주소: {product.address}</p>
-            <p>Price: {product.price}</p>
+            <h2>이름: {product.productName}</h2>
+            <p>설명: {product.infomation}</p>
+            <p>Price: {product.productPrice}</p>
           </li>
         ))}
       </ul>

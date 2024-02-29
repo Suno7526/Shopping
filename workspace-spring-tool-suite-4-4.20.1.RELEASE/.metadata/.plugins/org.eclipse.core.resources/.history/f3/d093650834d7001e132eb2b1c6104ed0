@@ -1,0 +1,47 @@
+package com.example.estate.entity;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+public class QuestionType {
+
+	
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long QuestionTypeCode;
+	
+	@JoinColumn
+	private String questionType;
+
+	public Long getQuestionTypeCode() {
+		return QuestionTypeCode;
+	}
+
+	public void setQuestionTypeCode(Long questionTypeCode) {
+		QuestionTypeCode = questionTypeCode;
+	}
+
+	public String getQuestionType() {
+		return questionType;
+	}
+
+	public void setQuestionType(String questionType) {
+		this.questionType = questionType;
+	}
+	
+	
+	
+}
