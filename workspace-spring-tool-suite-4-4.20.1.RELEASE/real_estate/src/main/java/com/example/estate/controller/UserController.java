@@ -27,7 +27,7 @@ public class UserController {
 		userService.saveUser(user);
         return new ResponseEntity<>("User saved successfully", HttpStatus.OK);
     }
-	
+		
 	@PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody User user) {
         // Call a service method to check if the provided credentials are valid

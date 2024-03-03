@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [isLogin, setIsLogin] = useState(false); //로그인 관리
+  const [isLogin, setIsLogin] = useState(false); // 로그인 관리
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -13,7 +13,7 @@ const Home = () => {
         const response = await axios.get('http://localhost:8000/getProducts');
         setProducts(response.data);
       } catch (error) {
-        console.error('Error fetching products:', error);
+        console.error('상품을 불러오는 중 오류 발생:', error);
       }
     };
 
@@ -25,8 +25,17 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    console.log('로그인 됐어 ?  ', isLogin);
+    console.log('로그인 되었나요?  ', isLogin);
   }, [isLogin]);
+
+  const getImageByProductCode = (productCode) => {
+    const product = products.find((p) => p.productCode === productCode);
+    const imagePath = product
+      ? `http://localhost:8000/${product.productCode}`
+      : '';
+    console.log('Image Path:', imagePath);
+    return imagePath;
+  };
 
   return (
     <div>
@@ -43,11 +52,11 @@ const Home = () => {
       )}
       <h1>메인홈페이지</h1>
       <ul>
-        {products.map((product) => (
-          <li key={product.productCode}>
+        {products.map((product, index) => (
+          <li key={index + 1}>
             <h2>이름: {product.productName}</h2>
             <p>설명: {product.infomation}</p>
-            <p>Price: {product.productPrice}</p>
+            <p>가격: {product.productPrice}</p>
           </li>
         ))}
       </ul>
@@ -88,7 +97,7 @@ const Home = () => {
         <section>
           <div
             className="property-card"
-            onclick="location.href='bunyang.html';"
+            onClick={() => (window.location.href = 'bunyang.html')}
           >
             <p>다가오는 봄! 이런 코디는 어떠세요?</p>
             <img
@@ -101,28 +110,16 @@ const Home = () => {
         <div id="recommended-properties">
           <h2>이번주 판매왕!</h2>
           <div className="recommended-section">
-            <div className="recommended-card">
-              <img src="codi.jpg" alt="코디1" className="property-image" />
-              <p>코디 1</p>
-            </div>
-            <div className="recommended-card">
-              <img src="cocodi.jpg" alt="코디2" className="property-image" />
-              <p>코디 2</p>
-            </div>
-          </div>
-          <div className="recommended-section">
-            <div className="recommended-card">
-              <img src="cococodi.jpg" alt="코디3" className="property-image" />
-              <p>코디 3</p>
-            </div>
-            <div className="recommended-card">
-              <img
-                src="cococococodi.jpg"
-                alt="코디4"
-                className="property-image"
-              />
-              <p>코디 4</p>
-            </div>
+            {Array.from({ length: 4 }, (_, index) => (
+              <div className="recommended-card" key={index + 1}>
+                <img
+                  src={getImageByProductCode(index + 1)}
+                  alt={`${index + 1}`}
+                  className="property-image"
+                />
+                <p>코디 {index + 1}</p>
+              </div>
+            ))}
           </div>
         </div>
         <div id="guides-container">
@@ -130,7 +127,7 @@ const Home = () => {
             <h2>Best Item</h2>
             <div className="guides-section">
               <div className="guides-card">
-                <img src="codi.jpg" alt="코디1" className="property-image" />
+                <img src="codi.jpg" alt="x" className="property-image" />
                 <p>코디 1</p>
               </div>
               <div className="guides-card">

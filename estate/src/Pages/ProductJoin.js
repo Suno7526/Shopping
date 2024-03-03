@@ -9,28 +9,47 @@ const ProductJoin = () => {
     productPrice: '',
   });
 
+  const [productImage, setProductImage] = useState(null);
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
     console.log(value);
   };
 
-  const handleSubmit = async () => {
+  const handleFileChange = (e) => {
+    setProductImage(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     try {
       if (
         !productData.productName ||
         !productData.infomation ||
-        !productData.productPrice
+        !productData.productPrice ||
+        !productImage
       ) {
-        // 필수 필드 중 하나라도 비어 있을 경우 알림 메시지 표시
-        alert('상품명, 위치, 가격을 입력해주세요.');
+        alert('상품명, 위치, 가격, 그리고 사진을 모두 입력해주세요.');
         return;
       }
 
+      const formData = new FormData();
+      formData.append('productName', productData.productName);
+      formData.append('infomation', productData.infomation);
+      formData.append('productPrice', productData.productPrice);
+      formData.append('productImage', productImage);
+
       const response = await axios.post(
         'http://localhost:8000/saveProduct',
-        productData,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
       );
+
       console.log(response.data);
       alert('완료');
     } catch (error) {
@@ -165,12 +184,13 @@ const ProductJoin = () => {
           </button>
 
           <div id="property-details">
-            <label htmlFor="property-image">사진 업로드:</label>
+            <label htmlFor="productImage">사진 업로드:</label>
             <input
               type="file"
-              id="property-image"
-              name="property-image"
-              accept="image/"
+              id="productImage"
+              name="productImage"
+              accept="image/*"
+              onChange={handleFileChange}
             />
             <img id="property-image-preview" src="#" alt="미리보기" />
 

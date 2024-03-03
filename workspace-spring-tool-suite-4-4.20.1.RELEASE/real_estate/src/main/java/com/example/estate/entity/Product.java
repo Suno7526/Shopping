@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,85 +18,82 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Product {
 
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long productCode;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long productCode;
-	
-	
-	@Column
-	private String productName;
-	
-	@Column
-	private int productPrice;
-	
-	@Column
-	private String infomation;
-	
-	@Column
-	private int productStuck;
-	
-	@Column
-	private String companyName;
-	
-	@Column
-	private String productImage;
+    @Column(nullable = false)
+    private String productName;
 
-	public Long getProductCode() {
-		return productCode;
-	}
+    @Column
+    private int productPrice;
 
-	public void setProductCode(Long productCode) {
-		this.productCode = productCode;
-	}
+    @Column(nullable = false)
+    private String infomation;
 
-	public String getProductName() {
-		return productName;
-	}
+    @Column
+    private int productStuck;
 
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
+    @Column
+    private String companyName;
 
-	public int getProductPrice() {
-		return productPrice;
-	}
+    @Lob
+    @Column
+    private byte[] productImage;
 
-	public void setProductPrice(int productPrice) {
-		this.productPrice = productPrice;
-	}
+    public Long getProductCode() {
+        return productCode;
+    }
 
-	public String getInfomation() {
-		return infomation;
-	}
+    public void setProductCode(Long productCode) {
+        this.productCode = productCode;
+    }
 
-	public void setInfomation(String infomation) {
-		this.infomation = infomation;
-	}
+    public String getProductName() {
+        return productName;
+    }
 
-	public int getProductStuck() {
-		return productStuck;
-	}
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
-	public void setProductStuck(int productStuck) {
-		this.productStuck = productStuck;
-	}
+    public int getProductPrice() {
+        return productPrice;
+    }
 
-	public String getCompanyName() {
-		return companyName;
-	}
+    public void setProductPrice(int productPrice) {
+        this.productPrice = productPrice;
+    }
 
-	public void setCompanyName(String companyName) {
-		this.companyName = companyName;
-	}
+    public String getInfomation() {
+        return infomation;
+    }
 
-	public String getProductImage() {
-		return productImage;
-	}
+    public void setInfomation(String infomation) {
+        this.infomation = infomation;
+    }
 
-	public void setProductImage(String productImage) {
-		this.productImage = productImage;
-	}
-	
+    public int getProductStuck() {
+        return productStuck;
+    }
+
+    public void setProductStuck(int productStuck) {
+        this.productStuck = productStuck;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
+    public byte[] getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(byte[] productImage) {
+        this.productImage = productImage;
+    }
 }

@@ -6,4 +6,6 @@ import com.example.estate.entity.Product;
 
 public interface ProductRepository extends JpaRepository<Product, Long>{
 
+	Product findByProductCode(Long productCode);
+	
 }
