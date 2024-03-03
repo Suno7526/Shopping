@@ -28,15 +28,6 @@ const Home = () => {
     console.log('로그인 되었나요?  ', isLogin);
   }, [isLogin]);
 
-  const getImageByProductCode = (productCode) => {
-    const product = products.find((p) => p.productCode === productCode);
-    const imagePath = product
-      ? `http://localhost:8000/${product.productCode}`
-      : '';
-    console.log('Image Path:', imagePath);
-    return imagePath;
-  };
-
   return (
     <div>
       {/* 로그인이 되어있다면 */}
@@ -52,11 +43,16 @@ const Home = () => {
       )}
       <h1>메인홈페이지</h1>
       <ul>
-        {products.map((product, index) => (
-          <li key={index + 1}>
+        {products.map((product) => (
+          <li key={product.productCode}>
             <h2>이름: {product.productName}</h2>
             <p>설명: {product.infomation}</p>
             <p>가격: {product.productPrice}</p>
+            <img
+              src={`http://localhost:8000/getProductImage/${product.productCode}`}
+              alt={product.productName}
+              style={{ width: '100px', height: '100px' }}
+            />
           </li>
         ))}
       </ul>
@@ -110,14 +106,15 @@ const Home = () => {
         <div id="recommended-properties">
           <h2>이번주 판매왕!</h2>
           <div className="recommended-section">
-            {Array.from({ length: 4 }, (_, index) => (
-              <div className="recommended-card" key={index + 1}>
+            {products.map((product) => (
+              <div className="recommended-card" key={product.productCode}>
+                <p>코디 {product.productCode}</p>
                 <img
-                  src={getImageByProductCode(index + 1)}
-                  alt={`${index + 1}`}
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  alt={`코디 ${product.productCode}`}
                   className="property-image"
+                  style={{ width: '100px', height: '100px' }}
                 />
-                <p>코디 {index + 1}</p>
               </div>
             ))}
           </div>
