@@ -14,6 +14,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.example.estate.entity.Product;
 import com.example.estate.service.ProductService;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {

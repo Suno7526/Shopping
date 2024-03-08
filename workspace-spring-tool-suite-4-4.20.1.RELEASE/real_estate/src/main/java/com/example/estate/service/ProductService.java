@@ -1,5 +1,6 @@
 package com.example.estate.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.estate.entity.Product;
 import com.example.estate.repository.ProductRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class ProductService {
@@ -57,5 +60,5 @@ public class ProductService {
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();
 	}
-
+	
 }

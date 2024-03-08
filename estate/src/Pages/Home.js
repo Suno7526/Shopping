@@ -41,7 +41,6 @@ const Home = () => {
           로그인
         </Link>
       )}
-      <h1>메인홈페이지</h1>
       <ul>
         {products.map((product) => (
           <li key={product.productCode}>
@@ -108,7 +107,7 @@ const Home = () => {
           <div className="recommended-section">
             {products.map((product) => (
               <div className="recommended-card" key={product.productCode}>
-                <p>코디 {product.productCode}</p>
+                <p>{product.productName}</p>
                 <img
                   src={`http://localhost:8000/getProductImage/${product.productCode}`}
                   alt={`코디 ${product.productCode}`}
