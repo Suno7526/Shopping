@@ -31,10 +31,10 @@ public class ProductController {
 		try {
 			byte[] imageBytes = productImage.getBytes();
 			productService.saveProduct(imageBytes, productName, infomation, productPrice);
-			return new ResponseEntity<>("Product saved successfully", HttpStatus.OK);
+			return new ResponseEntity<>("상품 등록 성공", HttpStatus.OK);
 		} catch (IOException e) {
 			e.printStackTrace();
-			return new ResponseEntity<>("Failed to save product. Please try again.", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("상품 등록에 실패했습니다 다시 시도해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 

@@ -42,46 +42,6 @@ public class Question {
 	@CreationTimestamp
 	private Timestamp qestionDate;
 
-	public Long getQuestionCode() {
-		return questionCode;
-	}
-
-	public void setQuestionCode(Long questionCode) {
-		this.questionCode = questionCode;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
-	public String getQuestionTitle() {
-		return questionTitle;
-	}
-
-	public void setQuestionTitle(String questionTitle) {
-		this.questionTitle = questionTitle;
-	}
-
-	public String getQuestionCotent() {
-		return questionCotent;
-	}
-
-	public void setQuestionCotent(String questionCotent) {
-		this.questionCotent = questionCotent;
-	}
-
-	public Timestamp getQestionDate() {
-		return qestionDate;
-	}
-
-	public void setQestionDate(Timestamp qestionDate) {
-		this.qestionDate = qestionDate;
-	}
 	
 	@CreationTimestamp
 	private Timestamp registerDate;

@@ -5,23 +5,27 @@ import UserLogin from './Pages/UserLogin';
 import Join from './Pages/Join';
 import Home from './Pages/Home';
 import ProductJoin from './Pages/ProductJoin';
+import Product from './Pages/Product';
 
 function App() {
   return (
     <BrowserRouter>
-      <Link to="/ProductJoin">매물등록</Link>
+      <Link to="/ProductJoin">상품등록</Link>
       <br />
       <Link to="/Home">홈</Link>
       <br />
       <Link to="/UserLogin">로그인</Link>
       <br />
       <Link to="/Join">회원가입</Link>
+      <br />
+      <Link to="/Product">상세보기</Link>
 
       <Routes>
         <Route path="/UserLogin" element={<UserLogin />} />
         <Route path="/Join" element={<Join />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/ProductJoin" element={<ProductJoin />} />
+        <Route path="/Product" element={<Product />} />
       </Routes>
     </BrowserRouter>
   );

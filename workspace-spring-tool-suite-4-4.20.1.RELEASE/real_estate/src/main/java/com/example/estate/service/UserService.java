@@ -25,14 +25,19 @@ public class UserService {
 
 	     userRepository.save(user);
 	 }
+	 
+	 @Transactional(readOnly = true)
+	 public User findByEmail(String email) {
+	     return userRepository.findByEmail(email);
+	 }
 
 	 @Transactional
-	    public boolean validateLogin(String email, String password) {
-	        // Retrieve the user by email from the database
-	        User user = userRepository.findByEmail(email);
+	 public boolean validateLogin(String email, String password) {
+	     // Retrieve the user by email from the database
+	     User user = userRepository.findByEmail(email);
 
-	        // Check if the user exists and if the password matches
-	        return user != null && user.getPassword().equals(password);
-	    }
+	     // Check if the user exists and if the password matches
+	     return user != null && user.getPassword().equals(password);
+	 }
 	
 }

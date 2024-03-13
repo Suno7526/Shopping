@@ -19,8 +19,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Address {
 
-	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long addressCode;
@@ -34,40 +32,5 @@ public class Address {
 	
 	@Column	
     private String address;
-	
-	
-
-	public Long getAddressCode() {
-		return addressCode;
-	}
-
-	public void setAddressCode(Long addressCode) {
-		this.addressCode = addressCode;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public String getZipCode() {
-		return zipCode;
-	}
-
-	public void setZipCode(String zipCode) {
-		this.zipCode = zipCode;
-	}
-
-	public String getAddress() {
-		return address;
-	}
-
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	
 	
 }

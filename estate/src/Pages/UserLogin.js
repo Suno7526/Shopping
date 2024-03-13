@@ -101,6 +101,7 @@ const UserLogin = () => {
         text-align: center;
         margin-top: 15px; /* 버튼 위에 일정한 여백을 둠 */
       }
+      
 
       /* 회원가입 버튼 스타일 설정 */
       #signup-button {
@@ -119,15 +120,15 @@ const UserLogin = () => {
         color: #333;
         display: block;
         margin-bottom: 5px;
-      }
-      .join-link {
-        color: #ffffff; /* 글자색을 흰색으로 설정 */
-        background-color: #008CBA; /* 배경색을 파란색으로 설정 */
-        padding: 10px; /* 여백 설정 */
-        text-decoration: none; /* 밑줄 제거 */
-        border-radius: 3px; /* 모서리를 둥글게 설정 */
-        display: inline-block; /* 가로로 배열되도록 설정 */
-      }
+        }
+        .join-link {
+          color: #ffffff; /* 글자색을 흰색으로 설정 */
+          background-color: #008CBA; /* 배경색을 파란색으로 설정 */
+          padding: 10px; /* 여백 설정 */
+          text-decoration: none; /* 밑줄 제거 */
+          border-radius: 3px; /* 모서리를 둥글게 설정 */
+          display: inline-block; /* 가로로 배열되도록 설정 */
+        }
 
       .join-link:hover {
         background-color: #005580; /* 마우스 호버 시 배경색 변경 */
@@ -136,10 +137,8 @@ const UserLogin = () => {
         }}
       />
 
-      {/* 로그인 화면 컨테이너 */}
       <div id="login-container">
-        {/* 다방 로고 */}
-        <div id="logo">니방내방</div> <hr />
+        <div id="logo">Passin</div> <hr />
         <br />
         <br />
         {/* 이메일 입력란 */}

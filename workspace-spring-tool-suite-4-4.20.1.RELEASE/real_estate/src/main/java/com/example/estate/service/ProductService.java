@@ -38,7 +38,7 @@ public class ProductService {
 		} catch (Exception e) {
 			// 예외 처리
 			e.printStackTrace();
-			throw new RuntimeException("Failed to save product with image");
+			throw new RuntimeException("이미지 저장 실패");
 		}
 	}
 
@@ -52,10 +52,15 @@ public class ProductService {
 			return null; // 해당하는 제품이 없는 경우 null 반환
 		} catch (Exception e) {
 			e.printStackTrace();
-			throw new RuntimeException("Failed to get product image");
+			throw new RuntimeException("이미지 가져오기 실패");
 		}
 	}
 
+	@Transactional(readOnly = true)
+    public Product findByProductCode(Long productCode) {
+        return productRepository.findByProductCode(productCode);
+    }
+	
 	@Transactional(readOnly = true)
 	public List<Product> getAllProducts() {
 		return productRepository.findAll();

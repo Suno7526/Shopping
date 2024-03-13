@@ -1,9 +1,0 @@
-package com.example.demo;
-
-public class test {
-
-	public String Hello() {
-		System.out.println("반갑수다");
-		return "hello";
-	}
-}

@@ -18,8 +18,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class QuestionComment {
 
-	
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long questionCommentCode;
@@ -32,42 +30,6 @@ public class QuestionComment {
 	@JoinColumn(name = "questionCode")
 	private Question question;
 	
-    private String questionComments;
-
-	public Long getQuestionCommentCode() {
-		return questionCommentCode;
-	}
-
-	public void setQuestionCommentCode(Long questionCommentCode) {
-		this.questionCommentCode = questionCommentCode;
-	}
-
-
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Question getQuestion() {
-		return question;
-	}
-
-	public void setQuestion(Question question) {
-		this.question = question;
-	}
-
-	public String getQuestionComments() {
-		return questionComments;
-	}
-
-	public void setQuestionComments(String questionComments) {
-		this.questionComments = questionComments;
-	}	
-	
-    
+    private String questionComments;   
     
 }

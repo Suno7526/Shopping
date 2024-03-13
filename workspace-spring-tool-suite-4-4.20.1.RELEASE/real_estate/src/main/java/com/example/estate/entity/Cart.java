@@ -35,39 +35,4 @@ public class Cart {
 	
 	@Column
 	private int cartProductCount;
-
-	public Long getProductCode() {
-		return cartCode;
-	}
-
-	public void setCartCode(Long cartCode) {
-		this.cartCode = cartCode;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public int getCartProductCount() {
-		return cartProductCount;
-	}
-
-	public void setCartProductCount(int cartProductCount) {
-		this.cartProductCount = cartProductCount;
-	}
-	
-	
-	
 }
