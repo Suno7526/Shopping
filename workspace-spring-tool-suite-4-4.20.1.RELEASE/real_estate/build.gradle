@@ -34,8 +34,14 @@
 		annotationProcessor 'org.projectlombok:lombok:1.18.20'
 		testCompileOnly 'org.projectlombok:lombok:1.18.20'
 		testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
+		
+			
 	}
 	
 	tasks.named('test') {
 		useJUnitPlatform()
 	}
+	
+	compileJava {
+    options.compilerArgs << "-parameters"
+}

@@ -1,0 +1,96 @@
+package com.example.estate.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import com.example.estate.entity.Product;
+import com.example.estate.entity.RecentlyViewedProduct;
+import com.example.estate.entity.User;
+import com.example.estate.service.ProductService;
+import com.example.estate.service.RecentlyViewedProductService;
+import com.example.estate.service.UserService;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
+import java.security.Principal;
+import java.util.List;
+
+@RestController
+@CrossOrigin(origins = "http://localhost:3000")
+public class HomeController {
+
+    @Autowired
+    private RecentlyViewedProductService recentlyViewedProductService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private ProductService productService;
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/recentlyViewedProducts")
+    public ResponseEntity<List<RecentlyViewedProduct>> getRecentlyViewedProducts(HttpServletRequest request) {
+        // 세션에서 사용자 이메일 가져오기
+        HttpSession session = request.getSession();
+        String userEmail = (String) session.getAttribute("userEmail");
+
+        // 사용자 이메일로 사용자 정보 가져오기
+        User user = userService.findByEmail(userEmail);
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 사용자 정보를 찾을 수 없음
+        }
+
+        // 최근에 본 상품 리스트 가져오기
+        List<RecentlyViewedProduct> recentlyViewedProducts = recentlyViewedProductService.getRecentlyViewedProducts(user);
+
+        return new ResponseEntity<>(recentlyViewedProducts, HttpStatus.OK);
+    }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @PostMapping("/viewProduct/{productCode}")
+    public ResponseEntity<String> viewProduct(HttpServletRequest request, @PathVariable Long productCode) {
+        try {
+            // 세션에서 사용자 이메일 가져오기
+            HttpSession session = request.getSession();
+            String userEmail = (String) session.getAttribute("userEmail");
+
+            if (userEmail == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 사용자가 로그인하지 않음
+            }
+
+            // 사용자 이메일로 사용자 정보 가져오기
+            User user = userService.findByEmail(userEmail);
+
+            if (user == null) {
+                return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // 사용자 정보를 찾을 수 없음
+            }
+
+            // 상품 정보 가져오기
+            Product product = productService.findByProductCode(productCode);
+
+            if (product == null) {
+                return new ResponseEntity<>("상품을 찾을 수 없습니다.", HttpStatus.NOT_FOUND); // 상품을 찾을 수 없음
+            }
+
+            // 최근에 본 상품 정보 저장
+            recentlyViewedProductService.saveViewedProduct(user, product);
+
+            return new ResponseEntity<>("상품이 성공적으로 조회되었습니다.", HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("상품 조회에 실패했습니다. 다시 시도해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    
+    @PostMapping("/addRecentlyViewedProduct")
+    public void addRecentlyViewedProduct(@RequestBody RecentlyViewedProduct request) {
+        // 사용자와 상품 객체를 조회하고 서비스에 전달
+        User user = userService.findByUserCode(request.getUser().getUserCode());
+        Product product = productService.findByProductCode(request.getProduct().getProductCode());
+        recentlyViewedProductService.addRecentlyViewedProduct(user, product);
+    }
+}

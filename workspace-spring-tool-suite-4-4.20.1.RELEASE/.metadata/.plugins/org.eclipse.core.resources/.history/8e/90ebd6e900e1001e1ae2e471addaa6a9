@@ -1,0 +1,48 @@
+package com.example.estate.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+@Configuration
+public class SecurityConfig {
+
+	@Autowired
+	private PrincipalDetailService principalDetailService;
+	
+	@Bean
+	public	 BCryptPasswordEncoder encodePWD() {
+		String encPassword = new BCryptPasswordEncoder().encode("1234");
+		return new BCryptPasswordEncoder();
+	}
+	
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+		auth.userDetailsService(principalDetailService).passwordEncoder(encodePWD());
+	}
+	
+	@Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
+    }
+	
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+    	
+        http
+            .csrf(AbstractHttpConfigurer::disable)
+            .authorizeHttpRequests(authorizeRequest ->
+                    authorizeRequest
+                            .requestMatchers(
+                                    AntPathRequestMatcher.antMatcher("/**")
+                            ).permitAll()
+                            .anyRequest().authenticated()
+            ).formLogin(login -> login
+            		.loginPage("/auth/loginForm")
+            		.loginProcessingUrl("/auth/loginProc")
+            		.defaultSuccessUrl("/"));
+        return http.build();
+    }
+
+}

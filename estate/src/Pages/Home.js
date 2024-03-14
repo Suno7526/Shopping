@@ -5,29 +5,7 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [isLogin, setIsLogin] = useState(false); // 로그인 관리
-
-  const [recentlyViewedProducts, setRecentlyViewedProducts] = useState([]);
-
-  useEffect(() => {
-    // 최근에 본 상품 리스트를 가져오는 API 호출
-    const fetchRecentlyViewedProducts = async () => {
-      try {
-        const response = await axios.get(
-          'http://localhost:8000/recentlyViewedProducts',
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-            },
-          },
-        );
-        setRecentlyViewedProducts(response.data);
-      } catch (error) {
-        console.error('최근에 본 상품을 불러오는 중 오류 발생:', error);
-      }
-    };
-    fetchRecentlyViewedProducts();
-  }, []);
+  const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,9 +18,8 @@ const Home = () => {
     };
 
     fetchProducts();
-  }, []);
 
-  useEffect(() => {
+    // 로그인 여부 설정
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
   }, []);
 

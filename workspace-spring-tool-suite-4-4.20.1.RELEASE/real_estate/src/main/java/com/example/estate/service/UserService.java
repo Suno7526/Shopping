@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.estate.entity.Product;
 import com.example.estate.entity.User;
 import com.example.estate.repository.UserRepository;
 
@@ -39,5 +40,9 @@ public class UserService {
 	     // Check if the user exists and if the password matches
 	     return user != null && user.getPassword().equals(password);
 	 }
-	
+	 
+	 @Transactional(readOnly = true)
+	    public User findByUserCode(Long UserCode) {
+	        return userRepository.findByUserCode(UserCode);
+	    }
 }

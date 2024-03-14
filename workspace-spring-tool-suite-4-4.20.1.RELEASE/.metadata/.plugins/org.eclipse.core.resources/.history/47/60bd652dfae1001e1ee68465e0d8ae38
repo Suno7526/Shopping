@@ -1,0 +1,41 @@
+package com.example.estate.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.example.estate.entity.Product;
+import com.example.estate.entity.ViewedProduct;
+import com.example.estate.entity.User;
+import com.example.estate.repository.ViewedProductRepository;
+
+import java.util.List;
+
+@Service
+public class ViewedProductService {
+
+    @Autowired
+    private ViewedProductRepository recentlyViewedProductRepository;
+
+    public List<ViewedProduct> getRecentlyViewedProducts(User user) {
+        // 사용자가 최근에 본 상품 리스트를 가져옵니다.
+        return recentlyViewedProductRepository.findTop5ByUserOrderByViewCodeDesc(user);
+    }
+
+    public void saveViewedProduct(User user, Product product) {
+        // 사용자가 상품을 볼 때마다 이 정보를 저장합니다.
+        ViewedProduct recentlyViewedProduct = ViewedProduct.builder()
+                .user(user)
+                .product(product)
+                .build();
+
+        recentlyViewedProductRepository.save(recentlyViewedProduct);
+    }
+    
+    public void addRecentlyViewedProduct(User user, Product product) {
+        ViewedProduct recentlyViewedProduct = new ViewedProduct();
+        recentlyViewedProduct.setUser(user);
+        recentlyViewedProduct.setProduct(product);
+        recentlyViewedProductRepository.save(recentlyViewedProduct);
+    }
+}
