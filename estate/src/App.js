@@ -5,7 +5,8 @@ import UserLogin from './Pages/UserLogin';
 import Join from './Pages/Join';
 import Home from './Pages/Home';
 import ProductJoin from './Pages/ProductJoin';
-import Product from './Pages/Product';
+import ProductDetail from './Pages/ProductDetail';
+import Cart from './Pages/Cart';
 
 function App() {
   return (
@@ -18,14 +19,16 @@ function App() {
       <br />
       <Link to="/Join">회원가입</Link>
       <br />
-      <Link to="/Product">상세보기</Link>
-
+      <Link to="/product/:productCode">상세보기</Link>
+      <br />
+      <Link to="/Cart">장바구니</Link>
       <Routes>
         <Route path="/UserLogin" element={<UserLogin />} />
         <Route path="/Join" element={<Join />} />
         <Route path="/Home" element={<Home />} />
         <Route path="/ProductJoin" element={<ProductJoin />} />
-        <Route path="/Product" element={<Product />} />
+        <Route path="/product/:productCode" element={<ProductDetail />} />
+        <Route path="/Cart" element={<Cart />} />
       </Routes>
     </BrowserRouter>
   );

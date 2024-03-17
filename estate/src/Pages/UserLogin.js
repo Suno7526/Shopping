@@ -14,17 +14,28 @@ const UserLogin = () => {
         password,
       });
 
-      console.log('Login response:', response); // Add this line to log the response
-
       if (response.status === 200) {
-        // Login successful
-        console.log('Login successful');
+        const userData = response.data;
 
-        // Save user information in sessionStorage
-        sessionStorage.setItem('userEmail', email);
-        document.location.href = '/Home';
+        if (userData) {
+          // Login successful
+          console.log('Login successful');
+
+          // Save user information in sessionStorage
+          sessionStorage.setItem('userEmail', userData.email);
+          sessionStorage.setItem('userCode', userData.userCode);
+          sessionStorage.setItem('userName', userData.name);
+          sessionStorage.setItem('userPhoneNumber', userData.phoneNumber);
+          sessionStorage.setItem('userAddress', userData.address);
+          sessionStorage.setItem('userBirth', userData.birth);
+
+          // Redirect to Home page
+          window.location.href = '/Home';
+        } else {
+          console.log('Invalid credentials');
+        }
       } else {
-        console.log('Invalid credentials');
+        console.log('Login failed');
       }
     } catch (error) {
       console.error('Error during login:', error);

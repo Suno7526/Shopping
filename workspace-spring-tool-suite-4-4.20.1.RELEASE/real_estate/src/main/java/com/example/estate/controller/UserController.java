@@ -18,26 +18,24 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class UserController {
 
-	@Autowired
-	private UserService userService;
+    @Autowired
+    private UserService userService;
 
-	@CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/saveUser")
     public ResponseEntity<String> saveUser(@RequestBody User user){
-		userService.saveUser(user);
+        userService.saveUser(user);
         return new ResponseEntity<>("회원가입 성공", HttpStatus.OK);
     }
-		
-	@PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody User user) {
+        
+    @PostMapping("/login")
+    public ResponseEntity<User> login(@RequestBody User user) {
         // Call a service method to check if the provided credentials are valid
-        boolean isValidLogin = userService.validateLogin(user.getEmail(), user.getPassword());
+        User loggedInUser = userService.login(user.getEmail(), user.getPassword());
 
-        if (isValidLogin) {
-            return new ResponseEntity<>("로그인 성공", HttpStatus.OK);
+        if (loggedInUser != null) {
+            return new ResponseEntity<>(loggedInUser, HttpStatus.OK);
         } else {
-            return new ResponseEntity<>("로그인 실패", HttpStatus.UNAUTHORIZED);
+            return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
-    }
-	
+    }    
 }

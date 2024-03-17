@@ -34,6 +34,8 @@ const Home = () => {
         <Link to={`/MyPage`} className="nav-link text-black ">
           {sessionStorage.getItem('userEmail')}
           <br></br>
+          {sessionStorage.getItem('userCode')}
+          <br></br>
         </Link>
       ) : (
         <Link to={`/UserLogin`} className="nav-link text-black">
@@ -44,14 +46,16 @@ const Home = () => {
       <ul>
         {products.map((product) => (
           <li key={product.productCode}>
-            <h2>이름: {product.productName}</h2>
-            <p>설명: {product.infomation}</p>
-            <p>가격: {product.productPrice}</p>
-            <img
-              src={`http://localhost:8000/getProductImage/${product.productCode}`}
-              alt={product.productName}
-              style={{ width: '100px', height: '100px' }}
-            />
+            <Link to={`/product/${product.productCode}`}>
+              <h2>이름: {product.productName}</h2>
+              <p>설명: {product.infomation}</p>
+              <p>가격: {product.productPrice}</p>
+              <img
+                src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                alt={product.productName}
+                style={{ width: '100px', height: '100px' }}
+              />
+            </Link>
           </li>
         ))}
       </ul>
@@ -90,13 +94,15 @@ const Home = () => {
           <div className="recommended-section">
             {products.map((product) => (
               <div className="recommended-card" key={product.productCode}>
-                <p>{product.productName}</p>
-                <img
-                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                  alt={`코디 ${product.productCode}`}
-                  className="property-image"
-                  style={{ width: '100px', height: '100px' }}
-                />
+                <Link to={`/product/${product.productCode}`}>
+                  <p>{product.productName}</p>
+                  <img
+                    src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                    alt={`코디 ${product.productCode}`}
+                    className="property-image"
+                    style={{ width: '100px', height: '100px' }}
+                  />
+                </Link>
               </div>
             ))}
           </div>
