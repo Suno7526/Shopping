@@ -1,7 +1,31 @@
-import React from 'react';
-import './product.css'; // 외부 스타일 시트 불러오기
+import './Product.css'; // 외부 스타일 시트 불러오기
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
-const product = () => {
+const Product = () => {
+  const { productCode } = useParams();
+  const [product, setProduct] = useState(null);
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getProduct/${productCode}`,
+        );
+        setProduct(response.data);
+      } catch (error) {
+        console.error('상품을 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchProduct();
+  }, [productCode]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div>
       <meta charSet="UTF-8" />
@@ -128,8 +152,10 @@ const product = () => {
         <aside>
           <div className="property-card">
             <img
-              src="gardigun2.jpg"
-              alt="메인이미지"
+              src={`http://localhost:8000/getProductImage/${parseInt(
+                product.productCode,
+              )}`}
+              alt={product.productName}
               className="property-image"
             />
           </div>
@@ -181,4 +207,4 @@ const product = () => {
   );
 };
 
-export default product;
+export default Product;
