@@ -7,6 +7,7 @@ import Home from './Pages/Home';
 import ProductJoin from './Pages/ProductJoin';
 import ProductDetail from './Pages/ProductDetail';
 import Cart from './Pages/Cart';
+import Product from './Pages/product';
 
 function App() {
   return (
@@ -22,6 +23,9 @@ function App() {
       <Link to="/product/:productCode">상세보기</Link>
       <br />
       <Link to="/Cart">장바구니</Link>
+      <br />
+      <Link to="/Product">상품등록12</Link>
+
       <Routes>
         <Route path="/UserLogin" element={<UserLogin />} />
         <Route path="/Join" element={<Join />} />
@@ -29,6 +33,7 @@ function App() {
         <Route path="/ProductJoin" element={<ProductJoin />} />
         <Route path="/product/:productCode" element={<ProductDetail />} />
         <Route path="/Cart" element={<Cart />} />
+        <Route path="/Product" element={<Product />} />
       </Routes>
     </BrowserRouter>
   );
