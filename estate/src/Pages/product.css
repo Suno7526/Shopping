@@ -140,6 +140,8 @@ section {
   height: 100%;
 }
 
+#description-card {
+}
 .description-card {
   display: grid;
   grid-template-columns: repeat(5, 1fr); /* n개의 칸으로 나눕니다. */
