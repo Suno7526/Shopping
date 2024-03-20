@@ -34,5 +34,5 @@ public class Cart {
 	private Product product;
 	
 	@Column
-	private int cartProductCount;
+	private int productCount;
 }
