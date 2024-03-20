@@ -1,4 +1,6 @@
-GitRepositoriesView.GitDirectories=C\:\\Blog\\.git;
-GitRepositoriesView.GitDirectories.relative=C\:\\Blog\\.git;
+GitRepositoriesView.GitDirectories=C\:\\FinalProject\\.git;
+GitRepositoriesView.GitDirectories.relative=C\:\\FinalProject\\.git;
+RepositoryGroups.uuids=
+RepositorySearchDialogSearchPath=C\:\\FinalProject
 core_autoIgnoreDerivedResources=false
 eclipse.preferences.version=1
