@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import './Home.css'; // 외부 스타일 시트 불러오기
+import './Home.css'; // 외부  시트 불러오기
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 

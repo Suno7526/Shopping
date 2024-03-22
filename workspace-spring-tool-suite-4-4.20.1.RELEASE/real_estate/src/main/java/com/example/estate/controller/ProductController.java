@@ -21,15 +21,16 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/saveProduct")
     public ResponseEntity<String> saveProduct(@RequestParam("productImage") MultipartFile productImage,
                                               @RequestParam("productName") String productName,
-                                              @RequestParam("infomation") String infomation,
-                                              @RequestParam("productPrice") int productPrice) {
+                                              @RequestParam("information") String information,
+                                              @RequestParam("productPrice") int productPrice,
+                                              @RequestParam("companyName") String companyName,
+                                              @RequestParam("productStuck") int productStuck) {
         try {
             byte[] imageBytes = productImage.getBytes();
-            productService.saveProduct(imageBytes, productName, infomation, productPrice);
+            productService.saveProduct(imageBytes, productName, information, productPrice, companyName, productStuck);
             return new ResponseEntity<>("상품 등록 성공", HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();
@@ -50,14 +51,12 @@ public class ProductController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getProducts")
     public ResponseEntity<List<Product>> getProducts() {
         List<Product> productList = productService.getAllProducts();
         return new ResponseEntity<>(productList, HttpStatus.OK);
     }
 
-    @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/getProduct/{productCode}") // 새로운 엔드포인트 추가
     public ResponseEntity<Product> getProduct(@PathVariable("productCode") Long productCode) {
         Product product = productService.findByProductCode(productCode);

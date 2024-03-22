@@ -5,20 +5,24 @@ import { useState, useEffect } from 'react';
 const ProductJoin = () => {
   const [productData, setProductData] = useState({
     productName: '',
-    infomation: '',
+    information: '',
     productPrice: '',
+    companyName: '',
+    productStuck: '',
   });
 
   const [productImage, setProductImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
-    console.log(value);
   };
 
   const handleFileChange = (e) => {
-    setProductImage(e.target.files[0]);
+    const imageFile = e.target.files[0];
+    setProductImage(imageFile);
+    setPreviewImage(URL.createObjectURL(imageFile));
   };
 
   const handleSubmit = async (e) => {
@@ -26,18 +30,24 @@ const ProductJoin = () => {
     try {
       if (
         !productData.productName ||
-        !productData.infomation ||
+        !productData.information ||
         !productData.productPrice ||
+        !productData.companyName ||
+        !productData.productStuck ||
         !productImage
       ) {
-        alert('상품명, 위치, 가격, 그리고 사진을 모두 입력해주세요.');
+        alert(
+          '상품명, 설명, 가격, 회사명, 재고, 그리고 이미지를 모두 입력해주세요.',
+        );
         return;
       }
 
       const formData = new FormData();
       formData.append('productName', productData.productName);
-      formData.append('infomation', productData.infomation);
+      formData.append('information', productData.information);
       formData.append('productPrice', productData.productPrice);
+      formData.append('companyName', productData.companyName);
+      formData.append('productStuck', productData.productStuck);
       formData.append('productImage', productImage);
 
       const response = await axios.post(
@@ -51,9 +61,9 @@ const ProductJoin = () => {
       );
 
       console.log(response.data);
-      alert('상품 등록성공');
+      alert('상품 등록 성공');
     } catch (error) {
-      alert('실패');
+      alert('상품 등록 실패');
       console.error('상품 저장 오류:', error);
     }
   };
@@ -161,12 +171,12 @@ const ProductJoin = () => {
             onChange={handleInputChange}
           />
 
-          <label htmlFor="infomation">설명:</label>
+          <label htmlFor="information">설명:</label>
           <input
             type="text"
-            id="infomation"
-            name="infomation" // 수정: 프로퍼티 이름을 address로 변경
-            value={productData.infomation} // 수정: 프로퍼티 이름을 address로 변경
+            id="information"
+            name="information"
+            value={productData.information}
             onChange={handleInputChange}
           />
 
@@ -179,9 +189,23 @@ const ProductJoin = () => {
             onChange={handleInputChange}
           />
 
-          <button type="button" onClick={handleSubmit}>
-            상품 등록
-          </button>
+          <label htmlFor="companyName">회사명:</label>
+          <input
+            type="text"
+            id="companyName"
+            name="companyName"
+            value={productData.companyName}
+            onChange={handleInputChange}
+          />
+
+          <label htmlFor="productStuck">재고:</label>
+          <input
+            type="text"
+            id="productStuck"
+            name="productStuck"
+            value={productData.productStuck}
+            onChange={handleInputChange}
+          />
 
           <div id="property-details">
             <label htmlFor="productImage">사진 업로드:</label>
@@ -192,8 +216,18 @@ const ProductJoin = () => {
               accept="image/*"
               onChange={handleFileChange}
             />
-            <img id="property-image-preview" src="#" alt="미리보기" />
+            {previewImage && (
+              <img
+                src={previewImage}
+                alt="이미지 미리보기"
+                style={{ width: '200px', height: '200px', marginTop: '10px' }}
+              />
+            )}
           </div>
+
+          <button type="button" onClick={handleSubmit}>
+            상품 등록
+          </button>
         </form>
       </div>
     </div>
