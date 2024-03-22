@@ -35,6 +35,9 @@ public class Product {
 
     @Column
     private String companyName;
+    
+    @Column
+    private int viewCount;
 
     @Column(columnDefinition = "LONGBLOB")
     private byte[] productImage;

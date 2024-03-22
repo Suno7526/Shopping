@@ -1,0 +1,243 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  position: relative;
+}
+
+h1 {
+  margin: 0;
+}
+
+/*GNB라인*/
+
+#gnb {
+  display: flex;
+  padding: 45px;
+  margin: 10px 0; /* 상하로 10px 마진 */
+}
+
+#gnb ul {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+#gnb li {
+  margin-right: 15px;
+  position: relative;
+}
+
+#gnb li:hover ul {
+  display: block;
+}
+
+#gnb a {
+  text-decoration: none;
+  color: #4d4d4d;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+#gnb a:hover {
+  color: #ff0000;
+}
+
+/* 서브 메뉴 스타일 */
+#gnb ul ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1;
+}
+
+#gnb ul ul li {
+  margin: 0;
+}
+
+/* 서브 메뉴 각 항목 스타일 */
+#gnb ul ul a {
+  color: #333;
+  font-weight: normal;
+}
+
+#gnb ul ul a:hover {
+  color: #ff0000;
+}
+
+/* OUTTER 서브 메뉴 스타일 */
+#gnb #outer ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1;
+}
+
+#gnb #outer:hover ul {
+  display: block;
+}
+
+/*GNB라인 끝*/
+
+#branding {
+  /*프로젝트 명*/
+  color: #524a4a;
+  font-size: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 30px;
+}
+
+#search-bar-container {
+  flex-grow: 1;
+  text-align: center;
+}
+
+#search-bar {
+  padding: 15px;
+  width: 400px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  margin: 0 auto;
+}
+
+section {
+  padding: 0; /* 내부 여백을 제거하여 .property-card가 더 많은 공간을 차지하도록 함 */
+  text-align: center; /* 텍스트는 가운데 정렬되어 유지 */
+  display: flex;
+  flex-wrap: wrap; /* 너비가 충분하지 않을 경우 .property-card가 다음 줄로 이동하도록 함 */
+  justify-content: center; /* .property-card를 수평으로 가운데 정렬 */
+}
+
+.property-card {
+  width: 100%; /* 부모 요소에 맞춰 전체 너비를 사용하도록 변경 */
+  max-width: 1200px; /* 최대 너비 설정 */
+  height: 400px; /* 높이 설정 */
+  margin: 15px; /* 마진을 추가하여 간격을 조절 */
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  box-sizing: border-box; /* 내부 패딩과 외부 여백을 포함하여 크기 계산 */
+}
+
+.property-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin-bottom: 5px;
+}
+
+#recommended-properties {
+  padding: 20px;
+  text-align: left;
+  color: #000000;
+}
+
+.recommended-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recommended-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 15px;
+  padding: 15px;
+  text-align: center;
+  cursor: pointer;
+  width: 300px;
+}
+
+.recommended-card:hover {
+  transform: scale(1.1);
+  color: #000000;
+}
+
+.nav {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.guides-info {
+  text-align: left;
+  padding-left: 10px; /* 왼쪽 여백 추가 */
+}
+
+#guides-properties {
+  padding: 20px;
+  text-align: left;
+}
+
+.guides-section {
+  display: flex;
+  justify-content: flex-start; /* 왼쪽 정렬 */
+  align-items: center;
+}
+
+.guides-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin: 15px;
+  padding: 15px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  width: 300px; /* 가로 길이 지정 */
+  margin-bottom: 15px; /* 순위 사이의 간격 조절 */
+  position: relative; /* 상위 요소로부터의 상대적인 위치 설정 */
+}
+
+/* 순위 지정을 위한 추가적인 스타일 */
+.guides-card:nth-child(1) {
+  order: 4; /* guides-section 내에서 가장 왼쪽에 위치할 순위 */
+}
+
+.guides-card:nth-child(2) {
+  order: 3; /* 2번째로 왼쪽에 위치할 순위 */
+}
+
+.guides-card:nth-child(3) {
+  order: 2; /* 3번째로 왼쪽에 위치할 순위 */
+}
+
+.guides-card:nth-child(4) {
+  order: 1; /* 가장 오른쪽에 위치할 순위 */
+}
+
+.guides-card:hover {
+  transform: scale(1.1);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3);
+  background-color: #f8f8f8;
+  color: #333;
+}
+
+.guides-card::before {
+  content: attr(data-rank); /* 순위를 표시할 숫자 */
+  position: absolute; /* 상위 요소에 대해 상대적으로 배치 */
+  top: 5px; /* 카드의 위쪽 여백 */
+  left: 5px; /* 카드의 왼쪽 여백 */
+  font-weight: bold; /* 굵은 글씨로 */
+  font-size: 1.2em; /* 글자 크기를 설정 */
+  background-color: white; /* 배경색을 흰색으로 설정하여 내용과 겹치지 않도록 */
+  padding: 0.2em 0.4em; /* 내용 주위에 여백을 추가하여 숫자를 감싸도록 */
+  border-radius: 5px; /* 둥근 테두리를 추가하여 모양을 둥글게 만듦 */
+}

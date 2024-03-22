@@ -1,3 +1,5 @@
+/* eslint-disable-next-line */
+
 body {
   height: 2000px;
   font-family: Arial, sans-serif;
@@ -100,7 +102,7 @@ h1 {
 
 #branding {
   color: #524a4a;
-  font-size: 30px;
+  font-size: 45px;
   height: 50px;
   display: flex;
   align-items: center;
@@ -123,7 +125,7 @@ section {
 }
 
 .property-card {
-  margin-left: 12em;
+  margin-left: 2em;
   border: 1px solid #ddd;
   border-radius: 10px;
   background-color: white;
@@ -140,13 +142,12 @@ section {
   height: 100%;
 }
 
-#description-card {
-}
 .description-card {
+  height: 100%;
   display: grid;
-  grid-template-columns: repeat(5, 1fr); /* n개의 칸으로 나눕니다. */
+  grid-template-columns: repeat(10, 1fr); /* n개의 칸으로 나눕니다. */
   gap: 20px; /* 칸 사이의 간격을 설정합니다. */
-  width: 79%; /* 페이지의 가로 폭의 45%를 차지하도록 너비 설정 */
+  width: 91%; /* 페이지의 가로 폭의 45%를 차지하도록 너비 설정 */
   display: inline-block; /* 인라인 블록 요소로 설정하여 가로로 나란히 배치 */
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -163,36 +164,32 @@ section {
 .purchase-btn {
   margin-top: 30px;
   margin-right: 20px;
-  padding: 20px 90px;
+  padding: 10px 20px; /*왼쪽이 높이 오른쪽이 길이 값임*/
   font-size: 18px;
   border: none;
   background-color: #524a4a; /* 구매하기 버튼의 배경색 */
   color: white;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 /* 찜하기 버튼의 스타일 */
 .like-btn {
-  margin-top: 20px;
   margin-right: 20px;
-  padding: 20px 15px;
+  padding: 10px 20px;
   font-size: 18px;
   border: 1px solid #524a4a;
   color: #333;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 /* 장바구니 담기 버튼의 스타일 */
 .cart-btn {
   margin-right: 10px;
-  padding: 20px 15px;
+  padding: 10px 20px;
   font-size: 18px;
   border: 1px solid #524a4a;
   color: #333;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .product-container {

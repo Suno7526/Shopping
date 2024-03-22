@@ -163,13 +163,15 @@ const Product = () => {
 
         <section id="description-card">
           <div className="description-card">
-            <div className="grid-item">[제조사] 상품 명 - 상품</div>
-            <div className="grid-item">판매가 -</div>
-            <div className="grid-item">제조사 -</div>
-            <div className="grid-item">SIZE -</div>
-            <div className="grid-item">상품 재고</div>
-            <div className="grid-item">등록 날짜</div>
-            <div className="grid-item">별점</div>
+            <div className="grid-item">
+              [제조사] 상품 명 : {product.productName}
+            </div>
+            <div className="grid-item">판매가 : {product.productPrice}</div>
+            <div className="grid-item">제조사 : </div>
+            <div className="grid-item">SIZE : </div>
+            <div className="grid-item">상품 재고 : </div>
+            <div className="grid-item">등록 날짜 : </div>
+            <div className="grid-item">별점 : </div>
 
             {/* 버튼 추가 */}
             <div className="buttons">
