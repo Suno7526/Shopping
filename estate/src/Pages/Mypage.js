@@ -1,4 +1,3 @@
-//my page
 import React from 'react';
 import './Mypage.css'; // 외부 스타일 시트 불러오기
 
@@ -209,7 +208,7 @@ const Section = () => {
 const Aside = () => {
   // Aside 컴포넌트 추가
   return (
-    <aside>
+    <aside className="sidebar">
       <nav>나의 활동</nav>
       <p>찜한 상품</p>
       <p>주문 내역</p>

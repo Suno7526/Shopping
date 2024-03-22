@@ -147,7 +147,7 @@ section {
   display: grid;
   grid-template-columns: repeat(10, 1fr); /* n개의 칸으로 나눕니다. */
   gap: 20px; /* 칸 사이의 간격을 설정합니다. */
-  width: 91%; /* 페이지의 가로 폭의 45%를 차지하도록 너비 설정 */
+  width: 120%; /* 페이지의 가로 폭의 45%를 차지하도록 너비 설정 */
   display: inline-block; /* 인라인 블록 요소로 설정하여 가로로 나란히 배치 */
   border: 1px solid #ddd;
   border-radius: 10px;
@@ -192,17 +192,11 @@ section {
   cursor: pointer;
 }
 
-.product-container {
-  display: flex;
-  margin-top: 20px; /* description-card와의 간격을 조정 */
-  margin-right: 18em;
-  width: 110%;
-}
-
 .product-card {
-  width: 70%;
-  height: 500px;
-  margin-left: 190px;
+  display: left;
+  width: 77%;
+  height: 400px;
+  margin-left: 30px;
   margin-top: 20px; /* description-card와의 간격을 조정 */
   gap: 20px; /* 칸 사이의 간격을 설정합니다. */
   display: inline-block; /* 인라인 블록 요소로 설정하여 가로로 나란히 배치 */
@@ -228,22 +222,6 @@ section {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   cursor: pointer;
-}
-
-.rating {
-  width: 40%; /* 페이지의 가로 폭의 45%를 차지하도록 너비 설정 */
-  height: 400px;
-  display: inline-block; /* 인라인 블록 요소로 설정하여 가로로 나란히 배치 */
-  vertical-align: top; /* 상단 정렬을 위해 추가 */
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  cursor: pointer;
-  align-items: center;
-  margin-top: 1.29em;
-  margin-left: 4em;
 }
 
 /* 퀵 메뉴 스타일 */
