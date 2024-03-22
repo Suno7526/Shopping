@@ -9,6 +9,7 @@ const ProductJoin = () => {
     productPrice: '',
     companyName: '',
     productStuck: '',
+    productSize: '', // 추가: 제품 크기
   });
 
   const [productImage, setProductImage] = useState(null);
@@ -34,10 +35,11 @@ const ProductJoin = () => {
         !productData.productPrice ||
         !productData.companyName ||
         !productData.productStuck ||
+        !productData.productSize || // 추가: 제품 크기 필수
         !productImage
       ) {
         alert(
-          '상품명, 설명, 가격, 회사명, 재고, 그리고 이미지를 모두 입력해주세요.',
+          '상품명, 설명, 가격, 회사명, 재고, 제품 크기, 사용자 포인트, 그리고 이미지를 모두 입력해주세요.',
         );
         return;
       }
@@ -48,6 +50,7 @@ const ProductJoin = () => {
       formData.append('productPrice', productData.productPrice);
       formData.append('companyName', productData.companyName);
       formData.append('productStuck', productData.productStuck);
+      formData.append('productSize', productData.productSize); // 추가: 제품 크기
       formData.append('productImage', productImage);
 
       const response = await axios.post(
@@ -204,6 +207,14 @@ const ProductJoin = () => {
             id="productStuck"
             name="productStuck"
             value={productData.productStuck}
+            onChange={handleInputChange}
+          />
+          <label htmlFor="productSize">제품 크기:</label>
+          <input
+            type="text"
+            id="productSize"
+            name="productSize"
+            value={productData.productSize}
             onChange={handleInputChange}
           />
 

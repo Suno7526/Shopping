@@ -22,6 +22,15 @@ const Product = () => {
     fetchProduct();
   }, [productCode]);
 
+  // 등록 날짜를 년월일 형식으로 변환하는 함수
+  const formatRegisterDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -168,10 +177,12 @@ const Product = () => {
             </div>
             <div className="grid-item">판매가 : {product.productPrice}</div>
             <div className="grid-item">제조사 : {product.companyName}</div>
-            <div className="grid-item">SIZE : </div>
-            <div className="grid-item">상품 재고 :</div>
-            <div className="grid-item">등록 날짜 : </div>
-            <div className="grid-item">별점 : </div>
+            <div className="grid-item">SIZE : {product.productSize}</div>
+            <div className="grid-item">상품 재고 : {product.productStuck}</div>
+            <div className="grid-item">
+              등록 날짜 : {formatRegisterDate(product.registerDate)}
+            </div>
+            <div className="grid-item">별점 : {product.userPoint}</div>
 
             {/* 버튼 추가 */}
             <div className="buttons">

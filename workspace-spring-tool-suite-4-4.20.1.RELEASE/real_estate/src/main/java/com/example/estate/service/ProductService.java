@@ -16,7 +16,7 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Transactional
-    public void saveProduct(byte[] productImage, String productName, String information, int productPrice, String companyName, int productStuck) {
+    public void saveProduct(byte[] productImage, String productName, String information, int productPrice, String companyName, int productStuck, String productSize) {
         try {
             Product product = new Product();
             product.setProductName(productName);
@@ -24,6 +24,7 @@ public class ProductService {
             product.setProductPrice(productPrice);
             product.setCompanyName(companyName);
             product.setProductStuck(productStuck);
+            product.setProductSize(productSize);
             product.setProductImage(productImage);
             productRepository.save(product);
         } catch (Exception e) {

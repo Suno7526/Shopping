@@ -49,7 +49,7 @@ public class Product {
     @Column
     private String productSize;
     
-    @Column
+    @Column(nullable = false, columnDefinition = "float default 0")
     private float userPoint;
 
     @CreationTimestamp
