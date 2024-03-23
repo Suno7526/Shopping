@@ -28,6 +28,28 @@ const Home = () => {
     console.log('로그인 되었나요?  ', isLogin);
   }, [isLogin]);
 
+  const saveViewedProduct = async (userCode, productCode) => {
+    try {
+      await axios.post('http://localhost:8000/saveViewedProduct', {
+        userCode: userCode,
+        productCode: productCode,
+      });
+      console.log('상품을 성공적으로 저장했습니다.');
+    } catch (error) {
+      console.error('상품을 저장하는 중 오류 발생:', error);
+    }
+  };
+
+  // 상품 클릭 시 호출되는 함수
+  const handleClickProduct = (productCode) => {
+    const userCode = sessionStorage.getItem('userCode');
+    if (userCode) {
+      saveViewedProduct(userCode, productCode);
+    } else {
+      console.log('사용자가 로그인되어 있지 않습니다.');
+    }
+  };
+
   return (
     <div>
       {/* 로그인이 되어있다면 */}
@@ -152,7 +174,7 @@ const Home = () => {
         <section>
           <div
             className="property-card"
-            onclick="location.href='bunyang.html';"
+            onClick="location.href='bunyang.html';"
           >
             <img
               src={`http://localhost:8000/getProductImage/1`}
@@ -180,6 +202,7 @@ const Home = () => {
                       alt={`코디 ${product.productCode}`}
                       className="property-image"
                       style={{ width: '100%', height: '100%' }}
+                      onClick={() => handleClickProduct(product.productCode)}
                     />
                   </Link>
                 </div>
@@ -201,6 +224,7 @@ const Home = () => {
                       alt={`코디 ${product.productCode}`}
                       className="property-image"
                       style={{ width: '100%', height: '100%' }}
+                      onClick={() => handleClickProduct(product.productCode)}
                     />
                   </Link>
                 </div>
@@ -222,6 +246,7 @@ const Home = () => {
                       alt={`코디 ${product.productCode}`}
                       className="property-image"
                       style={{ width: '100%', height: '100%' }}
+                      onClick={() => handleClickProduct(product.productCode)}
                     />
                   </Link>
                 </div>
@@ -243,6 +268,7 @@ const Home = () => {
                       alt={`코디 ${product.productCode}`}
                       className="property-image"
                       style={{ width: '100%', height: '100%' }}
+                      onClick={() => handleClickProduct(product.productCode)}
                     />
                   </Link>
                 </div>

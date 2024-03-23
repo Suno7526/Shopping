@@ -57,4 +57,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Transactional
+    public void incrementViewCount(Long productCode) {
+        Product product = productRepository.findByProductCode(productCode);
+        if (product != null) {
+            product.setViewCount(product.getViewCount() + 1);
+            productRepository.save(product);
+        }
+    }
 }
