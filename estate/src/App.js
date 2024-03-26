@@ -9,6 +9,7 @@ import ProductDetail from './Pages/ProductDetail';
 import Cart from './Pages/Cart';
 import Product from './Pages/Product';
 import Mypage from './Pages/Mypage';
+import Header from './Components/Header';
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
       <Link to="/Cart">장바구니</Link>
       <br />
       <Link to="/Mypage">마이페이지</Link>
+
+      <Header />
 
       <Routes>
         <Route path="/UserLogin" element={<UserLogin />} />

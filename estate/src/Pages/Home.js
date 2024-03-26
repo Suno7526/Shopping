@@ -68,8 +68,6 @@ const Home = () => {
       )}
 
       <div>
-        <Header />
-
         {/* 메인 이미지 칸 */}
         <section>
           <div
