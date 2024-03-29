@@ -5,13 +5,18 @@ import UserLogin from './Pages/UserLogin';
 import Join from './Pages/Join';
 import Home from './Pages/Home';
 import ProductJoin from './Pages/ProductJoin';
-import ProductDetail from './Pages/ProductDetail';
 import Cart from './Pages/Cart';
 import Product from './Pages/Product';
 import Mypage from './Pages/Mypage';
 import Header from './Components/Header';
+import { useState, useEffect } from 'react';
 
 function App() {
+  const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
+
+  useEffect(() => {
+    setIsLogin(sessionStorage.getItem('userEmail') !== null);
+  }, []); // 페이지 로드시 한 번만 실행되도록 빈 배열 전
   return (
     <BrowserRouter>
       <Link to="/ProductJoin">상품등록</Link>
@@ -29,6 +34,18 @@ function App() {
       <Link to="/Mypage">마이페이지</Link>
 
       <Header />
+
+      {/* 로그인이 되어있다면 */}
+      {isLogin ? (
+        <Link to={`/MyPage`} className="nav-link text-black ">
+          {sessionStorage.getItem('userEmail')}
+          <br></br>
+        </Link>
+      ) : (
+        <Link to={`/UserLogin`} className="nav-link text-black">
+          로그인
+        </Link>
+      )}
 
       <Routes>
         <Route path="/UserLogin" element={<UserLogin />} />

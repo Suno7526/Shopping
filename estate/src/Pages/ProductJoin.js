@@ -161,7 +161,6 @@ const ProductJoin = () => {
 `,
         }}
       />
-      <div id="branding">상품 등록</div>
 
       <div id="property-form">
         <form encType="multipart/form-data">

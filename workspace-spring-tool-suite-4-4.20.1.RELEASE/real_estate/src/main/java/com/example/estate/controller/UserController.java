@@ -38,4 +38,16 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
     }    
+    
+    @PostMapping("/getUserCodeByEmail")
+    public ResponseEntity<Long> getUserCodeByEmail(@RequestBody String email) {
+        User user = userService.findByEmail(email);
+        if (user != null) {
+            return new ResponseEntity<>(user.getUserCode(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+        }
+    }
+
+    
 }

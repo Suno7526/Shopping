@@ -1,5 +1,0 @@
-package com.example.estate.config.auth.auth;
-
-public class PrincipalDetailService {
-
-}

@@ -22,12 +22,13 @@ const UserLogin = () => {
           console.log('Login successful');
 
           // Save user information in sessionStorage
-          sessionStorage.setItem('userEmail', userData.email);
-          sessionStorage.setItem('userCode', userData.userCode);
-          sessionStorage.setItem('userName', userData.name);
-          sessionStorage.setItem('userPhoneNumber', userData.phoneNumber);
-          sessionStorage.setItem('userAddress', userData.address);
-          sessionStorage.setItem('userBirth', userData.birth);
+          const userCodeResponse = await axios.post(
+            'http://localhost:8000/getUserCodeByEmail',
+            email,
+          );
+          const userCode = userCodeResponse.data;
+          sessionStorage.setItem('userEmail', email);
+          sessionStorage.setItem('userCode', userCode);
 
           // Redirect to Home page
           window.location.href = '/Home';

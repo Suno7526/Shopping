@@ -53,26 +53,12 @@ const Home = () => {
 
   return (
     <div>
-      {/* 로그인이 되어있다면 */}
-      {isLogin ? (
-        <Link to={`/MyPage`} className="nav-link text-black ">
-          {sessionStorage.getItem('userEmail')}
-          <br></br>
-          {sessionStorage.getItem('userCode')}
-          <br></br>
-        </Link>
-      ) : (
-        <Link to={`/UserLogin`} className="nav-link text-black">
-          로그인
-        </Link>
-      )}
-
       <div>
         {/* 메인 이미지 칸 */}
         <section>
           <div
             className="property-card"
-            onClick="location.href='bunyang.html';"
+            onClick={() => handleClickProduct(products.productCode)}
           >
             <img
               src={`http://localhost:8000/getProductImage/1`}
@@ -85,72 +71,6 @@ const Home = () => {
         <div id="recommended-properties">
           <h2>Best Iteam</h2>
 
-          <div id="guides-properties">
-            <div className="guides-section">
-              {products.map((product) => (
-                <div
-                  className="guides-card"
-                  data-rank={product.productCode}
-                  key={product.productCode}
-                >
-                  <Link to={`/product/${product.productCode}`}>
-                    <p>{product.productName}</p>
-                    <img
-                      src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                      alt={`코디 ${product.productCode}`}
-                      className="property-image"
-                      style={{ width: '100%', height: '100%' }}
-                      onClick={() => handleClickProduct(product.productCode)}
-                    />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div id="guides-properties">
-            <div className="guides-section">
-              {products.map((product) => (
-                <div
-                  className="guides-card"
-                  data-rank={product.productCode}
-                  key={product.productCode}
-                >
-                  <Link to={`/product/${product.productCode}`}>
-                    <p>{product.productName}</p>
-                    <img
-                      src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                      alt={`코디 ${product.productCode}`}
-                      className="property-image"
-                      style={{ width: '100%', height: '100%' }}
-                      onClick={() => handleClickProduct(product.productCode)}
-                    />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div id="guides-properties">
-            <div className="guides-section">
-              {products.map((product) => (
-                <div
-                  className="guides-card"
-                  data-rank={product.productCode}
-                  key={product.productCode}
-                >
-                  <Link to={`/product/${product.productCode}`}>
-                    <p>{product.productName}</p>
-                    <img
-                      src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                      alt={`코디 ${product.productCode}`}
-                      className="property-image"
-                      style={{ width: '100%', height: '100%' }}
-                      onClick={() => handleClickProduct(product.productCode)}
-                    />
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
           <div id="guides-properties">
             <div className="guides-section">
               {products.map((product) => (

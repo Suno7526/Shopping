@@ -64,8 +64,6 @@ const Cart = () => {
 
   return (
     <div>
-      <Header />
-
       <div id="cart">
         <h2>장바구니</h2>
         {cartItems.length === 0 ? (

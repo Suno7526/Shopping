@@ -1,13 +1,12 @@
 import './Product.css'; // 외부 스타일 시트 불러오기
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from '../Components/Header';
 import { useParams } from 'react-router-dom';
 
 const Product = () => {
   const { productCode } = useParams();
   const [product, setProduct] = useState(null);
-
+  const userCode = sessionStorage.getItem('userCode');
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -22,6 +21,42 @@ const Product = () => {
 
     fetchProduct();
   }, [productCode]);
+
+  const handleLikeClick = async () => {
+    try {
+      if (!userCode) {
+        console.log('로그인이 필요합니다.');
+        return;
+      }
+
+      await axios.post('http://localhost:8000/like', {
+        userCode: userCode,
+        productCode: productCode,
+      });
+
+      console.log('상품을 찜했습니다.');
+    } catch (error) {
+      console.error('상품을 찜하는 중 오류 발생:', error);
+    }
+  };
+
+  const handleAddToCartClick = async () => {
+    try {
+      if (!userCode) {
+        console.log('로그인이 필요합니다.');
+        return;
+      }
+
+      await axios.post('http://localhost:8000/addToCart', {
+        userCode: userCode,
+        productCode: productCode,
+      });
+
+      console.log('상품을 장바구니에 담았습니다.');
+    } catch (error) {
+      console.error('상품을 장바구니에 담는 중 오류 발생:', error);
+    }
+  };
 
   // 등록 날짜를 년월일 형식으로 변환하는 함수
   const formatRegisterDate = (dateString) => {
@@ -38,8 +73,6 @@ const Product = () => {
 
   return (
     <div>
-      <Header />
-
       {/* 메인 이미지 칸 */}
       <div className="container">
         <aside>
@@ -57,7 +90,8 @@ const Product = () => {
         <section id="description-card">
           <div className="description-card">
             <div className="grid-item">
-              [제조사] 상품 명 : {product.productName}
+              [제조사] 상품 명 : {product.productName} {userCode}
+              {productCode}
             </div>
             <div className="grid-item">판매가 : {product.productPrice}</div>
             <div className="grid-item">제조사 : {product.companyName}</div>
@@ -71,8 +105,12 @@ const Product = () => {
             {/* 버튼 추가 */}
             <div className="buttons">
               <button className="purchase-btn">구매하기</button>
-              <button className="like-btn">찜하기</button>
-              <button className="cart-btn">장바구니 담기</button>
+              <button className="like-btn" onClick={handleLikeClick}>
+                찜하기
+              </button>
+              <button className="like-btn" onClick={handleAddToCartClick}>
+                장바구니 담기
+              </button>
             </div>
             <br></br>
           </div>
