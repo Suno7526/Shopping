@@ -69,7 +69,8 @@ const Home = () => {
         </section>
 
         <div id="recommended-properties">
-          <h2>Best Iteam</h2>
+          <h2>Best Iteam </h2>
+          {sessionStorage.getItem('userCode')}
 
           <div id="guides-properties">
             <div className="guides-section">

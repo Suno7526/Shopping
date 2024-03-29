@@ -17,6 +17,7 @@ function App() {
   useEffect(() => {
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
   }, []); // 페이지 로드시 한 번만 실행되도록 빈 배열 전
+
   return (
     <BrowserRouter>
       <Link to="/ProductJoin">상품등록</Link>
@@ -31,14 +32,17 @@ function App() {
       <br />
       <Link to="/Cart">장바구니</Link>
       <br />
-      <Link to="/Mypage">마이페이지</Link>
-
+      <Link to={`/Mypage/${sessionStorage.getItem('userCode')}`}>
+        마이페이지
+      </Link>{' '}
+      {/* 수정된 부분 */}
       <Header />
-
       {/* 로그인이 되어있다면 */}
       {isLogin ? (
         <Link to={`/MyPage`} className="nav-link text-black ">
           {sessionStorage.getItem('userEmail')}
+          <br></br>
+          {sessionStorage.getItem('userCode')}
           <br></br>
         </Link>
       ) : (
@@ -46,7 +50,6 @@ function App() {
           로그인
         </Link>
       )}
-
       <Routes>
         <Route path="/UserLogin" element={<UserLogin />} />
         <Route path="/Join" element={<Join />} />
@@ -54,7 +57,8 @@ function App() {
         <Route path="/ProductJoin" element={<ProductJoin />} />
         <Route path="/product/:productCode" element={<Product />} />
         <Route path="/Cart" element={<Cart />} />
-        <Route path="/Mypage" element={<Mypage />} />
+        <Route path="/Mypage/:userCode" element={<Mypage />} />{' '}
+        {/* 수정된 부분 */}
       </Routes>
     </BrowserRouter>
   );

@@ -1,5 +1,7 @@
 package com.example.estate.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +42,8 @@ public class UserController {
     }    
     
     @PostMapping("/getUserCodeByEmail")
-    public ResponseEntity<Long> getUserCodeByEmail(@RequestBody String email) {
+    public ResponseEntity<Long> getUserCodeByEmail(@RequestBody Map<String, String> requestBody) {
+        String email = requestBody.get("email");
         User user = userService.findByEmail(email);
         if (user != null) {
             return new ResponseEntity<>(user.getUserCode(), HttpStatus.OK);
@@ -48,6 +51,8 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
+
+
 
     
 }

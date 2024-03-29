@@ -13,7 +13,6 @@ public class LikeService {
     private LikeRepository likeRepository;
 
     public void likeProduct(Likes like) {
-        // 여기에 좋아요 추가하는 비즈니스 로직을 구현합니다.
         likeRepository.save(like);
     }
 }
