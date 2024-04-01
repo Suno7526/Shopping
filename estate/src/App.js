@@ -30,7 +30,7 @@ function App() {
       <br />
       <Link to="/product/:productCode">상세보기</Link>
       <br />
-      <Link to="/Cart">장바구니</Link>
+      <Link to={`/Cart/${sessionStorage.getItem('userCode')}`}>장바구니</Link>
       <br />
       <Link to={`/Mypage/${sessionStorage.getItem('userCode')}`}>
         마이페이지
@@ -56,7 +56,7 @@ function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/ProductJoin" element={<ProductJoin />} />
         <Route path="/product/:productCode" element={<Product />} />
-        <Route path="/Cart" element={<Cart />} />
+        <Route path="/Cart/:usercode" element={<Cart />} />
         <Route path="/Mypage/:userCode" element={<Mypage />} />{' '}
         {/* 수정된 부분 */}
       </Routes>
