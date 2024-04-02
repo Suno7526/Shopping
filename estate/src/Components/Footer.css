@@ -1,0 +1,63 @@
+.footer {
+  position: relative; /* relative로 변경 */
+}
+
+.horizontal-line {
+  width: 100%; /* 페이지 가로 너비에 맞춤 */
+  height: 0.1px; /* 선의 높이 */
+  background-color: rgb(217, 217, 217); /* 선의 색상 */
+  margin-bottom: 20px; /* 수평선 아래에 20px의 간격을 줍니다. */
+}
+
+.vertical-divider {
+  position: absolute;
+  left: 50%;
+  bottom: 20px; /* 바닥에서 20px 위에 위치하도록 설정 */
+  height: calc(100% - 40px); /* 바닥과 상단에서 40px 간격을 둠 */
+  width: 0.1px; /* 선의 너비 */
+  background-color: rgb(217, 217, 217); /* 선의 색상 */
+  transform: translateX(-50%);
+}
+
+.bottom-line {
+  width: 74%; /* 페이지 가로 너비의 60% */
+  height: 0.1px; /* 선의 높이 */
+  background-color: rgb(217, 217, 217); /* 선의 색상 */
+  margin: 0 auto; /* 수평 가운데 정렬 */
+  margin-top: 60px; /* 수평선 위에 20px의 간격을 줍니다. */
+  margin-bottom: 10px; /* 수평선 아래에 20px의 간격을 줍니다. */
+}
+
+.copyright {
+  color: #232a3f; /* 글자 색상 */
+  font-size: 12px; /* 글자 크기 */
+  margin-left: 17em;
+}
+
+.copyright2 {
+  color: #232a3f; /* 글자 색상 */
+  font-size: 12px; /* 글자 크기 */
+  margin-left: 65em;
+}
+
+.copyright3 {
+  color: #232a3f; /* 글자 색상 */
+  font-size: 12px; /* 글자 크기 */
+  margin-left: 97.5em;
+}
+
+.HOME-btn {
+  color: #232a3f; /* 글자 색상 */
+  font-size: 12px; /* 글자 크기 */
+  margin-left: 16.5em;
+  border: solid transparent;
+  background-color: transparent;
+}
+
+.item-btn {
+  color: #232a3f; /* 글자 색상 */
+  font-size: 12px; /* 글자 크기 */
+  margin-left: 2em;
+  border: solid transparent;
+  background-color: transparent;
+}
