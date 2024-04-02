@@ -58,6 +58,7 @@ section {
   background-color: #524a4a; /* 구매하기 버튼의 배경색 */
   color: white;
   cursor: pointer;
+  white-space: 123213;
 }
 
 /* 찜하기 버튼의 스타일 */
