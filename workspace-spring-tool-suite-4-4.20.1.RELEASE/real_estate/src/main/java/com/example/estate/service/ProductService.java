@@ -16,22 +16,20 @@ public class ProductService {
     private ProductRepository productRepository;
 
     @Transactional
-    public void saveProduct(byte[] productImage, String productName, String infomation, int productPrice) {
+    public void saveProduct(byte[] productImage, String productName, String information, int productPrice, String companyName, int productStuck, String productSize) {
         try {
             Product product = new Product();
             product.setProductName(productName);
-            product.setInfomation(infomation);
+            product.setInformation(information);
             product.setProductPrice(productPrice);
-
-            // Product 엔터티에 이미지 파일 저장
+            product.setCompanyName(companyName);
+            product.setProductStuck(productStuck);
+            product.setProductSize(productSize);
             product.setProductImage(productImage);
-
-            // Product 엔터티를 저장
             productRepository.save(product);
         } catch (Exception e) {
-            // 예외 처리
             e.printStackTrace();
-            throw new RuntimeException("이미지 저장 실패");
+            throw new RuntimeException("상품 저장 실패");
         }
     }
 
@@ -42,7 +40,7 @@ public class ProductService {
             if (product != null) {
                 return product.getProductImage();
             }
-            return null; // 해당하는 제품이 없는 경우 null 반환
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("이미지 가져오기 실패");
@@ -59,4 +57,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    @Transactional
+    public void incrementViewCount(Long productCode) {
+        Product product = productRepository.findByProductCode(productCode);
+        if (product != null) {
+            product.setViewCount(product.getViewCount() + 1);
+            productRepository.save(product);
+        }
+    }
 }

@@ -1,0 +1,93 @@
+.content {
+  display: flex;
+  flex-grow: 1; /* article과 section이 남은 공간을 차지하도록 설정 */
+}
+
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+nav ul li {
+  margin-bottom: 10px;
+}
+
+nav ul li a {
+  text-decoration: none;
+  color: #000;
+}
+
+article {
+  height: 10em;
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  padding: 20px;
+  flex-direction: column;
+  border-bottom: 2px solid #000000; /* th 아래쪽에 2px 두께의 회색 선 추가 */
+}
+
+article h2 {
+  align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+article ul {
+  align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+section {
+  flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  padding: 20px;
+}
+
+img {
+  width: 100px; /* 이미지의 너비를 100px로 설정합니다. */
+  height: auto; /* 높이를 자동으로 설정하여 이미지의 가로세로 비율을 유지합니다. */
+}
+
+/* CSS */
+table {
+  border-collapse: collapse; /* 테이블 셀 경계를 합침 */
+  width: 100%;
+}
+
+th,
+td {
+  border: 1px solid #ddd; /* 모든 셀에 회색 테두리 추가 */
+  padding: 8px; /* 셀 내부 여백 설정 */
+  text-align: left; /* 텍스트를 왼쪽 정렬 */
+}
+
+th {
+  background-color: #f2f2f2; /* th 배경색 지정 */
+}
+
+/* 첫 번째 th와 마지막 th의 간격 설정 */
+th:first-child {
+  border-right: 1px solid #ddd; /* 첫 번째 th 우측에 선 추가 */
+}
+
+th:last-child {
+  border-left: 1px solid #ddd; /* 마지막 th 좌측에 선 추가 */
+}
+
+/* th 위 아래에 각각 선 추가 */
+th {
+  border-top: 2px solid #ddd; /* th 위쪽에 2px 두께의 회색 선 추가 */
+  border-bottom: 2px solid #ddd; /* th 아래쪽에 2px 두께의 회색 선 추가 */
+}
+
+/* th 간의 간격 설정 */
+th + th {
+  padding-left: 20px; /* 두 번째 th부터 왼쪽 여백 추가 */
+}
+
+.sidebar {
+  float: left;
+  width: 200px;
+  height: 850px;
+  border: 1px solid gray;
+}

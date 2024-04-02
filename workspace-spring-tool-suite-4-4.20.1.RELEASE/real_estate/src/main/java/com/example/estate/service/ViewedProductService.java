@@ -14,4 +14,14 @@ import java.util.List;
 @Service
 public class ViewedProductService {
 
+    @Autowired
+    private ViewedProductRepository viewedProductRepository;
+
+    @Transactional
+    public void saveViewedProduct(User user, Product product) {
+        ViewedProduct viewedProduct = new ViewedProduct();
+        viewedProduct.setUser(user);
+        viewedProduct.setProduct(product);
+        viewedProductRepository.save(viewedProduct);
+    }
 }
