@@ -1,0 +1,61 @@
+/*GNB라인*/
+
+#gnb {
+  padding: 20px;
+  margin: 30px 30px; /* 1번쨰는 크기가크면 아래로 2번째는 양옆 */
+}
+
+#gnb ul {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+#gnb li {
+  margin-right: 15px;
+  position: relative;
+}
+
+#gnb li:hover ul {
+  display: block;
+}
+
+#gnb a {
+  text-decoration: none;
+  color: #4d4d4d;
+  font-weight: bold;
+  font-size: 16px; /* 폰트 크기를 18px로 조정 */
+  margin-right: 40px; /* 링크 사이 간격을 조정 */
+}
+
+#gnb a:hover {
+  color: #ff0000;
+}
+
+/* 서브 메뉴 스타일 */
+#gnb ul ul {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1;
+}
+
+#gnb ul ul li {
+  margin: 0;
+}
+
+/* 서브 메뉴 각 항목 스타일 */
+#gnb ul ul a {
+  color: #333;
+}
+
+#gnb ul ul a:hover {
+  color: #ff0000;
+}
+
+/*GNB라인 끝*/

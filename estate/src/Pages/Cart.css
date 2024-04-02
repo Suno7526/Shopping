@@ -27,7 +27,6 @@ h1 {
   margin: 10px 0; /* 상하로 10px 마진 */
 }
 
-
 #gnb ul {
   list-style-type: none;
   display: flex;
@@ -147,7 +146,6 @@ h1 {
   margin-right: 100px; /* 우측 마진을 추가하여 간격을 설정합니다 */
 }
 
-
 .product-line {
   display: flex; /* 요소들을 가로로 정렬 */
   justify-content: space-between; /* 요소들 사이의 여백을 최대로 설정하여 양쪽 끝에 정렬 */
@@ -187,7 +185,7 @@ h1 {
   margin-left: 20em;
 }
 
-.delete-all-btn{
+.delete-all-btn {
   margin-top: 30px;
   padding: 19px 50px; /* 버튼 내부 여백을 조정하여 크기를 키웁니다 */
   font-size: 18px;
@@ -212,7 +210,6 @@ h1 {
 .delete-item-btn:hover {
   color: darkred;
 }
-
 
 footer {
   position: absolute; /* 페이지 하단에 고정 */

@@ -40,6 +40,10 @@ const Cart = () => {
 
   return (
     <div>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>메인페이지</title>
+
       <div id="cart">
         <h2>장바구니</h2>
         {cartItems && cartItems.length > 0 ? (
@@ -63,9 +67,6 @@ const Cart = () => {
           <p>장바구니가 비어 있습니다.</p>
         )}
       </div>
-      <footer>
-        <p>© 기타 문의 바람.</p>
-      </footer>
     </div>
   );
 };

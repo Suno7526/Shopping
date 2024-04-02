@@ -1,15 +1,10 @@
 // Header.jsx
 import React from 'react';
+import './Header.css'; // 스타일 파일 import
 
 const Header = () => {
   return (
     <div>
-      <header>
-        <div id="branding">
-          <h1>옷옷장</h1>
-        </div>
-      </header>
-
       <header>
         <nav id="gnb">
           <ul>
