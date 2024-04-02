@@ -95,11 +95,11 @@ const Product = () => {
             </div>
             <div className="grid-item">판매가 : {product.productPrice}</div>
             <div className="grid-item">제조사 : {product.companyName}</div>
-            <div className="grid-item">SIZE : {product.productSize}</div>
             <div className="grid-item">상품 재고 : {product.productStuck}</div>
             <div className="grid-item">
               등록 날짜 : {formatRegisterDate(product.registerDate)}
             </div>
+            <div className="grid-item">SIZE : {product.productSize}</div>
             <div className="grid-item">별점 : {product.userPoint}</div>
 
             {/* 버튼 추가 */}
@@ -119,18 +119,18 @@ const Product = () => {
       <hr></hr>
 
       {/* 상품 재고 라인 */}
-      <div class="product-container">
+      <div className="product-container">
         <section>
-          <div class="product-card">
-            <div class="grid-item">상품 설명</div>
+          <div className="product-card">
+            <div className="grid-item">상품 설명</div>
           </div>
         </section>
       </div>
 
-      <div class="review">
+      <div className="review">
         <section id="review">
-          <div class="review-card">
-            <div class="grid-item">상품 리뷰</div>
+          <div className="review-card">
+            <div className="grid-item">상품 리뷰</div>
           </div>
         </section>
       </div>

@@ -8,6 +8,6 @@ import com.example.estate.entity.Cart;
 
 public interface CartRepository extends JpaRepository<Cart, Long>{
 	Cart findByCartCode(Long CartCode);
-
+	
 	List<Cart> findByUserUserCode(Long userCode); // findByUserUserCode 메서드 추가
 }
