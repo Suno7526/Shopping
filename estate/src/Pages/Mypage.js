@@ -80,9 +80,6 @@ const Mypage = () => {
           </tbody>
         </table>
       </section>
-      <footer>
-        <p>&copy; 2024 Footer. All rights reserved.</p>
-      </footer>
     </div>
   );
 };
