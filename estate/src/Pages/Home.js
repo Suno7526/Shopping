@@ -1,6 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import Header from '../Components/Header';
 import './Home.css'; // 외부  시트 불러오기
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
