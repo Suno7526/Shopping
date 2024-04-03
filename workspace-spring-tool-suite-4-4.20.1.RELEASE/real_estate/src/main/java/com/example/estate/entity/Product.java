@@ -40,6 +40,9 @@ public class Product {
     @Column
     private String companyName;
     
+    @Column
+    private String category;
+    
     @Column(nullable = false, columnDefinition = "int default 0")
     private int viewCount;
 
