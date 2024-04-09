@@ -86,7 +86,7 @@ const Cart = () => {
                 onDelete={handleDeleteItem} // 수정된 삭제 함수 전달
               />
             ))}
-            <button className="buy-btn">구매하기</button>
+            <button className="buy-btn">주문하기</button>
             <button className="delete-all-btn" onClick={handleDeleteAll}>
               품목 전체 삭제
             </button>
