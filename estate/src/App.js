@@ -8,9 +8,12 @@ import ProductJoin from './Pages/ProductJoin';
 import Cart from './Pages/Cart';
 import Product from './Pages/Product';
 import Mypage from './Pages/Mypage';
+import RecentItem from './Pages/RecentItem';
 import Header from './Components/Header';
 import { useState, useEffect } from 'react';
 import Footer from './Components/Footer';
+import Body from './Components/Body';
+import Question from './Pages/Question';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -20,43 +23,12 @@ function App() {
   }, []); // 페이지 로드시 한 번만 실행되도록 빈 배열 전
   return (
     <BrowserRouter>
-      <div className="tab-menu">
-        <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
-        <div id="Company">NONAME</div>
-        {/* 기존 탭 메뉴 */}
-        <Link to="/ProductJoin" className="tab-menu-link">
-          상품등록
-        </Link>
-        <Link to="/Home" className="tab-menu-link">
-          홈
-        </Link>
-        <Link to="/Join" className="tab-menu-link">
-          회원가입
-        </Link>
-        <Link to="/Cart" className="tab-menu-link">
-          장바구니
-        </Link>
-        <Link to="/Mypage" className="tab-menu-link">
-          마이페이지
-        </Link>
-        {/* 로그인 링크 */}
-        <div className="tab-menu-login">
-          {isLogin ? (
-            <Link to={`/MyPage`} className="nav-link">
-              {sessionStorage.getItem('userEmail')}
-              <br />
-            </Link>
-          ) : (
-            <Link to={`/UserLogin`} className="nav-link">
-              Login
-            </Link>
-          )}
-        </div>
-      </div>
-
       <Header />
 
+      <Body />
+
       <Routes>
+        <Route path="/RecentItem" element={<RecentItem />} />
         <Route path="/UserLogin" element={<UserLogin />} />
         <Route path="/Join" element={<Join />} />
         <Route path="/Home" element={<Home />} />
@@ -64,6 +36,7 @@ function App() {
         <Route path="/product/:productCode" element={<Product />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Mypage" element={<Mypage />} />
+        <Route path="/Question" element={<Question />} />
       </Routes>
       <Footer />
     </BrowserRouter>

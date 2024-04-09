@@ -108,40 +108,6 @@ h1 {
   outline: none;
 }
 
-/*프로젝트 명*/
-#Company {
-  color: #e6a15c;
-  font-size: 30px;
-  position: absolute;
-  padding: 30px;
-  font-weight: bold;
-}
-
-/* Tab Menu */
-
-/* Container for tab menu */
-.tab-menu {
-  background-color: #232a3f; /* 배경색을 검은색으로 변경 */
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* 탭을 왼쪽으로 정렬 */
-}
-
-/* Individual tab styles */
-.tab-menu-link {
-  padding: 40px 20px;
-  margin: 0 25px;
-  text-decoration: none;
-  color: #8f98b3; /* Default color */
-  border: 1px solid transparent;
-  border-radius: 5px;
-  line-height: calc(11px * 4); /* 기본 단위 사용 */
-  text-transform: uppercase;
-  transition: color 0.2s; /* 색상 변화에 대한 transition */
-  position: relative; /* 하위 요소의 위치 지정을 위해 relative로 설정 */
-  font-size: 18px;
-}
-
 .nav-link {
   text-decoration: none;
   padding: 10px 40px;
@@ -157,32 +123,11 @@ h1 {
   color: #232a3f;
 }
 
-.tab-menu-login {
-  margin-right: 50px;
-  margin-left: 12em; /* 로그인 링크와 탭 메뉴 사이의 간격 조절 */
-}
-
-.tab-menu-login a {
-  text-decoration: none;
-  padding: 10px 40px; /* 버튼 크기 조절 */
-  background-color: transparent;
-  color: #e6a15c; /* 버튼의 텍스트 색상 */
-  border: 2px solid #e6a15c; /* 버튼의 테두리 스타일 및 색상 */
-  border-radius: 10px; /* 버튼의 둥근 모서리 설정 */
+/*프로젝트 명*/
+#Company {
+  color: #e6a15c;
+  font-size: 30px;
+  position: absolute;
+  padding: 30px;
   font-weight: bold;
-}
-
-.tab-menu-login a:hover {
-  background-color: #e6a15c; /* hover 상태일 때 배경색 */
-  color: #232a3f; /* hover 상태일 때 글자색 */
-}
-
-.tab-menu-indicator {
-  position: absolute; /* 절대 위치로 설정하여 부모 요소에 상대적으로 배치 */
-  bottom: 0; /* 하단으로 정렬 */
-  left: 0; /* 좌측 정렬 */
-  height: 2px; /* 초기 높이 */
-  background-color: #8f98b3; /* 인디케이터 색상은 기본 값으로 유지 */
-  transition: width 0.2s, background-color 0.2s; /* 너비와 배경색의 변화에 대한 transition */
-  width: 0; /* 초기 너비를 0으로 설정하여 시작 시 선이 표시되지 않도록 함 */
 }

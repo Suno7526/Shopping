@@ -1,4 +1,3 @@
-/* CSS */
 .content {
   display: flex;
   flex-grow: 1; /* article과 section이 남은 공간을 차지하도록 설정 */
@@ -19,6 +18,7 @@ nav ul li a {
 }
 
 article {
+  height: 10em;
   display: flex;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
@@ -63,10 +63,9 @@ td {
 
 th {
   background-color: #f2f2f2; /* th 배경색 지정 */
-  border-top: 2px solid #ddd; /* th 위쪽에 2px 두께의 회색 선 추가 */
-  border-bottom: 2px solid #ddd; /* th 아래쪽에 2px 두께의 회색 선 추가 */
 }
 
+/* 첫 번째 th와 마지막 th의 간격 설정 */
 th:first-child {
   border-right: 1px solid #ddd; /* 첫 번째 th 우측에 선 추가 */
 }
@@ -75,24 +74,13 @@ th:last-child {
   border-left: 1px solid #ddd; /* 마지막 th 좌측에 선 추가 */
 }
 
+/* th 위 아래에 각각 선 추가 */
+th {
+  border-top: 2px solid #ddd; /* th 위쪽에 2px 두께의 회색 선 추가 */
+  border-bottom: 2px solid #ddd; /* th 아래쪽에 2px 두께의 회색 선 추가 */
+}
+
+/* th 간의 간격 설정 */
 th + th {
   padding-left: 20px; /* 두 번째 th부터 왼쪽 여백 추가 */
-}
-
-.sidebar {
-  position: relative;
-  float: left;
-  width: 200px;
-  height: 500px;
-  border: 1px solid gray;
-}
-
-.sidebar button {
-  padding: 20px 1px;
-  margin-bottom: 10px;
-  color: #232a3f;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: transparent;
 }

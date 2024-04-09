@@ -120,7 +120,7 @@ const Home = () => {
                     style={{
                       width: '12em',
                       height: '12em',
-                    }} /* 100%으로 하지마셈 이미지가 가이드랑 같이 커짐*/
+                    }}
                     onClick={() => handleClickProduct(product.productCode)}
                   />
                 </Link>
@@ -130,19 +130,19 @@ const Home = () => {
                     <strong>상품명:</strong> {product.productName}
                   </p>
                   <p>
-                    <strong>설명:</strong> {product.description}
+                    <strong>설명:</strong> {product.information}
                   </p>
                   <p>
-                    <strong>회사명:</strong> {product.company}
+                    <strong>회사명:</strong> {product.companyName}
                   </p>
                   <p>
-                    <strong>재고:</strong> {product.stock}
+                    <strong>재고:</strong> {product.productStuck}
                   </p>
                   <p>
-                    <strong>제품 크기:</strong> {product.size}
+                    <strong>제품 크기:</strong> {product.productSize}
                   </p>
                   <p>
-                    <strong></strong> ₩{product.price}
+                    <strong></strong> ₩{product.productPrice}
                   </p>
                 </div>
               </div>

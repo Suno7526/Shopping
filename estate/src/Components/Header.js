@@ -1,10 +1,62 @@
 // Header.jsx
 import React from 'react';
 import './Header.css'; // 스타일 파일 import
+import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
+  const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
+
+  useEffect(() => {
+    setIsLogin(sessionStorage.getItem('userEmail') !== null);
+  }, []); // 페이지 로드시 한 번만 실행되도록 빈 배열 전
   return (
     <div>
+      <div className="tab-menu">
+        <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
+        <div id="Company">NONAME</div>
+        {/* 기존 탭 메뉴 */}
+        <Link to="/ProductJoin" className="tab-menu-link">
+          상품등록
+        </Link>
+        <Link to="/Home" className="tab-menu-link">
+          홈
+        </Link>
+        <Link to="/Join" className="tab-menu-link">
+          회원가입
+        </Link>
+        <Link to="/Cart" className="tab-menu-link">
+          장바구니
+        </Link>
+        <Link to="/Mypage" className="tab-menu-link">
+          마이페이지
+        </Link>
+        {/* 로그인 링크 */}
+        <div className="tab-menu-login">
+          {isLogin ? (
+            <React.Fragment>
+              <Link to={`/MyPage`} className="nav-link">
+                {sessionStorage.getItem('userEmail')}
+                <br />
+              </Link>
+              <button
+                className="sign-out-button"
+                onClick={() => {
+                  // Handle sign out logic
+                  sessionStorage.removeItem('userEmail');
+                  setIsLogin(false);
+                }}
+              >
+                Sign Out 🚪
+              </button>
+            </React.Fragment>
+          ) : (
+            <Link to={`/UserLogin`} className="nav-link">
+              Sign In
+            </Link>
+          )}
+        </div>
+      </div>
       <header>
         <nav id="gnb">
           <ul>
@@ -12,31 +64,22 @@ const Header = () => {
               <a href="#outer">OUTER</a>
               <ul>
                 <li>
-                  <a href="#jacket">후드 집업</a>
+                  <a href="#jacket">자킷</a>
                 </li>
                 <li>
-                  <a href="#jumper">재킷</a>
+                  <a href="#zip-up">집업</a>
                 </li>
                 <li>
-                  <a href="#coat">무스탕/퍼</a>
+                  <a href="#jumper">점퍼</a>
                 </li>
                 <li>
-                  <a href="#fur">카디건</a>
+                  <a href="#coat">코트</a>
                 </li>
                 <li>
-                  <a href="#fur">플리스/뽀글이</a>
+                  <a href="#padding">패딩 / 파카</a>
                 </li>
                 <li>
-                  <a href="#fur">재킷</a>
-                </li>
-                <li>
-                  <a href="#fur">환절기 코트</a>
-                </li>
-                <li>
-                  <a href="#fur">겨울 코트</a>
-                </li>
-                <li>
-                  <a href="#fur">패딩/헤비 아우터</a>
+                  <a href="#fur">모피 / 머스탱</a>
                 </li>
               </ul>
             </li>
@@ -44,22 +87,25 @@ const Header = () => {
               <a href="#top">TOP</a>
               <ul>
                 <li>
-                  <a href="#sleeveless">후드 티셔츠</a>
+                  <a href="#sleeveless">민소매 / 조끼</a>
                 </li>
                 <li>
-                  <a href="#short-tee">니트/스웨터</a>
+                  <a href="#short-tee">반팔 티</a>
                 </li>
                 <li>
-                  <a href="#long-tee">맨투맨/스웨트셔츠</a>
+                  <a href="#long-tee">긴팔 티</a>
                 </li>
                 <li>
-                  <a href="#shirts">티셔츠</a>
+                  <a href="#shirts">셔츠</a>
                 </li>
                 <li>
-                  <a href="#crewneck">셔츠/블라우스</a>
+                  <a href="#crewneck">크루 넥</a>
                 </li>
                 <li>
-                  <a href="#hoodie">스포츠 상의</a>
+                  <a href="#knit">니트</a>
+                </li>
+                <li>
+                  <a href="#hoodie">후드</a>
                 </li>
               </ul>
             </li>
@@ -67,22 +113,16 @@ const Header = () => {
               <a href="#bottom">BOTTOM</a>
               <ul>
                 <li>
-                  <a href="#short-pants">데님 팬츠</a>
+                  <a href="#short-pants">반바지</a>
                 </li>
                 <li>
-                  <a href="#sweat-pants">코튼 팬츠</a>
+                  <a href="#sweat-pants">츄리닝</a>
                 </li>
                 <li>
-                  <a href="#long-pants">슈트 팬츠/슬랙스</a>
+                  <a href="#long-pants">긴바지</a>
                 </li>
                 <li>
-                  <a href="#skirt">점프 슈트/오버올</a>
-                </li>
-                <li>
-                  <a href="#skirt">스포츠 하의</a>
-                </li>
-                <li>
-                  <a href="#skirt">기타 바지</a>
+                  <a href="#skirt">치마</a>
                 </li>
               </ul>
             </li>
@@ -90,22 +130,19 @@ const Header = () => {
               <a href="#headwear">HEADWEAR</a>
               <ul>
                 <li>
-                  <a href="#cap">캡/야구모자</a>
+                  <a href="#cap">캡</a>
                 </li>
                 <li>
-                  <a href="#bucket-hat">헌팅캡/베레모</a>
+                  <a href="#bucket-hat">버킷햇</a>
                 </li>
                 <li>
-                  <a href="#snapback">페도라</a>
+                  <a href="#snapback">스냅백</a>
                 </li>
                 <li>
-                  <a href="#beanie">버킷/사파리햇</a>
+                  <a href="#beanie">비니</a>
                 </li>
                 <li>
-                  <a href="#ㅇ">비니</a>
-                </li>
-                <li>
-                  <a href="#ㅇ">기타모자</a>
+                  <a href="#etc">기타..</a>
                 </li>
               </ul>
             </li>

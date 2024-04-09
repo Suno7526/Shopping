@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import './ProductJoin.css'; // 외부 스타일 시트 불러오기
 
 const ProductJoin = () => {
   const [productData, setProductData] = useState({
@@ -9,7 +10,8 @@ const ProductJoin = () => {
     productPrice: '',
     companyName: '',
     productStuck: '',
-    productSize: '', // 추가: 제품 크기
+    productSize: '',
+    category: '',
   });
 
   const [productImage, setProductImage] = useState(null);
@@ -35,7 +37,8 @@ const ProductJoin = () => {
         !productData.productPrice ||
         !productData.companyName ||
         !productData.productStuck ||
-        !productData.productSize || // 추가: 제품 크기 필수
+        !productData.productSize ||
+        !productData.category ||
         !productImage
       ) {
         alert(
@@ -50,7 +53,8 @@ const ProductJoin = () => {
       formData.append('productPrice', productData.productPrice);
       formData.append('companyName', productData.companyName);
       formData.append('productStuck', productData.productStuck);
-      formData.append('productSize', productData.productSize); // 추가: 제품 크기
+      formData.append('productSize', productData.productSize);
+      formData.append('category', productData.category);
       formData.append('productImage', productImage);
 
       const response = await axios.post(
@@ -76,93 +80,8 @@ const ProductJoin = () => {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>매물 등록</title>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-    /* 스타일링을 원하는 대로 수정하세요 */
-    body {
-        font-family: 'Noto Sans KR', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-        color: #333;
-    }
 
-    #branding {
-        color: #4a9fff;
-        font-size: 30px;
-        margin: 10px;
-        text-align: center;
-    }
-
-    #property-form {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: left;
-        margin: 20px auto;
-        width: 40%; /* 전체 너비의 n%로 조정 */
-    }
-
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-    }
-
-    input, textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        box-sizing: border-box;
-    }
-
-    textarea {
-        resize: vertical; /* 수직 크기 조절 가능 */
-    }
-
-    h2 {
-        font-size: 20px;
-        margin-top: 15px;
-    }
-
-    .price-info-form, .detail-info-form, .description-form {
-        margin-top: 20px;
-        border-top: 1px solid #ccc; /* 상단 경계선 추가 */
-        padding-top: 20px; /* 상단 패딩 추가 */
-    }
-
-    button {
-        background-color: #4a9fff;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        display: block;
-        margin: 0 auto; /* 가운데 정렬 */
-    }
-
-    .detail-info-form input {
-        margin-top: 5px;
-    }
-
-    .gray-text {
-        color: #888;
-    }
-
-    #property-image-preview {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        margin-top: 20px;
-    }
-`,
-        }}
-      />
-
-      <div id="property-form">
+      <div id="propertyform">
         <form encType="multipart/form-data">
           <label htmlFor="productName">상품명:</label>
           <input
@@ -216,6 +135,46 @@ const ProductJoin = () => {
             value={productData.productSize}
             onChange={handleInputChange}
           />
+
+          <label htmlFor="category">상품 카테고리:</label>
+          <select
+            id="category"
+            name="category"
+            value={productData.category}
+            onChange={handleInputChange}
+          >
+            <option value="">카테고리를 선택하세요</option>
+            <optgroup label="아우터">
+              <option value="재킷">재킷</option>
+              <option value="집업">집업</option>
+              <option value="점퍼">점퍼</option>
+              <option value="코트">코트</option>
+              <option value="패딩/파카">패딩/파카</option>
+              <option value="모피/머스탱">모피/머스탱</option>
+            </optgroup>
+            <optgroup label="상의">
+              <option value="민소매/조끼">민소매/조끼</option>
+              <option value="반팔 티">반팔 티</option>
+              <option value="긴팔 티">긴팔 티</option>
+              <option value="셔츠">셔츠</option>
+              <option value="크루 넥">크루 넥</option>
+              <option value="니트">니트</option>
+              <option value="후드">후드</option>
+            </optgroup>
+            <optgroup label="하의">
+              <option value="반바지">반바지</option>
+              <option value="츄리닝">츄리닝</option>
+              <option value="긴바지">긴바지</option>
+              <option value="치마">치마</option>
+            </optgroup>
+            <optgroup label="모자">
+              <option value="캡">캡</option>
+              <option value="버킷햇">버킷햇</option>
+              <option value="스냅백">스냅백</option>
+              <option value="비니">비니</option>
+              <option value="기타..">기타..</option>
+            </optgroup>
+          </select>
 
           <div id="property-details">
             <label htmlFor="productImage">사진 업로드:</label>

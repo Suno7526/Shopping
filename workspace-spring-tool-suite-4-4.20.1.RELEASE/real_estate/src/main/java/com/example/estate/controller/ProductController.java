@@ -28,10 +28,12 @@ public class ProductController {
                                               @RequestParam("productPrice") int productPrice,
                                               @RequestParam("companyName") String companyName,
                                               @RequestParam("productStuck") int productStuck,
-                                              @RequestParam("productSize") String productSize) {
+                                              @RequestParam("category") String category,
+                                              @RequestParam("productSize") String productSize
+                                              ) {
         try {
             byte[] imageBytes = productImage.getBytes();
-            productService.saveProduct(imageBytes, productName, information, productPrice, companyName, productStuck, productSize);
+            productService.saveProduct(imageBytes, productName, information, productPrice, companyName, productStuck, category, productSize);
             return new ResponseEntity<>("상품 등록 성공", HttpStatus.OK);
         } catch (IOException e) {
             e.printStackTrace();

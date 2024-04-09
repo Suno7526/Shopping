@@ -1,0 +1,92 @@
+.content {
+  display: flex;
+  flex-grow: 1; /* article과 section이 남은 공간을 차지하도록 설정 */
+}
+
+article {
+  height: 10em;
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  padding: 20px;
+  flex-direction: column;
+  border-bottom: 2px solid #000000; /* th 아래쪽에 2px 두께의 회색 선 추가 */
+}
+
+article h4 {
+  align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+article ul {
+  align-self: flex-start; /* 왼쪽 정렬 */
+}
+
+section {
+  flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  padding: 20px;
+}
+
+.question-form {
+  font-size: 13px;
+  margin-bottom: 5em;
+  margin-left: 3em;
+}
+
+.additional-buttons {
+  margin-top: 3em; /* 상단 여백 설정 */
+  margin-bottom: 3em;
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
+  position: relative;
+}
+
+.best-faq {
+  position: absolute;
+  top: -40px; /* inquiryOptions와의 간격 조정 */
+  right: 25em;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+#inquiryOptions {
+  margin-left: 9em; /* select 요소와 추가 버튼 사이의 간격 조정 */
+}
+
+.additional-buttons button {
+  margin: 0 10px; /* 버튼 간격 설정 */
+  padding: 5px 10px; /* 버튼 내부 여백 설정 */
+  border: solid 1px #232a3f; /* 테두리 제거 */
+  border-radius: 5px; /* 둥근 모서리 설정 */
+  background-color: transparent; /* 배경색 설정 */
+  color: #232a3f; /* 글자색 설정 */
+  cursor: pointer; /* 커서 모양 설정 */
+}
+
+.listbox {
+  margin-left: auto; /* div를 오른쪽으로 이동시킴 */
+}
+
+.quest {
+  margin-left: 1.5em;
+  width: 300px;
+}
+
+button[type='submit'] {
+  padding: 10px 20px;
+  background-color: #232a3f;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 5.2em;
+
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+button[type='submit']:hover {
+  background-color: #e6a15c;
+}
