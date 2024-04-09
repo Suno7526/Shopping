@@ -1,5 +1,7 @@
 .footer {
-  position: relative; /* relative로 변경 */
+  position: sticky;
+  bottom: 0; /* 페이지 하단에 배치합니다. */
+  width: 100%; /* 페이지 가로 전체에 걸쳐 표시됩니다. */
 }
 
 .horizontal-line {

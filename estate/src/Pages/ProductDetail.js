@@ -39,7 +39,6 @@ const ProductDetail = () => {
         alt={product.productName}
       />
 
-
       {/* 메인 이미지 칸 */}
 
       <div className="container">
@@ -85,10 +84,6 @@ const ProductDetail = () => {
           </div>
         </section>
       </div>
-
-      <footer>
-        <p>© 기타 문의 바람.</p>
-      </footer>
     </div>
   );
 };

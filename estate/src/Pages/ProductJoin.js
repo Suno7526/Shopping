@@ -218,6 +218,46 @@ const ProductJoin = () => {
             onChange={handleInputChange}
           />
 
+          <label htmlFor="productCategory">상품 카테고리:</label>
+          <select
+            id="productCategory"
+            name="productCategory"
+            value={productData.productCategory}
+            onChange={handleInputChange}
+          >
+            <option value="">카테고리를 선택하세요</option>
+            <optgroup label="아우터">
+              <option value="재킷">재킷</option>
+              <option value="집업">집업</option>
+              <option value="점퍼">점퍼</option>
+              <option value="코트">코트</option>
+              <option value="패딩/파카">패딩/파카</option>
+              <option value="모피/머스탱">모피/머스탱</option>
+            </optgroup>
+            <optgroup label="상의">
+              <option value="민소매/조끼">민소매/조끼</option>
+              <option value="반팔 티">반팔 티</option>
+              <option value="긴팔 티">긴팔 티</option>
+              <option value="셔츠">셔츠</option>
+              <option value="크루 넥">크루 넥</option>
+              <option value="니트">니트</option>
+              <option value="후드">후드</option>
+            </optgroup>
+            <optgroup label="하의">
+              <option value="반바지">반바지</option>
+              <option value="츄리닝">츄리닝</option>
+              <option value="긴바지">긴바지</option>
+              <option value="치마">치마</option>
+            </optgroup>
+            <optgroup label="모자">
+              <option value="캡">캡</option>
+              <option value="버킷햇">버킷햇</option>
+              <option value="스냅백">스냅백</option>
+              <option value="비니">비니</option>
+              <option value="기타..">기타..</option>
+            </optgroup>
+          </select>
+
           <div id="property-details">
             <label htmlFor="productImage">사진 업로드:</label>
             <input
