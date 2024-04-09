@@ -125,43 +125,28 @@
 
 .guides-section {
   display: flex;
-  justify-content: center; /* 가로 중앙 정렬 */
-  align-items: center; /* 세로 중앙 정렬 */
+  flex-wrap: wrap; /* 요소들이 넘칠 경우 다음 줄로 넘어가도록 설정 */
+  justify-content: flex-start; /* 왼쪽부터 정렬 */
+  align-items: flex-start; /* 위쪽부터 정렬 */
 }
 
 .guides-card {
-  width: 200px; /* guides-card의 가로 길이를 늘립니다. */
-  height: 350px; /* guides-card의 세로 길이를 늘립니다. */
-  border: 1px solid #ddd;
+  width: calc(
+    20% - 30px
+  ); /* 한 줄에 5개씩 배치되도록 너비를 조정 (마진값을 고려하여 계산) */
+  height: 350px;
   margin: 15px;
   padding: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
   cursor: pointer;
-  position: relative; /* 상위 요소로부터의 상대적인 위치 설정 */
+  position: relative;
   font-size: 14px;
 }
 
 .guides-card img {
   /*크기는 .js에서 바꿔야됩니다*/
   object-fit: cover; /* 이미지를 guides-card에 꽉 채워서 잘리지 않고 비율 유지하도록 설정 */
-}
-
-/* 순위 지정을 위한 추가적인 스타일 */
-.guides-card:nth-child(1) {
-  order: 4; /* guides-section 내에서 가장 왼쪽에 위치할 순위 */
-}
-
-.guides-card:nth-child(2) {
-  order: 3; /* 2번째로 왼쪽에 위치할 순위 */
-}
-
-.guides-card:nth-child(3) {
-  order: 2; /* 3번째로 왼쪽에 위치할 순위 */
-}
-
-.guides-card:nth-child(4) {
-  order: 1; /* 가장 오른쪽에 위치할 순위 */
 }
 
 .guides-card::before {

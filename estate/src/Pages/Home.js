@@ -39,7 +39,11 @@ const Home = () => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:8000/getProducts');
-        setProducts(response.data);
+        // viewCount 기준으로 상품 정렬
+        const sortedProducts = response.data.sort(
+          (a, b) => b.viewCount - a.viewCount,
+        );
+        setProducts(sortedProducts);
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
       }
@@ -106,10 +110,10 @@ const Home = () => {
 
         <div id="guides-properties">
           <div className="guides-section">
-            {products.map((product) => (
+            {products.map((product, index) => (
               <div
                 className="guides-card"
-                data-rank={product.productCode}
+                data-rank={index + 1}
                 key={product.productCode}
               >
                 <Link to={`/product/${product.productCode}`}>
@@ -143,6 +147,9 @@ const Home = () => {
                   </p>
                   <p>
                     <strong></strong> ₩{product.productPrice}
+                  </p>
+                  <p>
+                    <strong>조회수:</strong> {product.viewCount}
                   </p>
                 </div>
               </div>
