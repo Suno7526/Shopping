@@ -1,0 +1,86 @@
+/* 회원가입 컨테이너 스타일 */
+#signup-container {
+  margin: 20px auto; /* 가운데 정렬을 위해 마진 설정 */
+  text-align: left;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+/* 회원가입 제목 스타일 */
+#signup-heading {
+  font-size: 2em;
+  font-weight: bold;
+  color: #50bcdf;
+  margin-bottom: 20px;
+}
+
+/* 입력 필드 공통 스타일 */
+input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  display: inline-block;
+}
+
+/* 전화번호와 생년월일 컨테이너 스타일 */
+.date-container,
+#phone-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  align-items: flex-start;
+}
+
+/* 전화번호 입력 필드 및 생년월일 선택 필드 스타일 */
+.date-container select,
+#phone-container input {
+  width: calc(50% - 5px);
+  box-sizing: border-box;
+}
+
+/* 가입하기, 가입취소 버튼 공통 스타일 */
+#signup-button,
+#cancel-button {
+  color: white;
+  font-family: sans-serif;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1em;
+  width: 45%;
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+/* 가입하기 버튼 스타일 */
+#signup-button {
+  background-color: #0066cc;
+  margin-right: 5%;
+}
+
+/* 가입취소 버튼 스타일 */
+#cancel-button {
+  background-color: #cccccc;
+}
+
+/* 생년월일과 전화번호 레이블 컨테이너 스타일 */
+.date-label-container,
+#phone-label-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+/* 생년월일과 전화번호 각 레이블 스타일 */
+.date-label-container label,
+#phone-label-container label {
+  width: calc(33.33% - 5px);
+}

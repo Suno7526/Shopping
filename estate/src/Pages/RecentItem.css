@@ -84,20 +84,3 @@ th {
 th + th {
   padding-left: 20px; /* 두 번째 th부터 왼쪽 여백 추가 */
 }
-
-.sidebar {
-  float: left;
-  width: 200px;
-  height: 600px;
-  border: 1px solid gray;
-}
-
-.sidebar button {
-  padding: 20px 1px;
-  margin-bottom: 10px;
-  color: #232a3f;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: transparent;
-}

@@ -56,7 +56,7 @@ const Question = () => {
           </li>
         </ul>
       </article>
-      <form>
+      <form className="question-form">
         <div className="additional-buttons">
           {/* inquiryOptions 위에 Best FAQ 추가 */}
           <div className="best-faq">Best FAQ</div>
@@ -147,7 +147,12 @@ const Question = () => {
 
         <div>
           <label htmlFor="message">메시지</label>
-          <textarea id="message" name="message" rows="4"></textarea>
+          <textarea
+            id="message"
+            name="message"
+            rows="4"
+            className="quest"
+          ></textarea>
         </div>
         {/* 전송 버튼의 type을 button으로 변경 */}
         <button type="button" onClick={handleSubmit}>

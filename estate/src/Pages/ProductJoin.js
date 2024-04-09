@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import './ProductJoin.css'; // 외부 스타일 시트 불러오기
 
 const ProductJoin = () => {
   const [productData, setProductData] = useState({
@@ -76,94 +77,8 @@ const ProductJoin = () => {
       <meta charSet="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>매물 등록</title>
-      <style
-        dangerouslySetInnerHTML={{
-          __html: `
-    /* 스타일링을 원하는 대로 수정하세요 */
-    body {
-        font-family: 'Noto Sans KR', sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f5f5f5;
-        color: #333;
-    }
 
-    #branding {
-        color: #4a9fff;
-        font-size: 30px;
-        margin: 10px;
-        text-align: center;
-    }
-
-    #property-form {
-        background-color: #fff;
-        padding: 30px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        text-align: left;
-        margin: 20px auto;
-        width: 40%; /* 전체 너비의 n%로 조정 */
-    }
-
-    label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: bold;
-    }
-
-    input, textarea {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 15px;
-        box-sizing: border-box;
-    }
-
-    textarea {
-        resize: vertical; /* 수직 크기 조절 가능 */
-    }
-
-    h2 {
-        font-size: 20px;
-        margin-top: 15px;
-    }
-
-    .price-info-form, .detail-info-form, .description-form {
-        margin-top: 20px;
-        border-top: 1px solid #ccc; /* 상단 경계선 추가 */
-        padding-top: 20px; /* 상단 패딩 추가 */
-    }
-
-    button {
-        background-color: #4a9fff;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        display: block;
-        margin: 0 auto; /* 가운데 정렬 */
-    }
-
-    .detail-info-form input {
-        margin-top: 5px;
-    }
-
-    .gray-text {
-        color: #888;
-    }
-
-    #property-image-preview {
-        max-width: 100%;
-        height: auto;
-        border-radius: 10px;
-        margin-top: 20px;
-    }
-`,
-        }}
-      />
-      <div id="branding">상품 등록</div>
-
-      <div id="property-form">
+      <div id="propertyform">
         <form encType="multipart/form-data">
           <label htmlFor="productName">상품명:</label>
           <input

@@ -3,20 +3,6 @@
   flex-grow: 1; /* article과 section이 남은 공간을 차지하도록 설정 */
 }
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-nav ul li {
-  margin-bottom: 10px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #000;
-}
-
 article {
   height: 10em;
   display: flex;
@@ -43,24 +29,7 @@ section {
   padding: 20px;
 }
 
-.sidebar {
-  float: left;
-  width: 200px;
-  height: 600px;
-  border: 1px solid gray;
-}
-
-.sidebar button {
-  padding: 20px 1px;
-  margin-bottom: 10px;
-  color: #232a3f;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  background-color: transparent;
-}
-
-form {
+.question-form {
   font-size: 13px;
   margin-bottom: 5em;
   margin-left: 3em;
@@ -100,8 +69,7 @@ form {
   margin-left: auto; /* div를 오른쪽으로 이동시킴 */
 }
 
-input,
-textarea {
+.quest {
   margin-left: 1.5em;
   width: 300px;
 }
