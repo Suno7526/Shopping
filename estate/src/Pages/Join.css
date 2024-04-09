@@ -1,5 +1,6 @@
 /* 회원가입 컨테이너 스타일 */
 #signup-container {
+  margin: 20px auto; /* 가운데 정렬을 위해 마진 설정 */
   text-align: left;
   background-color: white;
   padding: 20px;

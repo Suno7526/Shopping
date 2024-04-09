@@ -88,6 +88,7 @@ th + th {
 }
 
 .sidebar button {
+  display: block; /* Change display to block */
   padding: 20px 1px;
   margin-bottom: 10px;
   color: #232a3f;

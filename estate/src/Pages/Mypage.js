@@ -37,14 +37,16 @@ const Mypage = () => {
         <nav>
           <Link to="/RecentItem">
             <button>최근 본 상품</button>
-          </Link>{' '}
-          {/* Link를 사용하여 버튼 클릭 시 RecentItem 컴포넌트로 이동 */}
-          <button>찜한 상품</button>
-          <button>주문 내역</button>
-          <button>장바구니</button>
+          </Link>
+          <Link to="/">
+            <button>찜한 상품</button>
+          </Link>
+          <Link to="/RecentItem">
+            <button>주문 내역</button>
+          </Link>
           <Link to="/Question">
             <button>문의 하기</button>
-          </Link>{' '}
+          </Link>
         </nav>
       </aside>
       <article>
