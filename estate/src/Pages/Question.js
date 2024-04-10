@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Question.css'; // 외부 스타일 시트 불러오기
 import { Link } from 'react-router-dom'; // Link import 추가
+import Aside from '../Components/Aside';
 
 const Question = () => {
   // 버튼의 활성화 상태를 관리하는 useState 훅 사용
@@ -19,24 +20,7 @@ const Question = () => {
 
   return (
     <div className="page">
-      <nav>
-        <ul></ul>
-      </nav>
-      <hr /> {/* hr 바로 위에 aside 위치하도록 변경 */}
-      <aside className="sidebar">
-        <nav>
-          <Link to="/RecentItem">
-            <button>최근 본 상품</button>
-          </Link>{' '}
-          {/* Link를 사용하여 버튼 클릭 시 RecentItem 컴포넌트로 이동 */}
-          <button>찜한 상품</button>
-          <button>주문 내역</button>
-          <button>장바구니</button>
-          <Link to="/Question">
-            <button>문의 하기</button>
-          </Link>{' '}
-        </nav>
-      </aside>
+      <Aside />
       <article>
         <h4>☎︎ 문의 하기</h4>
         <ul>

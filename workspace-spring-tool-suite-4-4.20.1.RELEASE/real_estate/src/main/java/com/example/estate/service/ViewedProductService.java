@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.estate.entity.Cart;
 import com.example.estate.entity.Product;
 import com.example.estate.entity.ViewedProduct;
 import com.example.estate.entity.User;
@@ -24,4 +25,15 @@ public class ViewedProductService {
         viewedProduct.setProduct(product);
         viewedProductRepository.save(viewedProduct);
     }
+    
+    @Transactional(readOnly = true)
+    public List<ViewedProduct> findByUserCode(Long userCode) {
+        return viewedProductRepository.findByUserUserCode(userCode);
+    }
+    
+    @Transactional(readOnly = true)
+    public List<ViewedProduct> findRecentViewedProducts(Long userCode, int limit) {
+        return viewedProductRepository.findTop10ByUserUserCodeOrderByViewCodeDesc(userCode);
+    }
+
 }

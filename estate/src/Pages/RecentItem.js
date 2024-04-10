@@ -1,44 +1,37 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './RecentItem.css'; // 외부 스타일 시트 불러오기
-import { Link } from 'react-router-dom'; // Link import 추가
+import Aside from '../Components/Aside';
 
 const RecentItem = () => {
-  const orderHistory = [
-    {
-      id: 1,
-      productImage: 'gardigun.jpg',
-    },
-    {
-      id: 2,
-      productImage: 'gardigun.jpg',
-    },
-  ];
+  const [recentProducts, setRecentProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchRecentProducts = async () => {
+      try {
+        const userCode = sessionStorage.getItem('userCode');
+        if (userCode) {
+          const response = await axios.get(
+            `http://localhost:8000/getViewedProduct/${userCode}`,
+          );
+          // 서버에서 이미 최신 순으로 정렬되어 반환되므로 처음부터 10개만 가져옵니다.
+          setRecentProducts(response.data.slice(0, 10));
+        } else {
+          console.log('사용자 코드가 없습니다.');
+        }
+      } catch (error) {
+        console.error('최근 본 상품을 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchRecentProducts();
+  }, []);
 
   return (
     <div className="page">
-      <nav>
-        <ul></ul>
-      </nav>
-      <hr /> {/* hr 바로 위에 aside 위치하도록 변경 */}
-      <aside className="sidebar">
-        <nav>
-          <Link to="/RecentItem">
-            <button>최근 본 상품</button>
-          </Link>{' '}
-          {/* Link를 사용하여 버튼 클릭 시 RecentItem 컴포넌트로 이동 */}
-          <button>찜한 상품</button>
-          <button>주문 내역</button>
-          <button>장바구니</button>
-          <Link to="/Question">
-            <button>문의 하기</button>
-          </Link>{' '}
-        </nav>
-      </aside>
+      <Aside />
       <article>
         <h2>최근 본 상품</h2>
-        <ul>
-          <li>최근 본 상품 내역</li>
-        </ul>
       </article>
       <section>
         <table>
@@ -48,20 +41,20 @@ const RecentItem = () => {
             </tr>
           </thead>
           <tbody>
-            {orderHistory.map((order) => (
-              <tr key={order.id}>
+            {recentProducts.map((product) => (
+              <tr key={product.viewCode}>
                 <td>
                   <img
-                    src={order.productImage}
-                    alt={order.productImage}
+                    src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
+                    alt={product.product.productName}
                     style={{ width: '100px', height: '100px' }}
                   />
                   <div>
-                    <strong>브렌슨</strong>
+                    <strong>{product.product.companyName}</strong>
                     <br />
-                    [패키지] 원턱 와이드 트레이닝 팬츠
+                    {product.product.information}
                     <br />
-                    옵션 : 블랙 : M : 멜란지 M(+0)
+                    옵션 : {product.product.productSize}
                   </div>
                 </td>
               </tr>
