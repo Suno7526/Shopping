@@ -14,6 +14,8 @@ import { useState, useEffect } from 'react';
 import Footer from './Components/Footer';
 import Body from './Components/Body';
 import Question from './Pages/Question';
+import Category from './Pages/Category';
+
 //123124124
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -34,6 +36,7 @@ function App() {
         <Route path="/Home" element={<Home />} />
         <Route path="/ProductJoin" element={<ProductJoin />} />
         <Route path="/product/:productCode" element={<Product />} />
+        <Route path="/Category/:category" element={<Category />} />
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Mypage" element={<Mypage />} />
         <Route path="/Question" element={<Question />} />

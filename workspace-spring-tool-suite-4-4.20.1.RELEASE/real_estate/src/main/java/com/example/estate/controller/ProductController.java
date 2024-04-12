@@ -69,4 +69,11 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+    
+    @CrossOrigin(origins = "http://localhost:3000")
+    @GetMapping("/category/{category}")
+    public List<Product> getProductsByCategory(@PathVariable("category") String category) {
+        return productService.getProductsByCategory(category);
+    }
+
 }

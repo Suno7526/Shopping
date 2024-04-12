@@ -66,4 +66,8 @@ public class ProductService {
             productRepository.save(product);
         }
     }
+    
+    public List<Product> getProductsByCategory(String category) {
+        return productRepository.findByCategory(category);
+    }
 }

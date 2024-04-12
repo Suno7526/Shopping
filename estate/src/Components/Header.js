@@ -1,7 +1,6 @@
-// Header.jsx
 import React from 'react';
 import './Header.css'; // 스타일 파일 import
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'; // Link import 추가
 import { useState, useEffect } from 'react';
 
 const Header = () => {
@@ -61,88 +60,88 @@ const Header = () => {
         <nav id="gnb">
           <ul>
             <li>
-              <a href="#outer">OUTER</a>
+              <Link to="/Category/OUTER">OUTER</Link>
               <ul>
                 <li>
-                  <a href="#jacket">자킷</a>
+                  <Link to="/Category/jaket">jaket</Link>
                 </li>
                 <li>
-                  <a href="#zip-up">집업</a>
+                  <Link to="/Category/집업">집업</Link>
                 </li>
                 <li>
-                  <a href="#jumper">점퍼</a>
+                  <Link to="/Category/점퍼">점퍼</Link>
                 </li>
                 <li>
-                  <a href="#coat">코트</a>
+                  <Link to="/Category/코트">코트</Link>
                 </li>
                 <li>
-                  <a href="#padding">패딩 / 파카</a>
+                  <Link to="/Category/패딩-파카">패딩 / 파카</Link>
                 </li>
                 <li>
-                  <a href="#fur">모피 / 머스탱</a>
+                  <Link to="/Category/모피-머스탱">모피 / 머스탱</Link>
                 </li>
               </ul>
             </li>
             <li>
-              <a href="#top">TOP</a>
+              <Link to="/Category/TOP">TOP</Link>
               <ul>
                 <li>
-                  <a href="#sleeveless">민소매 / 조끼</a>
+                  <Link to="/Category/민소매-조끼">민소매 / 조끼</Link>
                 </li>
                 <li>
-                  <a href="#short-tee">반팔 티</a>
+                  <Link to="/Category/반팔-티">반팔 티</Link>
                 </li>
                 <li>
-                  <a href="#long-tee">긴팔 티</a>
+                  <Link to="/Category/긴팔-티">긴팔 티</Link>
                 </li>
                 <li>
-                  <a href="#shirts">셔츠</a>
+                  <Link to="/Category/셔츠">셔츠</Link>
                 </li>
                 <li>
-                  <a href="#crewneck">크루 넥</a>
+                  <Link to="/Category/크루-넥">크루 넥</Link>
                 </li>
                 <li>
-                  <a href="#knit">니트</a>
+                  <Link to="/Category/니트">니트</Link>
                 </li>
                 <li>
-                  <a href="#hoodie">후드</a>
+                  <Link to="/Category/후드">후드</Link>
                 </li>
               </ul>
             </li>
             <li>
-              <a href="#bottom">BOTTOM</a>
+              <Link to="/Category/BOTTOM">BOTTOM</Link>
               <ul>
                 <li>
-                  <a href="#short-pants">반바지</a>
+                  <Link to="/Category/반바지">반바지</Link>
                 </li>
                 <li>
-                  <a href="#sweat-pants">츄리닝</a>
+                  <Link to="/Category/츄리닝">츄리닝</Link>
                 </li>
                 <li>
-                  <a href="#long-pants">긴바지</a>
+                  <Link to="/Category/긴바지">긴바지</Link>
                 </li>
                 <li>
-                  <a href="#skirt">치마</a>
+                  <Link to="/Category/치마">치마</Link>
                 </li>
               </ul>
             </li>
             <li>
-              <a href="#headwear">HEADWEAR</a>
+              <Link to="/Category/HEADWEAR">HEADWEAR</Link>
               <ul>
                 <li>
-                  <a href="#cap">캡</a>
+                  <Link to="/Category/캡">캡</Link>
                 </li>
                 <li>
-                  <a href="#bucket-hat">버킷햇</a>
+                  <Link to="/Category/버킷햇">버킷햇</Link>
                 </li>
                 <li>
-                  <a href="#snapback">스냅백</a>
+                  <Link to="/Category/스냅백">스냅백</Link>
                 </li>
                 <li>
-                  <a href="#beanie">비니</a>
+                  <Link to="/Category/비니">비니</Link>
                 </li>
                 <li>
-                  <a href="#etc">기타..</a>
+                  <Link to="/Category/기타">기타..</Link>
                 </li>
               </ul>
             </li>
