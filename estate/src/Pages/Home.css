@@ -47,8 +47,8 @@
 }
 
 .property-card {
-  width: 100%; /* 부모 요소에 맞춰 전체 너비를 사용하도록 변경 */
-  height: 100%; /* 높이 설정 */
+  width: 600px; /* 부모 요소에 맞춰 전체 너비를 사용하도록 변경 */
+  height: 600px; /* 높이 설정 */
   text-align: center;
   cursor: pointer;
   box-sizing: border-box; /* 내부 패딩과 외부 여백을 포함하여 크기 계산 */

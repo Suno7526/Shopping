@@ -38,7 +38,6 @@ const Product = () => {
 
   return (
     <div>
-
       {/* 메인 이미지 칸 */}
       <div className="container">
         <aside>

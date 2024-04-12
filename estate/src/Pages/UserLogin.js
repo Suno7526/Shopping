@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { Route, Routes, Link } from 'react-router-dom';
 import Join from './Join';
 
 const UserLogin = () => {
@@ -10,8 +10,8 @@ const UserLogin = () => {
   const handleLogin = async () => {
     try {
       const response = await axios.post('http://localhost:8000/login', {
-        email,
-        password,
+        email: email,
+        password: password,
       });
 
       if (response.status === 200) {
@@ -22,12 +22,8 @@ const UserLogin = () => {
           console.log('Login successful');
 
           // Save user information in sessionStorage
-          sessionStorage.setItem('userEmail', userData.email);
-          sessionStorage.setItem('userCode', userData.userCode);
-          sessionStorage.setItem('userName', userData.name);
-          sessionStorage.setItem('userPhoneNumber', userData.phoneNumber);
-          sessionStorage.setItem('userAddress', userData.address);
-          sessionStorage.setItem('userBirth', userData.birth);
+          sessionStorage.setItem('userEmail', email);
+          sessionStorage.setItem('userCode', userData.userCode); // userCode 저장
 
           // Redirect to Home page
           window.location.href = '/Home';
@@ -56,7 +52,7 @@ const UserLogin = () => {
         background-color: rgb(232, 232, 232);
         margin: 0;
         padding: 0;
-        background-image: url('loginbg.png'); /* 이미지 파일의 경로로 수정 */
+        background-image: url(); /* 이미지 파일의 경로로 수정 */
         background-size: cover;  /* 배경 이미지를 화면에 맞게 조절 */
         background-position: center top; /* 이미지의 중앙 상단에 위치하도록 설정 */
         display: flex;

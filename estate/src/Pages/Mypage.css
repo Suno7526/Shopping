@@ -83,11 +83,12 @@ th + th {
   position: relative;
   float: left;
   width: 200px;
-  height: 600px;
+  height: 500px;
   border: 1px solid gray;
 }
 
 .sidebar button {
+  display: block; /* Change display to block */
   padding: 20px 1px;
   margin-bottom: 10px;
   color: #232a3f;

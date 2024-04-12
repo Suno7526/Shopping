@@ -42,17 +42,6 @@ section {
   flex: 1;
 }
 
-.property-card {
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background-color: white;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  cursor: pointer;
-  align-items: center;
-  margin-right: 20px; /* 오른쪽 마진을 추가하여 간격 조정 */
-}
-
 .property-image {
   width: 100%;
   height: 100%;
