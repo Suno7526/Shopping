@@ -1,45 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './Home.css'; // 외부  시트 불러오기
-import { useState, useEffect } from 'react';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import './Home.css';
+import { Link } from 'react-router-dom';
 
 const Home = () => {
   const [products, setProducts] = useState([]);
-  const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
+  const [isLogin, setIsLogin] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const images = [
-    'gardigun.jpg',
-    'cocodi.jpg',
-    'codi.jpg',
-    'gardigun2.jpg',
-    'cococodi.jpg',
-    // Add more image URLs as needed
-  ];
-
-  /*이미지 좌우 이동을 위한 const*/
-  const goToPrevious = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? images.length - 1 : prevIndex - 1,
-    );
-  };
-
-  const goToNext = () => {
-    setCurrentIndex((prevIndex) =>
-      prevIndex === images.length - 1 ? 0 : prevIndex + 1,
-    );
-  };
-
-  const handleClickImage = () => {
-    // 클릭한 이미지에 대한 추가 작업을 수행할 수 있습니다.
-    console.log(`Clicked image index: ${currentIndex}`);
-  };
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:8000/getProducts');
-        // viewCount 기준으로 상품 정렬
         const sortedProducts = response.data.sort(
           (a, b) => b.viewCount - a.viewCount,
         );
@@ -51,19 +23,14 @@ const Home = () => {
 
     fetchProducts();
 
-    // 로그인 여부 설정
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
   }, []);
-
-  useEffect(() => {
-    console.log('로그인 되었나요?  ', isLogin);
-  }, [isLogin]);
 
   const saveViewedProduct = async (userCode, productCode) => {
     try {
       await axios.post('http://localhost:8000/saveViewedProduct', {
-        userCode: userCode,
-        productCode: productCode,
+        userCode,
+        productCode,
       });
       console.log('상품을 성공적으로 저장했습니다.');
     } catch (error) {
@@ -71,7 +38,6 @@ const Home = () => {
     }
   };
 
-  // 상품 클릭 시 호출되는 함수
   const handleClickProduct = (productCode) => {
     const userCode = sessionStorage.getItem('userCode');
     if (userCode) {
@@ -81,29 +47,49 @@ const Home = () => {
     }
   };
 
+  const goToPrevious = () => {
+    if (products.length > 0) {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === 0 ? products.length - 1 : prevIndex - 1,
+      );
+    }
+  };
+
+  const goToNext = () => {
+    if (products.length > 0) {
+      setCurrentIndex((prevIndex) =>
+        prevIndex === products.length - 1 ? 0 : prevIndex + 1,
+      );
+    }
+  };
+
   return (
     <div>
+      {/* 메인 이미지 섹션 */}
       <div>
-        {/* 메인 이미지 칸 */}
         <div className="one-item">Item 👑</div>
         <div className="property-section">
           <button onClick={goToPrevious} className="button-previous"></button>{' '}
           {/* 이전 이미지로 이동 버튼 */}
-          <div
-            className="property-card"
-            onClick={handleClickImage} // 이미지를 클릭할 때의 이벤트 처리
-          >
-            <img
-              src={images[currentIndex]}
-              alt={`Property ${currentIndex}`}
-              className="property-image"
-            />
-          </div>
+          {products.length > 0 && (
+            <div className="property-card">
+              {/* products 배열이 비어있지 않을 때 현재 인덱스의 productCode를 사용하여 이미지 렌더링 */}
+              <img
+                src={`http://localhost:8000/getProductImage/${products[currentIndex].productCode}`}
+                alt={`Product ${currentIndex}`}
+                className="property-image"
+                onClick={() =>
+                  handleClickProduct(products[currentIndex].productCode)
+                }
+              />
+            </div>
+          )}
           <button onClick={goToNext} className="button-next"></button>{' '}
           {/* 다음 이미지로 이동 버튼 */}
         </div>
       </div>
 
+      {/* 추천 상품 섹션 */}
       <div id="recommended-properties">
         <div className="best-item">Best Item</div>
         <div className="sub-best-item">조회수가 높은 아이템 👍</div>
@@ -121,10 +107,7 @@ const Home = () => {
                     src={`http://localhost:8000/getProductImage/${product.productCode}`}
                     alt={`코디 ${product.productCode}`}
                     className="property-image"
-                    style={{
-                      width: '12em',
-                      height: '12em',
-                    }}
+                    style={{ width: '12em', height: '12em' }}
                     onClick={() => handleClickProduct(product.productCode)}
                   />
                 </Link>
@@ -146,7 +129,7 @@ const Home = () => {
                     <strong>제품 크기:</strong> {product.productSize}
                   </p>
                   <p>
-                    <strong></strong> ₩{product.productPrice}
+                    <strong>가격:</strong> ₩{product.productPrice}
                   </p>
                   <p>
                     <strong>조회수:</strong> {product.viewCount}
