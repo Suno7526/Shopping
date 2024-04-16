@@ -1,6 +1,7 @@
 import React from 'react';
 import './Mypage.css'; // 외부 스타일 시트 불러오기
 import { Link } from 'react-router-dom'; // Link import 추가
+import Aside from '../Components/Aside';
 
 const Mypage = () => {
   const orderHistory = [
@@ -29,26 +30,7 @@ const Mypage = () => {
 
   return (
     <div className="page">
-      <nav>
-        <ul></ul>
-      </nav>
-      <hr /> {/* hr 바로 위에 aside 위치하도록 변경 */}
-      <aside className="sidebar">
-        <nav>
-          <Link to="/RecentItem">
-            <button>최근 본 상품</button>
-          </Link>
-          <Link to="/">
-            <button>찜한 상품</button>
-          </Link>
-          <Link to="/RecentItem">
-            <button>주문 내역</button>
-          </Link>
-          <Link to="/Question">
-            <button>문의 하기</button>
-          </Link>
-        </nav>
-      </aside>
+      <Aside />
       <article>
         <h2>주문내역 조회</h2>
         <ul>

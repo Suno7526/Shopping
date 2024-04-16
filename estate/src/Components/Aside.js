@@ -13,9 +13,10 @@ const Aside = () => {
           <Link to="/RecentItem">
             <button>최근 본 상품</button>
           </Link>{' '}
-          <button>찜한 상품</button>
+          <Link to="/Like">
+            <button>찜한 상품</button>
+          </Link>{' '}
           <button>주문 내역</button>
-          <button>장바구니</button>
           <Link to="/Question">
             <button>문의 하기</button>
           </Link>{' '}

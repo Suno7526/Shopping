@@ -41,16 +41,6 @@ public class CartController {
 
 		cartService.addToCart(cart);
 	}
-
-	@GetMapping("/getCart/{cartCode}") // 새로운 엔드포인트 추가
-	public ResponseEntity<Cart> getCart(@PathVariable("cartCode") Long cartCode) {
-		Cart cart = cartService.findByCartCode(cartCode);
-		if (cart != null) {
-			return new ResponseEntity<>(cart, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
 	
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/getCartProduct/{userCode}")

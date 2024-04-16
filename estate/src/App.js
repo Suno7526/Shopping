@@ -15,6 +15,7 @@ import Footer from './Components/Footer';
 import Body from './Components/Body';
 import Question from './Pages/Question';
 import Category from './Pages/Category';
+import Like from './Pages/Like';
 
 //123124124
 function App() {
@@ -30,6 +31,7 @@ function App() {
       <Body />
 
       <Routes>
+        <Route path="/Like" element={<Like />} />
         <Route path="/RecentItem" element={<RecentItem />} />
         <Route path="/UserLogin" element={<UserLogin />} />
         <Route path="/Join" element={<Join />} />
