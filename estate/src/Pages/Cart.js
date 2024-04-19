@@ -1,66 +1,74 @@
-import React from 'react';
-import axios from 'axios'; // axios를 임포트합니다.
-import './Modal.css';
-
-const Modal = ({ isOpen, onClose, product }) => {
-  const onOrder = async () => {
-    // 주문 정보를 백엔드로 보내는 함수
-    const orderData = {
-      productCode: product.productCode,
-      shippingAddress: sessionStorage.getItem('userAddress'),
-      orderStatus: '준비중', // 초기 주문 상태
-      refundReason: 'X', // 초기 환불 사유
-      userCode: Number(sessionStorage.getItem('userCode')), // 세션에서 userCode를 Long 타입으로 변환합니다.
-      productCode: product.productCode, // product 객체에서 productCode를 가져와 전달합니다.
-      // 필요한 다른 주문 정보 추가
-    };
-
-    try {
-      // axios를 사용하여 POST 요청을 보냅니다.
-      const response = await axios.post(
-        'http://localhost:8000/orders/add',
-        orderData,
-      );
-
-      // 요청이 성공적으로 처리된 경우
-      if (response.status === 200) {
-        alert('주문 되었습니다.');
+import React, { useEffect, useState } from 'react';
+import './Cart.css';
+import axios from 'axios';
+const Cart = () => {
+  const [cartItems, setCartItems] = useState([]);
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getCartProduct/${sessionStorage.getItem(
+            'userCode',
+          )}`,
+        );
+        // 중복된 제품을 합치고 수량을 계산
+        const uniqueProducts = [];
+        response.data.forEach((item) => {
+          const existingProduct = uniqueProducts.find(
+            (product) => product.productCode === item.product.productCode,
+          );
+          if (existingProduct) {
+            existingProduct.quantity += 1;
+          } else {
+            uniqueProducts.push({ ...item.product, quantity: 1 });
+          }
+        });
+        setCartItems(uniqueProducts);
+      } catch (error) {
+        console.error('상품을 불러오는 중 오류 발생:', error);
       }
-    } catch (error) {
-      // 요청 중에 오류가 발생한 경우
-      console.error('주문에 실패하였습니다:', error);
-      alert('주문에 실패하였습니다.');
-    }
-
-    // 주문 후 모달을 닫습니다.
-    onClose();
-  };
-
-  const handleOrderClick = () => {
-    onOrder();
-  };
+    };
+    fetchProducts();
+  }, []);
 
   return (
     <div>
-      {isOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span class="close" onClick={onClose}>
-              &times;
-            </span>
-            <b>정보가 맞는지 확인해주세요!😊</b>
-            <hr />
-            <p>주소: {sessionStorage.getItem('userAddress')}</p>
-            <p>사이즈: {product.productSize}</p>
-            <p>가격: {product.productPrice}</p>
-            <button className="order-btn" onClick={handleOrderClick}>
-              주문하기
-            </button>
-          </div>
+      <meta charSet="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>메인페이지</title>
+
+      <div id="cart">
+        <h2>장바구니</h2>
+        {cartItems && cartItems.length > 0 ? (
+          cartItems.map((item) => (
+            <div className="product-line" key={item.productCode}>
+              <img
+                src={`http://localhost:8000/getProductImage/${item.productCode}`}
+                alt=""
+                className="product-image"
+              />
+              <div className="product-details">
+                <p>{item.productName}</p>
+                <p>{item.productPrice}</p>
+                <p>{item.productSize}</p>
+                <p>수량: {item.quantity}</p>
+                <p>총 가격: {item.productPrice * item.quantity}</p>
+                <div>
+                  <input type="checkbox" id={`checkbox-${item.id}`} />
+                  <label htmlFor={`checkbox-${item.id}`}>선택</label>
+                </div>
+              </div>
+              <button className="delete-item-btn">X</button>
+            </div>
+          ))
+        ) : (
+          <p>장바구니가 비어 있습니다.</p>
+        )}
+        <div className="buttons">
+          <button className="purchase-btn">구매하기</button>
         </div>
-      )}
+      </div>
     </div>
   );
 };
-
-export default Modal;
+export default Cart;
