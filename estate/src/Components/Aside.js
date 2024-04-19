@@ -16,7 +16,9 @@ const Aside = () => {
           <Link to="/Like">
             <button>찜한 상품</button>
           </Link>{' '}
-          <button>주문 내역</button>
+          <Link to="/Mypage">
+            <button>주문 내역</button>
+          </Link>{' '}
           <Link to="/Question">
             <button>문의 하기</button>
           </Link>{' '}
