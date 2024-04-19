@@ -15,11 +15,11 @@ const Header = () => {
         <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
         <div id="Company">NONAME</div>
         {/* 기존 탭 메뉴 */}
-        <Link to="/ProductJoin" className="tab-menu-link">
-          상품등록
-        </Link>
         <Link to="/Home" className="tab-menu-link">
           홈
+        </Link>
+        <Link to="/ProductJoin" className="tab-menu-link">
+          상품등록
         </Link>
         <Link to="/Join" className="tab-menu-link">
           회원가입
@@ -63,7 +63,7 @@ const Header = () => {
               <Link to="/Category/OUTER">OUTER</Link>
               <ul>
                 <li>
-                  <Link to="/Category/jaket">jaket</Link>
+                  <Link to="/Category/재킷">재킷</Link>
                 </li>
                 <li>
                   <Link to="/Category/집업">집업</Link>

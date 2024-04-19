@@ -6,13 +6,9 @@ const Modal = ({ isOpen, onClose, product }) => {
   const onOrder = async () => {
     // 주문 정보를 백엔드로 보내는 함수
     const orderData = {
-      productCode: product.productCode,
+      userCode: Number(sessionStorage.getItem('userCode')), // 세션에서 userCode를 가져와 Long 타입으로 변환합니다.
+      productCode: product.productCode, // product 객체에서 productCode를 가져옵니다.
       shippingAddress: sessionStorage.getItem('userAddress'),
-      orderStatus: '준비중', // 초기 주문 상태
-      refundReason: 'X', // 초기 환불 사유
-      userCode: Number(sessionStorage.getItem('userCode')), // 세션에서 userCode를 Long 타입으로 변환합니다.
-      productCode: product.productCode, // product 객체에서 productCode를 가져와 전달합니다.
-      // 필요한 다른 주문 정보 추가
     };
 
     try {
@@ -45,7 +41,7 @@ const Modal = ({ isOpen, onClose, product }) => {
       {isOpen && (
         <div className="modal">
           <div className="modal-content">
-            <span class="close" onClick={onClose}>
+            <span className="close" onClick={onClose}>
               &times;
             </span>
             <b>정보가 맞는지 확인해주세요!😊</b>

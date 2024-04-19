@@ -25,7 +25,7 @@ const Like = () => {
     <div className="page">
       <Aside />
       <article>
-        <h2>최근 본 상품</h2>
+        <h2>찜한 상품</h2>
       </article>
       <section>
         <table>
@@ -36,7 +36,7 @@ const Like = () => {
           </thead>
           <tbody>
             {likeItems.map((product) => (
-              <tr key={product.viewCode}>
+              <tr key={product.productCode}>
                 <td>
                   <img
                     src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
