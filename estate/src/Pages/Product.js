@@ -2,7 +2,7 @@ import './Product.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import Modal from './Modal'; // Modal 컴포넌트 import
+import Modal from './Modal.js'; // Modal 컴포넌트 import
 
 const Product = () => {
   const { productCode } = useParams();
