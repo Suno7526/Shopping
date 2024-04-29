@@ -13,7 +13,7 @@ const Like = () => {
             'userCode',
           )}`,
         );
-        setlikeItems(response.data);
+        setlikeItems(response.data.reverse());
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
       }
