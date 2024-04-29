@@ -69,7 +69,7 @@ const Mypage = () => {
                     옵션: {order.product.productOption}
                   </div>
                 </td>
-                <td>{formatRegisterDate(order.product.registerDate)}</td>
+                <td>{formatRegisterDate(order.orderDate)}</td>
                 <td>{order.orderCode}</td>
                 <td>{order.product.productPrice}원</td>
                 <td>{order.shippingAddress}</td>
