@@ -8,4 +8,8 @@ import com.example.estate.entity.Likes;
 
 public interface LikeRepository extends JpaRepository<Likes, Long>{
 	List<Likes> findByUserUserCode(Long userCode); // findByUserUserCode 메서드 추가
+	
+    void deleteByUser_UserCodeAndProduct_ProductCode(Long userCode, Long productCode);
+
+    
 }
