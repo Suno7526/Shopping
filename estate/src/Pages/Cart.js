@@ -31,6 +31,36 @@ const Cart = () => {
     fetchProducts();
   }, []);
 
+  const handleDeleteItem = async (productCode) => {
+    try {
+      await axios.delete(
+        `http://localhost:8000/deleteCartItem/${sessionStorage.getItem(
+          'userCode',
+        )}/${productCode}`,
+      );
+      const response = await axios.get(
+        `http://localhost:8000/getCartProduct/${sessionStorage.getItem(
+          'userCode',
+        )}`,
+      );
+      // 중복된 제품을 합치고 수량을 계산
+      const uniqueProducts = [];
+      response.data.forEach((item) => {
+        const existingProduct = uniqueProducts.find(
+          (product) => product.productCode === item.product.productCode,
+        );
+        if (existingProduct) {
+          existingProduct.quantity += 1;
+        } else {
+          uniqueProducts.push({ ...item.product, quantity: 1 });
+        }
+      });
+      setCartItems(uniqueProducts);
+    } catch (error) {
+      console.error('상품을 삭제하는 중 오류 발생:', error);
+    }
+  };
+
   return (
     <div>
       <meta charSet="UTF-8" />
@@ -58,7 +88,12 @@ const Cart = () => {
                   <label htmlFor={`checkbox-${item.id}`}>선택</label>
                 </div>
               </div>
-              <button className="delete-item-btn">X</button>
+              <button
+                className="delete-item-btn"
+                onClick={() => handleDeleteItem(item.productCode)}
+              >
+                X
+              </button>
             </div>
           ))
         ) : (

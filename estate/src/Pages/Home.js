@@ -32,7 +32,6 @@ const Home = () => {
         userCode,
         productCode,
       });
-      console.log('상품을 성공적으로 저장했습니다.');
     } catch (error) {
       console.error('상품을 저장하는 중 오류 발생:', error);
     }
@@ -74,14 +73,16 @@ const Home = () => {
           {products.length > 0 && (
             <div className="property-card">
               {/* products 배열이 비어있지 않을 때 현재 인덱스의 productCode를 사용하여 이미지 렌더링 */}
-              <img
-                src={`http://localhost:8000/getProductImage/${products[currentIndex].productCode}`}
-                alt={`Product ${currentIndex}`}
-                className="property-image"
-                onClick={() =>
-                  handleClickProduct(products[currentIndex].productCode)
-                }
-              />
+              <Link to={`/product/${products[currentIndex].productCode}`}>
+                <img
+                  src={`http://localhost:8000/getProductImage/${products[currentIndex].productCode}`}
+                  alt={`Product ${currentIndex}`}
+                  className="property-image"
+                  onClick={() =>
+                    handleClickProduct(products[currentIndex].productCode)
+                  }
+                />
+              </Link>
             </div>
           )}
           <button onClick={goToNext} className="button-next"></button>{' '}

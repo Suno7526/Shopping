@@ -24,4 +24,9 @@ public class LikeService {
         return likeRepository.findByUserUserCode(userCode);
     }
 
+    @Transactional
+    public void unlikeProduct(Long userCode, Long productCode) {
+        likeRepository.deleteByUser_UserCodeAndProduct_ProductCode(userCode, productCode);
+    }
+    
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,7 +42,6 @@ public class LikeController {
 	    likeService.likeProduct(like);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/getLikeProduct/{userCode}")
 	public ResponseEntity<List<Likes>> getCarts(@PathVariable("userCode") Long userCode) {
 	    List<Likes> likes = likeService.findByUserCode(userCode);
@@ -51,4 +51,15 @@ public class LikeController {
 	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	    }
 	}
+	
+	@DeleteMapping("/unlikeProduct/{userCode}/{productCode}")
+	public ResponseEntity<Void> unlikeProduct(@PathVariable("userCode") Long userCode, @PathVariable("productCode") Long productCode) {
+	    try {
+	        likeService.unlikeProduct(userCode, productCode);
+	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	    } catch (Exception e) {
+	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+	    }
+	}
+	
 }
