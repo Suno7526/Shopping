@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Link import 추가
-import './Aside.css'; // 외부 스타일 시트 불러오기
 
 const Aside = () => {
   return (
@@ -10,16 +9,15 @@ const Aside = () => {
       </nav>
       <hr />
       <aside className="sidebar">
-        <div className="sidebar-header">📲 옷옷장</div>
         <nav>
-          <Link to="/RecentItem">
-            <button>최근 본 상품</button>
+          <Link to="/Mypage">
+            <button>자주하는 질문</button>
+          </Link>{' '}
+          <Link to="/Question">
+            <button>문의하기</button>
           </Link>{' '}
           <Link to="/Like">
-            <button>찜한 상품</button>
-          </Link>{' '}
-          <Link to="/Mypage">
-            <button>주문 내역</button>
+            <button>문의내역</button>
           </Link>{' '}
         </nav>
       </aside>

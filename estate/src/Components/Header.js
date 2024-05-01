@@ -30,6 +30,9 @@ const Header = () => {
         <Link to="/Mypage" className="tab-menu-link">
           마이페이지
         </Link>
+        <Link to="/Inquiry" className="tab-menu-link">
+          문의하기
+        </Link>
         {/* 로그인 링크 */}
         <div className="tab-menu-login">
           {isLogin ? (
