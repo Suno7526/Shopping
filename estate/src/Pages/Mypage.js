@@ -15,7 +15,7 @@ const Mypage = () => {
         `http://localhost:8000/getOrdersProduct/${userCode}`,
       );
       // 가져온 주문 내역을 상태에 저장합니다.
-      setOrdersItems(response.data);
+      setOrdersItems(response.data.reverse());
     } catch (error) {
       console.error('주문 내역을 불러오는 중 오류 발생:', error);
     }
@@ -69,7 +69,7 @@ const Mypage = () => {
                     옵션: {order.product.productOption}
                   </div>
                 </td>
-                <td>{formatRegisterDate(order.product.registerDate)}</td>
+                <td>{formatRegisterDate(order.orderDate)}</td>
                 <td>{order.orderCode}</td>
                 <td>{order.product.productPrice}원</td>
                 <td>{order.shippingAddress}</td>
