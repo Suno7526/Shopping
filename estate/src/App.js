@@ -16,6 +16,7 @@ import Body from './Components/Body';
 import Question from './Pages/Question';
 import Category from './Pages/Category';
 import Like from './Pages/Like';
+import Inquiry from './Pages/Inquiry';
 
 //123124124
 function App() {
@@ -42,6 +43,7 @@ function App() {
         <Route path="/Cart" element={<Cart />} />
         <Route path="/Mypage" element={<Mypage />} />
         <Route path="/Question" element={<Question />} />
+        <Route path="/Inquiry" element={<Inquiry />} />
       </Routes>
       <Footer />
     </BrowserRouter>

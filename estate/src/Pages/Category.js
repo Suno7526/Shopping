@@ -7,15 +7,45 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 const Category = () => {
   const { category } = useParams();
   const [products, setProduct] = useState(null);
+
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const response = await axios.get(`/category/${category}`);
-        // 제품 목록을 viewCount 기준으로 높은 순서로 정렬
-        const sortedProducts = response.data.sort(
-          (a, b) => b.viewCount - a.viewCount,
-        );
-        setProduct(sortedProducts);
+        let response;
+
+        if (category === 'OUTER') {
+          // OUTER 카테고리를 클릭했을 때 모든 카테고리의 데이터를 가져옴
+          const categories = [
+            '재킷',
+            '집업',
+            '점퍼',
+            '코트',
+            '패딩',
+            '파카',
+            '모피',
+            '머스탱',
+          ];
+          const promises = categories.map((category) =>
+            axios.get(`/category/${category}`),
+          );
+          const results = await Promise.all(promises);
+          const data = results.map((result) => result.data);
+          // 모든 카테고리의 데이터를 합쳐서 하나의 배열로 만듦
+          const combinedData = data.flat();
+          // viewCount 기준으로 정렬
+          const sortedProducts = combinedData.sort(
+            (a, b) => b.viewCount - a.viewCount,
+          );
+          setProduct(sortedProducts);
+        } else {
+          // 일반적인 카테고리일 때 해당 카테고리의 데이터를 가져옴
+          response = await axios.get(`/category/${category}`);
+          // 제품 목록을 viewCount 기준으로 높은 순서로 정렬
+          const sortedProducts = response.data.sort(
+            (a, b) => b.viewCount - a.viewCount,
+          );
+          setProduct(sortedProducts);
+        }
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
       }

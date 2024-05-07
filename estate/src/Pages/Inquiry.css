@@ -1,0 +1,97 @@
+.content {
+  display: flex;
+  flex-grow: 1; /* article과 section이 남은 공간을 차지하도록 설정 */
+}
+
+article {
+  height: 10em;
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  padding: 20px;
+  flex-direction: column;
+  border-bottom: 2px solid #000000; /* th 아래쪽에 2px 두께의 회색 선 추가 */
+}
+
+article h4 {
+  align-self: left; /* 왼쪽 정렬 */
+}
+
+article ul {
+  align-self: left; /* 왼쪽 정렬 */
+  font-style: Serif;
+}
+
+section {
+  flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+.post {
+  display: flex;
+  flex-direction: row; /* 요소들을 가로 방향으로 배치 */
+  background-color: transparent;
+  border-top: 1px solid rgb(217, 217, 217);
+}
+
+.post-username {
+  flex: 1; /* 가로 방향으로 공간을 나눠 차지하도록 설정 */
+  margin: 15px; /* 각 요소 사이의 간격을 설정 */
+  font-size: 16px;
+  font-style: Serif;
+  padding: 10px;
+  margin-right: 10em;
+  margin-left: 10em;
+}
+
+.post-title {
+  flex: 1; /* 가로 방향으로 공간을 나눠 차지하도록 설정 */
+  margin: 15px; /* 각 요소 사이의 간격을 설정 */
+  font-size: 16px;
+  font-style: Serif;
+  padding: 10px;
+  margin-left: 5em;
+}
+
+.post-info-item {
+  flex: 1; /* 가로 방향으로 공간을 나눠 차지하도록 설정 */
+  margin: 15px; /* 각 요소 사이의 간격을 설정 */
+  padding: 10px;
+  font-size: 16px;
+  font-style: Serif;
+  margin-left: 11.5em;
+}
+
+/*게시판 헤더*/
+.board-info-item {
+  font-style: Serif;
+  align-self: flex-start;
+  padding: 10em;
+}
+
+.board-info {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+  border-spacing: 0;
+  background-color: transparent;
+}
+
+.board-info-header-column {
+  border-bottom: 1px solid #e8e8e8;
+  padding: 0;
+  font-size: 16px;
+  padding: 10px 5px;
+  font-weight: bold;
+}
+
+.board-info-row:hover {
+  background-color: #eceaea;
+  cursor: pointer;
+}
+
+.board-info-column {
+  padding: 10px 5px;
+}
