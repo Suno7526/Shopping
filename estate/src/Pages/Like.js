@@ -13,13 +13,30 @@ const Like = () => {
             'userCode',
           )}`,
         );
-        setlikeItems(response.data);
+        setlikeItems(response.data.reverse());
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
       }
     };
     fetchProducts();
   }, []);
+
+  const handleUnlike = async (productCode) => {
+    try {
+      await axios.delete(
+        `http://localhost:8000/unlikeProduct/${sessionStorage.getItem(
+          'userCode',
+        )}/${productCode}`,
+      );
+      const updatedLikeItems = likeItems.filter(
+        (item) => item.product.productCode !== productCode,
+      );
+      setlikeItems(updatedLikeItems);
+      alert('찜 목록에서 삭제했습니다.');
+    } catch (error) {
+      console.error('상품을 좋아요 취소하는 중 오류 발생:', error);
+    }
+  };
 
   return (
     <div className="page">
@@ -49,6 +66,12 @@ const Like = () => {
                     {product.product.information}
                     <br />
                     옵션 : {product.product.productSize}
+                    <button
+                      className="delete-item-btn"
+                      onClick={() => handleUnlike(product.product.productCode)}
+                    >
+                      X
+                    </button>
                   </div>
                 </td>
               </tr>

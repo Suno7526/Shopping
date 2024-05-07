@@ -10,4 +10,8 @@ public interface CartRepository extends JpaRepository<Cart, Long>{
 	Cart findByCartCode(Long CartCode);
 	
 	List<Cart> findByUserUserCode(Long userCode); // findByUserUserCode 메서드 추가
+	
+	void deleteByUser_UserCodeAndProduct_ProductCode(Long userCode, Long productCode);
+
+	
 }

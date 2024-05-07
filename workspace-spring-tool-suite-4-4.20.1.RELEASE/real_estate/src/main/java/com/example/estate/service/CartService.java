@@ -30,4 +30,9 @@ public class CartService {
         return cartRepository.findByUserUserCode(userCode);
     }
 
+    @Transactional
+    public void deleteCartItem(Long userCode, Long productCode) {
+        cartRepository.deleteByUser_UserCodeAndProduct_ProductCode(userCode, productCode);
+    }
+    
 }
