@@ -20,7 +20,7 @@ const Question = () => {
           <li>Q&A 문의 게시판입니다. </li>
         </ul>
       </article>
-      <div className="main">
+      <div className="board-main">
         <div className="board-info">
           <span className="board-info-item">문의 종류</span>
           <span className="board-info-item">제목</span>

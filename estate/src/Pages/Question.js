@@ -20,7 +20,6 @@ const Question = () => {
 
   return (
     <div className="page">
-      <Aside />
       <article>
         <h4>☎︎ 문의 하기</h4>
         <ul>

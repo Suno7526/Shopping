@@ -1,17 +1,32 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Header.css'; // 스타일 파일 import
 import { Link } from 'react-router-dom'; // Link import 추가
-import { useState, useEffect } from 'react';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
+  const [isSticky, setIsSticky] = useState(false); // 스크롤 여부 관리
 
   useEffect(() => {
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
-  }, []); // 페이지 로드시 한 번만 실행되도록 빈 배열 전
+
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <div>
-      <div className="tab-menu">
+      <div className={`tab-menu ${isSticky ? 'sticky' : ''}`}>
         <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
         <div id="Company">NONAME</div>
         {/* 기존 탭 메뉴 */}
