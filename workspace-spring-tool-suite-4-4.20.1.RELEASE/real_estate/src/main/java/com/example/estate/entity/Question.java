@@ -33,6 +33,7 @@ public class Question {
 	@JoinColumn(name = "userCode")
 	private User user;
 	
+	
 	@Column
 	private String questionTitle; // 문의사항 제목
 	

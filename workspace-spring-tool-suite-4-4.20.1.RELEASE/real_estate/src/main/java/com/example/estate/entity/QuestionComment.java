@@ -1,5 +1,9 @@
 package com.example.estate.entity;
 
+import java.sql.Timestamp;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,5 +35,8 @@ public class QuestionComment {
 	private Question question;
 	
     private String questionComments;   
+    
+    @CreationTimestamp
+	private Timestamp registerDate; // 등록일자
     
 }

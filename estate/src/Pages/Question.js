@@ -1,21 +1,46 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Question.css'; // 외부 스타일 시트 불러오기
 import { Link } from 'react-router-dom'; // Link import 추가
 import Aside from '../Components/Aside';
+import axios from 'axios';
 
 const Question = () => {
   // 버튼의 활성화 상태를 관리하는 useState 훅 사용
   const [activeButton, setActiveButton] = useState('');
+  const userCode = sessionStorage.getItem('userCode');
+  const [question, setQuestion] = useState({
+    questionTitle: '',
+    questionContent: '',
+    userCode: userCode,
+  });
 
-  // 버튼 클릭 시 활성화 상태 업데이트하는 함수
-  const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
+  // 문의 제목 입력 시 호출되는 함수
+  const handleTitleChange = (event) => {
+    setQuestion({ ...question, questionTitle: event.target.value });
+  };
+
+  // 문의 내용 입력 시 호출되는 함수
+  const handleContentChange = (event) => {
+    setQuestion({ ...question, questionContent: event.target.value });
   };
 
   // 전송 버튼 클릭 시 실행되는 함수
-  const handleSubmit = () => {
-    // 전송 로직 추가
-    console.log('전송 버튼이 클릭되었습니다.');
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/questions', {
+        questionTitle: question.questionTitle,
+        questionContent: question.questionContent,
+        userCode: userCode,
+      });
+
+      alert(response.data);
+    } catch (error) {
+      console.error('Error during signup:', error);
+    }
+  };
+  // 버튼 클릭 시 활성화 상태 업데이트하는 함수
+  const handleButtonClick = (buttonName) => {
+    setActiveButton(buttonName);
   };
 
   return (
@@ -129,15 +154,25 @@ const Question = () => {
         </div>
 
         <div>
-          <label htmlFor="message">문의내용</label>
+          <label htmlFor="questionTitle">문의제목</label>
+          <input
+            type="text"
+            id="questionTitle"
+            name="questionTitle"
+            value={question.questionTitle}
+            onChange={handleTitleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="questionContent">문의내용</label>
           <textarea
-            id="message"
-            name="message"
+            id="questionContent"
+            name="questionContent"
             rows="4"
-            className="quest"
+            value={question.questionContent}
+            onChange={handleContentChange}
           ></textarea>
         </div>
-        {/* 전송 버튼의 type을 button으로 변경 */}
         <button type="button" onClick={handleSubmit}>
           문의하기
         </button>
