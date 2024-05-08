@@ -46,6 +46,8 @@
 		<item key="SmartImportRootWizardPage.STORE_NESTED_PROJECTS" value="true"/>
 		<item key="SmartImportRootWizardPage.STORE_CONFIGURE_NATURES" value="true"/>
 		<list key="org.eclipse.ui.internal.wizards.datatransfer.SmartImportRootWizardPage.knownSources">
+			<item value="C:\Users\Sunho\Downloads\week7\week7\APP"/>
+			<item value="C:\Users\Sunho\Downloads\week7\APP"/>
 			<item value="C:\FinalProject"/>
 			<item value="C:\Blog\Springboot-JPA-Blog"/>
 		</list>

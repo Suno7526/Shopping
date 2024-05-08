@@ -129,7 +129,7 @@ const Question = () => {
         </div>
 
         <div>
-          <label htmlFor="message">메시지</label>
+          <label htmlFor="message">문의내용</label>
           <textarea
             id="message"
             name="message"
@@ -139,7 +139,7 @@ const Question = () => {
         </div>
         {/* 전송 버튼의 type을 button으로 변경 */}
         <button type="button" onClick={handleSubmit}>
-          전송
+          문의하기
         </button>
       </form>
     </div>

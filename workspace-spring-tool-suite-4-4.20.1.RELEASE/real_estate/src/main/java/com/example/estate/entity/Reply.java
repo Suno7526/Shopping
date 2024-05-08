@@ -21,23 +21,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Question {
-
-	
+public class Reply {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long questionCode;
+	private Long replyCode;
 	
 	@ManyToOne
 	@JoinColumn(name = "userCode")
 	private User user;
 	
-	@Column
-	private String questionTitle; // 문의사항 제목
+	@ManyToOne
+	@JoinColumn(name = "questionCode")
+	private Question question;
 	
 	@Column
-    private String questionCotent; // 내용
+	private String replyContent; // 내용
 
 	
 	@CreationTimestamp
