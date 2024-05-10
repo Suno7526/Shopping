@@ -38,7 +38,7 @@ const Inquiry = () => {
         </div>
         {posts.map((post, index) => (
           <div className="post" key={index}>
-            <span className="post-info-item">{index + 1}</span>
+            <span className="post-info-item">{post.questionType}</span>
             <h2 className="post-title">{post.questionTitle}</h2>
             <p className="post-username">
               {sessionStorage.getItem('userName')}

@@ -28,16 +28,13 @@ const Header = () => {
     <div>
       <div className={`tab-menu ${isSticky ? 'sticky' : ''}`}>
         <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
-        <div id="Company">NONAME</div>
+        <div id="Company">FASS</div>
         {/* 기존 탭 메뉴 */}
         <Link to="/Home" className="tab-menu-link">
           홈
         </Link>
         <Link to="/ProductJoin" className="tab-menu-link">
           상품등록
-        </Link>
-        <Link to="/Join" className="tab-menu-link">
-          회원가입
         </Link>
         <Link to="/Cart" className="tab-menu-link">
           장바구니
@@ -46,14 +43,14 @@ const Header = () => {
           마이페이지
         </Link>
         <Link to="/Inquiry" className="tab-menu-link">
-          문의
+          문의하기
         </Link>
         {/* 로그인 링크 */}
         <div className="tab-menu-login">
           {isLogin ? (
             <React.Fragment>
               <Link to={`/MyPage`} className="nav-link">
-                {sessionStorage.getItem('userEmail')}
+                {sessionStorage.getItem('userName')}님
                 <br />
               </Link>
               <button
@@ -61,6 +58,10 @@ const Header = () => {
                 onClick={() => {
                   // Handle sign out logic
                   sessionStorage.removeItem('userEmail');
+                  sessionStorage.removeItem('userCode'); // userCode 저장
+                  sessionStorage.removeItem('userAddress');
+                  sessionStorage.removeItem('userName');
+                  sessionStorage.removeItem('userBirth');
                   setIsLogin(false);
                 }}
               >
@@ -68,9 +69,11 @@ const Header = () => {
               </button>
             </React.Fragment>
           ) : (
-            <Link to={`/UserLogin`} className="nav-link">
-              Sign In
-            </Link>
+            <React.Fragment>
+              <Link to={`/UserLogin`} className="nav-link">
+                Sign In
+              </Link>
+            </React.Fragment>
           )}
         </div>
       </div>

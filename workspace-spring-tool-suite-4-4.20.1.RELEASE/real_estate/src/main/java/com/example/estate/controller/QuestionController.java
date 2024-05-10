@@ -33,6 +33,7 @@ public class QuestionController {
 		Long userCode = Long.valueOf((String) requestData.get("userCode"));
         String questionTitle = (String) requestData.get("questionTitle");
         String questionContent = (String) requestData.get("questionContent");
+        String questionType = (String) requestData.get("questionType");
 
         Question que = new Question();
         User user = new User();
@@ -40,6 +41,7 @@ public class QuestionController {
         que.setUser(user);
         que.setQuestionTitle(questionTitle);
         que.setQuestionContent(questionContent);
+        que.setQuestionType(questionType);
         questionService.addQuestion(que);
     }
 	

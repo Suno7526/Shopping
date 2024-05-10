@@ -8,11 +8,19 @@ const Question = () => {
   // 버튼의 활성화 상태를 관리하는 useState 훅 사용
   const [activeButton, setActiveButton] = useState('');
   const userCode = sessionStorage.getItem('userCode');
+  const [questionType, setQuestionType] = useState('');
+
   const [question, setQuestion] = useState({
     questionTitle: '',
     questionContent: '',
+    questionType: '',
     userCode: userCode,
   });
+
+  const handleButtonClick = (buttonName) => {
+    setActiveButton(buttonName);
+    setQuestionType(buttonName); // 클릭한 버튼의 값을 questionType에 저장
+  };
 
   // 문의 제목 입력 시 호출되는 함수
   const handleTitleChange = (event) => {
@@ -30,6 +38,7 @@ const Question = () => {
       const response = await axios.post('http://localhost:8000/questions', {
         questionTitle: question.questionTitle,
         questionContent: question.questionContent,
+        questionType: questionType,
         userCode: userCode, // userCode도 함께 보냄
       });
 
@@ -37,11 +46,6 @@ const Question = () => {
     } catch (error) {
       console.error(error);
     }
-  };
-
-  // 버튼 클릭 시 활성화 상태 업데이트하는 함수
-  const handleButtonClick = (buttonName) => {
-    setActiveButton(buttonName);
   };
 
   return (
@@ -71,36 +75,42 @@ const Question = () => {
           <div className="best-faq">Best FAQ</div>
           문의유형
           <button
+            type="button"
             onClick={() => handleButtonClick('배송')}
             className={activeButton === '배송' ? 'active' : ''}
           >
             배송
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('주문/결제')}
             className={activeButton === '주문/결제' ? 'active' : ''}
           >
             주문/결제
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('최소/교환/환불')}
             className={activeButton === '최소/교환/환불' ? 'active' : ''}
           >
             최소/교환/환불
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('회원정보')}
             className={activeButton === '회원정보' ? 'active' : ''}
           >
             회원정보
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('상품확인')}
             className={activeButton === '상품확인' ? 'active' : ''}
           >
             상품확인
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('서비스')}
             className={activeButton === '서비스' ? 'active' : ''}
           >

@@ -39,6 +39,9 @@ public class Question {
 	
 	@Column
     private String questionContent; // 내용
+	
+	@Column
+    private String questionType; // 내용
 
 	
 	@CreationTimestamp

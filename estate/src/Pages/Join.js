@@ -89,6 +89,7 @@ const Join = () => {
       console.error('Error during signup:', error);
     }
   };
+
   return (
     <div>
       <div id="signup-container">

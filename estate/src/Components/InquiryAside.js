@@ -10,7 +10,7 @@ const Aside = () => {
       <hr />
       <aside className="sidebar">
         <nav>
-          <Link to="/Mypage">
+          <Link to="/BestFAQ">
             <button>자주하는 질문</button>
           </Link>{' '}
           <Link to="/Question">
