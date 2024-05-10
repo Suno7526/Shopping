@@ -1,5 +1,7 @@
 package com.example.estate.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,4 +17,9 @@ public class QuestionService {
 	public void addQuestion(Question question) {
 		questionRepository.save(question);
 	}
+	
+	public List<Question> getAllQuestions() {
+        return questionRepository.findAll();
+    }
+	
 }

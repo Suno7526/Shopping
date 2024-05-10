@@ -26,13 +26,15 @@ const UserLogin = () => {
           sessionStorage.setItem('userEmail', email);
           sessionStorage.setItem('userCode', userData.userCode); // userCode 저장
           sessionStorage.setItem('userAddress', userData.address);
+          sessionStorage.setItem('userName', userData.name);
+          sessionStorage.setItem('userBirth', userData.birth);
           // Redirect to Home page
           window.location.href = '/Home';
         } else {
-          console.log('Invalid credentials');
+          alert('로그인 실패');
         }
       } else {
-        console.log('Login failed');
+        alert('로그인 실패');
       }
     } catch (error) {
       console.error('Error during login:', error);

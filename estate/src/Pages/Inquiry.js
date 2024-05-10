@@ -4,12 +4,22 @@ import { Link } from 'react-router-dom'; // Link import 추가
 import InquiryAside from '../Components/InquiryAside';
 import axios from 'axios';
 
-const Question = () => {
-  const [posts, setPosts] = useState([
-    { title: '첫 번째 게시글', username: '홍길동' },
-    { title: '두 번째 게시글', username: '사용자이름1' },
-    { title: '세 번째 게시글', username: '사용자이름2' },
-  ]);
+const Inquiry = () => {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    // 서버에서 데이터 가져오는 부분
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/questions');
+        setPosts(response.data);
+      } catch (error) {
+        console.error('Error fetching posts:', error);
+      }
+    };
+
+    fetchPosts();
+  }, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 설정
 
   return (
     <div className="page">
@@ -29,8 +39,10 @@ const Question = () => {
         {posts.map((post, index) => (
           <div className="post" key={index}>
             <span className="post-info-item">{index + 1}</span>
-            <h2 className="post-title">{post.title}</h2>
-            <p className="post-username">{post.username}</p>
+            <h2 className="post-title">{post.questionTitle}</h2>
+            <p className="post-username">
+              {sessionStorage.getItem('userName')}
+            </p>
             {/* 사용자 이름은 Unknown으로 설정 */}
           </div>
         ))}
@@ -39,4 +51,4 @@ const Question = () => {
   );
 };
 
-export default Question;
+export default Inquiry;
