@@ -9,25 +9,24 @@ const BestFAQ = () => {
         <div className="info-box">
           <div className="info-content">
             <div className="info-rectangle">
-              <ul className="FAQcategory-list">
-                <li className="FAQcategory-list-item">
-                  <p>
-                    <a className="makerdrop">배송</a>
-                  </p>
-                </li>
-              </ul>
+              <ul className="FAQcategory-list">탈퇴/기타</ul>
+            </div>
+            <div className="info-rectangle">
+              <ul className="FAQcategory-list">로그인/정보</ul>
+            </div>
+            <div className="info-rectangle">
+              <ul className="FAQcategory-list">상품 문의</ul>
             </div>
           </div>
-        </div>
-        <h4>교환/취소(반품)</h4>
-        <div className="info-box">
           <div className="info-content">
             <div className="info-rectangle">
-              <p>
-                구매하신 상품의 가격이 내려간 경우, 일정 기간 내에 구매하신
-                가격과 차이를 환불해드립니다. 환불 정책은 구매한 쇼핑몰 또는
-                회사의 정책에 따라 달라질 수 있으니 해당 정책을 확인해주세요.
-              </p>
+              <ul className="FAQcategory-list">배송</ul>
+            </div>
+            <div className="info-rectangle">
+              <ul className="FAQcategory-list">취소/환불</ul>
+            </div>
+            <div className="info-rectangle">
+              <ul className="FAQcategory-list">교환/반품</ul>
             </div>
           </div>
         </div>

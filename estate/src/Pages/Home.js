@@ -114,22 +114,13 @@ const Home = () => {
 
                 <div className="product-info">
                   <p>
-                    <strong>상품명:</strong> {product.productName}
-                  </p>
-                  <p>
-                    <strong>설명:</strong> {product.information}
-                  </p>
-                  <p>
                     <strong>회사명:</strong> {product.companyName}
                   </p>
                   <p>
-                    <strong>재고:</strong> {product.productStuck}
+                    <strong>상품명:</strong> {product.productName}
                   </p>
                   <p>
-                    <strong>제품 크기:</strong> {product.productSize}
-                  </p>
-                  <p>
-                    <strong>가격:</strong> ₩{product.productPrice}
+                    <strong>가격:</strong> {product.productPrice}$
                   </p>
                   <p>
                     <strong>조회수:</strong> {product.viewCount}

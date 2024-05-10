@@ -58,10 +58,10 @@ const Header = () => {
                 onClick={() => {
                   // Handle sign out logic
                   sessionStorage.removeItem('userEmail');
-                  sessionStorage.removeItem('userCode'); // userCode 저장
-                  sessionStorage.removeItem('userAddress');
-                  sessionStorage.removeItem('userName');
-                  sessionStorage.removeItem('userBirth');
+                  sessionStorage.setItem('userCode'); // userCode 저장
+                  sessionStorage.setItem('userAddress');
+                  sessionStorage.setItem('userName');
+                  sessionStorage.setItem('userBirth');
                   setIsLogin(false);
                 }}
               >

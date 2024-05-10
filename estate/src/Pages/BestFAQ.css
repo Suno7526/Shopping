@@ -6,7 +6,7 @@
 
 .Bestfaq-maintitle {
   align-items: left;
-  margin-left: 4em;
+  margin-left: 6.5em;
 }
 
 .info-box {
@@ -14,35 +14,40 @@
 }
 
 .info-content {
+  /* display: flex;
+  align-items: center;
+  margin: calc(25%-20px); */
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  columns: 4;
+  column-gap: auto;
   align-items: center;
 }
 
 .info-rectangle {
   position: relative;
-  width: 300px; /* 너비 조정 */
+  width: 250px; /* 너비 조정 */
   height: 100px; /* 높이 설정 */
-  padding: 20px;
-  background-color: #ccc;
-  margin-right: 20px;
+  background-color: #232a3f;
+  display: flex;
+  overflow: auto; /* 텍스트가 넘칠 경우 스크롤바 추가 */
+  width: calc(20% - 20px);
+  text-align: center;
+  margin: 5px;
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: auto; /* 텍스트가 넘칠 경우 스크롤바 추가 */
-}
-
-.info-text {
-  position: absolute;
-  top: 0;
-  left: 50px;
-}
-
-.info-text p {
-  margin: 0;
+  font-size: 23px;
+  font-weight: bold;
+  color: #7d84ab;
+  border: solid 1px #7d84ab;
+  border-radius: 10px;
 }
 
 .info-rectangle:hover {
-  background-color: #999;
+  background-color: #232a3f;
+  color: #e6a15c;
 }
 
 .FAQcategory-list {
