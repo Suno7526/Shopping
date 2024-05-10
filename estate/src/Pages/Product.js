@@ -56,7 +56,6 @@ const Product = () => {
         productCode: productCode,
       });
       alert('상품을 장바구니에 담았습니다.');
-      console.log('상품을 장바구니에 담았습니다.');
     } catch (error) {
       console.error('상품을 장바구니에 담는 중 오류 발생:', error);
     }

@@ -46,7 +46,7 @@ const Header = () => {
           마이페이지
         </Link>
         <Link to="/Inquiry" className="tab-menu-link">
-          문의하기
+          문의
         </Link>
         {/* 로그인 링크 */}
         <div className="tab-menu-login">

@@ -30,14 +30,15 @@ const Question = () => {
       const response = await axios.post('http://localhost:8000/questions', {
         questionTitle: question.questionTitle,
         questionContent: question.questionContent,
-        userCode: userCode,
+        userCode: userCode, // userCode도 함께 보냄
       });
 
-      alert(response.data);
+      alert('문의하기 완료');
     } catch (error) {
-      console.error('Error during signup:', error);
+      console.error(error);
     }
   };
+
   // 버튼 클릭 시 활성화 상태 업데이트하는 함수
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -46,7 +47,7 @@ const Question = () => {
   return (
     <div className="page">
       <article>
-        <h4>☎︎ 문의 하기</h4>
+        <h4>☎︎ 문의 하기{userCode}</h4>
         <ul>
           <li>
             1:1 Q&A 제품 사용, 오염, 전용 박스 손상, 라벨 제거, 사은품 및 부속

@@ -15,7 +15,7 @@ const Question = () => {
     <div className="page">
       <InquiryAside />
       <article>
-        <h4>☎︎ 문의 하기</h4>
+        <h4>☎︎ 문의</h4>
         <ul>
           <li>Q&A 문의 게시판입니다. </li>
         </ul>
@@ -24,7 +24,7 @@ const Question = () => {
         <div className="board-info">
           <span className="board-info-item">문의 종류</span>
           <span className="board-info-item">제목</span>
-          <span className="board-info-item">사용자 이름</span>
+          <span className="board-info-item">사용자이름</span>
         </div>
         {posts.map((post, index) => (
           <div className="post" key={index}>
