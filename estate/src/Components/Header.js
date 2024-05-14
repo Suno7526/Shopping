@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom'; // Link import 추가
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
   const [isSticky, setIsSticky] = useState(false); // 스크롤 여부 관리
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
+    setUserRole(sessionStorage.getItem('userRole'));
 
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -33,9 +35,11 @@ const Header = () => {
         <Link to="/Home" className="tab-menu-link">
           홈
         </Link>
-        <Link to="/ProductJoin" className="tab-menu-link">
-          상품등록
-        </Link>
+        {userRole === 'ADMIN' && (
+          <Link to="/ProductJoin" className="tab-menu-link">
+            상품등록
+          </Link>
+        )}
         <Link to="/Cart" className="tab-menu-link">
           장바구니
         </Link>

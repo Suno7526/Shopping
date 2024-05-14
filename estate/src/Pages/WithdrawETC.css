@@ -1,0 +1,72 @@
+.maintitle-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.Bestfaq-maintitle {
+  display: flex;
+  align-items: left;
+  margin-left: 6.5em;
+  font-weight: bold;
+  color: #232a3f;
+}
+
+.WithdrawETC-maintitle {
+  margin-left: 10px;
+  align-items: left;
+  font-weight: bold;
+  color: #e6a15c;
+}
+
+.WithdrawETC-maintitle2 {
+  margin-left: 10px;
+  align-items: left;
+  font-weight: bold;
+  color: #232a3f;
+}
+
+.WithdrawETC-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.Q1detailP {
+  display: flex;
+  flex-direction: column;
+}
+
+.WithdrawETC-Q1-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.WithdrawETC-Q1 {
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+.WithdrawETC-Q1detail p {
+  padding: 10px; /* 내부 여백 설정 */
+  border-top: 2px solid #232a3f;
+}
+
+.Q2detailP {
+  display: flex;
+  flex-direction: column;
+}
+
+.WithdrawETC-Q2-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.WithdrawETC-Q2 {
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+.WithdrawETC-Q2detail p {
+  padding: 12px; /* 내부 여백 설정 */
+  border-top: 1px solid #232a3f;
+}

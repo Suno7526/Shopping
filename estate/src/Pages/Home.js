@@ -120,7 +120,7 @@ const Home = () => {
                     <strong>상품명:</strong> {product.productName}
                   </p>
                   <p>
-                    <strong>가격:</strong> {product.productPrice}$
+                    <strong>가격:</strong> {product.productPrice}₩
                   </p>
                   <p>
                     <strong>조회수:</strong> {product.viewCount}
