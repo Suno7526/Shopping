@@ -9,6 +9,7 @@
   align-items: center;
   border-top-right-radius: 10px; /* 오른쪽 위 모서리 둥글게 설정 */
   border-bottom-right-radius: 10px; /* 오른쪽 아래 모서리 둥글게 설정 */
+  z-index: 2;
 }
 
 .sidebar a {

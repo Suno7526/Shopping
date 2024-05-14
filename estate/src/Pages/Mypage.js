@@ -63,11 +63,9 @@ const Mypage = () => {
                     alt={order.product.productName}
                     style={{ width: '100px', height: '100px' }}
                   />
-                  <div>
-                    <strong>{order.product.productName}</strong>
-                    <br />
-                    옵션: {order.product.productOption}
-                  </div>
+                  <strong>{order.product.productName}</strong> / SIZE:{' '}
+                  {order.product.productOption}
+                  <div></div>
                 </td>
                 <td>{formatRegisterDate(order.orderDate)}</td>
                 <td>{order.orderCode}</td>

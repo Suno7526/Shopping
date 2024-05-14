@@ -12,4 +12,8 @@ public interface LikeRepository extends JpaRepository<Likes, Long>{
     void deleteByUser_UserCodeAndProduct_ProductCode(Long userCode, Long productCode);
 
     
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> develop3

@@ -90,3 +90,11 @@ button[type='submit'] {
 button[type='submit']:hover {
   background-color: #e6a15c;
 }
+
+#questionTitle {
+  width: 500px;
+}
+.additional-buttons button.active {
+  background-color: #e6a15c;
+  color: #fff;
+}

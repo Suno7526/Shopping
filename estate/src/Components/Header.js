@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom'; // Link import 추가
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
   const [isSticky, setIsSticky] = useState(false); // 스크롤 여부 관리
+  const [userRole, setUserRole] = useState('');
 
   useEffect(() => {
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
+    setUserRole(sessionStorage.getItem('userRole'));
 
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -28,17 +30,16 @@ const Header = () => {
     <div>
       <div className={`tab-menu ${isSticky ? 'sticky' : ''}`}>
         <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
-        <div id="Company">NONAME</div>
+        <div id="Company">FASS</div>
         {/* 기존 탭 메뉴 */}
         <Link to="/Home" className="tab-menu-link">
           홈
         </Link>
-        <Link to="/ProductJoin" className="tab-menu-link">
-          상품등록
-        </Link>
-        <Link to="/Join" className="tab-menu-link">
-          회원가입
-        </Link>
+        {userRole === 'ADMIN' && (
+          <Link to="/ProductJoin" className="tab-menu-link">
+            상품등록
+          </Link>
+        )}
         <Link to="/Cart" className="tab-menu-link">
           장바구니
         </Link>
@@ -53,7 +54,7 @@ const Header = () => {
           {isLogin ? (
             <React.Fragment>
               <Link to={`/MyPage`} className="nav-link">
-                {sessionStorage.getItem('userEmail')}
+                {sessionStorage.getItem('userName')}님
                 <br />
               </Link>
               <button
@@ -61,6 +62,10 @@ const Header = () => {
                 onClick={() => {
                   // Handle sign out logic
                   sessionStorage.removeItem('userEmail');
+                  sessionStorage.removeItem('userCode'); // userCode 저장
+                  sessionStorage.removeItem('userAddress');
+                  sessionStorage.removeItem('userName');
+                  sessionStorage.removeItem('userBirth');
                   setIsLogin(false);
                 }}
               >
@@ -68,9 +73,11 @@ const Header = () => {
               </button>
             </React.Fragment>
           ) : (
-            <Link to={`/UserLogin`} className="nav-link">
-              Sign In
-            </Link>
+            <React.Fragment>
+              <Link to={`/UserLogin`} className="nav-link">
+                Sign In
+              </Link>
+            </React.Fragment>
           )}
         </div>
       </div>
@@ -93,10 +100,16 @@ const Header = () => {
                   <Link to="/Category/코트">코트</Link>
                 </li>
                 <li>
-                  <Link to="/Category/패딩-파카">패딩 / 파카</Link>
+                  <Link to="/Category/패딩">패딩</Link>
                 </li>
                 <li>
-                  <Link to="/Category/모피-머스탱">모피 / 머스탱</Link>
+                  <Link to="/Category/파카">파카</Link>
+                </li>
+                <li>
+                  <Link to="/Category/모피">모피</Link>
+                </li>
+                <li>
+                  <Link to="/Category/머스탱">머스탱</Link>
                 </li>
               </ul>
             </li>
@@ -104,19 +117,22 @@ const Header = () => {
               <Link to="/Category/TOP">TOP</Link>
               <ul>
                 <li>
-                  <Link to="/Category/민소매-조끼">민소매 / 조끼</Link>
+                  <Link to="/Category/민소매">민소매</Link>
                 </li>
                 <li>
-                  <Link to="/Category/반팔-티">반팔 티</Link>
+                  <Link to="/Category/조끼">조끼</Link>
                 </li>
                 <li>
-                  <Link to="/Category/긴팔-티">긴팔 티</Link>
+                  <Link to="/Category/반팔티">반팔티</Link>
+                </li>
+                <li>
+                  <Link to="/Category/긴팔티">긴팔티</Link>
                 </li>
                 <li>
                   <Link to="/Category/셔츠">셔츠</Link>
                 </li>
                 <li>
-                  <Link to="/Category/크루-넥">크루 넥</Link>
+                  <Link to="/Category/크루넥">크루넥</Link>
                 </li>
                 <li>
                   <Link to="/Category/니트">니트</Link>
@@ -159,7 +175,7 @@ const Header = () => {
                   <Link to="/Category/비니">비니</Link>
                 </li>
                 <li>
-                  <Link to="/Category/기타">기타..</Link>
+                  <Link to="/Category/기타">기타</Link>
                 </li>
               </ul>
             </li>

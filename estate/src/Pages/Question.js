@@ -1,27 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Question.css'; // 외부 스타일 시트 불러오기
 import { Link } from 'react-router-dom'; // Link import 추가
 import Aside from '../Components/Aside';
+import axios from 'axios';
 
 const Question = () => {
   // 버튼의 활성화 상태를 관리하는 useState 훅 사용
   const [activeButton, setActiveButton] = useState('');
+  const userCode = sessionStorage.getItem('userCode');
+  const [questionType, setQuestionType] = useState('');
 
-  // 버튼 클릭 시 활성화 상태 업데이트하는 함수
+  const [question, setQuestion] = useState({
+    questionTitle: '',
+    questionContent: '',
+    questionType: '',
+    userCode: userCode,
+  });
+
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
+    setQuestionType(buttonName); // 클릭한 버튼의 값을 questionType에 저장
+  };
+
+  // 문의 제목 입력 시 호출되는 함수
+  const handleTitleChange = (event) => {
+    setQuestion({ ...question, questionTitle: event.target.value });
+  };
+
+  // 문의 내용 입력 시 호출되는 함수
+  const handleContentChange = (event) => {
+    setQuestion({ ...question, questionContent: event.target.value });
   };
 
   // 전송 버튼 클릭 시 실행되는 함수
-  const handleSubmit = () => {
-    // 전송 로직 추가
-    console.log('전송 버튼이 클릭되었습니다.');
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post('http://localhost:8000/questions', {
+        questionTitle: question.questionTitle,
+        questionContent: question.questionContent,
+        questionType: questionType,
+        userCode: userCode, // userCode도 함께 보냄
+      });
+
+      alert('문의하기 완료');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <div className="page">
       <article>
-        <h4>☎︎ 문의 하기</h4>
+        <h4>☎︎ 문의 하기{userCode}</h4>
         <ul>
           <li>
             1:1 Q&A 제품 사용, 오염, 전용 박스 손상, 라벨 제거, 사은품 및 부속
@@ -45,36 +75,42 @@ const Question = () => {
           <div className="best-faq">Best FAQ</div>
           문의유형
           <button
+            type="button"
             onClick={() => handleButtonClick('배송')}
             className={activeButton === '배송' ? 'active' : ''}
           >
             배송
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('주문/결제')}
             className={activeButton === '주문/결제' ? 'active' : ''}
           >
             주문/결제
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('최소/교환/환불')}
             className={activeButton === '최소/교환/환불' ? 'active' : ''}
           >
             최소/교환/환불
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('회원정보')}
             className={activeButton === '회원정보' ? 'active' : ''}
           >
             회원정보
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('상품확인')}
             className={activeButton === '상품확인' ? 'active' : ''}
           >
             상품확인
           </button>
           <button
+            type="button"
             onClick={() => handleButtonClick('서비스')}
             className={activeButton === '서비스' ? 'active' : ''}
           >
@@ -129,17 +165,27 @@ const Question = () => {
         </div>
 
         <div>
-          <label htmlFor="message">메시지</label>
+          <label htmlFor="questionTitle">문의제목</label>
+          <input
+            type="text"
+            id="questionTitle"
+            name="questionTitle"
+            value={question.questionTitle}
+            onChange={handleTitleChange}
+          />
+        </div>
+        <div>
+          <label htmlFor="questionContent">문의내용</label>
           <textarea
-            id="message"
-            name="message"
+            id="questionContent"
+            name="questionContent"
             rows="4"
-            className="quest"
+            value={question.questionContent}
+            onChange={handleContentChange}
           ></textarea>
         </div>
-        {/* 전송 버튼의 type을 button으로 변경 */}
         <button type="button" onClick={handleSubmit}>
-          전송
+          문의하기
         </button>
       </form>
     </div>

@@ -51,8 +51,5 @@ public class UserController {
             return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
-
-
-
     
 }

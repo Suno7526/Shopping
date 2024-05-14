@@ -6,54 +6,56 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 
 const Category = () => {
   const { category } = useParams();
-  const [products, setProduct] = useState(null);
+  const [products, setProducts] = useState(null);
 
   useEffect(() => {
-    const fetchProduct = async () => {
+    const fetchProductsByCategory = async (categories) => {
       try {
-        let response;
-
-        if (category === 'OUTER') {
-          // OUTER 카테고리를 클릭했을 때 모든 카테고리의 데이터를 가져옴
-          const categories = [
-            '재킷',
-            '집업',
-            '점퍼',
-            '코트',
-            '패딩',
-            '파카',
-            '모피',
-            '머스탱',
-          ];
-          const promises = categories.map((category) =>
-            axios.get(`/category/${category}`),
-          );
-          const results = await Promise.all(promises);
-          const data = results.map((result) => result.data);
-          // 모든 카테고리의 데이터를 합쳐서 하나의 배열로 만듦
-          const combinedData = data.flat();
-          // viewCount 기준으로 정렬
-          const sortedProducts = combinedData.sort(
-            (a, b) => b.viewCount - a.viewCount,
-          );
-          setProduct(sortedProducts);
-        } else {
-          // 일반적인 카테고리일 때 해당 카테고리의 데이터를 가져옴
-          response = await axios.get(`/category/${category}`);
-          // 제품 목록을 viewCount 기준으로 높은 순서로 정렬
-          const sortedProducts = response.data.sort(
-            (a, b) => b.viewCount - a.viewCount,
-          );
-          setProduct(sortedProducts);
-        }
+        const promises = categories.map((category) =>
+          axios.get(`/category/${category}`),
+        );
+        const results = await Promise.all(promises);
+        const data = results.map((result) => result.data).flat();
+        setProducts(data.sort((a, b) => b.viewCount - a.viewCount));
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
       }
     };
 
-    fetchProduct();
-  }, [category]);
+    const categoriesMap = {
+      OUTER: ['재킷', '집업', '점퍼', '코트', '패딩', '파카', '모피', '머스탱'],
+      TOP: [
+        '민소매',
+        '조끼',
+        '반팔티',
+        '긴팔티',
+        '셔츠',
+        '크루넥',
+        '니트',
+        '후드',
+      ],
+      BOTTOM: ['반바지', '츄리닝', '긴바지', '치마'],
+      HEADWEAR: ['캡', '버킷햇', '스냅백', '비니', '기타'],
+    };
 
+    if (
+      category === 'OUTER' ||
+      category === 'TOP' ||
+      category === 'BOTTOM' ||
+      category === 'HEADWEAR'
+    ) {
+      fetchProductsByCategory(categoriesMap[category]);
+    } else {
+      axios
+        .get(`/category/${category}`)
+        .then((response) =>
+          setProducts(response.data.sort((a, b) => b.viewCount - a.viewCount)),
+        )
+        .catch((error) =>
+          console.error('상품을 불러오는 중 오류 발생:', error),
+        );
+    }
+  }, [category]);
   if (!products) {
     return <div>Loading...</div>;
   }
@@ -70,7 +72,6 @@ const Category = () => {
     }
   };
 
-  // 상품 클릭 시 호출되는 함수
   const handleClickProduct = (productCode) => {
     const userCode = sessionStorage.getItem('userCode');
     if (userCode) {
@@ -109,22 +110,13 @@ const Category = () => {
 
                 <div className="product-info">
                   <p>
-                    <strong>상품명:</strong> {product.productName}
-                  </p>
-                  <p>
-                    <strong>설명:</strong> {product.information}
-                  </p>
-                  <p>
                     <strong>회사명:</strong> {product.companyName}
                   </p>
                   <p>
-                    <strong>재고:</strong> {product.productStuck}
+                    <strong>상품명:</strong> {product.productName}
                   </p>
                   <p>
-                    <strong>제품 크기:</strong> {product.productSize}
-                  </p>
-                  <p>
-                    <strong></strong> ₩{product.productPrice}
+                    <strong>가격</strong> {product.productPrice}₩
                   </p>
                   <p>
                     <strong>조회수:</strong> {product.viewCount}

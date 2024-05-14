@@ -17,6 +17,8 @@ import Question from './Pages/Question';
 import Category from './Pages/Category';
 import Like from './Pages/Like';
 import Inquiry from './Pages/Inquiry';
+import BestFAQ from './Pages/BestFAQ';
+import WithdrawETC from './Pages/WithdrawETC';
 
 //123124124
 function App() {
@@ -44,6 +46,8 @@ function App() {
         <Route path="/Mypage" element={<Mypage />} />
         <Route path="/Question" element={<Question />} />
         <Route path="/Inquiry" element={<Inquiry />} />
+        <Route path="/BestFAQ" element={<BestFAQ />} />
+        <Route path="/WithdrawETC" element={<WithdrawETC />} />
       </Routes>
       <Footer />
     </BrowserRouter>

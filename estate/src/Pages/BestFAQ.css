@@ -1,0 +1,59 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.Bestfaq-maintitle {
+  align-items: left;
+  margin-left: 6.5em;
+  font-weight: bold;
+  color: #232a3f;
+}
+
+.info-box {
+  padding: 20px;
+}
+
+.info-content {
+  /* display: flex;
+  align-items: center;
+  margin: calc(25%-20px); */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  columns: 4;
+  column-gap: auto;
+  align-items: center;
+}
+
+.info-rectangle {
+  position: relative;
+  width: 250px; /* 너비 조정 */
+  height: 100px; /* 높이 설정 */
+  background-color: #232a3f;
+  display: flex;
+  overflow: auto; /* 텍스트가 넘칠 경우 스크롤바 추가 */
+  width: calc(26% - 20px); /* 모니터의 너비에 따라 동적으로 조정 */
+  text-align: center;
+  margin: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 23px;
+  font-weight: bold;
+  color: #7d84ab;
+  border: solid 1px #7d84ab;
+  border-radius: 10px;
+  text-decoration: none; /* 링크의 밑줄 제거 */
+}
+
+.info-rectangle:hover {
+  background-color: #232a3f;
+  color: #e6a15c;
+}
+
+.FAQcategory-list {
+  margin-right: 30px;
+  margin-top: 15px;
+}
