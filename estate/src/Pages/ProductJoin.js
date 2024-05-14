@@ -153,11 +153,12 @@ const ProductJoin = () => {
               <option value="모피/머스탱">모피/머스탱</option>
             </optgroup>
             <optgroup label="상의">
-              <option value="민소매/조끼">민소매/조끼</option>
-              <option value="반팔 티">반팔 티</option>
-              <option value="긴팔 티">긴팔 티</option>
+              <option value="민소매">민소매</option>
+              <option value="조끼">조끼</option>
+              <option value="반팔티">반팔티</option>
+              <option value="긴팔티">긴팔티</option>
               <option value="셔츠">셔츠</option>
-              <option value="크루 넥">크루 넥</option>
+              <option value="크루넥">크루 넥</option>
               <option value="니트">니트</option>
               <option value="후드">후드</option>
             </optgroup>
@@ -172,7 +173,7 @@ const ProductJoin = () => {
               <option value="버킷햇">버킷햇</option>
               <option value="스냅백">스냅백</option>
               <option value="비니">비니</option>
-              <option value="기타..">기타..</option>
+              <option value="기타">기타</option>
             </optgroup>
           </select>
 

@@ -37,6 +37,60 @@ const Category = () => {
             (a, b) => b.viewCount - a.viewCount,
           );
           setProduct(sortedProducts);
+        } else if (category === 'TOP') {
+          // OUTER 카테고리를 클릭했을 때 모든 카테고리의 데이터를 가져옴
+          const categories = [
+            '민소매',
+            '조끼',
+            '반팔티',
+            '긴팔티',
+            '셔츠',
+            '크루넥',
+            '니트',
+            '후드',
+          ];
+          const promises = categories.map((category) =>
+            axios.get(`/category/${category}`),
+          );
+          const results = await Promise.all(promises);
+          const data = results.map((result) => result.data);
+          // 모든 카테고리의 데이터를 합쳐서 하나의 배열로 만듦
+          const combinedData = data.flat();
+          // viewCount 기준으로 정렬
+          const sortedProducts = combinedData.sort(
+            (a, b) => b.viewCount - a.viewCount,
+          );
+          setProduct(sortedProducts);
+        } else if (category === 'BOTTOM') {
+          // OUTER 카테고리를 클릭했을 때 모든 카테고리의 데이터를 가져옴
+          const categories = ['반바지', '츄리닝', '긴바지', '치마'];
+          const promises = categories.map((category) =>
+            axios.get(`/category/${category}`),
+          );
+          const results = await Promise.all(promises);
+          const data = results.map((result) => result.data);
+          // 모든 카테고리의 데이터를 합쳐서 하나의 배열로 만듦
+          const combinedData = data.flat();
+          // viewCount 기준으로 정렬
+          const sortedProducts = combinedData.sort(
+            (a, b) => b.viewCount - a.viewCount,
+          );
+          setProduct(sortedProducts);
+        } else if (category === 'HEADWEAR') {
+          // OUTER 카테고리를 클릭했을 때 모든 카테고리의 데이터를 가져옴
+          const categories = ['캡', '버킷햇', '스냅백', '비니', '기타'];
+          const promises = categories.map((category) =>
+            axios.get(`/category/${category}`),
+          );
+          const results = await Promise.all(promises);
+          const data = results.map((result) => result.data);
+          // 모든 카테고리의 데이터를 합쳐서 하나의 배열로 만듦
+          const combinedData = data.flat();
+          // viewCount 기준으로 정렬
+          const sortedProducts = combinedData.sort(
+            (a, b) => b.viewCount - a.viewCount,
+          );
+          setProduct(sortedProducts);
         } else {
           // 일반적인 카테고리일 때 해당 카테고리의 데이터를 가져옴
           response = await axios.get(`/category/${category}`);

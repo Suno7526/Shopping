@@ -23,7 +23,7 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)	
     public User findByUserCode(Long userCode) {
         return userRepository.findByUserCode(userCode);
     }

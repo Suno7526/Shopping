@@ -58,10 +58,10 @@ const Header = () => {
                 onClick={() => {
                   // Handle sign out logic
                   sessionStorage.removeItem('userEmail');
-                  sessionStorage.setItem('userCode'); // userCode 저장
-                  sessionStorage.setItem('userAddress');
-                  sessionStorage.setItem('userName');
-                  sessionStorage.setItem('userBirth');
+                  sessionStorage.removeItem('userCode'); // userCode 저장
+                  sessionStorage.removeItem('userAddress');
+                  sessionStorage.removeItem('userName');
+                  sessionStorage.removeItem('userBirth');
                   setIsLogin(false);
                 }}
               >
@@ -96,10 +96,16 @@ const Header = () => {
                   <Link to="/Category/코트">코트</Link>
                 </li>
                 <li>
-                  <Link to="/Category/패딩-파카">패딩 / 파카</Link>
+                  <Link to="/Category/패딩">패딩</Link>
                 </li>
                 <li>
-                  <Link to="/Category/모피-머스탱">모피 / 머스탱</Link>
+                  <Link to="/Category/파카">파카</Link>
+                </li>
+                <li>
+                  <Link to="/Category/모피">모피</Link>
+                </li>
+                <li>
+                  <Link to="/Category/머스탱">머스탱</Link>
                 </li>
               </ul>
             </li>
@@ -107,19 +113,22 @@ const Header = () => {
               <Link to="/Category/TOP">TOP</Link>
               <ul>
                 <li>
-                  <Link to="/Category/민소매-조끼">민소매 / 조끼</Link>
+                  <Link to="/Category/민소매">민소매</Link>
                 </li>
                 <li>
-                  <Link to="/Category/반팔-티">반팔 티</Link>
+                  <Link to="/Category/조끼">조끼</Link>
                 </li>
                 <li>
-                  <Link to="/Category/긴팔-티">긴팔 티</Link>
+                  <Link to="/Category/반팔티">반팔티</Link>
+                </li>
+                <li>
+                  <Link to="/Category/긴팔티">긴팔티</Link>
                 </li>
                 <li>
                   <Link to="/Category/셔츠">셔츠</Link>
                 </li>
                 <li>
-                  <Link to="/Category/크루-넥">크루 넥</Link>
+                  <Link to="/Category/크루넥">크루넥</Link>
                 </li>
                 <li>
                   <Link to="/Category/니트">니트</Link>
@@ -162,7 +171,7 @@ const Header = () => {
                   <Link to="/Category/비니">비니</Link>
                 </li>
                 <li>
-                  <Link to="/Category/기타">기타..</Link>
+                  <Link to="/Category/기타">기타</Link>
                 </li>
               </ul>
             </li>
