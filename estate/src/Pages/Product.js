@@ -86,13 +86,13 @@ const Product = () => {
       {/* 메인 이미지 칸 */}
       <div className="container">
         <aside>
-          <div className="property-card">
+          <div className="product-card">
             <img
               src={`http://localhost:8000/getProductImage/${parseInt(
                 product.productCode,
               )}`}
               alt={product.productName}
-              className="property-image"
+              className="product-image"
             />
           </div>
         </aside>

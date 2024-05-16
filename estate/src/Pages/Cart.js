@@ -69,13 +69,20 @@ const Cart = () => {
 
       <div id="cart">
         <h2>장바구니</h2>
+        <br></br>
+        <span>상품</span>
+        <span>이름</span>
+        <span>가격</span>
+        <span>사이즈</span>
+        <span>수량</span>
+        <span>가격</span>
         {cartItems && cartItems.length > 0 ? (
           cartItems.map((item) => (
             <div className="product-line" key={item.productCode}>
               <img
                 src={`http://localhost:8000/getProductImage/${item.productCode}`}
                 alt=""
-                className="product-image"
+                className="cart-image"
               />
               <div className="product-details">
                 <p>{item.productName}</p>

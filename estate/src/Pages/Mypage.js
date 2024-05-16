@@ -52,6 +52,7 @@ const Mypage = () => {
               <th>주문번호</th>
               <th>주문금액</th>
               <th>배송주소</th>
+              <th>배송주소</th>
             </tr>
           </thead>
           <tbody>

@@ -2,6 +2,7 @@
   max-width: 90%; /* 최대 너비 설정 */
   margin-top: 20px; /* 가운데 정렬을 위해 마진 설정 */
   margin-left: 100px;
+  margin-right: 100px;
   padding: 20px;
   background-color: #fff;
   border-radius: 10px;
@@ -45,10 +46,14 @@
   font-size: 14px; /* 글자 크기 줄임 */
 }
 
-.product-image {
+.cart-image {
   width: 150px; /* 작은 크기의 이미지로 설정 */
   height: auto; /* 이미지 비율 유지 */
   margin-top: 20px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .product-details {

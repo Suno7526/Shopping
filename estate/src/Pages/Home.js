@@ -32,7 +32,6 @@ const Home = () => {
         userCode,
         productCode,
       });
-      console.log('상품을 성공적으로 저장했습니다.');
     } catch (error) {
       console.error('상품을 저장하는 중 오류 발생:', error);
     }
@@ -71,19 +70,18 @@ const Home = () => {
         <div className="property-section">
           <button onClick={goToPrevious} className="button-previous"></button>{' '}
           {/* 이전 이미지로 이동 버튼 */}
-          {products.length > 0 && (
-            <div className="property-card">
-              {/* products 배열이 비어있지 않을 때 현재 인덱스의 productCode를 사용하여 이미지 렌더링 */}
-              <img
-                src={`http://localhost:8000/getProductImage/${products[currentIndex].productCode}`}
-                alt={`Product ${currentIndex}`}
-                className="property-image"
-                onClick={() =>
-                  handleClickProduct(products[currentIndex].productCode)
-                }
-              />
+          {products.map((product, index) => (
+            <div className="property-card" key={product.productCode}>
+              <Link to={`/product/${product.productCode}`}>
+                <img
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  alt={`Product ${index}`}
+                  className="property-image"
+                  onClick={() => handleClickProduct(product.productCode)}
+                />
+              </Link>
             </div>
-          )}
+          ))}
           <button onClick={goToNext} className="button-next"></button>{' '}
           {/* 다음 이미지로 이동 버튼 */}
         </div>
@@ -106,7 +104,6 @@ const Home = () => {
                   <img
                     src={`http://localhost:8000/getProductImage/${product.productCode}`}
                     alt={`코디 ${product.productCode}`}
-                    className="property-image"
                     style={{ width: '12em', height: '12em' }}
                     onClick={() => handleClickProduct(product.productCode)}
                   />

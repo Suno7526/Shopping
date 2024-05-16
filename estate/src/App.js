@@ -19,6 +19,7 @@ import Like from './Pages/Like';
 import Inquiry from './Pages/Inquiry';
 import BestFAQ from './Pages/BestFAQ';
 import WithdrawETC from './Pages/WithdrawETC';
+import PayMent from './Pages/PayMent';
 
 //123124124
 function App() {
@@ -48,6 +49,7 @@ function App() {
         <Route path="/Inquiry" element={<Inquiry />} />
         <Route path="/BestFAQ" element={<BestFAQ />} />
         <Route path="/WithdrawETC" element={<WithdrawETC />} />
+        <Route path="/PayMent" element={<PayMent />} />
       </Routes>
       <Footer />
     </BrowserRouter>
