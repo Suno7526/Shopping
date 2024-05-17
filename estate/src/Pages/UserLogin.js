@@ -29,6 +29,7 @@ const UserLogin = () => {
           sessionStorage.setItem('userName', userData.name);
           sessionStorage.setItem('userBirth', userData.birth);
           sessionStorage.setItem('userRole', userData.role);
+          sessionStorage.setItem('userPhone', userData.phoneNumber);
           // Redirect to Home page
           window.location.href = '/Home';
         } else {

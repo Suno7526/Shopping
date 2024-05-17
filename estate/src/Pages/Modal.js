@@ -30,42 +30,11 @@ const Modal = ({ isOpen, onClose, product }) => {
 
     // 주문 후 모달을 닫습니다.
     onClose();
-    const { IMP } = window;
-    IMP.init('imp33740768');
-
-    IMP.request_pay(
-      {
-        pg: 'html5_inicis',
-        pay_method: 'card',
-        merchant_uid: new Date().getTime(),
-        name: '테스트 상품',
-        amount: 1,
-        buyer_email: 'test@naver.com',
-        buyer_name: '코드쿡',
-        buyer_tel: '010-1234-5678',
-        buyer_addr: '서울특별시',
-        buyer_postcode: '123-456',
-      },
-      async (rsp) => {
-        try {
-          const { data } = await axios.post(
-            'http://localhost:8000/verifyIamport/' + rsp.imp_uid,
-          );
-          if (rsp.paid_amount === data.response.amount) {
-            alert('결제 성공');
-          } else {
-            alert('결제 실패');
-          }
-        } catch (error) {
-          console.error('Error while verifying payment:', error);
-          alert('결제 실패');
-        }
-      },
-    );
   };
 
   const handleOrderClick = () => {
     onOrder();
+    requestPay();
   };
 
   useEffect(() => {
@@ -82,7 +51,49 @@ const Modal = ({ isOpen, onClose, product }) => {
     };
   }, []);
 
-  const requestPay = () => {};
+  const requestPay = () => {
+    const { IMP } = window;
+    IMP.init('imp33740768');
+
+    IMP.request_pay(
+      {
+        pg: 'html5_inicis',
+        pay_method: 'card',
+        merchant_uid: new Date().getTime().toString(), // 주문 번호로 사용
+        name: product.productName,
+        amount: 100,
+        buyer_email: sessionStorage.getItem('userEmail'),
+        buyer_name: sessionStorage.getItem('userName'),
+        buyer_tel: sessionStorage.getItem('userPhone'),
+        buyer_addr: sessionStorage.getItem('userAddress'),
+        buyer_postcode: '123-456',
+      },
+      async (rsp) => {
+        if (rsp.success) {
+          try {
+            const { data } = await axios.post(
+              'http://localhost:8000/verifyIamport/' + rsp.imp_uid,
+              {
+                productCode: product.productCode,
+                userCode: sessionStorage.getItem('userCode'),
+              },
+            );
+            if (rsp.paid_amount === data.response.amount) {
+              alert('결제 성공');
+              onClose();
+            } else {
+              alert('결제 실패');
+            }
+          } catch (error) {
+            console.error('Error while verifying payment:', error);
+            alert('결제 실패');
+          }
+        } else {
+          alert('결제 실패');
+        }
+      },
+    );
+  };
 
   return (
     <div>
