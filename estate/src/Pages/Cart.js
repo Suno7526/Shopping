@@ -1,10 +1,46 @@
 import React, { useEffect, useState } from 'react';
 import './Cart.css';
 import axios from 'axios';
+
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
+
+  const fetchProducts = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/getCartProduct/${sessionStorage.getItem(
+          'userCode',
+        )}`,
+      );
+      // 중복된 제품을 합치고 수량을 계산
+      const uniqueProducts = [];
+      response.data.forEach((item) => {
+        const existingProduct = uniqueProducts.find(
+          (product) => product.productCode === item.product.productCode,
+        );
+        if (existingProduct) {
+          existingProduct.quantity += 1;
+        } else {
+          uniqueProducts.push({ ...item.product, quantity: 1 });
+        }
+      });
+      setCartItems(uniqueProducts);
+    } catch (error) {
+      console.error('상품을 불러오는 중 오류 발생:', error);
+    }
+  };
+
   useEffect(() => {
-    const fetchProducts = async () => {
+    fetchProducts();
+  }, []);
+
+  const handleDeleteItem = async (productCode) => {
+    try {
+      await axios.delete(
+        `http://localhost:8000/deleteCartItem/${sessionStorage.getItem(
+          'userCode',
+        )}/${productCode}`,
+      );
       try {
         const response = await axios.get(
           `http://localhost:8000/getCartProduct/${sessionStorage.getItem(
@@ -25,37 +61,12 @@ const Cart = () => {
         });
         setCartItems(uniqueProducts);
       } catch (error) {
-        console.error('상품을 불러오는 중 오류 발생:', error);
-      }
-    };
-    fetchProducts();
-  }, []);
-
-  const handleDeleteItem = async (productCode) => {
-    try {
-      await axios.delete(
-        `http://localhost:8000/deleteCartItem/${sessionStorage.getItem(
-          'userCode',
-        )}/${productCode}`,
-      );
-      const response = await axios.get(
-        `http://localhost:8000/getCartProduct/${sessionStorage.getItem(
-          'userCode',
-        )}`,
-      );
-      // 중복된 제품을 합치고 수량을 계산
-      const uniqueProducts = [];
-      response.data.forEach((item) => {
-        const existingProduct = uniqueProducts.find(
-          (product) => product.productCode === item.product.productCode,
-        );
-        if (existingProduct) {
-          existingProduct.quantity += 1;
+        if (error.response && error.response.status === 404) {
+          setCartItems([]); // 장바구니가 비어있을 경우 빈 배열로 설정
         } else {
-          uniqueProducts.push({ ...item.product, quantity: 1 });
+          console.error('상품을 불러오는 중 오류 발생:', error);
         }
-      });
-      setCartItems(uniqueProducts);
+      }
     } catch (error) {
       console.error('상품을 삭제하는 중 오류 발생:', error);
     }
@@ -113,4 +124,5 @@ const Cart = () => {
     </div>
   );
 };
+
 export default Cart;

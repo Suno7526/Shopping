@@ -45,7 +45,7 @@ public class Product {
 
     @Column
     private int productStuck;
-
+    
     @Column
     private String companyName;
     
