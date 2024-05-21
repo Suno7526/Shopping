@@ -38,26 +38,28 @@ const Mypage = () => {
     <div className="page">
       <Aside />
       <article>
-        <h2>주문내역 조회</h2>
+        <h2>
+          <div className="page-Maintitle">주문내역 조회</div>
+        </h2>
         <ul>
           <li>주문내역에 관한 내용</li>
         </ul>
       </article>
-      <section>
-        <table>
+      <section className="OrderSection">
+        <table className="OrderTable">
           <thead>
             <tr>
-              <th>상품정보</th>
-              <th>주문일자</th>
-              <th>주문번호</th>
-              <th>주문금액</th>
-              <th>배송주소</th>
+              <th className="ProductName">상품정보</th>
+              <th className="ProductDate">주문일자</th>
+              <th className="ProductNum">주문번호</th>
+              <th className="ProductMoney">주문금액</th>
+              <th className="ProductAD">배송주소</th>
             </tr>
           </thead>
           <tbody>
             {ordersItems.map((order) => (
               <tr key={order.orderCode}>
-                <td>
+                <td className="PProductInfo">
                   <img
                     src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
                     alt={order.product.productName}

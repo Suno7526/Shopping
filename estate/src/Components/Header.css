@@ -8,6 +8,9 @@ header {
   top: 0;
 }
 
+.headermenu {
+  display: flex;
+}
 .tab-menu {
   background-color: #232a3f; /* 배경색을 검은색으로 변경 */
   display: flex;
@@ -18,7 +21,7 @@ header {
 /* Individual tab styles */
 .tab-menu-link {
   padding: 45px 20px;
-  margin: 0 10px;
+  margin: 0 25px; /*뒤에 px로 좌우로 옮길수있음*/
   text-decoration: none;
   color: #8f98b3;
   border: 1px solid transparent;

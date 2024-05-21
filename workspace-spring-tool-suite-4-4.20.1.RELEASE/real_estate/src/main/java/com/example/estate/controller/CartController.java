@@ -42,17 +42,17 @@ public class CartController {
 
 		cartService.addToCart(cart);
 	}
-	
+
 	@GetMapping("/getCartProduct/{userCode}")
 	public ResponseEntity<List<Cart>> getCarts(@PathVariable("userCode") Long userCode) {
-	    List<Cart> carts = cartService.findByUserCode(userCode);
-	    if (!carts.isEmpty()) {
-	        return new ResponseEntity<>(carts, HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    }
+		List<Cart> carts = cartService.findByUserCode(userCode);
+		if (!carts.isEmpty()) {
+			return new ResponseEntity<>(carts, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
-	
+
 	@DeleteMapping("/deleteCartItem/{userCode}/{productCode}")
 	public ResponseEntity<Void> deleteCartItem(@PathVariable("userCode") Long userCode, @PathVariable("productCode") Long productCode) {
 	    try {
@@ -62,10 +62,5 @@ public class CartController {
 	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 	    }
 	}
-<<<<<<< HEAD
-
-
 }
-=======
-}
->>>>>>> develop3
+

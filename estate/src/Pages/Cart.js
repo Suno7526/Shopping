@@ -67,8 +67,17 @@ const Cart = () => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>메인페이지</title>
 
-      <div id="cart">
-        <h2>장바구니</h2>
+      <div className="cart">
+        <h2>
+          <div className="CartMaintitle">장바구니</div>
+        </h2>
+        <div className="Cartcolumn-labels">
+          <label className="Cproduct-image">|Image</label>
+          <label className="Cproduct-details">|Product</label>
+          <label className="Cproduct-price">|Price</label>
+          <label className="Cproduct-quantity">|Quantity</label>
+          <label className="Cproduct-line-price">|Total $</label>
+        </div>
         {cartItems && cartItems.length > 0 ? (
           cartItems.map((item) => (
             <div className="product-line" key={item.productCode}>
@@ -81,27 +90,29 @@ const Cart = () => {
                 <p>{item.productName}</p>
                 <p>{item.productPrice}</p>
                 <p>{item.productSize}</p>
-                <p>수량: {item.quantity}</p>
-                <p>총 가격: {item.productPrice * item.quantity}</p>
-                <div>
+                <p className="Cquantity">수량: {item.quantity}</p>
+                <p className="Cprice">{item.productPrice * item.quantity}</p>
+                <div className="Cartcheckbox">
                   <input type="checkbox" id={`checkbox-${item.id}`} />
                   <label htmlFor={`checkbox-${item.id}`}>선택</label>
                 </div>
               </div>
-              <button
-                className="delete-item-btn"
-                onClick={() => handleDeleteItem(item.productCode)}
-              >
-                X
-              </button>
+              <div className="product-removal">
+                <button
+                  className="delete-item-btn"
+                  onClick={() => handleDeleteItem(item.productCode)}
+                >
+                  X
+                </button>
+              </div>
             </div>
           ))
         ) : (
           <p>장바구니가 비어 있습니다.</p>
         )}
-        <div className="buttons">
-          <button className="purchase-btn">구매하기</button>
-        </div>
+      </div>
+      <div className="Cartpurchaseline">
+        <button className="Cartpurchase-btn">구매하기</button>
       </div>
     </div>
   );

@@ -25,13 +25,15 @@
   color: #232a3f;
 }
 
-.WithdrawETC-container {
+/*여기부터 기존 -> QCancel 변경하면됨*/
+
+.QCancel-container {
   display: flex;
   flex-direction: column;
   overflow: auto;
 }
 
-.Q1detailP {
+.QCancel-Q1detailP {
   display: flex;
   flex-direction: column;
   padding-left: 40px;
@@ -39,24 +41,21 @@
   border: 1px solid #eaeaea;
 }
 
-.WithdrawETC-Q1-container {
+.QCancel-Q1-container {
   padding: 10px; /* 내부 여백 설정 */
   margin-left: 13em;
   margin-top: 20px;
 }
 
-.WithdrawETC-Q1 {
+.QCancel-Q1 {
   font-weight: bold;
   font-size: 20px;
   cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
 }
 
-.WithdrawETC-Q1detail p {
-  padding: 10px; /* 내부 여백 설정 */
-  border-top: 2px solid #232a3f;
-}
+/*Q1 끝*/
 
-.Q2detailP {
+.QCancel-Q2detailP {
   display: flex;
   flex-direction: column;
   padding-left: 40px;
@@ -64,19 +63,16 @@
   border: 1px solid #eaeaea;
 }
 
-.WithdrawETC-Q2-container {
+.QCancel-Q2-container {
   padding: 10px; /* 내부 여백 설정 */
   margin-left: 13em;
   margin-top: 20px;
 }
 
-.WithdrawETC-Q2 {
+.QCancel-Q2 {
   font-weight: bold;
   font-size: 20px;
   cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
 }
 
-.WithdrawETC-Q2detail p {
-  padding: 12px; /* 내부 여백 설정 */
-  border-top: 1px solid #232a3f;
-}
+/*Q2 끝*/

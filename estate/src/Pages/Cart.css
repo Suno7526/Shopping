@@ -1,4 +1,5 @@
-#cart {
+.cart {
+  position: relative;
   max-width: 90%; /* 최대 너비 설정 */
   margin-top: 20px; /* 가운데 정렬을 위해 마진 설정 */
   margin-left: 100px;
@@ -8,41 +9,54 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-#cart h2 {
-  margin-bottom: 20px;
+.CartMaintitle {
+  font-family: Serif;
+  font-weight: bold;
+  padding: 1em 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #d0d0d0;
 }
 
-#cart ul {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+/*상품 레이블*/
+
+.Cartcolumn-labels {
+  display: flex;
+  flex-direction: row; /* 가로 방향으로 정렬 */
 }
 
-#cart ul li {
-  margin-bottom: 10px;
-  padding: 10px;
-  background-color: #f9f9f9;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+.Cproduct-details {
+  margin-left: 12em;
 }
 
-#total-product {
+.Cproduct-price {
+  margin-left: 6.5em;
+}
+
+.Cproduct-quantity {
+  margin-left: 19em;
+}
+
+.Cproduct-line-price {
+  margin-left: 7em;
+}
+
+/*상품 레이블 끝*/
+
+.total-product {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1em; /* 하단 마진을 추가하여 다음 요소와의 간격을 조절합니다 */
 }
 
-#total-product p {
-  margin-right: 100px; /* 우측 마진을 추가하여 간격을 설정합니다 */
-}
-
 .product-line {
+  padding: 2em 0;
+  border-bottom: 1px solid #e0e0e0;
   display: flex; /* 요소들을 가로로 정렬 */
   justify-content: space-between; /* 요소들 사이의 여백을 최대로 설정하여 양쪽 끝에 정렬 */
   align-items: center; /* 요소들을 수직 가운데 정렬 */
-  width: 70%; /* 부모 요소의 너비를 차지 */
-  font-size: 14px; /* 글자 크기 줄임 */
+  width: 90%; /* 부모 요소의 너비를 차지 */
+  font-size: 15px; /* 글자 크기 줄임 */
 }
 
 .product-image {
@@ -53,14 +67,19 @@
 
 .product-details {
   display: flex; /* 요소들을 가로로 정렬 */
+  align-items: center;
+}
+
+.Cartcheckbox {
+  margin-top: 25px;
+  margin-left: 30px;
+  justify-items: center;
 }
 
 .product-details p {
   width: 50px; /* 가로 너비를 200px로 설정합니다 */
-  height: 100%; /* 세로 높이를 50px로 설정합니다 */
-  display: inline-block;
   margin-right: 55px; /* 우측 마진을 추가하여 간격을 설정합니다 */
-  margin-left: 55px;
+  margin-left: 70px;
   text-align: center; /* 텍스트를 가운데 정렬합니다 */
 }
 
@@ -76,28 +95,35 @@
   margin-left: 20em;
 }
 
-.delete-all-btn {
-  margin-top: 30px;
-  padding: 19px 50px; /* 버튼 내부 여백을 조정하여 크기를 키웁니다 */
-  font-size: 18px;
-  margin-left: 1em;
-  border: none;
-  background-color: #ffffff;
-  color: rgb(0, 0, 0);
-  cursor: pointer;
-  border: solid 1px #333;
-  transition: background-color 0.3s ease;
-}
-
 .delete-item-btn {
+  margin-top: 25px;
   background-color: transparent;
   color: red;
   border: none;
   cursor: pointer;
-  font-size: 16px;
-  margin-left: 10px;
+  font-size: 20px;
+  margin-left: 50px;
+  margin-bottom: 50px;
 }
 
 .delete-item-btn:hover {
   color: darkred;
+}
+
+.Cartpurchaseline {
+  display: flex;
+  justify-content: flex-end; /* 요소를 오른쪽으로 정렬 */
+}
+
+.Cartpurchase-btn {
+  margin-right: 4em;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+  padding: 10px 40px; /*왼쪽이 높이 오른쪽이 길이 값임*/
+  font-size: 18px;
+  border: none;
+  background: #5ba678;
+  color: #fff;
+  cursor: pointer;
 }

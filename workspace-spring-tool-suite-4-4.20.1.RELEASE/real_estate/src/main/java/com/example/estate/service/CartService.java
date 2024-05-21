@@ -34,9 +34,4 @@ public class CartService {
     public void deleteCartItem(Long userCode, Long productCode) {
         cartRepository.deleteByUser_UserCodeAndProduct_ProductCode(userCode, productCode);
     }
-    
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> develop3
