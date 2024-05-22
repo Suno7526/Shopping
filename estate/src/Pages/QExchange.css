@@ -1,0 +1,98 @@
+.maintitle-wrapper {
+  display: flex;
+  flex-direction: row;
+}
+
+.Bestfaq-maintitle {
+  display: flex;
+  align-items: left;
+  margin-left: 6.5em;
+  font-weight: bold;
+  color: #232a3f;
+}
+
+.WithdrawETC-maintitle {
+  margin-left: 10px;
+  align-items: left;
+  font-weight: bold;
+  color: #e6a15c;
+}
+
+.WithdrawETC-maintitle2 {
+  margin-left: 10px;
+  align-items: left;
+  font-weight: bold;
+  color: #232a3f;
+}
+
+/*여기부터 기존 -> QExchange 변경하면됨*/
+
+.QExchange-container {
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.QExchange-Q1detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QExchange-Q1-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QExchange-Q1 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+/*Q1 끝*/
+
+.QExchange-Q2detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QExchange-Q2-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QExchange-Q2 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+/*Q2 끝*/
+
+.QExchange-Q3detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QExchange-Q3-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QExchange-Q3 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}

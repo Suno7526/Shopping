@@ -27,40 +27,56 @@ const RecentItem = () => {
     fetchRecentProducts();
   }, []);
 
+  const addToCart = (product) => {
+    alert('장바구니에 추가되었습니다.');
+    // 장바구니에 상품을 추가하는 로직을 추가할 수 있습니다.
+  };
+
+  const addToWishlist = (product) => {
+    alert('찜 목록에 추가되었습니다.');
+    // 찜 목록에 상품을 추가하는 로직을 추가할 수 있습니다.
+  };
+
   return (
     <div className="page">
       <Aside />
       <article>
-        <h2>최근 본 상품</h2>
+        <h2>
+          <div className="RecentProduct">최근 본 상품</div>
+        </h2>
       </article>
-      <section>
-        <table>
-          <thead>
-            <tr>
-              <th>상품정보</th>
-            </tr>
-          </thead>
-          <tbody>
-            {recentProducts.map((product) => (
-              <tr key={product.viewCode}>
-                <td>
-                  <img
-                    src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
-                    alt={product.product.productName}
-                    style={{ width: '100px', height: '100px' }}
-                  />
-                  <div>
-                    <strong>{product.product.companyName}</strong>
-                    <br />
-                    {product.product.information}
-                    <br />
-                    옵션 : {product.product.productSize}
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+      <section className="Recentsection">
+        <div className="recentProductsContainer">
+          {recentProducts.map((product) => (
+            <div className="recentProductCard" key={product.viewCode}>
+              <img
+                src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
+                alt={product.product.productName}
+                className="recentproductImage"
+              />
+              <div className="recentproductInfo">
+                <strong>
+                  [제조사] 상품 명 : {product.product.productName}
+                </strong>
+                <br />${product.product.productPrice}
+                <div className="button-container">
+                  <button
+                    className="RecentCartBtn"
+                    onClick={() => addToCart(product.product)}
+                  >
+                    장바구니에 추가
+                  </button>
+                  <button
+                    className="RecentLikeBtn"
+                    onClick={() => addToWishlist(product.product)}
+                  >
+                    찜하기
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );

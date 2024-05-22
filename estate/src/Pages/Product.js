@@ -8,6 +8,7 @@ const Product = () => {
   const { productCode } = useParams();
   const [product, setProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
 
   const userCode = sessionStorage.getItem('userCode');
 
@@ -18,6 +19,7 @@ const Product = () => {
           `http://localhost:8000/getProduct/${productCode}`,
         );
         setProduct(response.data);
+        checkLiked(response.data);
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
       }
@@ -26,10 +28,31 @@ const Product = () => {
     fetchProduct();
   }, [productCode]);
 
+  const checkLiked = async (product) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:8000/getLikeProduct/${userCode}`,
+      );
+      const likedProducts = response.data;
+      const found = likedProducts.some(
+        (likedProduct) =>
+          likedProduct.product.productCode === product.productCode,
+      );
+      setIsLiked(found);
+    } catch (error) {
+      console.error('찜한 상품을 확인하는 중 오류 발생:', error);
+    }
+  };
+
   const handleLikeClick = async () => {
     try {
       if (!userCode) {
-        console.log('로그인이 필요합니다.');
+        alert('로그인이 필요합니다.');
+        return;
+      }
+
+      if (isLiked) {
+        alert('이미 찜한 상품입니다.');
         return;
       }
 
@@ -38,7 +61,7 @@ const Product = () => {
         productCode: productCode,
       });
       alert('상품을 찜했습니다.');
-      console.log('상품을 찜했습니다.');
+      setIsLiked(true);
     } catch (error) {
       console.error('상품을 찜하는 중 오류 발생:', error);
     }
@@ -86,13 +109,13 @@ const Product = () => {
       {/* 메인 이미지 칸 */}
       <div className="container">
         <aside>
-          <div className="product-card">
+          <div className="property-card">
             <img
               src={`http://localhost:8000/getProductImage/${parseInt(
                 product.productCode,
               )}`}
               alt={product.productName}
-              className="product-image"
+              className="property-image"
             />
           </div>
         </aside>

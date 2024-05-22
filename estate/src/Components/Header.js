@@ -30,7 +30,7 @@ const Header = () => {
     <div>
       <div className={`tab-menu ${isSticky ? 'sticky' : ''}`}>
         <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
-        <div id="Company">FASS</div>
+        <div id="Company">PASS</div>
         {/* 기존 탭 메뉴 */}
         <Link to="/Home" className="tab-menu-link">
           홈
@@ -182,6 +182,7 @@ const Header = () => {
           </ul>
         </nav>
       </header>
+      <hr />
     </div>
   );
 };

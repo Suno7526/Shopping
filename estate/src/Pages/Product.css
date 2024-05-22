@@ -12,14 +12,22 @@ section {
   flex: 1;
 }
 
-.product-image {
-  width: 100%; /* 이미지의 너비를 자동으로 설정하여 원본 비율을 유지합니다. */
-  height: 100%; /* 이미지의 높이를 100%로 설정하여 부모 요소의 높이에 맞춰집니다. */
-  object-fit: contain; /* 이미지를 guides-card에 맞게 채우되, 비율을 유지합니다. */
+.property-card {
+  margin-left: 2em;
   border: 1px solid #ddd;
   border-radius: 10px;
   background-color: white;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  cursor: pointer;
+  align-items: center;
+  width: 35em;
+  height: 31em;
+}
+
+.property-image {
+  width: 100%;
+  height: 100%;
 }
 
 .description-card {
@@ -74,11 +82,19 @@ section {
 }
 
 .product-card {
-  width: 100%; /* 부모 요소에 맞춰 전체 너비를 사용하도록 변경 */
-  height: 100%; /* 높이 설정 */
+  display: left;
+  width: 77%;
+  height: 400px;
+  margin-left: 30px;
+  margin-top: 20px; /* description-card와의 간격을 조정 */
+  gap: 20px; /* 칸 사이의 간격을 설정합니다. */
+  display: inline-block; /* 인라인 블록 요소로 설정하여 가로로 나란히 배치 */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: center;
   cursor: pointer;
-  box-sizing: border-box; /* 내부 패딩과 외부 여백을 포함하여 크기 계산 */
 }
 
 .review {

@@ -34,6 +34,9 @@
 .Q1detailP {
   display: flex;
   flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
 }
 
 .WithdrawETC-Q1-container {
@@ -43,6 +46,8 @@
 }
 
 .WithdrawETC-Q1 {
+  font-weight: bold;
+  font-size: 20px;
   cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
 }
 
@@ -54,6 +59,9 @@
 .Q2detailP {
   display: flex;
   flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
 }
 
 .WithdrawETC-Q2-container {
@@ -63,6 +71,8 @@
 }
 
 .WithdrawETC-Q2 {
+  font-weight: bold;
+  font-size: 20px;
   cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
 }
 
