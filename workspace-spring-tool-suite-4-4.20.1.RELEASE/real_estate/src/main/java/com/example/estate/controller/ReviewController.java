@@ -27,6 +27,8 @@ public class ReviewController {
                                              @RequestParam("userCode") Long userCode,
                                              @RequestParam("productCode") Long productCode) {
         try {
+        	System.out.println(userCode);
+        	System.out.println(productCode);
             byte[] imageBytes = productImage.getBytes();
             reviewService.saveReview(imageBytes, reviewPoint, reviewContent, userCode, productCode);
             return new ResponseEntity<>("리뷰 등록 성공", HttpStatus.OK);

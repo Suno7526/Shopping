@@ -24,8 +24,9 @@ public class ReviewService {
     private ProductRepository productRepository;
 
     @Transactional
-    public void saveReview(byte[] productImage, int reviewPoint, String reviewContent, Long productCode, Long userCode) {
+    public void saveReview(byte[] productImage, int reviewPoint, String reviewContent, Long userCode, Long productCode) {
         try {
+        	System.out.println(userCode);
             User user = userRepository.findById(userCode).orElseThrow(() -> new RuntimeException("User not found"));
             Product product = productRepository.findById(productCode).orElseThrow(() -> new RuntimeException("Product not found"));
 

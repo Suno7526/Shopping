@@ -70,18 +70,21 @@ const Home = () => {
         <div className="property-section">
           <button onClick={goToPrevious} className="button-previous"></button>{' '}
           {/* 이전 이미지로 이동 버튼 */}
-          {products.map((product, index) => (
-            <div className="property-card" key={product.productCode}>
-              <Link to={`/product/${product.productCode}`}>
+          {products.length > 0 && (
+            <div className="property-card">
+              {/* products 배열이 비어있지 않을 때 현재 인덱스의 productCode를 사용하여 이미지 렌더링 */}
+              <Link to={`/product/${products[currentIndex].productCode}`}>
                 <img
-                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                  alt={`Product ${index}`}
+                  src={`http://localhost:8000/getProductImage/${products[currentIndex].productCode}`}
+                  alt={`Product ${currentIndex}`}
                   className="property-image"
-                  onClick={() => handleClickProduct(product.productCode)}
+                  onClick={() =>
+                    handleClickProduct(products[currentIndex].productCode)
+                  }
                 />
               </Link>
             </div>
-          ))}
+          )}
           <button onClick={goToNext} className="button-next"></button>{' '}
           {/* 다음 이미지로 이동 버튼 */}
         </div>
@@ -104,23 +107,23 @@ const Home = () => {
                   <img
                     src={`http://localhost:8000/getProductImage/${product.productCode}`}
                     alt={`코디 ${product.productCode}`}
-                    style={{ width: '12em', height: '12em' }}
+                    className="property-image"
+                    style={{ width: '15em', height: '20em' }}
                     onClick={() => handleClickProduct(product.productCode)}
                   />
                 </Link>
 
                 <div className="product-info">
-                  <p>
-                    <strong>회사명:</strong> {product.companyName}
+                  <p className="Home-companyname">
+                    <strong>{product.companyName} </strong>
                   </p>
-                  <p>
-                    <strong>상품명:</strong> {product.productName}
+                  <br></br>
+                  <p className="Home-productName">{product.productName}</p>
+                  <p className="Home-price">
+                    <strong> {product.productPrice} </strong>원
                   </p>
-                  <p>
-                    <strong>가격:</strong> {product.productPrice}₩
-                  </p>
-                  <p>
-                    <strong>조회수:</strong> {product.viewCount}
+                  <p className="Home-views">
+                    <strong>📈 Views: {product.viewCount}</strong>
                   </p>
                 </div>
               </div>

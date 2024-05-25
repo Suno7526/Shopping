@@ -126,27 +126,28 @@
 .guides-section {
   display: flex;
   flex-wrap: wrap; /* 요소들이 넘칠 경우 다음 줄로 넘어가도록 설정 */
-  justify-content: flex-start; /* 왼쪽부터 정렬 */
-  align-items: flex-start; /* 위쪽부터 정렬 */
+  justify-content: center;
+  background-color: #f4f4f4;
 }
 
 .guides-card {
   width: calc(
-    20% - 30px
+    28% - 50px
   ); /* 한 줄에 5개씩 배치되도록 너비를 조정 (마진값을 고려하여 계산) */
-  height: 350px;
-  margin: 15px;
-  padding: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 450px;
+  margin: 4px;
+  padding: 10px;
   text-align: left;
   cursor: pointer;
   position: relative;
   font-size: 14px;
+  border: none;
 }
 
 .guides-card img {
   /*크기는 .js에서 바꿔야됩니다*/
   object-fit: cover; /* 이미지를 guides-card에 꽉 채워서 잘리지 않고 비율 유지하도록 설정 */
+  border-radius: 15px;
 }
 
 .guides-card::before {
@@ -159,4 +160,25 @@
   background-color: white; /* 배경색을 흰색으로 설정하여 내용과 겹치지 않도록 */
   padding: 0.2em 0.4em; /* 내용 주위에 여백을 추가하여 숫자를 감싸도록 */
   border-radius: 5px; /* 둥근 테두리를 추가하여 모양을 둥글게 만듦 */
+}
+
+.Home-companyname {
+  font-size: 21px;
+  font-style: sans-serif;
+}
+
+.Home-productName {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.Home-price {
+  font-size: 19px;
+  color: #121e5f;
+  margin-bottom: 10px;
+}
+
+.Home-views {
+  font-size: 16px;
+  color: red;
 }
