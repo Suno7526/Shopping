@@ -75,22 +75,6 @@ const Home = () => {
       {/* 메인 이미지 섹션 */}
       <div>
         <div className="one-item">Item 👑</div>
-<<<<<<< HEAD
-        <div className="property-section">
-          <button onClick={goToPrevious} className="button-previous"></button>{' '}
-          {/* 이전 이미지로 이동 버튼 */}
-          {products.length > 0 && (
-            <div className="property-card">
-              {/* products 배열이 비어있지 않을 때 현재 인덱스의 productCode를 사용하여 이미지 렌더링 */}
-              <Link to={`/product/${products[currentIndex].productCode}`}>
-                <img
-                  src={`http://localhost:8000/getProductImage/${products[currentIndex].productCode}`}
-                  alt={`Product ${currentIndex}`}
-                  className="property-image"
-                  onClick={() =>
-                    handleClickProduct(products[currentIndex].productCode)
-                  }
-=======
 
         <Slider
           ref={sliderRef}
@@ -109,7 +93,6 @@ const Home = () => {
                   alt={`Product ${index}`}
                   className="property-image" // 이미지의 클래스를 지정합니다.
                   onClick={() => handleClickProduct(product.productCode)}
->>>>>>> develop3
                 />
               </Link>
             </div>

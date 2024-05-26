@@ -10,12 +10,9 @@ const Product = () => {
   const [product, setProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-<<<<<<< HEAD
-=======
   const [userRole, setUserRole] = useState('');
   const [reviews, setReviews] = useState([]);
   const [averageReviewPoint, setAverageReviewPoint] = useState(0);
->>>>>>> develop3
 
   const userCode = sessionStorage.getItem('userCode');
 

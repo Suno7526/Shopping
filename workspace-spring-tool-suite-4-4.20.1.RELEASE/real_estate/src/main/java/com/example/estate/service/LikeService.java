@@ -28,9 +28,4 @@ public class LikeService {
     public void unlikeProduct(Long userCode, Long productCode) {
         likeRepository.deleteByUser_UserCodeAndProduct_ProductCode(userCode, productCode);
     }
-    
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> develop3
