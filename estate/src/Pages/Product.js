@@ -199,7 +199,12 @@ const Product = () => {
                   <li key={review.reviewCode}>
                     <p>별점: {review.reviewPoint}</p>
                     <p>리뷰 내용: {review.reviewContent}</p>
-                    {/* 추가적인 리뷰 정보를 표시할 수 있음 */}
+                    <p>이미지 :</p>
+                    <img
+                      src={`http://localhost:8000/getReviewImage/${review.reviewCode}`}
+                      alt={`리뷰 ${review.reviewCode} 이미지`}
+                      className="review-image"
+                    />
                   </li>
                 ))}
               </ul>

@@ -1,21 +1,33 @@
 .one-item {
-  position: absolute; /* 요소를 guides-properties의 상대적인 위치로 설정합니다. */
-  top: 12em; /* guides-properties의 맨 위에 배치합니다. */
-  left: 31.5em; /* guides-properties의 맨 왼쪽에 배치합니다. */
-  font-weight: bold;
-  font-size: 1em;
-  color: #e6a15c;
-  text-align: center;
-  padding-top: 5em;
-}
-
-.best-item {
-  position: relative; /* 부모로부터 상대적으로 위치 지정 */
+  top: 15em;
+  left: 0;
   font-weight: bold;
   font-size: 2em;
   color: #e6a15c;
   text-align: center;
-  padding-top: 5em;
+  padding-top: 3em;
+  z-index: 55;
+}
+
+.best-item {
+  color: #e6a15c;
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 5em;
+  padding-top: 1em;
+  position: relative;
+  text-align: center;
+}
+
+.best-item::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 85%;
+  height: 2px;
+  background-color: #7d84ab;
+  transform: translateX(-50%);
 }
 
 .sub-best-item {
@@ -39,127 +51,81 @@
 }
 
 .property-section {
-  padding: 0; /* 내부 여백을 제거하여 .property-card가 더 많은 공간을 차지하도록 함 */
-  text-align: center; /* 텍스트는 가운데 정렬되어 유지 */
+  position: relative;
+  overflow: hidden;
+  height: 500px;
+  text-align: center;
+}
+
+.property-wrapper {
   display: flex;
-  flex-wrap: wrap; /* 너비가 충분하지 않을 경우 .property-card가 다음 줄로 이동하도록 함 */
-  justify-content: center; /* .property-card를 수평으로 가운데 정렬 */
+  transition: transform 0.5s ease;
+  justify-content: flex-start; /* 왼쪽 정렬 */
 }
 
 .property-card {
-  width: 100%; /* 부모 요소에 맞춰 전체 너비를 사용하도록 변경 */
-  height: 100%; /* 높이 설정 */
+  flex: 0 0 320px;
+  height: 100%;
   text-align: center;
   cursor: pointer;
-  box-sizing: border-box; /* 내부 패딩과 외부 여백을 포함하여 크기 계산 */
+  box-sizing: border-box;
 }
 
 .property-image {
-  width: 100%; /* 이미지의 너비를 자동으로 설정하여 원본 비율을 유지합니다. */
-  height: 100%; /* 이미지의 높이를 100%로 설정하여 부모 요소의 높이에 맞춰집니다. */
-  object-fit: contain; /* 이미지를 guides-card에 맞게 채우되, 비율을 유지합니다. */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
-.property-image:hover {
-  opacity: 0.9; /* 이미지에 마우스를 올렸을 때 투명도를 조정합니다. */
-}
-
-.button-previous {
-  background-repeat: no-repeat; /* 배경 이미지를 반복하지 않도록 설정합니다. */
-  width: 50px; /* 버튼 너비 */
-  height: 50px; /* 버튼 높이 */
-  border: none; /* 테두리 제거 */
-  cursor: pointer; /* 마우스를 올렸을 때 커서 모양 변경 */
-  position: absolute; /* 절대 위치 지정 */
-  top: 70%; /* 부모 요소의 상단에서 50% 위치 */
-  left: 25%; /* 가로 중앙으로부터 50% 위치 */
-}
-
-.button-previous::before {
-  content: '<'; /* 버튼의 내용을 '>'로 설정합니다. */
-  font-size: 20px; /* 표시되는 텍스트의 크기를 조정합니다. */
-}
-
-.button-previous:hover {
-  color: #e6a15c; /* 이전 버튼의 hover 상태일 때 텍스트 색상을 흰색(#ffffff)으로 변경합니다. */
-  background-color: #232a3f;
-}
-
-/* 다음 버튼 */
-.button-next {
-  background-repeat: no-repeat; /* 배경 이미지를 반복하지 않도록 설정합니다. */
-  width: 50px; /* 버튼 너비 */
-  height: 50px; /* 버튼 높이 */
-  border: none; /* 테두리 제거 */
-  cursor: pointer; /* 마우스를 올렸을 때 커서 모양 변경 */
-  position: absolute; /* 절대 위치 지정 */
-  top: 70%; /* 부모 요소의 상단에서 50% 위치 */
-  right: 25%; /* 가로 중앙으로부터 50% 위치 */
-  transition: background-color 0.5s ease; /* 배경색이 변경될 때 0.3초 동안 부드럽게 전환되도록 설정합니다. */
-}
-
-.button-next::before {
-  content: '>'; /* 버튼의 내용을 '>'로 설정합니다. */
-  font-size: 20px; /* 표시되는 텍스트의 크기를 조정합니다. */
-}
-
-.button-next:hover {
-  color: #e6a15c; /* 이전 버튼의 hover 상태일 때 텍스트 색상을 흰색(#ffffff)으로 변경합니다. */
-  background-color: #232a3f;
-}
-
-.nav {
-  font-weight: bold;
-  font-size: 20px;
-}
-
-#recommended-properties {
-  padding: 20px;
-  text-align: left;
-}
-
-#guides-properties {
-  padding: 20px;
+.button-group {
   text-align: center;
+  margin-top: 10px;
+}
+
+.button-image-select {
+  margin: 0 5px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.button-image-select.active {
+  font-weight: bold;
+  color: #e6a15c;
 }
 
 .guides-section {
   display: flex;
-  flex-wrap: wrap; /* 요소들이 넘칠 경우 다음 줄로 넘어가도록 설정 */
+  flex-wrap: wrap;
   justify-content: center;
-  background-color: #f4f4f4;
 }
 
 .guides-card {
-  width: calc(
-    28% - 50px
-  ); /* 한 줄에 5개씩 배치되도록 너비를 조정 (마진값을 고려하여 계산) */
+  width: calc(19% - 40px);
   height: 450px;
-  margin: 4px;
-  padding: 10px;
+  padding: 5px;
   text-align: left;
   cursor: pointer;
   position: relative;
   font-size: 14px;
   border: none;
+  margin: 10px;
 }
 
 .guides-card img {
-  /*크기는 .js에서 바꿔야됩니다*/
-  object-fit: cover; /* 이미지를 guides-card에 꽉 채워서 잘리지 않고 비율 유지하도록 설정 */
-  border-radius: 15px;
+  object-fit: cover;
+  border-radius: 5px;
 }
 
 .guides-card::before {
-  content: attr(data-rank); /* 순위를 표시할 숫자 */
-  position: absolute; /* 상위 요소에 대해 상대적으로 배치 */
-  top: 5px; /* 카드의 위쪽 여백 */
-  left: 5px; /* 카드의 왼쪽 여백 */
-  font-weight: bold; /* 굵은 글씨로 */
-  font-size: 1.2em; /* 글자 크기를 설정 */
-  background-color: white; /* 배경색을 흰색으로 설정하여 내용과 겹치지 않도록 */
-  padding: 0.2em 0.4em; /* 내용 주위에 여백을 추가하여 숫자를 감싸도록 */
-  border-radius: 5px; /* 둥근 테두리를 추가하여 모양을 둥글게 만듦 */
+  content: attr(data-rank);
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
+  background-color: white;
+  padding: 0.2em 0.4em;
+  border-radius: 5px;
 }
 
 .Home-companyname {

@@ -54,5 +54,18 @@ public class ReviewService {
             throw new RuntimeException("상품에 대한 리뷰를 가져오는 중 오류 발생");
         }
     }
-
+    
+    @Transactional(readOnly = true)
+    public byte[] getReviewImage(Long reviewCode) {
+        try {
+            Review review = reviewRepository.findById(reviewCode).orElse(null);
+            if (review != null) {
+                return review.getProductImage();
+            }
+            return null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("이미지 가져오기 실패");
+        }
+    }
 }

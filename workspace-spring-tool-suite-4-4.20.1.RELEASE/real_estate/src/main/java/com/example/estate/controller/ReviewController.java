@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.example.estate.entity.Product;
 import com.example.estate.entity.Review;
 import com.example.estate.service.ReviewService;
 
@@ -52,4 +53,17 @@ public class ReviewController {
         }
     }
     
+    @GetMapping("/getReviewImage/{reviewCode}")
+    public ResponseEntity<byte[]> getReviewImage(@PathVariable("reviewCode") Long reviewCode) {
+        try {
+            byte[] imageBytes = reviewService.getReviewImage(reviewCode);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG); // 이미지 타입에 따라 변경
+            return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
