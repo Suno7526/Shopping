@@ -20,7 +20,7 @@ const Aside = () => {
             <button>전체 문의내역</button>
           </Link>{' '}
           <Link to="/MyInquiry">
-            <button>내 문의내역</button>
+            <button>나의 문의내역</button>
           </Link>{' '}
         </nav>
       </aside>

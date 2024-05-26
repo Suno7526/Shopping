@@ -11,6 +11,8 @@ const Product = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [userRole, setUserRole] = useState('');
+  const [reviews, setReviews] = useState([]);
+  const [averageReviewPoint, setAverageReviewPoint] = useState(0);
 
   const userCode = sessionStorage.getItem('userCode');
 
@@ -28,7 +30,20 @@ const Product = () => {
       }
     };
 
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getReviews/${productCode}`,
+        );
+        setReviews(response.data);
+        calculateAverageReview(response.data);
+      } catch (error) {
+        console.error('리뷰를 불러오는 중 오류 발생:', error);
+      }
+    };
+
     fetchProduct();
+    fetchReviews();
   }, [productCode]);
 
   const checkLiked = async (product) => {
@@ -103,6 +118,15 @@ const Product = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const calculateAverageReview = (reviews) => {
+    const totalPoints = reviews.reduce(
+      (sum, review) => sum + review.reviewPoint,
+      0,
+    );
+    const average = totalPoints / reviews.length || 0;
+    setAverageReviewPoint(average.toFixed(1));
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -132,8 +156,7 @@ const Product = () => {
             <div className="grid-item">
               등록 날짜 : {formatRegisterDate(product.registerDate)}
             </div>
-            <div className="grid-item">별점 : {product.userPoint}</div>
-
+            <div className="grid-item">별점 : {averageReviewPoint}</div>{' '}
             <div className="buttons">
               <button className="purchase-btn" onClick={handlePurchaseClick}>
                 구매하기
@@ -160,6 +183,7 @@ const Product = () => {
         <section>
           <div className="product-card">
             <div className="grid-item">상품 설명</div>
+            {/* 추가적인 상품 설명 내용을 여기에 표시할 수 있음 */}
           </div>
         </section>
       </div>
@@ -168,6 +192,19 @@ const Product = () => {
         <section id="review">
           <div className="review-card">
             <div className="grid-item">상품 리뷰</div>
+            <div className="review-container">
+              <h2>상품 리뷰</h2>
+              <ul>
+                {reviews.map((review) => (
+                  <li key={review.reviewCode}>
+                    <p>별점: {review.reviewPoint}</p>
+                    <p>리뷰 내용: {review.reviewContent}</p>
+                    {/* 추가적인 리뷰 정보를 표시할 수 있음 */}
+                  </li>
+                ))}
+              </ul>
+              <p>평균 별점: {averageReviewPoint}</p>
+            </div>
           </div>
         </section>
       </div>

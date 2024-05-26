@@ -1,5 +1,7 @@
 package com.example.estate.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,7 +28,6 @@ public class ReviewService {
     @Transactional
     public void saveReview(byte[] productImage, int reviewPoint, String reviewContent, Long userCode, Long productCode) {
         try {
-        	System.out.println(userCode);
             User user = userRepository.findById(userCode).orElseThrow(() -> new RuntimeException("User not found"));
             Product product = productRepository.findById(productCode).orElseThrow(() -> new RuntimeException("Product not found"));
 
@@ -43,4 +44,15 @@ public class ReviewService {
             throw new RuntimeException("리뷰 저장 실패");
         }
     }
+    
+    @Transactional(readOnly = true)
+    public List<Review> getReviewsByProductCode(Long productCode) {
+        try {
+            return reviewRepository.findByProduct_ProductCode(productCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("상품에 대한 리뷰를 가져오는 중 오류 발생");
+        }
+    }
+
 }
