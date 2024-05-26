@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import './Header.css'; // 스타일 파일 import
-import { Link } from 'react-router-dom'; // Link import 추가
+import { Link, useNavigate } from 'react-router-dom'; // Link, useNavigate import 추가
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
   const [isSticky, setIsSticky] = useState(false); // 스크롤 여부 관리
   const [userRole, setUserRole] = useState('');
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
@@ -26,15 +27,24 @@ const Header = () => {
     };
   }, []);
 
+  const handleSignOut = () => {
+    sessionStorage.removeItem('userEmail');
+    sessionStorage.removeItem('userCode'); // userCode 저장
+    sessionStorage.removeItem('userAddress');
+    sessionStorage.removeItem('userName');
+    sessionStorage.removeItem('userBirth');
+    setIsLogin(false);
+  };
+
   return (
     <div>
       <div className={`tab-menu ${isSticky ? 'sticky' : ''}`}>
         <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
-        <div id="Company">FASS</div>
+        <div id="Company" onClick={() => navigate('/Home')}>
+          FASS
+        </div>{' '}
+        {/* 클릭 시 Home으로 이동 */}
         {/* 기존 탭 메뉴 */}
-        <Link to="/Home" className="tab-menu-link">
-          홈
-        </Link>
         {userRole === 'ADMIN' && (
           <Link to="/ProductJoin" className="tab-menu-link">
             상품등록
@@ -57,18 +67,7 @@ const Header = () => {
                 {sessionStorage.getItem('userName')}님
                 <br />
               </Link>
-              <button
-                className="sign-out-button"
-                onClick={() => {
-                  // Handle sign out logic
-                  sessionStorage.removeItem('userEmail');
-                  sessionStorage.removeItem('userCode'); // userCode 저장
-                  sessionStorage.removeItem('userAddress');
-                  sessionStorage.removeItem('userName');
-                  sessionStorage.removeItem('userBirth');
-                  setIsLogin(false);
-                }}
-              >
+              <button className="sign-out-button" onClick={handleSignOut}>
                 Sign Out 🚪
               </button>
             </React.Fragment>

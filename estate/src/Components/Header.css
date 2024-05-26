@@ -143,3 +143,16 @@ header {
 }
 
 /*GNB라인 끝*/
+
+/*프로젝트 명*/
+#Company {
+  color: #e6a15c;
+  font-size: 50px;
+  position: absolute;
+  padding: 30px;
+  font-weight: bold;
+}
+
+#Company:hover {
+  cursor: pointer;
+}

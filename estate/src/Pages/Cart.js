@@ -75,6 +75,7 @@ const Cart = () => {
           <label className="Cproduct-image">|Image</label>
           <label className="Cproduct-details">|Product</label>
           <label className="Cproduct-price">|Price</label>
+          <label className="Cproduct-Size">|Size</label>
           <label className="Cproduct-quantity">|Quantity</label>
           <label className="Cproduct-line-price">|Total $</label>
         </div>

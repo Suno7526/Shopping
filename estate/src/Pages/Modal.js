@@ -43,6 +43,11 @@ const Modal = ({ isOpen, onClose, product }) => {
     onOrder();
   };
 
+  const openDeliveryAddressWindow = () => {
+    const url = 'https://example.com/delivery_address'; // 변경할 URL을 여기에 입력하세요
+    window.open(url, '_blank', 'width=600,height=400'); // 새로운 윈도우를 엽니다
+  };
+
   return (
     <div>
       {isOpen && (
@@ -53,7 +58,15 @@ const Modal = ({ isOpen, onClose, product }) => {
             </span>
             <b>정보가 맞는지 확인해주세요!😊</b>
             <hr />
-            <label>
+            <label className="Modalproductname">
+              상품명 :
+              <input
+                type="text"
+                value={contact}
+                onChange={(e) => setContact(e.target.value)}
+              />
+            </label>
+            <label className="Modalcontact">
               연락처:
               <input
                 type="text"
@@ -69,9 +82,14 @@ const Modal = ({ isOpen, onClose, product }) => {
                 onChange={(e) => setAddress(e.target.value)}
               />
             </label>
-            <button className="DeliveryChange-btn" onClick={''}>
-              배송지 변경
-            </button>
+            <div className="DeliveryChange">
+              <button
+                className="DeliveryChange-btn"
+                onClick={openDeliveryAddressWindow}
+              >
+                배송지 변경
+              </button>
+            </div>
             <label className="DeliveryRequest">
               배송 요청 사항:
               <div className="DeliveryRequestEtc">
@@ -116,6 +134,8 @@ const Modal = ({ isOpen, onClose, product }) => {
               </select>
             </label>
             <p>가격: {product.productPrice}</p>
+            <br></br>
+            <br></br>
             <button className="Modal-order-btn" onClick={handleOrderClick}>
               주문하기
             </button>

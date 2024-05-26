@@ -28,7 +28,7 @@ const Footer = () => {
       </div>
       <button className="HOME-btn">HOME</button>
       <button className="item-btn">ㅣ Item</button>
-      <p className="copyright3">COPYRIGHT @ 2024 옷옷장.</p>
+      <p className="copyright3">COPYRIGHT @ 2024 FASS.</p>
     </div>
   );
 };
