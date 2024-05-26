@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './Mypage.css'; // 외부 스타일 시트 불러오기
 import Aside from '../Components/Aside';
+import { Link } from 'react-router-dom';
 
 const Mypage = () => {
   const [ordersItems, setOrdersItems] = useState([]);
@@ -38,32 +39,36 @@ const Mypage = () => {
     <div className="page">
       <Aside />
       <article>
-        <h2>주문내역 조회</h2>
+        <h2>
+          <div className="page-Maintitle">주문내역 조회</div>
+        </h2>
         <ul>
           <li>주문내역에 관한 내용</li>
         </ul>
       </article>
-      <section>
-        <table>
+      <section className="OrderSection">
+        <table className="OrderTable">
           <thead>
             <tr>
-              <th>상품정보</th>
-              <th>주문일자</th>
-              <th>주문번호</th>
-              <th>주문금액</th>
-              <th>배송주소</th>
+              <th className="ProductName">상품정보</th>
+              <th className="ProductDate">주문일자</th>
+              <th className="ProductNum">주문번호</th>
+              <th className="ProductMoney">주문금액</th>
+              <th className="ProductAD">배송주소</th>
+              <th className="ReviewAction">리뷰등록</th>
             </tr>
           </thead>
           <tbody>
             {ordersItems.map((order) => (
               <tr key={order.orderCode}>
-                <td>
+                <td className="PProductInfo">
                   <img
                     src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
                     alt={order.product.productName}
                     style={{ width: '100px', height: '100px' }}
                   />
-                  <strong>{order.product.productName}</strong> / SIZE:{' '}
+                  <strong>{order.product.productName}</strong> / SIZE :{' '}
+                  {order.product.productSize}
                   {order.product.productOption}
                   <div></div>
                 </td>
@@ -71,6 +76,11 @@ const Mypage = () => {
                 <td>{order.orderCode}</td>
                 <td>{order.product.productPrice}원</td>
                 <td>{order.shippingAddress}</td>
+                <td>
+                  <Link to={`/Review/${order.product.productCode}`}>
+                    리뷰등록하기
+                  </Link>
+                </td>
               </tr>
             ))}
           </tbody>

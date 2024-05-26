@@ -19,14 +19,22 @@ import Like from './Pages/Like';
 import Inquiry from './Pages/Inquiry';
 import BestFAQ from './Pages/BestFAQ';
 import WithdrawETC from './Pages/WithdrawETC';
+import QLoginInfo from './Pages/QLoginInfo';
+import QProduct from './Pages/QProduct';
+import QDelivery from './Pages/QDelivery';
+import QCancel from './Pages/QCancel';
+import QExchange from './Pages/QExchange';
+import Review from './Pages/Review';
+import ProductUpdate from './Pages/ProductUpdate';
+import MyInquiry from './Pages/MyInquiry';
 
-//123124124
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
 
   useEffect(() => {
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
   }, []); // 페이지 로드시 한 번만 실행되도록 빈 배열 전
+
   return (
     <BrowserRouter>
       <Header />
@@ -48,9 +56,18 @@ function App() {
         <Route path="/Inquiry" element={<Inquiry />} />
         <Route path="/BestFAQ" element={<BestFAQ />} />
         <Route path="/WithdrawETC" element={<WithdrawETC />} />
+        <Route path="/QLoginInfo" element={<QLoginInfo />} />
+        <Route path="/QProduct" element={<QProduct />} />
+        <Route path="/QDelivery" element={<QDelivery />} />
+        <Route path="/QCancel" element={<QCancel />} />
+        <Route path="/QExchange" element={<QExchange />} />
+        <Route path="/Review/:productCode" element={<Review />} />
+        <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
+        <Route path="/MyInquiry" element={<MyInquiry />} />
       </Routes>
       <Footer />
     </BrowserRouter>
   );
 }
+
 export default App;

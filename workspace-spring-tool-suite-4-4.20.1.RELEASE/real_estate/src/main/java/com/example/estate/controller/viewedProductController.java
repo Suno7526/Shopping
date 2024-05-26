@@ -64,5 +64,6 @@ public class viewedProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+ 
     
 }

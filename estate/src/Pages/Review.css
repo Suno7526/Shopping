@@ -1,0 +1,74 @@
+/* Review.css */
+
+/* 기존 스타일 유지 */
+
+#reviewform {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  margin: 20px auto;
+  width: 40%; /* 전체 너비의 n%로 조정 */
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  box-sizing: border-box;
+}
+
+textarea {
+  resize: vertical; /* 수직 크기 조절 가능 */
+}
+
+p {
+  margin-bottom: 15px;
+  font-weight: normal;
+}
+
+button {
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 25px; /* 둥근 모서리 */
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase; /* 대문자 변환 */
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+  transform: scale(1.05); /* 살짝 확대 */
+}
+
+/* 별점 선택 스타일 */
+.star-rating {
+  display: flex;
+  justify-content: space-between;
+  width: 150px;
+  margin-bottom: 15px;
+}
+
+.star {
+  font-size: 30px;
+  color: #ccc;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.star.selected {
+  color: #ff5733;
+}

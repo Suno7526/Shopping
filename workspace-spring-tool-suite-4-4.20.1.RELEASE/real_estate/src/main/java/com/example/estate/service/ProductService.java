@@ -8,13 +8,17 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.example.estate.entity.Product;
 import com.example.estate.repository.ProductRepository;
+import com.example.estate.repository.ViewedProductRepository;
 
 @Service
 public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
+    
+    @Autowired
+    private ViewedProductRepository viewedProductRepository;
+    
     @Transactional
     public void saveProduct(byte[] productImage, String productName, String information, int productPrice, String companyName, int productStuck, String category, String productSize) {
         try {
@@ -24,7 +28,7 @@ public class ProductService {
             product.setProductPrice(productPrice);
             product.setCompanyName(companyName);
             product.setProductStuck(productStuck);
-            product.setProductSize(productSize);	
+            product.setProductSize(productSize);    
             product.setProductImage(productImage);
             product.setCategory(category);
             productRepository.save(product);
@@ -70,4 +74,25 @@ public class ProductService {
     public List<Product> getProductsByCategory(String category) {
         return productRepository.findByCategory(category);
     }
+
+    @Transactional
+    public void deleteProduct(Long productCode) {
+    	productRepository.deleteById(productCode);
+    	viewedProductRepository.deleteById(productCode);
+    }
+    
+    @Transactional
+    public boolean updateProduct(Long productCode, Product updatedProduct) {
+        Product existingProduct = productRepository.findByProductCode(productCode);
+        if (existingProduct != null) {
+            existingProduct.setProductName(updatedProduct.getProductName());
+            existingProduct.setProductPrice(updatedProduct.getProductPrice());
+            existingProduct.setProductStuck(updatedProduct.getProductStuck());
+            // Add any other fields that need to be updated
+            productRepository.save(existingProduct);
+            return true;
+        }
+        return false;
+    }
+    
 }

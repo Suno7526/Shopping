@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import './Home.css';
 import { Link } from 'react-router-dom';
 
@@ -7,6 +10,8 @@ const Home = () => {
   const [products, setProducts] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const wrapperRef = useRef(null);
+  const sliderRef = useRef(null);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,6 +30,14 @@ const Home = () => {
 
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
   }, []);
+
+  useEffect(() => {
+    if (wrapperRef.current && sliderRef.current) {
+      const offset =
+        -(currentIndex * 320) + wrapperRef.current.clientWidth / 2 - 160;
+      wrapperRef.current.style.transform = `translateX(${offset}px)`;
+    }
+  }, [currentIndex]);
 
   const saveViewedProduct = async (userCode, productCode) => {
     try {
@@ -46,27 +59,23 @@ const Home = () => {
     }
   };
 
-  const goToPrevious = () => {
-    if (products.length > 0) {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === 0 ? products.length - 1 : prevIndex - 1,
-      );
-    }
+  const goToImage = (index) => {
+    setCurrentIndex(index);
   };
 
-  const goToNext = () => {
-    if (products.length > 0) {
-      setCurrentIndex((prevIndex) =>
-        prevIndex === products.length - 1 ? 0 : prevIndex + 1,
-      );
+  useEffect(() => {
+    // 페이지가 로드될 때나 products가 업데이트될 때 slick 슬라이더를 초기화합니다.
+    if (wrapperRef.current) {
+      wrapperRef.current.Slider(); // slick 슬라이더 초기화
     }
-  };
+  }, [products]); // products 상태가 변경될 때마다 slick 슬라이더를 재설정합니다.
 
   return (
     <div>
       {/* 메인 이미지 섹션 */}
       <div>
         <div className="one-item">Item 👑</div>
+<<<<<<< HEAD
         <div className="property-section">
           <button onClick={goToPrevious} className="button-previous"></button>{' '}
           {/* 이전 이미지로 이동 버튼 */}
@@ -81,13 +90,31 @@ const Home = () => {
                   onClick={() =>
                     handleClickProduct(products[currentIndex].productCode)
                   }
+=======
+
+        <Slider
+          ref={sliderRef}
+          className="Home-property-wrapper"
+          slidesToShow={3}
+          slidesToScroll={1}
+          arrows={false}
+          dots={true} // slick dot 활성화
+          autoplay={true}
+        >
+          {products.map((product, index) => (
+            <div key={product.productCode} className="property-card">
+              <Link to={`/product/${product.productCode}`}>
+                <img
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  alt={`Product ${index}`}
+                  className="property-image" // 이미지의 클래스를 지정합니다.
+                  onClick={() => handleClickProduct(product.productCode)}
+>>>>>>> develop3
                 />
               </Link>
             </div>
-          )}
-          <button onClick={goToNext} className="button-next"></button>{' '}
-          {/* 다음 이미지로 이동 버튼 */}
-        </div>
+          ))}
+        </Slider>
       </div>
 
       {/* 추천 상품 섹션 */}
@@ -108,23 +135,22 @@ const Home = () => {
                     src={`http://localhost:8000/getProductImage/${product.productCode}`}
                     alt={`코디 ${product.productCode}`}
                     className="property-image"
-                    style={{ width: '12em', height: '12em' }}
+                    style={{ width: '15em', height: '20em' }}
                     onClick={() => handleClickProduct(product.productCode)}
                   />
                 </Link>
 
                 <div className="product-info">
-                  <p>
-                    <strong>회사명:</strong> {product.companyName}
+                  <p className="Home-companyname">
+                    <strong>{product.companyName} </strong>
                   </p>
-                  <p>
-                    <strong>상품명:</strong> {product.productName}
+                  <br></br>
+                  <p className="Home-productName">{product.productName}</p>
+                  <p className="Home-price">
+                    <strong> {product.productPrice} </strong>원
                   </p>
-                  <p>
-                    <strong>가격:</strong> {product.productPrice}₩
-                  </p>
-                  <p>
-                    <strong>조회수:</strong> {product.viewCount}
+                  <p className="Home-views">
+                    <strong>📈 Views: {product.viewCount}</strong>
                   </p>
                 </div>
               </div>

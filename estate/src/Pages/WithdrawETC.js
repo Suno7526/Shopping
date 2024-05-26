@@ -29,7 +29,9 @@ const WithdrawETC = () => {
           {showDetails1 && (
             <div className="WithdrawETC-Q1detail">
               <div className="Q1detailP">
-                탈퇴는 마이페이지 내 정보 관리에서 직접 신청해 주셔야 합니다.
+                <strong>
+                  탈퇴는 마이페이지 내 정보 관리에서 직접 신청해 주셔야 합니다.
+                </strong>
                 <br />
                 ■ 탈퇴 경로
                 <br />
@@ -37,6 +39,7 @@ const WithdrawETC = () => {
                 정보 회원 탈퇴
                 <br />
                 PC(웹) : 마이페이지 회원정보 변경 회원 탈퇴
+                <br />
                 <br />
                 ■ 회원 탈퇴 주의사항
                 <br />
@@ -63,10 +66,10 @@ const WithdrawETC = () => {
           </div>
           {showDetails2 && (
             <div className="WithdrawETC-Q2detail">
-              <p className="Q2detailP">
+              <div className="Q2detailP">
                 두 번째 질문에 대한 답변입니다.dafs <br />
                 dakjsndaknsnjksnkjsnjdj
-              </p>
+              </div>
             </div>
           )}
         </div>

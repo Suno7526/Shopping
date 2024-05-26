@@ -1,12 +1,21 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Route, Routes, Link } from 'react-router-dom';
+import {
+  Route,
+  Routes,
+  Link,
+  useNavigate,
+  useLocation,
+} from 'react-router-dom';
 import Join from './Join';
 import './UserLogin.css'; // 외부 스타일 시트 불러오기
 
 const UserLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const previousPath = location.state?.from?.pathname || '/Home';
 
   const handleLogin = async () => {
     try {
@@ -29,8 +38,10 @@ const UserLogin = () => {
           sessionStorage.setItem('userName', userData.name);
           sessionStorage.setItem('userBirth', userData.birth);
           sessionStorage.setItem('userRole', userData.role);
-          // Redirect to Home page
-          window.location.href = '/Home';
+          sessionStorage.setItem('userPhone', userData.phoneNumber);
+          // Redirect to previous page or Home page
+          navigate(previousPath);
+          window.location.reload(); // 페이지 새로고침
         } else {
           alert('로그인 실패');
         }

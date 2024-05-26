@@ -1,18 +1,26 @@
 import './Product.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import Modal from './Modal.js'; // Modal 컴포넌트 import
+import { useParams, useNavigate } from 'react-router-dom'; // 수정된 부분
+import Modal from './Modal.js';
+import { Link } from 'react-router-dom';
 
 const Product = () => {
   const { productCode } = useParams();
   const [product, setProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+<<<<<<< HEAD
+=======
+  const [userRole, setUserRole] = useState('');
+  const [reviews, setReviews] = useState([]);
+  const [averageReviewPoint, setAverageReviewPoint] = useState(0);
+>>>>>>> develop3
 
   const userCode = sessionStorage.getItem('userCode');
 
   useEffect(() => {
+    setUserRole(sessionStorage.getItem('userRole'));
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
@@ -25,7 +33,20 @@ const Product = () => {
       }
     };
 
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getReviews/${productCode}`,
+        );
+        setReviews(response.data);
+        calculateAverageReview(response.data);
+      } catch (error) {
+        console.error('리뷰를 불러오는 중 오류 발생:', error);
+      }
+    };
+
     fetchProduct();
+    fetchReviews();
   }, [productCode]);
 
   const checkLiked = async (product) => {
@@ -100,13 +121,21 @@ const Product = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const calculateAverageReview = (reviews) => {
+    const totalPoints = reviews.reduce(
+      (sum, review) => sum + review.reviewPoint,
+      0,
+    );
+    const average = totalPoints / reviews.length || 0;
+    setAverageReviewPoint(average.toFixed(1));
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
-      {/* 메인 이미지 칸 */}
       <div className="container">
         <aside>
           <div className="property-card">
@@ -122,9 +151,7 @@ const Product = () => {
 
         <section id="description-card">
           <div className="description-card">
-            <div className="grid-item">
-              [제조사] 상품 명 : {product.productName}
-            </div>
+            <div className="grid-item">상품 명 : {product.productName}</div>
             <div className="grid-item">판매가 : {product.productPrice}</div>
             <div className="grid-item">제조사 : {product.companyName}</div>
             <div className="grid-item">SIZE : {product.productSize}</div>
@@ -132,9 +159,7 @@ const Product = () => {
             <div className="grid-item">
               등록 날짜 : {formatRegisterDate(product.registerDate)}
             </div>
-            <div className="grid-item">별점 : {product.userPoint}</div>
-
-            {/* 버튼 추가 */}
+            <div className="grid-item">별점 : {averageReviewPoint}</div>{' '}
             <div className="buttons">
               <button className="purchase-btn" onClick={handlePurchaseClick}>
                 구매하기
@@ -145,31 +170,53 @@ const Product = () => {
               <button className="like-btn" onClick={handleAddToCartClick}>
                 장바구니 담기
               </button>
+              {userRole === 'ADMIN' && (
+                <Link to={`/ProductUpdate/${productCode}`}>
+                  <button>상품수정</button>
+                </Link>
+              )}
             </div>
-            <br></br>
+            <br />
           </div>
         </section>
       </div>
-      <hr></hr>
+      <hr />
 
-      {/* 상품 재고 라인 */}
-      <div class="product-container">
+      <div className="product-container">
         <section>
-          <div class="product-card">
-            <div class="grid-item">상품 설명</div>
+          <div className="product-card">
+            <div className="grid-item">상품 설명</div>
+            {/* 추가적인 상품 설명 내용을 여기에 표시할 수 있음 */}
           </div>
         </section>
       </div>
 
-      <div class="review">
+      <div className="review">
         <section id="review">
-          <div class="review-card">
-            <div class="grid-item">상품 리뷰</div>
+          <div className="review-card">
+            <div className="grid-item">상품 리뷰</div>
+            <div className="review-container">
+              <h2>상품 리뷰</h2>
+              <ul>
+                {reviews.map((review) => (
+                  <li key={review.reviewCode}>
+                    <p>별점: {review.reviewPoint}</p>
+                    <p>리뷰 내용: {review.reviewContent}</p>
+                    <p>이미지 :</p>
+                    <img
+                      src={`http://localhost:8000/getReviewImage/${review.reviewCode}`}
+                      alt={`리뷰 ${review.reviewCode} 이미지`}
+                      className="review-image"
+                    />
+                  </li>
+                ))}
+              </ul>
+              <p>평균 별점: {averageReviewPoint}</p>
+            </div>
           </div>
         </section>
       </div>
 
-      {/* 모달 */}
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}
