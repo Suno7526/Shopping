@@ -22,4 +22,7 @@ public class QuestionService {
         return questionRepository.findAll();
     }
 	
+	public List<Question> getQuestionsByUserCode(Long userCode) {
+        return questionRepository.findByUserUserCode(userCode);
+    }
 }
