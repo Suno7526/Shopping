@@ -12,13 +12,13 @@
   width: 40%; /* 전체 너비의 n%로 조정 */
 }
 
-label {
+.review-label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
-input,
+.review-input,
 textarea,
 select {
   width: 100%;
@@ -50,7 +50,7 @@ button {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-button:hover {
+.review-button:hover {
   transform: scale(1.05); /* 살짝 확대 */
 }
 
@@ -72,3 +72,5 @@ button:hover {
 .star.selected {
   color: #ff5733;
 }
+
+/* 여기에 추가적인 CSS 규칙을 넣어주세요 */

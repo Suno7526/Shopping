@@ -65,6 +65,7 @@ const UserLogin = () => {
         {/* 이메일 입력란 */}
         <div className="input-box">
           <input
+            className="login-input"
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -74,6 +75,7 @@ const UserLogin = () => {
         {/* 비밀번호 입력란 */}
         <div className="input-box">
           <input
+            className="login-input"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}

@@ -27,6 +27,7 @@ import QExchange from './Pages/QExchange';
 import Review from './Pages/Review';
 import ProductUpdate from './Pages/ProductUpdate';
 import MyInquiry from './Pages/MyInquiry';
+import Home2 from './Pages/Home2';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -64,8 +65,8 @@ function App() {
         <Route path="/Review/:productCode" element={<Review />} />
         <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
         <Route path="/MyInquiry" element={<MyInquiry />} />
+        <Route path="/Home2" element={<Home2 />} />
       </Routes>
-      <Footer />
     </BrowserRouter>
   );
 }

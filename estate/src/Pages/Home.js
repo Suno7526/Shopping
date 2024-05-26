@@ -64,82 +64,81 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // 페이지가 로드될 때나 products가 업데이트될 때 slick 슬라이더를 초기화합니다.
     if (wrapperRef.current) {
       wrapperRef.current.Slider(); // slick 슬라이더 초기화
     }
-  }, [products]); // products 상태가 변경될 때마다 slick 슬라이더를 재설정합니다.
+  }, [products]);
 
   return (
     <div>
-      {/* 메인 이미지 섹션 */}
-      <div>
-        <div className="one-item">Item 👑</div>
-
-        <Slider
-          ref={sliderRef}
-          className="Home-property-wrapper"
-          slidesToShow={3}
-          slidesToScroll={1}
-          arrows={false}
-          dots={true} // slick dot 활성화
-          autoplay={true}
-        >
-          {products.map((product, index) => (
-            <div key={product.productCode} className="property-card">
-              <Link to={`/product/${product.productCode}`}>
-                <img
-                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                  alt={`Product ${index}`}
-                  className="property-image" // 이미지의 클래스를 지정합니다.
-                  onClick={() => handleClickProduct(product.productCode)}
-                />
-              </Link>
-            </div>
-          ))}
-        </Slider>
+      <div className="navi">
+        <Link to="/" id="logo">
+          <img
+            src="https://i.postimg.cc/C5FbwsQr/logo.png"
+            height={20}
+            alt="Logo"
+          />
+        </Link>
+        <ul id="menu">
+          <li>
+            <Link to="#">Contact</Link>
+          </li>
+          <li>
+            <Link to="#">Shop</Link>
+          </li>
+          <li>
+            <Link to="#">Cart</Link>
+          </li>
+          <li>
+            <Link to="#">Login</Link>
+          </li>
+        </ul>
       </div>
-
-      {/* 추천 상품 섹션 */}
-      <div id="recommended-properties">
-        <div className="best-item">Best Item</div>
-        <div className="sub-best-item">조회수가 높은 아이템 👍</div>
-
-        <div id="guides-properties">
-          <div className="guides-section">
-            {products.map((product, index) => (
-              <div
-                className="guides-card"
-                data-rank={index + 1}
-                key={product.productCode}
-              >
-                <Link to={`/product/${product.productCode}`}>
-                  <img
-                    src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                    alt={`코디 ${product.productCode}`}
-                    className="property-image"
-                    style={{ width: '15em', height: '20em' }}
-                    onClick={() => handleClickProduct(product.productCode)}
-                  />
-                </Link>
-
-                <div className="product-info">
-                  <p className="Home-companyname">
-                    <strong>{product.companyName} </strong>
-                  </p>
-                  <br></br>
-                  <p className="Home-productName">{product.productName}</p>
-                  <p className="Home-price">
-                    <strong> {product.productPrice} </strong>원
-                  </p>
-                  <p className="Home-views">
-                    <strong>📈 Views: {product.viewCount}</strong>
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
+      <div className="header"></div>
+      <div className="text">
+        <h1>Our New Products</h1>
+        <div className="product-list">
+          {products.slice(0, 9).map((product) => (
+            <Link
+              to={`/product/${product.productCode}`}
+              className="product"
+              key={product.productCode}
+              onClick={() => handleClickProduct(product.productCode)}
+            >
+              <img
+                src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                width={225}
+                alt={product.productName}
+              />
+              <div className="product-name">{product.productName}</div>
+              <div className="product-price">{product.productPrice}</div>
+            </Link>
+          ))}
         </div>
+        <div className="clearfix" />
+      </div>
+      <div className="footer">
+        <a href="https://facebook.com">
+          <img
+            src="https://i.postimg.cc/0r11BZ2j/facebook.png"
+            height={20}
+            alt="Facebook"
+          />
+        </a>
+        <a href="https://instagram.com">
+          <img
+            src="https://i.postimg.cc/9XZmGqf0/instagram.png"
+            height={20}
+            alt="Instagram"
+          />
+        </a>
+        <a href="https://twitter.com">
+          <img
+            src="https://i.postimg.cc/c1RWKyD8/twitter.png"
+            height={20}
+            alt="Twitter"
+          />
+        </a>
       </div>
     </div>
   );
