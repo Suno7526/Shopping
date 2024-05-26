@@ -16,18 +16,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class ViewedProduct {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long viewCode;
-	
-	@ManyToOne
-	@JoinColumn(name = "userCode")
-	private User user;	
-	
-	@ManyToOne
-	@JoinColumn(name = "productCode")
-	private Product product;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long viewCode;
 
+    @ManyToOne
+    @JoinColumn(name = "userCode")
+    private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "productCode")
+    private Product product;
 }

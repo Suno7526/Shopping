@@ -33,7 +33,10 @@ const Header = () => {
     sessionStorage.removeItem('userAddress');
     sessionStorage.removeItem('userName');
     sessionStorage.removeItem('userBirth');
+    sessionStorage.removeItem('userRole');
+
     setIsLogin(false);
+    window.location.reload(); // 페이지 새로고침
   };
 
   return (
@@ -42,7 +45,7 @@ const Header = () => {
         <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
         <div id="Company" onClick={() => navigate('/Home')}>
           FASS
-        </div>{' '}
+        </div>
         {/* 클릭 시 Home으로 이동 */}
         {/* 기존 탭 메뉴 */}
         {userRole === 'ADMIN' && (

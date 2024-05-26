@@ -1,18 +1,21 @@
 import './Product.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-import Modal from './Modal.js'; // Modal 컴포넌트 import
+import { useParams, useNavigate } from 'react-router-dom'; // 수정된 부분
+import Modal from './Modal.js';
+import { Link } from 'react-router-dom';
 
 const Product = () => {
   const { productCode } = useParams();
   const [product, setProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
+  const [userRole, setUserRole] = useState('');
 
   const userCode = sessionStorage.getItem('userCode');
 
   useEffect(() => {
+    setUserRole(sessionStorage.getItem('userRole'));
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
@@ -106,7 +109,6 @@ const Product = () => {
 
   return (
     <div>
-      {/* 메인 이미지 칸 */}
       <div className="container">
         <aside>
           <div className="property-card">
@@ -122,9 +124,7 @@ const Product = () => {
 
         <section id="description-card">
           <div className="description-card">
-            <div className="grid-item">
-              [제조사] 상품 명 : {product.productName}
-            </div>
+            <div className="grid-item">상품 명 : {product.productName}</div>
             <div className="grid-item">판매가 : {product.productPrice}</div>
             <div className="grid-item">제조사 : {product.companyName}</div>
             <div className="grid-item">SIZE : {product.productSize}</div>
@@ -134,7 +134,6 @@ const Product = () => {
             </div>
             <div className="grid-item">별점 : {product.userPoint}</div>
 
-            {/* 버튼 추가 */}
             <div className="buttons">
               <button className="purchase-btn" onClick={handlePurchaseClick}>
                 구매하기
@@ -145,31 +144,34 @@ const Product = () => {
               <button className="like-btn" onClick={handleAddToCartClick}>
                 장바구니 담기
               </button>
+              {userRole === 'ADMIN' && (
+                <Link to={`/ProductUpdate/${productCode}`}>
+                  <button>상품수정</button>
+                </Link>
+              )}
             </div>
-            <br></br>
+            <br />
           </div>
         </section>
       </div>
-      <hr></hr>
+      <hr />
 
-      {/* 상품 재고 라인 */}
-      <div class="product-container">
+      <div className="product-container">
         <section>
-          <div class="product-card">
-            <div class="grid-item">상품 설명</div>
+          <div className="product-card">
+            <div className="grid-item">상품 설명</div>
           </div>
         </section>
       </div>
 
-      <div class="review">
+      <div className="review">
         <section id="review">
-          <div class="review-card">
-            <div class="grid-item">상품 리뷰</div>
+          <div className="review-card">
+            <div className="grid-item">상품 리뷰</div>
           </div>
         </section>
       </div>
 
-      {/* 모달 */}
       <Modal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

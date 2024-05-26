@@ -30,13 +30,12 @@ const Modal = ({ isOpen, onClose, product }) => {
 
       if (response.status === 200) {
         alert('주문 되었습니다.');
+        onClose();
       }
     } catch (error) {
       console.error('주문에 실패하였습니다:', error);
       alert('주문에 실패하였습니다.');
     }
-
-    onClose();
   };
 
   const openDeliveryAddressWindow = () => {
@@ -45,7 +44,6 @@ const Modal = ({ isOpen, onClose, product }) => {
   };
 
   const handleOrderClick = () => {
-    onOrder();
     requestPay();
   };
 
@@ -92,7 +90,7 @@ const Modal = ({ isOpen, onClose, product }) => {
             );
             if (rsp.paid_amount === data.response.amount) {
               alert('결제 성공');
-              onClose();
+              await onOrder(); // 결제 성공 시 onOrder 함수 호출
             } else {
               alert('결제 실패');
             }
@@ -119,17 +117,22 @@ const Modal = ({ isOpen, onClose, product }) => {
             <hr />
             <label className="Modalproductname">
               상품명 :
-              <input type="text" value={product.productName} />
+              <input type="text" value={product.productName} readOnly />
             </label>
             <label className="Modalcontact">
               연락처:
-              <input type="text" value={sessionStorage.getItem('userPhone')} />
+              <input
+                type="text"
+                value={sessionStorage.getItem('userPhone')}
+                readOnly
+              />
             </label>
             <label className="Delivery">
               배송지:
               <input
                 type="text"
                 value={sessionStorage.getItem('userAddress')}
+                readOnly
               />
             </label>
             <div className="DeliveryChange">

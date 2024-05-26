@@ -35,5 +35,10 @@ public class ViewedProductService {
     public List<ViewedProduct> findRecentViewedProducts(Long userCode, int limit) {
         return viewedProductRepository.findTop10ByUserUserCodeOrderByViewCodeDesc(userCode);
     }
+    
+    @Transactional
+    public void deleteByProduct(Product product) {
+        viewedProductRepository.deleteByProduct(product);
+    }
 
 }

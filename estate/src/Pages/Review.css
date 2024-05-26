@@ -40,8 +40,6 @@ button {
   display: inline-block;
   padding: 10px 20px;
   margin: 5px 0;
-  background-color: #ff5733; /* 밝고 강렬한 주황색 */
-  color: #fff;
   border: none;
   border-radius: 25px; /* 둥근 모서리 */
   font-size: 14px;
@@ -53,7 +51,6 @@ button {
 }
 
 button:hover {
-  background-color: #ff4500; /* 호버 시 어두운 주황색 */
   transform: scale(1.05); /* 살짝 확대 */
 }
 

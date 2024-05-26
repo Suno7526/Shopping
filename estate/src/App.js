@@ -25,6 +25,7 @@ import QDelivery from './Pages/QDelivery';
 import QCancel from './Pages/QCancel';
 import QExchange from './Pages/QExchange';
 import Review from './Pages/Review';
+import ProductUpdate from './Pages/ProductUpdate';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -60,6 +61,7 @@ function App() {
         <Route path="/QCancel" element={<QCancel />} />
         <Route path="/QExchange" element={<QExchange />} />
         <Route path="/Review/:productCode" element={<Review />} />
+        <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
       </Routes>
       <Footer />
     </BrowserRouter>

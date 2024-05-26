@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.awt.print.Pageable"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="com.example.estate.service.RecentlyViewedProductService"/>
-    <fullyQualifiedTypeName name="com.example.estate.entity.RecentlyViewedProduct"/>
     <fullyQualifiedTypeName name="com.example.estate.service.ProductService"/>
     <fullyQualifiedTypeName name="lombok.Data"/>
     <fullyQualifiedTypeName name="com.example.estate.config.auth.PrincipalDetailService"/>
@@ -22,8 +18,6 @@
     <fullyQualifiedTypeName name="ch.qos.logback.classic.Logger"/>
     <fullyQualifiedTypeName name="org.slf4j.Logger"/>
     <fullyQualifiedTypeName name="org.slf4j.LoggerFactory"/>
-    <fullyQualifiedTypeName name="com.example.estate.entity.User"/>
-    <fullyQualifiedTypeName name="com.example.estate.entity.Product"/>
     <fullyQualifiedTypeName name="java.util.Map"/>
     <fullyQualifiedTypeName name="java.net.http.HttpHeaders"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.Query"/>
@@ -60,4 +54,10 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Value"/>
     <fullyQualifiedTypeName name="com.example.estate.repository.CartRepository"/>
+    <fullyQualifiedTypeName name="com.example.estate.service.ReviewService"/>
+    <fullyQualifiedTypeName name="com.example.estate.repository.ReviewRepository"/>
+    <fullyQualifiedTypeName name="com.example.estate.entity.Review"/>
+    <fullyQualifiedTypeName name="com.example.estate.entity.User"/>
+    <fullyQualifiedTypeName name="com.example.estate.entity.Product"/>
+    <fullyQualifiedTypeName name="com.example.estate.service.ViewedProductService"/>
 </qualifiedTypeNameHistroy>
