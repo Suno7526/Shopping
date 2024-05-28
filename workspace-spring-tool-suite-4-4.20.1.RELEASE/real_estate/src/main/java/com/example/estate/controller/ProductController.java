@@ -93,5 +93,10 @@ public class ProductController {
             return new ResponseEntity<>("상품 수정 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+	
+	 @GetMapping("/searchProducts/{query}")
+	    public List<Product> searchProducts(@PathVariable("query") String query) {
+	        return productService.searchProducts(query);
+	    }
+	 
 }

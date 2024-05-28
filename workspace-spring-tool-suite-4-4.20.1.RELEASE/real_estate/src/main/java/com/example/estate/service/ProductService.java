@@ -95,4 +95,9 @@ public class ProductService {
         return false;
     }
     
+    
+    @Transactional(readOnly = true)
+    public List<Product> searchProducts(String query) {
+        return productRepository.findByCategoryContainingIgnoreCaseOrProductNameContainingIgnoreCase(query, query);
+    }
 }
