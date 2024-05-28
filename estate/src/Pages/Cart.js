@@ -85,9 +85,19 @@ const Cart = () => {
     }
   };
 
+  const handleQuantityChange = (productCode, newQuantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.productCode === productCode
+          ? { ...item, quantity: newQuantity }
+          : item,
+      ),
+    );
+  };
+
   const handlePurchase = async () => {
     try {
-      const orderName = '전체 상품 결제';
+      const orderName = 'Selected Products Purchase';
       let totalPrice = 0;
       selectedProducts.forEach((productCode) => {
         const selectedProduct = cartItems.find(
@@ -143,6 +153,19 @@ const Cart = () => {
     }
   };
 
+  const selectedProductsTotalPrice = selectedProducts.reduce(
+    (acc, productCode) => {
+      const selectedProduct = cartItems.find(
+        (item) => item.productCode === productCode,
+      );
+      return acc + selectedProduct.productPrice * selectedProduct.quantity;
+    },
+    0,
+  );
+
+  const discountAmount = 5000;
+  const totalAmount = selectedProductsTotalPrice - discountAmount;
+
   return (
     <div>
       <div style={{ marginLeft: '50px', marginRight: '50px' }}>
@@ -171,7 +194,19 @@ const Cart = () => {
                 </p>
               </div>
               <div className="cart-product-price">{item.productPrice}</div>
-              <div className="cart-product-quantity">{item.quantity}</div>
+              <div className="cart-product-quantity">
+                <input
+                  type="number"
+                  value={item.quantity}
+                  min="1"
+                  onChange={(e) =>
+                    handleQuantityChange(
+                      item.productCode,
+                      parseInt(e.target.value),
+                    )
+                  }
+                />
+              </div>
               <div className="cart-product-removal">
                 <button
                   className="cart-remove-product"
@@ -188,48 +223,28 @@ const Cart = () => {
                   type="checkbox"
                   checked={selectedProducts.includes(item.productCode)}
                   onChange={() => handleCheckboxChange(item.productCode)}
+                  style={{ transform: 'scale(1.5)' }}
                 />
               </div>
             </div>
           ))}
           <div className="cart-totals">
             <div className="cart-totals-item">
-              <label>Subtotal</label>
+              <label>총상품금액</label>
               <div className="cart-totals-value" id="cart-subtotal">
-                {cartItems.reduce(
-                  (acc, item) => acc + item.productPrice * item.quantity,
-                  0,
-                )}
+                {selectedProductsTotalPrice}
               </div>
             </div>
             <div className="cart-totals-item">
-              <label>Tax (5%)</label>
+              <label>할인금액</label>
               <div className="cart-totals-value" id="cart-tax">
-                {cartItems
-                  .reduce(
-                    (acc, item) => acc + item.productPrice * item.quantity,
-                    0.05,
-                  )
-                  .toFixed(2)}
-              </div>
-            </div>
-            <div className="cart-totals-item">
-              <label>Shipping</label>
-              <div className="cart-totals-value" id="cart-shipping">
-                15.00
+                {discountAmount}
               </div>
             </div>
             <div className="cart-totals-item cart-totals-item-total">
-              <label>Grand Total</label>
+              <label>총합계</label>
               <div className="cart-totals-value" id="cart-total">
-                {(
-                  cartItems.reduce(
-                    (acc, item) => acc + item.productPrice * item.quantity,
-                    0,
-                  ) *
-                    1.05 +
-                  15
-                ).toFixed(2)}
+                {totalAmount}
               </div>
             </div>
           </div>
@@ -241,4 +256,5 @@ const Cart = () => {
     </div>
   );
 };
+
 export default Cart;
