@@ -1,19 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // axios를 임포트합니다.
+import axios from 'axios';
 import './Modal.css';
 
 const Modal = ({ isOpen, onClose, product }) => {
   const [requestType, setRequestType] = useState('');
   const [customRequest, setCustomRequest] = useState('');
-  const [size, setSize] = useState(product.productSize);
+  const [size, setSize] = useState(''); // 초기 상태를 빈 문자열로 설정
+
+  const validateInputs = () => {
+    const userPhone = sessionStorage.getItem('userPhone');
+    const userAddress = sessionStorage.getItem('userAddress');
+
+    if (!userPhone) {
+      alert('연락처를 입력해주세요.');
+      return false;
+    }
+    if (!userAddress) {
+      alert('배송지를 입력해주세요.');
+      return false;
+    }
+    if (!size) {
+      alert('사이즈를 선택해주세요.');
+      return false;
+    }
+    if (!requestType) {
+      alert('배송 요청 사항을 선택해주세요.');
+      return false;
+    }
+    if (requestType === '기타사항' && !customRequest) {
+      alert('기타 사항을 입력해주세요.');
+      return false;
+    }
+    return true;
+  };
 
   const onOrder = async () => {
+    if (!validateInputs()) {
+      return;
+    }
+
     const orderData = {
       userCode: Number(sessionStorage.getItem('userCode')),
       productCode: product.productCode,
       shippingAddress: sessionStorage.getItem('userAddress'),
       productSize: size,
-      request: requestType === '기타사항' ? customRequest : requestType, // 변수 이름을 customRequest로 변경
+      request: requestType === '기타사항' ? customRequest : requestType,
     };
 
     try {
@@ -38,7 +69,6 @@ const Modal = ({ isOpen, onClose, product }) => {
   };
 
   const handleOrderClick = () => {
-    // requestPay();
     onOrder();
   };
 
@@ -174,6 +204,9 @@ const Modal = ({ isOpen, onClose, product }) => {
             <label>
               사이즈:
               <select value={size} onChange={(e) => setSize(e.target.value)}>
+                <option value="" disabled>
+                  사이즈 선택
+                </option>
                 {Array.from({ length: 7 }, (_, i) => 90 + i * 5).map((num) => (
                   <option key={num} value={num}>
                     {num}

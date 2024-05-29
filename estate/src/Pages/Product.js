@@ -1,7 +1,7 @@
 import './Product.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom'; // 수정된 부분
+import { useParams, useNavigate } from 'react-router-dom';
 import Modal from './Modal.js';
 import { Link } from 'react-router-dom';
 
@@ -127,6 +127,18 @@ const Product = () => {
     setAverageReviewPoint(average.toFixed(1));
   };
 
+  const renderStarRating = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      stars.push(
+        <span key={i} className={`star ${i <= rating ? 'selected' : ''}`}>
+          ★
+        </span>,
+      );
+    }
+    return stars;
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -151,12 +163,14 @@ const Product = () => {
             <div className="grid-item">상품 명 : {product.productName}</div>
             <div className="grid-item">판매가 : {product.productPrice}</div>
             <div className="grid-item">제조사 : {product.companyName}</div>
-            <div className="grid-item">SIZE : {product.productSize}</div>
             <div className="grid-item">상품 재고 : {product.productStuck}</div>
             <div className="grid-item">
               등록 날짜 : {formatRegisterDate(product.registerDate)}
             </div>
-            <div className="grid-item">별점 : {averageReviewPoint}</div>{' '}
+            <div className="grid-item average-rating">
+              별점 : {renderStarRating(Math.round(averageReviewPoint))}(
+              {averageReviewPoint})
+            </div>
             <div className="buttons">
               <button className="purchase-btn" onClick={handlePurchaseClick}>
                 구매하기
@@ -208,7 +222,10 @@ const Product = () => {
                   </li>
                 ))}
               </ul>
-              <p>평균 별점: {averageReviewPoint}</p>
+              <p>
+                평균 별점: {renderStarRating(Math.round(averageReviewPoint))} (
+                {averageReviewPoint})
+              </p>
             </div>
           </div>
         </section>
