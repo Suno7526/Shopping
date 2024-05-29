@@ -10,7 +10,6 @@ const ProductJoin = () => {
     productPrice: '',
     companyName: '',
     productStuck: '',
-    productSize: '',
     category: '',
   });
 
@@ -37,7 +36,6 @@ const ProductJoin = () => {
         !productData.productPrice ||
         !productData.companyName ||
         !productData.productStuck ||
-        !productData.productSize ||
         !productData.category ||
         !productImage
       ) {
@@ -53,7 +51,6 @@ const ProductJoin = () => {
       formData.append('productPrice', productData.productPrice);
       formData.append('companyName', productData.companyName);
       formData.append('productStuck', productData.productStuck);
-      formData.append('productSize', productData.productSize);
       formData.append('category', productData.category);
       formData.append('productImage', productImage);
 
@@ -135,17 +132,6 @@ const ProductJoin = () => {
             id="productStuck"
             name="productStuck"
             value={productData.productStuck}
-            onChange={handleInputChange}
-            className="productJoin-input"
-          />
-          <label htmlFor="productSize" className="productJoin-label">
-            제품 크기:
-          </label>
-          <input
-            type="text"
-            id="productSize"
-            name="productSize"
-            value={productData.productSize}
             onChange={handleInputChange}
             className="productJoin-input"
           />

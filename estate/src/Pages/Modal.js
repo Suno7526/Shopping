@@ -3,12 +3,7 @@ import axios from 'axios'; // axios를 임포트합니다.
 import './Modal.css';
 
 const Modal = ({ isOpen, onClose, product }) => {
-  const [name, setName] = useState('');
-  const [contact, setContact] = useState('');
-  const [address, setAddress] = useState(
-    sessionStorage.getItem('userAddress') || '',
-  );
-  const [request, setRequest] = useState('');
+  const [requestType, setRequestType] = useState('');
   const [customRequest, setCustomRequest] = useState('');
   const [size, setSize] = useState(product.productSize);
 
@@ -16,10 +11,9 @@ const Modal = ({ isOpen, onClose, product }) => {
     const orderData = {
       userCode: Number(sessionStorage.getItem('userCode')),
       productCode: product.productCode,
-      shippingAddress: address,
-      name,
-      contact,
-      request: request === '기타사항' ? customRequest : request,
+      shippingAddress: sessionStorage.getItem('userAddress'),
+      productSize: size,
+      request: requestType === '기타사항' ? customRequest : requestType, // 변수 이름을 customRequest로 변경
     };
 
     try {
@@ -44,7 +38,8 @@ const Modal = ({ isOpen, onClose, product }) => {
   };
 
   const handleOrderClick = () => {
-    requestPay();
+    // requestPay();
+    onOrder();
   };
 
   useEffect(() => {
@@ -159,12 +154,12 @@ const Modal = ({ isOpen, onClose, product }) => {
                         className="Modal-Deliveryinput"
                         type="radio"
                         value={option}
-                        checked={request === option}
-                        onChange={(e) => setRequest(e.target.value)}
+                        checked={requestType === option}
+                        onChange={(e) => setRequestType(e.target.value)}
                       />
                       {option}
                     </label>
-                    {option === '기타사항' && request === '기타사항' && (
+                    {option === '기타사항' && requestType === '기타사항' && (
                       <input
                         type="text"
                         value={customRequest}

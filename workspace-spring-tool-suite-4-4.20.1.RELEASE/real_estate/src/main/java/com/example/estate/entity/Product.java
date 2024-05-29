@@ -62,9 +62,6 @@ public class Product {
     @Column(columnDefinition = "LONGBLOB")
     private byte[] productImage;
     
-    @Column
-    private String productSize;
-    
     @Column(nullable = false, columnDefinition = "float default 0")
     private float userPoint;
 

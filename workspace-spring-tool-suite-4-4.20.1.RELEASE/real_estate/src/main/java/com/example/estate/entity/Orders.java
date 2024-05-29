@@ -43,6 +43,12 @@ public class Orders {
 
     @Column
     private String refundReason; // 환불 사유
+    
+    @Column
+    private String request; // 요청 사항
+    
+    @Column
+    private String productSize; // 요청 사항
 
     @CreationTimestamp
     private Timestamp orderDate;

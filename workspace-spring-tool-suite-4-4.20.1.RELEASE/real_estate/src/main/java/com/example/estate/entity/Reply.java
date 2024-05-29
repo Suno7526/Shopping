@@ -37,6 +37,9 @@ public class Reply {
 	
 	@Column
 	private String replyContent; // 내용
+	
+	@Column
+	private boolean answerStatus; // 내용
 
 	
 	@CreationTimestamp

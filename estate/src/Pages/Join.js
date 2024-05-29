@@ -230,7 +230,7 @@ const Join = () => {
           >
             {Array.from({ length: 12 }, (_, index) => {
               const month = index + 1;
-              const paddedMonth = month.toString().pad;
+              const paddedMonth = month.toString().padStart(2, '0');
               return (
                 <option key={month} value={month}>
                   {paddedMonth}

@@ -68,7 +68,7 @@ const Mypage = () => {
                     style={{ width: '100px', height: '100px' }}
                   />
                   <strong>{order.product.productName}</strong> / SIZE :{' '}
-                  {order.product.productSize}
+                  {order.productSize}
                   {order.product.productOption}
                   <div></div>
                 </td>
