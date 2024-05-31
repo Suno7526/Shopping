@@ -6,7 +6,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import './Home.css';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+function Home() {
   const [products, setProducts] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -64,84 +64,205 @@ const Home = () => {
   };
 
   useEffect(() => {
+    // 페이지가 로드될 때나 products가 업데이트될 때 slick 슬라이더를 초기화합니다.
     if (wrapperRef.current) {
       wrapperRef.current.Slider(); // slick 슬라이더 초기화
     }
-  }, [products]);
+  }, [products]); // products 상태가 변경될 때마다 slick 슬라이더를 재설정합니다.
 
   return (
     <div>
-      <div className="navi">
-        <Link to="/" id="logo">
-          <img
-            src="https://i.postimg.cc/C5FbwsQr/logo.png"
-            height={20}
-            alt="Logo"
-          />
-        </Link>
-        <ul id="menu">
-          <li>
-            <Link to="#">Contact</Link>
-          </li>
-          <li>
-            <Link to="#">Shop</Link>
-          </li>
-          <li>
-            <Link to="#">Cart</Link>
-          </li>
-          <li>
-            <Link to="#">Login</Link>
-          </li>
-        </ul>
-      </div>
-      <div className="header"></div>
-      <div className="text">
-        <h1>Our New Products</h1>
+      <div className="Home-MainImage"></div>
+      <div className="Home-text">
+        <h1>Best Item</h1>
         <div className="product-list">
-          {products.slice(0, 9).map((product) => (
-            <Link
-              to={`/product/${product.productCode}`}
-              className="product"
-              key={product.productCode}
-              onClick={() => handleClickProduct(product.productCode)}
-            >
-              <img
-                src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                width={225}
-                alt={product.productName}
-              />
+          {products.slice(0, 5).map((product) => (
+            <div className="product-wrapper" key={product.productCode}>
+              <Link
+                to={`/product/${product.productCode}`}
+                className="product"
+                onClick={() => handleClickProduct(product.productCode)}
+              >
+                <img
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  alt={product.productName}
+                />
+              </Link>
               <div className="product-name">{product.productName}</div>
               <div className="product-price">{product.productPrice}</div>
-            </Link>
+            </div>
           ))}
         </div>
         <div className="clearfix" />
       </div>
-      <div className="footer">
-        <a href="https://facebook.com">
-          <img
-            src="https://i.postimg.cc/0r11BZ2j/facebook.png"
-            height={20}
-            alt="Facebook"
-          />
-        </a>
-        <a href="https://instagram.com">
-          <img
-            src="https://i.postimg.cc/9XZmGqf0/instagram.png"
-            height={20}
-            alt="Instagram"
-          />
-        </a>
-        <a href="https://twitter.com">
-          <img
-            src="https://i.postimg.cc/c1RWKyD8/twitter.png"
-            height={20}
-            alt="Twitter"
-          />
-        </a>
+
+      {/* 메인 이미지 섹션 */}
+      <div className="recommend-item">Recommend Item</div>
+      <div>
+        <Slider
+          ref={sliderRef}
+          className="Home-property-wrapper"
+          slidesToShow={3}
+          slidesToScroll={1}
+          arrows={false}
+          dots={true}
+          autoplay={true}
+          centerMode={true} // 슬라이드 간격을 적용하기 위해 centerMode 사용
+          centerPadding="10px" // 슬라이드 간격 설정
+        >
+          {products.map((product, index) => (
+            <div key={product.productCode} className="Home-property-wrapper">
+              <Link to={`/product/${product.productCode}`}>
+                <img
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  alt={`Product ${index}`}
+                  className="property-image"
+                  onClick={() => handleClickProduct(product.productCode)}
+                />
+              </Link>
+            </div>
+          ))}
+        </Slider>
+      </div>
+
+      {/* 추천 상품 섹션 */}
+      <div id="recommended-properties">
+        <div className="Home-MiddleImage"></div>
+        <div className="container-fluid">
+          <h1 className="good-text">인기있는 콘텐츠</h1>
+          <p className="good-sub-text">A pure CSS-only responsive masonry.</p>
+          <div className="masonry">
+            {products.map((product) => (
+              <div className="HomeGriditem" key={product.productCode}>
+                <a
+                  href={`/product/${product.productCode}`}
+                  className="product"
+                  onClick={() => handleClickProduct(product.productCode)}
+                >
+                  <div className="image-container">
+                    <img
+                      src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                      alt={product.productName}
+                    />
+                  </div>
+                  <div className="buttons-container">
+                    <button className="cart-button">🛒</button>
+                    <button className="wishlist-button">❤️</button>
+                  </div>
+                </a>
+                <h4 className="HomeGridH4">{product.productName}</h4>
+                <p className="HomeGridP">가격: {product.productPrice}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      <div className="Home-BottomImage"></div>
+
+      {/*패션 뉴스!!*/}
+      <h1 className="FASHION-NEWS">FASHION NEWS</h1>
+      <p className="FASHION-NEWS-sub-text">
+        A pure CSS-only responsive masonry.
+      </p>
+      <div className="snip-div">
+        <figure className="snip1249">
+          <div className="image">
+            <img
+              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample90.jpg"
+              alt="sample90"
+            />
+            <i className="ion-ios-basketball-outline"></i>
+          </div>
+          <figcaption>
+            <h3>Sports Wear</h3>
+            <p>
+              How many boards would the Mongols hoard if the Mongol hordes got
+              bored?
+            </p>
+            <div className="price">
+              <s>$19.00</s>$14.00
+            </div>
+          </figcaption>
+        </figure>
+        <figure className="snip1249">
+          <div className="image">
+            <img
+              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample85.jpg"
+              alt="sample85"
+            />
+            <i className="ion-ios-star-outline"></i>
+          </div>
+          <figcaption>
+            <h3>Time Piece</h3>
+            <p>
+              I'm killing time while I wait for life to shower me with meaning
+              and happiness.
+            </p>
+            <div className="price">
+              <s>$99.00</s>$84.00
+            </div>
+          </figcaption>
+        </figure>
+        <figure className="snip1249">
+          <div className="image">
+            <img
+              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample71.jpg"
+              alt="sample71"
+            />
+            <i className="ion-ios-camera-outline"></i>
+          </div>
+          <figcaption>
+            <h3>Winter Hat</h3>
+            <p>
+              Weekends don't count unless spent doing something completely
+              pointless.
+            </p>
+            <div className="price">
+              <s>$98.00</s>$74.00
+            </div>
+          </figcaption>
+        </figure>
+        <figure className="snip1249">
+          <div className="image">
+            <img
+              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample85.jpg"
+              alt="sample85"
+            />
+            <i className="ion-ios-star-outline"></i>
+          </div>
+          <figcaption>
+            <h3>Time Piece</h3>
+            <p>
+              I'm killing time while I wait for life to shower me with meaning
+              and happiness.
+            </p>
+            <div className="price">
+              <s>$99.00</s>$84.00
+            </div>
+          </figcaption>
+        </figure>
+        <figure className="snip1249">
+          <div className="image">
+            <img
+              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample85.jpg"
+              alt="sample85"
+            />
+            <i className="ion-ios-star-outline"></i>
+          </div>
+          <figcaption>
+            <h3>Time Piece</h3>
+            <p>
+              I'm killing time while I wait for life to shower me with meaning
+              and happiness.
+            </p>
+            <div className="price">
+              <s>$99.00</s>$84.00
+            </div>
+          </figcaption>
+        </figure>
       </div>
     </div>
   );
-};
+}
 
 export default Home;
