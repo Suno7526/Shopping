@@ -87,8 +87,8 @@ const Mypage = () => {
                     alt={order.product.productName}
                     style={{ width: '100px', height: '100px' }}
                   />
-                  <strong>{order.product.productName}</strong> / SIZE :{' '}
-                  {order.productSize}
+                  <strong>{order.product.productName}</strong> / SIZE :
+                  {order.productSize} / Color : {order.productColor}
                   {order.product.productOption}
                   <div></div>
                 </td>

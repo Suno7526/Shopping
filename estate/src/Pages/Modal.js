@@ -6,6 +6,7 @@ const Modal = ({ isOpen, onClose, product }) => {
   const [requestType, setRequestType] = useState('');
   const [customRequest, setCustomRequest] = useState('');
   const [size, setSize] = useState(''); // 초기 상태를 빈 문자열로 설정
+  const [color, setColor] = useState(''); // 색상 선택 상태 추가
 
   const validateInputs = () => {
     const userPhone = sessionStorage.getItem('userPhone');
@@ -21,6 +22,10 @@ const Modal = ({ isOpen, onClose, product }) => {
     }
     if (!size) {
       alert('사이즈를 선택해주세요.');
+      return false;
+    }
+    if (!color) {
+      alert('색상을 선택해주세요.');
       return false;
     }
     if (!requestType) {
@@ -44,6 +49,7 @@ const Modal = ({ isOpen, onClose, product }) => {
       productCode: product.productCode,
       shippingAddress: sessionStorage.getItem('userAddress'),
       productSize: size,
+      productColor: color, // 색상 추가
       request: requestType === '기타사항' ? customRequest : requestType,
     };
 
@@ -210,6 +216,19 @@ const Modal = ({ isOpen, onClose, product }) => {
                 {Array.from({ length: 7 }, (_, i) => 90 + i * 5).map((num) => (
                   <option key={num} value={num}>
                     {num}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              색상:
+              <select value={color} onChange={(e) => setColor(e.target.value)}>
+                <option value="" disabled>
+                  색상 선택
+                </option>
+                {['빨강', '파랑', '초록', '검정', '흰색'].map((clr) => (
+                  <option key={clr} value={clr}>
+                    {clr}
                   </option>
                 ))}
               </select>

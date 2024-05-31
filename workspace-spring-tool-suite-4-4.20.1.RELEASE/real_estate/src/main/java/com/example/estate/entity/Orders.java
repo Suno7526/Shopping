@@ -48,9 +48,12 @@ public class Orders {
     private String request; // 요청 사항
     
     @Column
-    private String productSize; // 요청 사항
+    private String productSize; // 사이즈
+    
+    @Column
+    private String productColor; // 색상
 
     @CreationTimestamp
-    private Timestamp orderDate;
+    private Timestamp orderDate; // 등록일
 
 }

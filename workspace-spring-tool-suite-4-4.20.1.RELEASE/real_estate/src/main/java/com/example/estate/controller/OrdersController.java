@@ -32,6 +32,7 @@ public class OrdersController {
 	    Long productCode = Long.valueOf((Integer) requestData.get("productCode"));
 	    String shippingAddress = (String) requestData.get("shippingAddress");
 	    String productSize = (String) requestData.get("productSize");
+	    String productColor = (String) requestData.get("productColor");
 	    String request = (String) requestData.get("request");
 	    String customRequest = "";
 	    
@@ -42,6 +43,7 @@ public class OrdersController {
 	    Product product = new Product();
 	    product.setProductCode(productCode);
 	    orders.setProductSize(productSize);
+	    orders.setProductColor(productColor);
 	    orders.setProduct(product);
 	    orders.setOrderStatus("준비중");
 	    orders.setRefundReason("X");
