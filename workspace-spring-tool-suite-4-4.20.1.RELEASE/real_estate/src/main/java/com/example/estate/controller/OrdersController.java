@@ -27,23 +27,39 @@ public class OrdersController {
 	private OrdersService ordersService;
 
 	@PostMapping("/orders/add")
-    public void ordersProduct(@RequestBody Map<String, Object> requestData) {
-        Long userCode = Long.valueOf((Integer) requestData.get("userCode"));
-        Long productCode = Long.valueOf((Integer) requestData.get("productCode"));
-        String shippingAddress = (String) requestData.get("shippingAddress");
+	public void ordersProduct(@RequestBody Map<String, Object> requestData) {
+	    Long userCode = Long.valueOf((Integer) requestData.get("userCode"));
+	    Long productCode = Long.valueOf((Integer) requestData.get("productCode"));
+	    String shippingAddress = (String) requestData.get("shippingAddress");
+	    String productSize = (String) requestData.get("productSize");
+	    String productColor = (String) requestData.get("productColor");
+	    String request = (String) requestData.get("request");
+	    String customRequest = "";
+	    
+	    Orders orders = new Orders();
+	    User user = new User();
+	    user.setUserCode(userCode);
+	    orders.setUser(user);
+	    Product product = new Product();
+	    product.setProductCode(productCode);
+	    orders.setProductSize(productSize);
+	    orders.setProductColor(productColor);
+	    orders.setProduct(product);
+	    orders.setOrderStatus("준비중");
+	    orders.setRefundReason("X");
+	    
+	   
+	    if (request != null && request.equals("기타사항")) {
+	        customRequest = (String) requestData.get("customRequest");
+	        orders.setRequest(customRequest);
+	    } else {
+	        orders.setRequest(request);
+	    }
 
-        Orders orders = new Orders();
-        User user = new User();
-        user.setUserCode(userCode);
-        orders.setUser(user);
-        Product product = new Product();
-        product.setProductCode(productCode);
-        orders.setProduct(product);
-        orders.setOrderStatus("준비중");
-        orders.setRefundReason("X");
-        orders.setShippingAddress(shippingAddress);
-        ordersService.ordersProduct(orders);
-    }
+	    orders.setShippingAddress(shippingAddress);
+	    ordersService.ordersProduct(orders);
+	}
+
 
 	@CrossOrigin(origins = "http://localhost:3000")
 	@GetMapping("/getOrdersProduct/{userCode}")

@@ -78,23 +78,31 @@ const Review = () => {
 
       <div id="reviewform">
         <form encType="multipart/form-data">
-          <label htmlFor="productName">상품명 : {productName}</label>
+          <label htmlFor="productName" className="review-label">
+            상품명 : {productName}
+          </label>
 
-          <label htmlFor="reviewContent">리뷰 내용</label>
+          <label htmlFor="reviewContent" className="review-label">
+            리뷰 내용
+          </label>
           <textarea
             id="reviewContent"
             name="reviewContent"
             value={reviewData.reviewContent}
             onChange={handleInputChange}
+            className="review-input"
           ></textarea>
           <div id="property-details">
-            <label htmlFor="productImage">사진 업로드</label>
+            <label htmlFor="productImage" className="review-label">
+              사진 업로드
+            </label>
             <input
               type="file"
               id="productImage"
               name="productImage"
               accept="image/*"
               onChange={handleFileChange}
+              className="review-input"
             />
             {previewImage && (
               <img
@@ -104,7 +112,9 @@ const Review = () => {
               />
             )}
           </div>
-          <label htmlFor="reviewPoint">별점</label>
+          <label htmlFor="reviewPoint" className="review-label">
+            별점
+          </label>
           <div className="star-rating">
             {[1, 2, 3, 4, 5].map((star) => (
               <span
@@ -118,7 +128,11 @@ const Review = () => {
               </span>
             ))}
           </div>
-          <button type="button" onClick={handleSubmit}>
+          <button
+            type="button"
+            onClick={handleSubmit}
+            className="review-button"
+          >
             리뷰 등록
           </button>
         </form>

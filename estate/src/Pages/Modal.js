@@ -1,25 +1,56 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios'; // axios를 임포트합니다.
+import axios from 'axios';
 import './Modal.css';
 
 const Modal = ({ isOpen, onClose, product }) => {
-  const [name, setName] = useState('');
-  const [contact, setContact] = useState('');
-  const [address, setAddress] = useState(
-    sessionStorage.getItem('userAddress') || '',
-  );
-  const [request, setRequest] = useState('');
+  const [requestType, setRequestType] = useState('');
   const [customRequest, setCustomRequest] = useState('');
-  const [size, setSize] = useState(product.productSize);
+  const [size, setSize] = useState(''); // 초기 상태를 빈 문자열로 설정
+  const [color, setColor] = useState(''); // 색상 선택 상태 추가
+
+  const validateInputs = () => {
+    const userPhone = sessionStorage.getItem('userPhone');
+    const userAddress = sessionStorage.getItem('userAddress');
+
+    if (!userPhone) {
+      alert('연락처를 입력해주세요.');
+      return false;
+    }
+    if (!userAddress) {
+      alert('배송지를 입력해주세요.');
+      return false;
+    }
+    if (!size) {
+      alert('사이즈를 선택해주세요.');
+      return false;
+    }
+    if (!color) {
+      alert('색상을 선택해주세요.');
+      return false;
+    }
+    if (!requestType) {
+      alert('배송 요청 사항을 선택해주세요.');
+      return false;
+    }
+    if (requestType === '기타사항' && !customRequest) {
+      alert('기타 사항을 입력해주세요.');
+      return false;
+    }
+    return true;
+  };
 
   const onOrder = async () => {
+    if (!validateInputs()) {
+      return;
+    }
+
     const orderData = {
       userCode: Number(sessionStorage.getItem('userCode')),
       productCode: product.productCode,
-      shippingAddress: address,
-      name,
-      contact,
-      request: request === '기타사항' ? customRequest : request,
+      shippingAddress: sessionStorage.getItem('userAddress'),
+      productSize: size,
+      productColor: color, // 색상 추가
+      request: requestType === '기타사항' ? customRequest : requestType,
     };
 
     try {
@@ -44,7 +75,7 @@ const Modal = ({ isOpen, onClose, product }) => {
   };
 
   const handleOrderClick = () => {
-    requestPay();
+    onOrder();
   };
 
   useEffect(() => {
@@ -159,12 +190,12 @@ const Modal = ({ isOpen, onClose, product }) => {
                         className="Modal-Deliveryinput"
                         type="radio"
                         value={option}
-                        checked={request === option}
-                        onChange={(e) => setRequest(e.target.value)}
+                        checked={requestType === option}
+                        onChange={(e) => setRequestType(e.target.value)}
                       />
                       {option}
                     </label>
-                    {option === '기타사항' && request === '기타사항' && (
+                    {option === '기타사항' && requestType === '기타사항' && (
                       <input
                         type="text"
                         value={customRequest}
@@ -179,9 +210,25 @@ const Modal = ({ isOpen, onClose, product }) => {
             <label>
               사이즈:
               <select value={size} onChange={(e) => setSize(e.target.value)}>
+                <option value="" disabled>
+                  사이즈 선택
+                </option>
                 {Array.from({ length: 7 }, (_, i) => 90 + i * 5).map((num) => (
                   <option key={num} value={num}>
                     {num}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              색상:
+              <select value={color} onChange={(e) => setColor(e.target.value)}>
+                <option value="" disabled>
+                  색상 선택
+                </option>
+                {['빨강', '파랑', '초록', '검정', '흰색'].map((clr) => (
+                  <option key={clr} value={clr}>
+                    {clr}
                   </option>
                 ))}
               </select>

@@ -10,7 +10,6 @@ const ProductJoin = () => {
     productPrice: '',
     companyName: '',
     productStuck: '',
-    productSize: '',
     category: '',
   });
 
@@ -37,7 +36,6 @@ const ProductJoin = () => {
         !productData.productPrice ||
         !productData.companyName ||
         !productData.productStuck ||
-        !productData.productSize ||
         !productData.category ||
         !productImage
       ) {
@@ -53,7 +51,6 @@ const ProductJoin = () => {
       formData.append('productPrice', productData.productPrice);
       formData.append('companyName', productData.companyName);
       formData.append('productStuck', productData.productStuck);
-      formData.append('productSize', productData.productSize);
       formData.append('category', productData.category);
       formData.append('productImage', productImage);
 
@@ -77,71 +74,77 @@ const ProductJoin = () => {
 
   return (
     <div className="App">
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>매물 등록</title>
-
       <div id="propertyform">
         <form encType="multipart/form-data">
-          <label htmlFor="productName">상품명:</label>
+          <label htmlFor="productName" className="productJoin-label">
+            상품명:
+          </label>
           <input
             type="text"
             id="productName"
-            name="productName" // 수정: 프로퍼티 이름을 name으로 변경
-            value={productData.productName} // 수정: 프로퍼티 이름을 name으로 변경
+            name="productName"
+            value={productData.productName}
             onChange={handleInputChange}
+            className="productJoin-input"
           />
 
-          <label htmlFor="information">설명:</label>
+          <label htmlFor="information" className="productJoin-label">
+            설명:
+          </label>
           <input
             type="text"
             id="information"
             name="information"
             value={productData.information}
             onChange={handleInputChange}
+            className="productJoin-input"
           />
 
-          <label htmlFor="productPrice">가격:</label>
+          <label htmlFor="productPrice" className="productJoin-label">
+            가격:
+          </label>
           <input
             type="text"
             id="productPrice"
-            name="productPrice" // 수정: 프로퍼티 이름을 price로 변경
-            value={productData.productPrice} // 수정: 프로퍼티 이름을 price로 변경
+            name="productPrice"
+            value={productData.productPrice}
             onChange={handleInputChange}
+            className="productJoin-input"
           />
 
-          <label htmlFor="companyName">회사명:</label>
+          <label htmlFor="companyName" className="productJoin-label">
+            회사명:
+          </label>
           <input
             type="text"
             id="companyName"
             name="companyName"
             value={productData.companyName}
             onChange={handleInputChange}
+            className="productJoin-input"
           />
 
-          <label htmlFor="productStuck">재고:</label>
+          <label htmlFor="productStuck" className="productJoin-label">
+            재고:
+          </label>
           <input
             type="text"
             id="productStuck"
             name="productStuck"
             value={productData.productStuck}
             onChange={handleInputChange}
-          />
-          <label htmlFor="productSize">제품 크기:</label>
-          <input
-            type="text"
-            id="productSize"
-            name="productSize"
-            value={productData.productSize}
-            onChange={handleInputChange}
+            className="productJoin-input"
           />
 
-          <label htmlFor="category">상품 카테고리:</label>
+          <label htmlFor="category" className="productJoin-label">
+            상품 카테고리:
+          </label>
           <select
             id="category"
             name="category"
             value={productData.category}
             onChange={handleInputChange}
+            className="productJoin-input"
           >
             <option value="">카테고리를 선택하세요</option>
             <optgroup label="아우터">
@@ -178,13 +181,16 @@ const ProductJoin = () => {
           </select>
 
           <div id="property-details">
-            <label htmlFor="productImage">사진 업로드:</label>
+            <label htmlFor="productImage" className="productJoin-label">
+              사진 업로드:
+            </label>
             <input
               type="file"
               id="productImage"
               name="productImage"
               accept="image/*"
               onChange={handleFileChange}
+              className="productJoin-input"
             />
             {previewImage && (
               <img

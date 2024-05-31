@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import { useState } from 'react'; // useEffect를 사용하지 않기 때문에 import 제거
-import './Join.css'; // 외부  시트 불러오기
+import { useState } from 'react';
+import './Join.css'; // 외부 스타일 시트 불러오기
 
 const Join = () => {
   const [formData, setFormData] = useState({
@@ -92,9 +92,11 @@ const Join = () => {
 
   return (
     <div>
-      <div id="signup-container">
-        <div id="signup-heading">회원가입</div>
-        <label htmlFor="email">이메일</label>
+      <div id="join-container">
+        <div id="join-heading">회원가입</div>
+        <label htmlFor="email" className="join-label">
+          이메일
+        </label>
         <input
           type="text"
           id="email"
@@ -102,8 +104,11 @@ const Join = () => {
           name="email"
           value={formData.email}
           onChange={handleInputChange}
+          className="join-input"
         />
-        <label htmlFor="password">비밀번호</label>
+        <label htmlFor="password" className="join-label">
+          비밀번호
+        </label>
         <input
           type="password"
           id="password"
@@ -111,8 +116,11 @@ const Join = () => {
           name="password"
           value={formData.password}
           onChange={handleInputChange}
+          className="join-input"
         />
-        <label htmlFor="confirm-password">비밀번호 확인</label>
+        <label htmlFor="confirm-password" className="join-label">
+          비밀번호 확인
+        </label>
         <input
           type="password"
           id="confirmPassword"
@@ -120,8 +128,11 @@ const Join = () => {
           name="confirmPassword"
           value={formData.confirmPassword}
           onChange={handleInputChange}
+          className="join-input"
         />
-        <label htmlFor="name">이름</label>
+        <label htmlFor="name" className="join-label">
+          이름
+        </label>
         <input
           type="text"
           id="name"
@@ -129,11 +140,14 @@ const Join = () => {
           name="name"
           value={formData.name}
           onChange={handleInputChange}
+          className="join-input"
         />
         <div id="phone-label-container">
-          <label htmlFor="phone-prefix">전화번호</label>
-          <label htmlFor="phone-middle" />
-          <label htmlFor="phone-suffix" />
+          <label htmlFor="phone-prefix" className="join-label">
+            전화번호
+          </label>
+          <label htmlFor="phone-middle" className="join-label" />
+          <label htmlFor="phone-suffix" className="join-label" />
         </div>
         <div id="phone-container">
           <input
@@ -143,6 +157,7 @@ const Join = () => {
             value={formData.phonePrefix}
             placeholder={10}
             onChange={handleInputChange}
+            className="join-input"
           />
           <input
             type="text"
@@ -151,6 +166,7 @@ const Join = () => {
             value={formData.phoneMiddle}
             placeholder={1234}
             onChange={handleInputChange}
+            className="join-input"
           />
           <input
             type="text"
@@ -159,9 +175,12 @@ const Join = () => {
             value={formData.phoneSuffix}
             placeholder={5678}
             onChange={handleInputChange}
+            className="join-input"
           />
         </div>
-        <label htmlFor="address">주소</label>
+        <label htmlFor="address" className="join-label">
+          주소
+        </label>
         <input
           type="text"
           id="address"
@@ -169,11 +188,18 @@ const Join = () => {
           name="address"
           value={formData.address}
           onChange={handleInputChange}
+          className="join-input"
         />
         <div className="date-label-container">
-          <label htmlFor="year">년도</label>
-          <label htmlFor="month">월</label>
-          <label htmlFor="day">일</label>
+          <label htmlFor="year" className="join-label">
+            년도
+          </label>
+          <label htmlFor="month" className="join-label">
+            월
+          </label>
+          <label htmlFor="day" className="join-label">
+            일
+          </label>
         </div>
         <div className="date-container">
           {/* 년도 선택 */}
@@ -182,6 +208,7 @@ const Join = () => {
             name="year"
             value={formData.year}
             onChange={handleInputChange}
+            className="join-select"
           >
             {Array.from({ length: 125 }, (_, index) => {
               const year = 2024 - index;
@@ -199,6 +226,7 @@ const Join = () => {
             name="month"
             value={formData.month}
             onChange={handleInputChange}
+            className="join-select"
           >
             {Array.from({ length: 12 }, (_, index) => {
               const month = index + 1;
@@ -217,6 +245,7 @@ const Join = () => {
             name="day"
             value={formData.day}
             onChange={handleInputChange}
+            className="join-select"
           >
             {Array.from({ length: 31 }, (_, index) => {
               const day = index + 1;

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 
 const Mypage = () => {
   const [ordersItems, setOrdersItems] = useState([]);
+  const [reviews, setReviews] = useState({});
 
   // 사용자 주문 내역을 가져오는 함수
   const fetchOrders = async () => {
@@ -16,7 +17,26 @@ const Mypage = () => {
         `http://localhost:8000/getOrdersProduct/${userCode}`,
       );
       // 가져온 주문 내역을 상태에 저장합니다.
-      setOrdersItems(response.data.reverse());
+      const orders = response.data.reverse();
+      setOrdersItems(orders);
+
+      // 각 주문에 대한 리뷰를 가져옵니다.
+      const reviewsResponse = await Promise.all(
+        orders.map((order) =>
+          axios.get(
+            `http://localhost:8000/getReviews/${order.product.productCode}`,
+          ),
+        ),
+      );
+
+      // 리뷰 데이터를 상태에 저장합니다.
+      const reviewsData = {};
+      reviewsResponse.forEach((res, index) => {
+        const productCode = orders[index].product.productCode;
+        reviewsData[productCode] = res.data;
+      });
+
+      setReviews(reviewsData);
     } catch (error) {
       console.error('주문 내역을 불러오는 중 오류 발생:', error);
     }
@@ -67,8 +87,8 @@ const Mypage = () => {
                     alt={order.product.productName}
                     style={{ width: '100px', height: '100px' }}
                   />
-                  <strong>{order.product.productName}</strong> / SIZE :{' '}
-                  {order.product.productSize}
+                  <strong>{order.product.productName}</strong> / SIZE :
+                  {order.productSize} / Color : {order.productColor}
                   {order.product.productOption}
                   <div></div>
                 </td>
@@ -77,9 +97,14 @@ const Mypage = () => {
                 <td>{order.product.productPrice}원</td>
                 <td>{order.shippingAddress}</td>
                 <td>
-                  <Link to={`/Review/${order.product.productCode}`}>
-                    리뷰등록하기
-                  </Link>
+                  {reviews[order.product.productCode] &&
+                  reviews[order.product.productCode].length > 0 ? (
+                    <span>이미 작성한 리뷰입니다.</span>
+                  ) : (
+                    <Link to={`/Review/${order.product.productCode}`}>
+                      리뷰등록하기
+                    </Link>
+                  )}
                 </td>
               </tr>
             ))}

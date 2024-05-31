@@ -12,13 +12,13 @@
   width: 40%; /* 전체 너비의 n%로 조정 */
 }
 
-label {
+.review-label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
-input,
+.review-input,
 textarea,
 select {
   width: 100%;
@@ -36,21 +36,7 @@ p {
   font-weight: normal;
 }
 
-button {
-  display: inline-block;
-  padding: 10px 20px;
-  margin: 5px 0;
-  border: none;
-  border-radius: 25px; /* 둥근 모서리 */
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: uppercase; /* 대문자 변환 */
-  text-decoration: none;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-button:hover {
+.review-button:hover {
   transform: scale(1.05); /* 살짝 확대 */
 }
 
@@ -72,3 +58,5 @@ button:hover {
 .star.selected {
   color: #ff5733;
 }
+
+/* 여기에 추가적인 CSS 규칙을 넣어주세요 */

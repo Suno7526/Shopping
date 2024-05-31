@@ -1,9 +1,5 @@
 package com.example.estate.entity;
 
-import java.sql.Timestamp;
-
-import org.hibernate.annotations.CreationTimestamp;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,28 +17,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Reply {
+public class Size {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long replyCode;
+	private Long sizeCode;
 	
 	@ManyToOne
-	@JoinColumn(name = "userCode")
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name = "questionCode")
-	private Question question;
+    @JoinColumn(name = "productCode")
+    private Product product;
 	
 	@Column
-	private String replyContent; // 내용
-	
-	@Column
-	private boolean answerStatus; // 내용
-
-	
-	@CreationTimestamp
-	private Timestamp registerDate; // 등록일자
-	
+	private String sizeName;
 }

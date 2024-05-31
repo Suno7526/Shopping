@@ -5,16 +5,16 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   text-align: left;
   margin: 20px auto;
-  width: 40%; /* 전체 너비의 n%로 조정 */
+  width: 40%;
 }
 
-label {
+.productJoin-label {
   display: block;
   margin-bottom: 8px;
   font-weight: bold;
 }
 
-input,
+.productJoin-input,
 textarea {
   width: 100%;
   padding: 10px;
@@ -30,8 +30,8 @@ textarea {
 .detail-info-form,
 .description-form {
   margin-top: 20px;
-  border-top: 1px solid #ccc; /* 상단 경계선 추가 */
-  padding-top: 20px; /* 상단 패딩 추가 */
+  border-top: 1px solid #ccc; /* 상단 경계선 추가 /
+  padding-top: 20px; / 상단 패딩 추가 */
 }
 
 .detail-info-form input {
@@ -47,4 +47,8 @@ textarea {
   height: auto;
   border-radius: 10px;
   margin-top: 20px;
+}
+
+.productJoin-input[type='file'] {
+  margin-bottom: 0; /* 파일 입력란 아래 여백 제거 */
 }

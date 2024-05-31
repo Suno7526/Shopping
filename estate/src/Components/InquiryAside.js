@@ -10,9 +10,6 @@ const Aside = () => {
       <hr />
       <aside className="sidebar">
         <nav>
-          <Link to="/BestFAQ">
-            <button>자주하는 질문</button>
-          </Link>{' '}
           <Link to="/Question">
             <button>문의하기</button>
           </Link>{' '}
@@ -21,6 +18,9 @@ const Aside = () => {
           </Link>{' '}
           <Link to="/MyInquiry">
             <button>나의 문의내역</button>
+          </Link>{' '}
+          <Link to="/BestFAQ">
+            <button>자주하는 질문</button>
           </Link>{' '}
         </nav>
       </aside>

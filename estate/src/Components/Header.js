@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './Header.css'; // 스타일 파일 import
 import { Link, useNavigate } from 'react-router-dom'; // Link, useNavigate import 추가
+import axios from 'axios';
 
 const Header = () => {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
   const [isSticky, setIsSticky] = useState(false); // 스크롤 여부 관리
   const [userRole, setUserRole] = useState('');
+  const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
   const navigate = useNavigate(); // useNavigate 훅 사용
 
   useEffect(() => {
@@ -39,15 +41,32 @@ const Header = () => {
     window.location.reload(); // 페이지 새로고침
   };
 
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (searchTerm.trim() !== '') {
+      navigate(`/Search/${searchTerm.trim()}`);
+    }
+  };
+
   return (
     <div>
       <div className={`tab-menu ${isSticky ? 'sticky' : ''}`}>
         <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
         <div id="Company" onClick={() => navigate('/Home')}>
-          FASS
+          PASS
         </div>
-        {/* 클릭 시 Home으로 이동 */}
-        {/* 기존 탭 메뉴 */}
+        <form onSubmit={handleSearch} className="tab-menu-link">
+          <input
+            type="text"
+            placeholder="Search"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="search-input"
+          />
+          <button type="submit" cclassName="tab-menu-link">
+            Search
+          </button>
+        </form>
         {userRole === 'ADMIN' && (
           <Link to="/ProductJoin" className="tab-menu-link">
             상품등록

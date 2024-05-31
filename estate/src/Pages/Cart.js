@@ -14,7 +14,6 @@ const Cart = () => {
             'userCode',
           )}`,
         );
-        // 중복된 제품을 합치고 수량을 계산
         const uniqueProducts = [];
         response.data.forEach((item) => {
           const existingProduct = uniqueProducts.find(
@@ -58,7 +57,6 @@ const Cart = () => {
           'userCode',
         )}`,
       );
-      // 중복된 제품을 합치고 수량을 계산
       const uniqueProducts = [];
       response.data.forEach((item) => {
         const existingProduct = uniqueProducts.find(
@@ -87,10 +85,19 @@ const Cart = () => {
     }
   };
 
+  const handleQuantityChange = (productCode, newQuantity) => {
+    setCartItems((prevItems) =>
+      prevItems.map((item) =>
+        item.productCode === productCode
+          ? { ...item, quantity: newQuantity }
+          : item,
+      ),
+    );
+  };
+
   const handlePurchase = async () => {
     try {
-      // 선택된 모든 상품의 정보를 기반으로 총 주문명과 총 결제 금액 계산
-      const orderName = '전체 상품 결제';
+      const orderName = 'Selected Products Purchase';
       let totalPrice = 0;
       selectedProducts.forEach((productCode) => {
         const selectedProduct = cartItems.find(
@@ -99,7 +106,6 @@ const Cart = () => {
         totalPrice += selectedProduct.productPrice * selectedProduct.quantity;
       });
 
-      // 전체 상품 한 번에 결제
       const { IMP } = window;
       IMP.init('imp33740768');
 
@@ -107,7 +113,7 @@ const Cart = () => {
         {
           pg: 'html5_inicis',
           pay_method: 'card',
-          merchant_uid: new Date().getTime().toString(), // 주문 번호로 사용
+          merchant_uid: new Date().getTime().toString(),
           name: orderName,
           amount: totalPrice,
           buyer_email: sessionStorage.getItem('userEmail'),
@@ -119,7 +125,6 @@ const Cart = () => {
         async (rsp) => {
           if (rsp.success) {
             try {
-              // 각 상품에 대한 결제 처리
               for (const productCode of selectedProducts) {
                 const { data } = await axios.post(
                   'http://localhost:8000/verifyIamport/' + rsp.imp_uid,
@@ -148,68 +153,105 @@ const Cart = () => {
     }
   };
 
+  const selectedProductsTotalPrice = selectedProducts.reduce(
+    (acc, productCode) => {
+      const selectedProduct = cartItems.find(
+        (item) => item.productCode === productCode,
+      );
+      return acc + selectedProduct.productPrice * selectedProduct.quantity;
+    },
+    0,
+  );
+
+  const discountAmount = 5000;
+  const totalAmount = selectedProductsTotalPrice - discountAmount;
+
   return (
     <div>
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>메인페이지</title>
-
-      <div className="cart">
-        <h2>
-          <div className="CartMaintitle">장바구니</div>
-        </h2>
-        <div className="Cartcolumn-labels">
-          <label className="Cproduct-image">|Image</label>
-          <label className="Cproduct-details">|Product</label>
-          <label className="Cproduct-price">|Price</label>
-          <label className="Cproduct-quantity">|Quantity</label>
-          <label className="Cproduct-line-price">|Total $</label>
-        </div>
-        {cartItems && cartItems.length > 0 ? (
-          cartItems.map((item) => (
-            <div className="product-line" key={item.productCode}>
-              <div className="product-image-container">
+      <div style={{ marginLeft: '50px', marginRight: '50px' }}>
+        <h1>Shopping Cart</h1>
+        <div className="cart-shopping-cart">
+          <div className="cart-column-labels">
+            <label className="cart-product-image">Image</label>
+            <label className="cart-product-details">Product</label>
+            <label className="cart-product-price">Price</label>
+            <label className="cart-product-quantity">Quantity</label>
+            <label className="cart-product-removal">Remove</label>
+            <label className="cart-product-line-price">Total</label>
+          </div>
+          {cartItems.map((item) => (
+            <div className="cart-product" key={item.productCode}>
+              <div className="cart-product-image">
                 <img
                   src={`http://localhost:8000/getProductImage/${item.productCode}`}
-                  alt=""
-                  className="product-image"
+                  alt={item.productName}
                 />
-                {item.soldout && <div className="soldout-overlay">품절</div>}
               </div>
-              <div className="product-details">
-                <p>{item.productName}</p>
-                <p>{item.productPrice}</p>
-                <p>{item.productSize}</p>
-                <p className="Cquantity">수량: {item.quantity}</p>
-                <p className="Cprice">{item.productPrice * item.quantity}</p>
-                <div className="Cartcheckbox">
-                  <input
-                    type="checkbox"
-                    id={`checkbox-${item.productCode}`}
-                    onChange={() => handleCheckboxChange(item.productCode)}
-                    disabled={item.soldout} // 품절 상품인 경우 체크박스 비활성화
-                  />
-                  <label htmlFor={`checkbox-${item.productCode}`}>선택</label>
-                </div>
+              <div className="cart-product-details">
+                <div className="cart-product-title">{item.productName}</div>
+                <p className="cart-product-description">
+                  {item.productDescription}
+                </p>
               </div>
-              <div className="product-removal">
+              <div className="cart-product-price">{item.productPrice}</div>
+              <div className="cart-product-quantity">
+                <input
+                  type="number"
+                  value={item.quantity}
+                  min="1"
+                  onChange={(e) =>
+                    handleQuantityChange(
+                      item.productCode,
+                      parseInt(e.target.value),
+                    )
+                  }
+                />
+              </div>
+              <div className="cart-product-removal">
                 <button
-                  className="delete-item-btn"
+                  className="cart-remove-product"
                   onClick={() => handleDeleteItem(item.productCode)}
                 >
-                  X
+                  Remove
                 </button>
               </div>
+              <div className="cart-product-line-price">
+                {item.productPrice * item.quantity}
+              </div>
+              <div className="cart-product-checkbox">
+                <input
+                  type="checkbox"
+                  checked={selectedProducts.includes(item.productCode)}
+                  onChange={() => handleCheckboxChange(item.productCode)}
+                  style={{ transform: 'scale(1.5)' }}
+                />
+              </div>
             </div>
-          ))
-        ) : (
-          <p>장바구니가 비어 있습니다.</p>
-        )}
-      </div>
-      <div className="Cartpurchaseline">
-        <button className="Cartpurchase-btn" onClick={handlePurchase}>
-          구매하기
-        </button>
+          ))}
+          <div className="cart-totals">
+            <div className="cart-totals-item">
+              <label>총상품금액</label>
+              <div className="cart-totals-value" id="cart-subtotal">
+                {selectedProductsTotalPrice}
+              </div>
+            </div>
+            <div className="cart-totals-item">
+              <label>할인금액</label>
+              <div className="cart-totals-value" id="cart-tax">
+                {discountAmount}
+              </div>
+            </div>
+            <div className="cart-totals-item cart-totals-item-total">
+              <label>총합계</label>
+              <div className="cart-totals-value" id="cart-total">
+                {totalAmount}
+              </div>
+            </div>
+          </div>
+          <button className="cart-checkout" onClick={handlePurchase}>
+            Checkout
+          </button>
+        </div>
       </div>
     </div>
   );

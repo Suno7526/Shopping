@@ -29,12 +29,11 @@ public class ProductController {
 	public ResponseEntity<String> saveProduct(@RequestParam("productImage") MultipartFile productImage,
 			@RequestParam("productName") String productName, @RequestParam("information") String information,
 			@RequestParam("productPrice") int productPrice, @RequestParam("companyName") String companyName,
-			@RequestParam("productStuck") int productStuck, @RequestParam("category") String category,
-			@RequestParam("productSize") String productSize) {
+			@RequestParam("productStuck") int productStuck, @RequestParam("category") String category) {
 		try {
 			byte[] imageBytes = productImage.getBytes();
 			productService.saveProduct(imageBytes, productName, information, productPrice, companyName, productStuck,
-					category, productSize);
+					category);
 			return new ResponseEntity<>("상품 등록 성공", HttpStatus.OK);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -93,5 +92,10 @@ public class ProductController {
             return new ResponseEntity<>("상품 수정 실패", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+	
+	 @GetMapping("/searchProducts/{query}")
+	    public List<Product> searchProducts(@PathVariable("query") String query) {
+	        return productService.searchProducts(query);
+	    }
+	 
 }

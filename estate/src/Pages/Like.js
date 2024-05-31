@@ -30,7 +30,7 @@ const Like = () => {
         )}/${productCode}`,
       );
       const updatedLikeItems = likeItems.filter(
-        (item) => item.product.productCode !== productCode,
+        (item) => item.product && item.product.productCode !== productCode,
       );
       setLikeItems(updatedLikeItems);
       alert('찜 목록에서 삭제했습니다.');
@@ -58,38 +58,43 @@ const Like = () => {
       </article>
       <section className="Likesection">
         <div className="likeItemsContainer">
-          {likeItems.map((product) => (
-            <div className="likeItemCard" key={product.product.productCode}>
-              <img
-                src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
-                alt={product.product.productName}
-                className="LikeproductImage"
-              />
-              <div className="LikeproductInfo">
-                <div>
-                  <strong>
-                    [제조사] 상품 명 : {product.product.productName}
-                  </strong>
+          {likeItems.map(
+            (product) =>
+              // product와 product.product가 null이 아닌 경우에만 렌더링
+              product &&
+              product.product && (
+                <div className="likeItemCard" key={product.product.productCode}>
+                  <img
+                    src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
+                    alt={product.product.productName}
+                    className="LikeproductImage"
+                  />
+                  <div className="LikeproductInfo">
+                    <div>
+                      <strong>
+                        [제조사] 상품 명 : {product.product.productName}
+                      </strong>
+                    </div>
+                    <div>판매가 : {product.product.productPrice}</div>
+                    <div>별점 : {product.product.userPoint}</div>
+                  </div>
+                  <div className="Likebutton-container">
+                    <button
+                      className="Likeadd-to-cart-btn"
+                      onClick={() => handleAddToCart(product.product)}
+                    >
+                      장바구니에 추가
+                    </button>
+                    <button
+                      className="Likeunlike-item-btn"
+                      onClick={() => handleUnlike(product.product.productCode)}
+                    >
+                      찜하기 취소
+                    </button>
+                  </div>
                 </div>
-                <div>판매가 : {product.product.productPrice}</div>
-                <div>별점 : {product.product.userPoint}</div>
-              </div>
-              <div className="Likebutton-container">
-                <button
-                  className="Likeadd-to-cart-btn"
-                  onClick={() => handleAddToCart(product.product)}
-                >
-                  장바구니에 추가
-                </button>
-                <button
-                  className="Likeunlike-item-btn"
-                  onClick={() => handleUnlike(product.product.productCode)}
-                >
-                  찜하기 취소
-                </button>
-              </div>
-            </div>
-          ))}
+              ),
+          )}
         </div>
       </section>
     </div>
