@@ -50,58 +50,57 @@ const Header = () => {
 
   return (
     <div>
-      <div className={`tab-menu ${isSticky ? 'sticky' : ''}`}>
-        <div style={{ flex: 1 }}></div> {/* 왼쪽 여백 */}
-        <div id="Company" onClick={() => navigate('/Home')}>
-          PASS
-        </div>
-        <form onSubmit={handleSearch} className="tab-menu-link">
-          <input
-            type="text"
-            placeholder="Search"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="search-input"
-          />
-          <button type="submit" cclassName="tab-menu-link">
-            Search
-          </button>
-        </form>
-        {userRole === 'ADMIN' && (
-          <Link to="/ProductJoin" className="tab-menu-link">
-            상품등록
-          </Link>
-        )}
-        <Link to="/Cart" className="tab-menu-link">
-          장바구니
-        </Link>
-        <Link to="/Mypage" className="tab-menu-link">
-          마이페이지
-        </Link>
-        <Link to="/Inquiry" className="tab-menu-link">
-          문의하기
-        </Link>
-        {/* 로그인 링크 */}
-        <div className="tab-menu-login">
-          {isLogin ? (
-            <React.Fragment>
-              <Link to={`/MyPage`} className="nav-link">
-                {sessionStorage.getItem('userName')}님
-                <br />
-              </Link>
-              <button className="sign-out-button" onClick={handleSignOut}>
-                Sign Out 🚪
+      <div className="navi">
+        <a id="logo" onClick={() => navigate('/Home')}>
+          Home
+        </a>
+        <ul id="menu">
+          <li>
+            <form onSubmit={handleSearch}>
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <button type="submit" className="tab-menu-link search-button">
+                Search
               </button>
-            </React.Fragment>
-          ) : (
-            <React.Fragment>
-              <Link to={`/UserLogin`} className="nav-link">
+            </form>
+          </li>
+          {userRole === 'ADMIN' && (
+            <li>
+              <Link to="/ProductJoin">상품등록</Link>
+            </li>
+          )}
+          <li>
+            <Link to="/Cart">장바구니</Link>
+          </li>
+          <li>
+            <Link to="/Mypage">마이페이지</Link>
+          </li>
+          <li>
+            <Link to="/Inquiry">문의하기</Link>
+          </li>
+          <li>
+            {isLogin ? (
+              <>
+                <Link to="/MyPage" className="nav-link">
+                  {sessionStorage.getItem('userName')}님
+                </Link>
+                <button className="sign-out-button" onClick={handleSignOut}>
+                  Sign Out 🚪
+                </button>
+              </>
+            ) : (
+              <Link to="/UserLogin" className="nav-link">
                 Sign In
               </Link>
-            </React.Fragment>
-          )}
-        </div>
+            )}
+          </li>
+        </ul>
       </div>
+
       <header>
         <nav id="gnb">
           <ul>
@@ -203,7 +202,6 @@ const Header = () => {
           </ul>
         </nav>
       </header>
-      <hr />
     </div>
   );
 };

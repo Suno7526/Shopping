@@ -81,7 +81,6 @@ button[type='submit'] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 5.2em;
 
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */

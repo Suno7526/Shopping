@@ -59,6 +59,57 @@ function Home() {
     }
   };
 
+  const handleAddToCart = async (productCode, event) => {
+    event.preventDefault();
+    const userCode = sessionStorage.getItem('userCode');
+    try {
+      if (!userCode) {
+        console.log('로그인이 필요합니다.');
+        return;
+      }
+
+      await axios.post('http://localhost:8000/addToCart', {
+        userCode: userCode,
+        productCode: productCode,
+      });
+      alert('상품을 장바구니에 담았습니다.');
+    } catch (error) {
+      console.error('상품을 장바구니에 담는 중 오류 발생:', error);
+    }
+  };
+
+  const handleAddToWishlist = async (productCode, event) => {
+    event.preventDefault();
+    const userCode = sessionStorage.getItem('userCode');
+    try {
+      if (!userCode) {
+        console.log('로그인이 필요합니다.');
+        return;
+      }
+
+      const response = await axios.get(
+        `http://localhost:8000/getLikeProduct/${userCode}`,
+      );
+      const likedProducts = response.data;
+      const found = likedProducts.some(
+        (likedProduct) => likedProduct.product.productCode === productCode,
+      );
+
+      if (found) {
+        alert('이미 찜한 상품입니다.');
+        return;
+      }
+
+      await axios.post('http://localhost:8000/like', {
+        userCode: userCode,
+        productCode: productCode,
+      });
+      alert('상품을 찜했습니다.');
+    } catch (error) {
+      console.error('상품을 찜하는 중 오류 발생:', error);
+    }
+  };
+
   const goToImage = (index) => {
     setCurrentIndex(index);
   };
@@ -146,8 +197,20 @@ function Home() {
                     />
                   </div>
                   <div className="buttons-container">
-                    <button className="cart-button">🛒</button>
-                    <button className="wishlist-button">❤️</button>
+                    <button
+                      className="cart-button"
+                      onClick={(e) => handleAddToCart(product.productCode, e)}
+                    >
+                      🛒
+                    </button>
+                    <button
+                      className="wishlist-button"
+                      onClick={(e) =>
+                        handleAddToWishlist(product.productCode, e)
+                      }
+                    >
+                      ❤️
+                    </button>
                   </div>
                 </a>
                 <h4 className="HomeGridH4">{product.productName}</h4>
@@ -206,51 +269,13 @@ function Home() {
         <figure className="snip1249">
           <div className="image">
             <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample71.jpg"
-              alt="sample71"
+              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample87.jpg"
+              alt="sample87"
             />
-            <i className="ion-ios-camera-outline"></i>
+            <i className="ion-ios-heart-outline"></i>
           </div>
           <figcaption>
-            <h3>Winter Hat</h3>
-            <p>
-              Weekends don't count unless spent doing something completely
-              pointless.
-            </p>
-            <div className="price">
-              <s>$98.00</s>$74.00
-            </div>
-          </figcaption>
-        </figure>
-        <figure className="snip1249">
-          <div className="image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample85.jpg"
-              alt="sample85"
-            />
-            <i className="ion-ios-star-outline"></i>
-          </div>
-          <figcaption>
-            <h3>Time Piece</h3>
-            <p>
-              I'm killing time while I wait for life to shower me with meaning
-              and happiness.
-            </p>
-            <div className="price">
-              <s>$99.00</s>$84.00
-            </div>
-          </figcaption>
-        </figure>
-        <figure className="snip1249">
-          <div className="image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample85.jpg"
-              alt="sample85"
-            />
-            <i className="ion-ios-star-outline"></i>
-          </div>
-          <figcaption>
-            <h3>Time Piece</h3>
+            <h3>Fancy Shoes</h3>
             <p>
               I'm killing time while I wait for life to shower me with meaning
               and happiness.

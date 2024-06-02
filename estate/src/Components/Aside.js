@@ -5,10 +5,6 @@ import './Aside.css'; // 외부 스타일 시트 불러오기
 const Aside = () => {
   return (
     <div>
-      <nav>
-        <ul></ul>
-      </nav>
-      <hr />
       <aside className="sidebar">
         <div className="sidebar-header">📲 옷옷장</div>
         <nav>

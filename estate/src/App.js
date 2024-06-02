@@ -27,7 +27,6 @@ import QExchange from './Pages/QExchange';
 import Review from './Pages/Review';
 import ProductUpdate from './Pages/ProductUpdate';
 import MyInquiry from './Pages/MyInquiry';
-import Home2 from './Pages/Home2';
 import Search from './Pages/Search';
 
 function App() {
@@ -66,7 +65,6 @@ function App() {
         <Route path="/Review/:productCode" element={<Review />} />
         <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
         <Route path="/MyInquiry" element={<MyInquiry />} />
-        <Route path="/Home2" element={<Home2 />} />
         <Route path="/Search/:query" element={<Search />} />
       </Routes>
     </BrowserRouter>
