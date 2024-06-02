@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Cart.css';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -68,6 +69,7 @@ const Cart = () => {
           uniqueProducts.push({ ...item.product, quantity: 1 });
         }
       });
+      alert('상품을 삭제했습니다.');
       setCartItems(uniqueProducts);
     } catch (error) {
       console.error('상품을 삭제하는 중 오류 발생:', error);
@@ -153,6 +155,11 @@ const Cart = () => {
     }
   };
 
+  const totalProductsPrice = cartItems.reduce(
+    (acc, item) => acc + item.productPrice * item.quantity,
+    0,
+  );
+
   const selectedProductsTotalPrice = selectedProducts.reduce(
     (acc, productCode) => {
       const selectedProduct = cartItems.find(
@@ -164,7 +171,7 @@ const Cart = () => {
   );
 
   const discountAmount = 5000;
-  const totalAmount = selectedProductsTotalPrice - discountAmount;
+  const totalAmount = totalProductsPrice - discountAmount;
 
   return (
     <div>
@@ -182,10 +189,12 @@ const Cart = () => {
           {cartItems.map((item) => (
             <div className="cart-product" key={item.productCode}>
               <div className="cart-product-image">
-                <img
-                  src={`http://localhost:8000/getProductImage/${item.productCode}`}
-                  alt={item.productName}
-                />
+                <Link to={`/product/${item.productCode}`}>
+                  <img
+                    src={`http://localhost:8000/getProductImage/${item.productCode}`}
+                    alt={item.productName}
+                  />
+                </Link>
               </div>
               <div className="cart-product-details">
                 <div className="cart-product-title">{item.productName}</div>
@@ -193,7 +202,7 @@ const Cart = () => {
                   {item.productDescription}
                 </p>
               </div>
-              <div className="cart-product-price">{item.productPrice}</div>
+              <div className="cart-product-price">{item.productPrice}원</div>
               <div className="cart-product-quantity">
                 <input
                   type="number"
@@ -216,7 +225,7 @@ const Cart = () => {
                 </button>
               </div>
               <div className="cart-product-line-price">
-                {item.productPrice * item.quantity}
+                {item.productPrice * item.quantity}원
               </div>
               <div className="cart-product-checkbox">
                 <input
@@ -232,19 +241,19 @@ const Cart = () => {
             <div className="cart-totals-item">
               <label>총상품금액</label>
               <div className="cart-totals-value" id="cart-subtotal">
-                {selectedProductsTotalPrice}
+                {totalProductsPrice}원
               </div>
             </div>
             <div className="cart-totals-item">
               <label>할인금액</label>
               <div className="cart-totals-value" id="cart-tax">
-                {discountAmount}
+                {discountAmount}원
               </div>
             </div>
             <div className="cart-totals-item cart-totals-item-total">
               <label>총합계</label>
               <div className="cart-totals-value" id="cart-total">
-                {totalAmount}
+                {totalAmount}원
               </div>
             </div>
           </div>

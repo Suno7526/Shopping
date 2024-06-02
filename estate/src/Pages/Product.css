@@ -197,6 +197,11 @@ a {
 }
 /*컨텐츠 목차 끝*/
 
+.product-info p {
+  font-size: 13px;
+  font-weight: bold;
+  color: #545454;
+}
 .Product-information-image {
   margin-left: 10em;
   margin-right: 10em;

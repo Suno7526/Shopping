@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './Like.css';
 import axios from 'axios';
 import Aside from '../Components/Aside';
+import { Link } from 'react-router-dom';
 
 const Like = () => {
   const [likeItems, setLikeItems] = useState([]);
@@ -64,11 +65,13 @@ const Like = () => {
               product &&
               product.product && (
                 <div className="likeItemCard" key={product.product.productCode}>
-                  <img
-                    src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
-                    alt={product.product.productName}
-                    className="LikeproductImage"
-                  />
+                  <Link to={`/product/${product.product.productCode}`}>
+                    <img
+                      src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
+                      alt={product.product.productName}
+                      className="LikeproductImage"
+                    />
+                  </Link>
                   <div className="LikeproductInfo">
                     <div>
                       <strong>

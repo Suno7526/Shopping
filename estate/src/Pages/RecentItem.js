@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './RecentItem.css'; // 외부 스타일 시트 불러오기
 import Aside from '../Components/Aside';
+import { Link } from 'react-router-dom';
 
 const RecentItem = () => {
   const [recentProducts, setRecentProducts] = useState([]);
@@ -51,11 +52,13 @@ const RecentItem = () => {
             recentProducts.map((product) =>
               product && product.product ? (
                 <div className="recentProductCard" key={product.viewCode}>
-                  <img
-                    src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
-                    alt={product.product.productName}
-                    className="recentproductImage"
-                  />
+                  <Link to={`/product/${product.product.productCode}`}>
+                    <img
+                      src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
+                      alt={product.product.productName}
+                      className="recentproductImage"
+                    />
+                  </Link>
                   <div className="recentproductInfo">
                     <strong>
                       [제조사] 상품 명 : {product.product.productName}

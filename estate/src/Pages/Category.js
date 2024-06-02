@@ -84,8 +84,7 @@ const Category = () => {
   return (
     <div>
       <div id="recommended-properties">
-        <div className="best-item">Best Item</div>
-        <div className="sub-best-item">조회수가 높은 아이템 👍</div>
+        <div className="best-item">{category}👍</div>
 
         <div id="guides-properties">
           <div className="guides-section">

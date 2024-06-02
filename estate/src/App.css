@@ -108,16 +108,6 @@ h1 {
   outline: none;
 }
 
-.nav-link {
-  text-decoration: none;
-  padding: 10px 40px;
-  background-color: transparent;
-  color: #e6a15c;
-  border: 2px solid #e6a15c;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
 .nav-link:hover {
   background-color: #e6a15c;
   color: #232a3f;
@@ -130,4 +120,12 @@ h1 {
   position: absolute;
   padding: 30px;
   font-weight: bold;
+}
+
+#text {
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+  color: #545454;
+  display: inline;
 }
