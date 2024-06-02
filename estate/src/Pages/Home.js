@@ -81,6 +81,7 @@ function Home() {
   const handleAddToWishlist = async (productCode, event) => {
     event.preventDefault();
     const userCode = sessionStorage.getItem('userCode');
+
     try {
       if (!userCode) {
         console.log('로그인이 필요합니다.');
@@ -92,7 +93,9 @@ function Home() {
       );
       const likedProducts = response.data;
       const found = likedProducts.some(
-        (likedProduct) => likedProduct.product.productCode === productCode,
+        (likedProduct) =>
+          likedProduct.product &&
+          likedProduct.product.productCode === productCode,
       );
 
       if (found) {

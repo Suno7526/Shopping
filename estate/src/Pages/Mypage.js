@@ -82,13 +82,11 @@ const Mypage = () => {
             {ordersItems.map((order) => (
               <tr key={order.orderCode}>
                 <td className="PProductInfo">
-                  <Link to={`/product/${order.product.productCode}`}>
-                    <img
-                      src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
-                      alt={order.product.productName}
-                      style={{ width: '100px', height: '100px' }}
-                    />
-                  </Link>
+                  <img
+                    src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
+                    alt={order.product.productName}
+                    style={{ width: '100px', height: '100px' }}
+                  />
                   <strong>{order.product.productName}</strong> / SIZE :
                   {order.productSize} / Color : {order.productColor}
                   {order.product.productOption}

@@ -69,6 +69,7 @@ const Cart = () => {
           uniqueProducts.push({ ...item.product, quantity: 1 });
         }
       });
+      alert('상품을 삭제했습니다.');
       setCartItems(uniqueProducts);
     } catch (error) {
       console.error('상품을 삭제하는 중 오류 발생:', error);
@@ -154,6 +155,11 @@ const Cart = () => {
     }
   };
 
+  const totalProductsPrice = cartItems.reduce(
+    (acc, item) => acc + item.productPrice * item.quantity,
+    0,
+  );
+
   const selectedProductsTotalPrice = selectedProducts.reduce(
     (acc, productCode) => {
       const selectedProduct = cartItems.find(
@@ -165,7 +171,7 @@ const Cart = () => {
   );
 
   const discountAmount = 5000;
-  const totalAmount = selectedProductsTotalPrice - discountAmount;
+  const totalAmount = totalProductsPrice - discountAmount;
 
   return (
     <div>
@@ -235,7 +241,7 @@ const Cart = () => {
             <div className="cart-totals-item">
               <label>총상품금액</label>
               <div className="cart-totals-value" id="cart-subtotal">
-                {selectedProductsTotalPrice}원
+                {totalProductsPrice}원
               </div>
             </div>
             <div className="cart-totals-item">
