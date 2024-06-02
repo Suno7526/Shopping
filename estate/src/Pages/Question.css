@@ -23,7 +23,7 @@
 .Question-Maintitle {
   position: absolute;
   width: 500px;
-  top: 50%;
+  top: 40%;
   left: 41%;
   margin-left: -100px;
   background: transparent;
@@ -61,7 +61,6 @@ article {
   flex-direction: column;
   padding: 20px;
   width: 95%;
-  height: 700px;
   font-size: 13px;
   margin-bottom: 5em;
   margin-left: 3em;
@@ -93,7 +92,6 @@ button[type='submit'] {
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  margin-top: 5.2em;
   justify-content: center;
   align-items: center;
 }
@@ -113,11 +111,6 @@ button[type='submit']:hover {
 
 .QuestionContent-textarea {
   width: 40%;
-}
-
-.question-form .submit-btn {
-  width: fit-content; /* 너비를 내용에 맞게 조정합니다 */
-  margin-top: 20px; /* 버튼과 다른 요소 사이의 간격을 조정합니다 */
 }
 
 .contact-form .form-field {

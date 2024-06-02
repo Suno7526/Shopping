@@ -11,6 +11,16 @@ const Product = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [mainImage, setMainImage] = useState(null); // 추가: 현재 메인 이미지 소스
   const [subImages, setSubImages] = useState([]); // 추가: 서브 이미지들 소스
+  const [selectedOption, setSelectedOption] = useState(null);
+  const [selectedSize, setSelectedSize] = useState(80);
+
+  const handleChange = (event) => {
+    setSelectedSize(event.target.value);
+  };
+
+  const handleClick = (index) => {
+    setSelectedOption(index);
+  };
 
   const userCode = sessionStorage.getItem('userCode');
 
@@ -168,29 +178,67 @@ const Product = () => {
             <div className="grid-item-productPrice">
               💲 판매가 : {product.productPrice}
             </div>
+            <div className="cupon-wrap">
+              <div className="cupon-text">쿠폰 사용시 할인 되는 금액</div>
+              <div class="discount-rate">41%</div>
+              <div class="discount-price">17,280원</div>
+            </div>
+
             <div className="grid-item-productStuck">
               상품 재고 : {product.productStuck}
             </div>
             <div className="grid-item-registerDate">
               등록 날짜 : {formatRegisterDate(product.registerDate)}
             </div>
+            <div className="option-title">옵션을 선택해주세요</div>
+            <div className="grid-item-option">
+              {[1, 2, 3, 4].map((option, index) => (
+                <img
+                  key={index}
+                  src={`https://via.placeholder.com/50?text=Option+${option}`}
+                  alt={`Option ${option}`}
+                  className={`option-button ${
+                    selectedOption === index ? 'clicked' : ''
+                  }`}
+                  onClick={() => handleClick(index)}
+                />
+              ))}
+            </div>
+            <div className="size-selector">
+              <label className="size-title">사이즈 선택: </label>
+              <select
+                id="size-input"
+                value={selectedSize}
+                onChange={handleChange}
+              >
+                {[...Array(9)].map((_, index) => {
+                  const size = 80 + index * 5;
+                  return (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+
             <div className="grid-item-userPoint">
               별점 : {product.userPoint}
             </div>
 
             {/* 버튼 추가 */}
             <div className="buttons">
-              <button className="purchase-btn" onClick={handlePurchaseClick}>
-                구매하기
-              </button>
-              <button className="like-btn" onClick={handleLikeClick}>
-                찜하기
-              </button>
+              <button
+                className={`like-btn ${isLiked ? 'active' : ''}`}
+                onClick={handleLikeClick}
+              ></button>
               <button className="cart-btn" onClick={handleAddToCartClick}>
                 장바구니 담기
               </button>
+              <button className="purchase-btn" onClick={handlePurchaseClick}>
+                구매하기
+              </button>
             </div>
-            <br></br>
           </div>
         </section>
       </div>
