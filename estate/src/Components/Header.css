@@ -18,6 +18,49 @@ header {
   justify-content: flex-start; /* 탭을 왼쪽으로 정렬 */
 }
 
+/*search menu*/
+.menu-form {
+  margin-top: 0.5em;
+  border-radius: 20px;
+  background-color: var(--search-area-bg);
+  padding-right: 12px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  color: var(--light-font);
+  box-shadow: 0 2px 6px 0 rgba(136, 148, 171, 0.2),
+    0 24px 20px -24px rgba(71, 82, 107, 0.1);
+  overflow: hidden;
+
+  .dark & {
+    box-shadow: none;
+  }
+}
+/*search input 란*/
+.menu-input {
+  width: 400px;
+  border: none;
+  flex: 1;
+  outline: none;
+  height: 100%;
+  padding: 0 20px;
+  font-size: 16px;
+  background-color: var(--search-area-bg);
+  color: var(--main-color);
+
+  &:placeholder {
+    color: var(--main-color);
+    opacity: 0.6;
+  }
+}
+
+/*search 돋보기 버튼*/
+.tab-menu-link-search-button {
+  background: transparent;
+  border: none;
+}
+
 .tab-menu-link {
   padding: 45px 20px;
   margin: 0 25px; /*뒤에 px로 좌우로 옮길수있음*/
@@ -33,26 +76,6 @@ header {
 .search-button {
   padding-top: 35px;
   padding-bottom: 35px;
-}
-
-.tab-menu-login {
-  margin-right: 50px;
-  margin-left: 12em;
-}
-
-.tab-menu-login a {
-  text-decoration: none;
-  padding: 10px 40px;
-  background-color: transparent;
-  color: #e6a15c;
-  border: 2px solid #e6a15c;
-  border-radius: 10px;
-  font-weight: bold;
-}
-
-.tab-menu-login a:hover {
-  background-color: #e6a15c;
-  color: #232a3f;
 }
 
 .tab-menu-indicator {

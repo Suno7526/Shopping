@@ -1,4 +1,4 @@
-import './Product.css'; // 외부 스타일 시트 불러오기
+import './Category.css'; // 외부 스타일 시트 불러오기
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
@@ -84,7 +84,8 @@ const Category = () => {
   return (
     <div>
       <div id="recommended-properties">
-        <div className="best-item">{category}👍</div>
+        <div className="JacketImage"></div>
+        <div className="Category-item">{category}🔍</div>
 
         <div id="guides-properties">
           <div className="guides-section">

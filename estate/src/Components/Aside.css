@@ -1,15 +1,16 @@
 .sidebar {
+  display: flex;
+  align-items: stretch; /* 자식 요소들이 사이드바 전체 너비를 차지하게 합니다 */
   position: relative;
   float: left;
   width: 200px;
   height: 500px;
   border: 1px solid gray;
-  background-color: #232a3f; /* 배경색 설정 */
-  display: flex;
   align-items: center;
-  border-top-right-radius: 10px; /* 오른쪽 위 모서리 둥글게 설정 */
-  border-bottom-right-radius: 10px; /* 오른쪽 아래 모서리 둥글게 설정 */
   z-index: 2;
+  background-color: #f6f4ee;
+  margin-top: 9.9em;
+  margin-right: 5px;
 }
 
 .sidebar a {
@@ -17,25 +18,32 @@
   color: inherit; /* 부모 요소로부터 상속된 글자 색상 사용 */
 }
 
+.sidebar-Buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 버튼 간격 추가 */
+}
+
 .sidebar button {
+  font-size: 16px;
   font-style: sans-serif;
   display: block;
   margin-bottom: 10px;
-  color: #e6a15c; /* 글자색 설정 */
+  color: #2e2828; /* 글자색 설정 */
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   margin-left: 15px;
   background-color: transparent;
 }
 
 .sidebar button:hover {
-  color: #fcc792; /* 호버 상태에서의 글자색 */
+  color: #524a4a; /* 호버 상태에서의 글자색 */
+  font-size: 20px;
 }
 
 .sidebar-header {
-  border-top-right-radius: 10px;
-  background-color: #232a3f; /* 배경색 변경 */
+  width: 100%;
+  background-color: #bacd92;
   color: #7d84ab; /* 글자색 변경 */
   padding: 10px;
   text-align: center;
@@ -44,4 +52,24 @@
   font-size: 20px; /* 글자 폰트 크기 변경 */
   font-weight: bold; /* 글자 굵게 설정 */
   font-style: sans-serif;
+}
+
+/*최근본상품*/
+.RecentItemButton-div {
+  border-top: 1px solid #ccc; /* 위쪽 선 */
+  border-bottom: 1px solid #ccc; /* 아래쪽 선 */
+  padding: 10px 0; /* 위아래 여백 추가 */
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.LikeItemButton-div {
+  border-bottom: 1px solid #ccc; /* 아래쪽 선 */
+  padding: 10px 0; /* 위아래 여백 추가 */
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.MypageItemButton-div {
+  border-bottom: 1px solid #ccc; /* 아래쪽 선 */
+  padding: 10px 0; /* 위아래 여백 추가 */
+  width: 100%; /* 전체 너비 사용 */
 }

@@ -1,0 +1,17 @@
+.Category-item {
+  margin-left: 5em;
+  font-size: 3em;
+  font-weight: bold;
+}
+
+.JacketImage {
+  width: 80%;
+  margin: 0 auto; /* 가운데 정렬 */
+  height: 400px;
+  background-image: url(https://i.postimg.cc/FHGqmSXw/pexels-royalanwar-983497.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  margin-top: 10em;
+  margin-bottom: 8em;
+}

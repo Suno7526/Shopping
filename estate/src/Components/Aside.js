@@ -6,16 +6,16 @@ const Aside = () => {
   return (
     <div>
       <aside className="sidebar">
-        <div className="sidebar-header">📲 옷옷장</div>
-        <nav>
-          <Link to="/RecentItem">
-            <button>최근 본 상품</button>
+        <div className="sidebar-header">PASS</div>
+        <nav className="sidebar-Buttons">
+          <Link to="/RecentItem" className="RecentItemButton-div">
+            <button className="RecentItemButton">🕒 최근 본 상품</button>
+          </Link>
+          <Link to="/Like" className="LikeItemButton-div">
+            <button className="LikeItemButton">🖤 찜한 상품</button>
           </Link>{' '}
-          <Link to="/Like">
-            <button>찜한 상품</button>
-          </Link>{' '}
-          <Link to="/Mypage">
-            <button>주문 내역</button>
+          <Link to="/Mypage" className="MypageItemButton-div">
+            <button className="MypageButton">🧾 주문 내역</button>
           </Link>{' '}
         </nav>
       </aside>

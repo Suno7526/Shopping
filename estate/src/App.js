@@ -28,6 +28,7 @@ import Review from './Pages/Review';
 import ProductUpdate from './Pages/ProductUpdate';
 import MyInquiry from './Pages/MyInquiry';
 import Search from './Pages/Search';
+import MyQuestion from './Pages/MyQuestion';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -66,6 +67,7 @@ function App() {
         <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
         <Route path="/MyInquiry" element={<MyInquiry />} />
         <Route path="/Search/:query" element={<Search />} />
+        <Route path="/MyQuestion" element={<MyQuestion />} />
       </Routes>
     </BrowserRouter>
   );

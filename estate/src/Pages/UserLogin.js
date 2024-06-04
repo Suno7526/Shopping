@@ -59,8 +59,8 @@ const UserLogin = () => {
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>로그인 페이지</title>
 
-      <div id="login-container">
-        <div id="logo">Login</div>
+      <div className="login-container">
+        <div className="Login-logo">Login</div>
         <br />
         {/* 이메일 입력란 */}
         <div className="input-box">
