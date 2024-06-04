@@ -1,12 +1,16 @@
 package com.example.estate.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.estate.entity.Orders;
 import com.example.estate.entity.Product;
+import com.example.estate.entity.ViewedProduct;
+import com.example.estate.repository.OrdersRepository;
 import com.example.estate.repository.ProductRepository;
 import com.example.estate.repository.ViewedProductRepository;
 
@@ -15,6 +19,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private OrdersRepository ordersRepository;
     
     @Autowired
     private ViewedProductRepository viewedProductRepository;
@@ -99,4 +106,31 @@ public class ProductService {
     public List<Product> searchProducts(String query) {
         return productRepository.findByCategoryContainingIgnoreCaseOrProductNameContainingIgnoreCase(query, query);
     }
+    
+    public List<Product> recommendProducts(Long userCode) {
+        // 최근 본 상품 가져오기
+        List<ViewedProduct> viewedProducts = viewedProductRepository.findByUserUserCode(userCode);
+        List<Long> viewedProductCodes = viewedProducts.stream()
+                .map(vp -> vp.getProduct())
+                .filter(product -> product != null)
+                .map(product -> product.getProductCode())
+                .collect(Collectors.toList());
+
+        // 주문한 상품 가져오기
+        List<Orders> orders = ordersRepository.findByUserUserCode(userCode);
+        List<Long> orderedProductCodes = orders.stream()
+                .map(o -> o.getProduct())
+                .filter(product -> product != null)
+                .map(product -> product.getProductCode())
+                .collect(Collectors.toList());
+
+        // 추천 상품 리스트 생성
+        List<Product> recommendedProducts = productRepository.findAllById(viewedProductCodes);
+        recommendedProducts.addAll(productRepository.findAllById(orderedProductCodes));
+
+        // 중복 제거
+        return recommendedProducts.stream().distinct().collect(Collectors.toList());
+    }
+    
+    
 }

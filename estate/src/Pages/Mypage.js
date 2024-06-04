@@ -7,20 +7,18 @@ import { Link } from 'react-router-dom';
 const Mypage = () => {
   const [ordersItems, setOrdersItems] = useState([]);
   const [reviews, setReviews] = useState({});
+  const [recommendedProducts, setRecommendedProducts] = useState([]);
 
   // 사용자 주문 내역을 가져오는 함수
   const fetchOrders = async () => {
     try {
       const userCode = sessionStorage.getItem('userCode');
-      // 사용자의 주문 내역을 가져오기 위해 요청을 보냅니다.
       const response = await axios.get(
         `http://localhost:8000/getOrdersProduct/${userCode}`,
       );
-      // 가져온 주문 내역을 상태에 저장합니다.
       const orders = response.data.reverse();
       setOrdersItems(orders);
 
-      // 각 주문에 대한 리뷰를 가져옵니다.
       const reviewsResponse = await Promise.all(
         orders.map((order) =>
           axios.get(
@@ -29,7 +27,6 @@ const Mypage = () => {
         ),
       );
 
-      // 리뷰 데이터를 상태에 저장합니다.
       const reviewsData = {};
       reviewsResponse.forEach((res, index) => {
         const productCode = orders[index].product.productCode;
@@ -37,12 +34,17 @@ const Mypage = () => {
       });
 
       setReviews(reviewsData);
+
+      // 추천 상품 가져오기
+      const recommendedResponse = await axios.get(
+        `http://localhost:8000/recommendProducts/${userCode}`,
+      );
+      setRecommendedProducts(recommendedResponse.data);
     } catch (error) {
       console.error('주문 내역을 불러오는 중 오류 발생:', error);
     }
   };
 
-  // 컴포넌트가 마운트될 때 주문 내역을 가져옵니다.
   useEffect(() => {
     fetchOrders();
   }, []);
@@ -110,6 +112,22 @@ const Mypage = () => {
             ))}
           </tbody>
         </table>
+      </section>
+      <section className="RecommendedSection">
+        <h2>추천 상품</h2>
+        <div className="RecommendedProducts">
+          {recommendedProducts.map((product) => (
+            <div key={product.productCode} className="ProductCard">
+              <img
+                src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                alt={product.productName}
+                style={{ width: '100px', height: '100px' }}
+              />
+              <strong>{product.productName}</strong>
+              <p>{product.productPrice}원</p>
+            </div>
+          ))}
+        </div>
       </section>
     </div>
   );

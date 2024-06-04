@@ -78,3 +78,16 @@ th:last-child {
 th + th {
   padding-left: 20px; /* 두 번째 th부터 왼쪽 여백 추가 */
 }
+
+.RecommendedProducts {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ProductCard {
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  text-align: center;
+}

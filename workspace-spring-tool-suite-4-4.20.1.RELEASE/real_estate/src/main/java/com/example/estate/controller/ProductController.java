@@ -98,4 +98,10 @@ public class ProductController {
 	        return productService.searchProducts(query);
 	    }
 	 
+	 @GetMapping("/recommendProducts/{userCode}")
+	    public ResponseEntity<List<Product>> recommendProducts(@PathVariable("userCode") Long userCode) {
+	        List<Product> recommendedProducts = productService.recommendProducts(userCode);
+	        return new ResponseEntity<>(recommendedProducts, HttpStatus.OK);
+	    }
+	 
 }
