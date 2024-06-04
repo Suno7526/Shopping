@@ -28,7 +28,7 @@ article {
 }
 
 article h2 {
-  align-self: flex-start; /* 왼쪽 정렬 */
+  align-self: center; /* 왼쪽 정렬 */
 }
 
 article ul {

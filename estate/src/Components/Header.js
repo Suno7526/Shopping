@@ -52,19 +52,34 @@ const Header = () => {
     <div>
       <div className="navi">
         <a id="logo" onClick={() => navigate('/Home')}>
-          Home
+          PASS
         </a>
         <ul id="menu">
           <li>
-            <form onSubmit={handleSearch}>
+            <form onSubmit={handleSearch} className="menu-form">
               <input
+                className="menu-input"
                 type="text"
                 placeholder="Search"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
-              <button type="submit" className="tab-menu-link search-button">
-                Search
+              <button className="tab-menu-link-search-button">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="30"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  className="feather feather-search"
+                  viewBox="0 0 24 24"
+                >
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <path d="M21 21l-4.35-4.35"></path>
+                </svg>
               </button>
             </form>
           </li>

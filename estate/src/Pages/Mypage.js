@@ -62,9 +62,6 @@ const Mypage = () => {
         <h2>
           <div className="page-Maintitle">주문내역 조회</div>
         </h2>
-        <ul>
-          <li>주문내역에 관한 내용</li>
-        </ul>
       </article>
       <section className="OrderSection">
         <table className="OrderTable">
