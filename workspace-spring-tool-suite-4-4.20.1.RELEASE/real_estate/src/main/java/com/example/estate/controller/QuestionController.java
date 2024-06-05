@@ -56,4 +56,15 @@ public class QuestionController {
         List<Question> questions = questionService.getQuestionsByUserCode(userCode);
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
+	
+	@GetMapping("/questions/questionCode/{questionCode}")
+	public ResponseEntity<Question> getQuestionByQuestionCode(@PathVariable("questionCode") Long questionCode) {
+	    Question question = questionService.getQuestionByQuestionCode(questionCode);
+	    if (question != null) {
+	        return new ResponseEntity<>(question, HttpStatus.OK);
+	    } else {
+	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	    }
+	}
+
 }

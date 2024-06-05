@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './Inquiry.css';
-
-import { Link } from 'react-router-dom'; // Link import 추가
+import { Link } from 'react-router-dom';
 import InquiryAside from '../Components/InquiryAside';
 import axios from 'axios';
 
@@ -20,7 +19,7 @@ const Inquiry = () => {
     };
 
     fetchPosts();
-  }, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 설정
+  }, []);
 
   return (
     <div className="page">
@@ -28,7 +27,7 @@ const Inquiry = () => {
       <article>
         <h4>☎︎ 문의</h4>
         <ul>
-          <li>Q&A 문의 게시판입니다. </li>
+          <li>Q&A 문의 게시판입니다.</li>
         </ul>
       </article>
       <div className="board-main">
@@ -38,14 +37,15 @@ const Inquiry = () => {
           <span className="board-info-item">사용자이름</span>
         </div>
         {posts.map((post, index) => (
-          <div className="post" key={index}>
-            <span className="post-info-item">{post.questionType}</span>
-            <h2 className="post-title">{post.questionTitle}</h2>
-            <p className="post-username">
-              {sessionStorage.getItem('userName')}
-            </p>
-            {/* 사용자 이름은 Unknown으로 설정 */}
-          </div>
+          <Link to={`/MyQuestion/${post.questionCode}`} key={index}>
+            <div className="post">
+              <span className="post-info-item">{post.questionType}</span>
+              <h2 className="post-title">{post.questionTitle}</h2>
+              <p className="post-username">
+                {sessionStorage.getItem('userName')}
+              </p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

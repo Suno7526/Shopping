@@ -25,4 +25,9 @@ public class QuestionService {
 	public List<Question> getQuestionsByUserCode(Long userCode) {
         return questionRepository.findByUserUserCode(userCode);
     }
+	
+	public Question getQuestionByQuestionCode(Long questionCode) {
+	    return questionRepository.findById(questionCode).orElse(null);
+	}
+
 }

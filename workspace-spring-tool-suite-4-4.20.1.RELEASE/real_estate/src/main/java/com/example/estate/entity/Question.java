@@ -41,7 +41,7 @@ public class Question {
     private String questionContent; // 내용
 	
 	@Column
-    private String questionType; // 내용
+    private String questionType; // 문의 종류
 
 	
 	@CreationTimestamp
