@@ -58,12 +58,13 @@ const Mypage = () => {
   };
 
   return (
-    <div className="page">
+    <div className="Mypage-page">
       <Aside />
-      <article>
+      <article className="Mypage-article">
         <h2>
-          <div className="page-Maintitle">주문내역 조회</div>
+          <div className="Mypage-Maintitle">주문내역 조회</div>
         </h2>
+        <div className="Mypage-MainImage"></div>
       </article>
       <section className="OrderSection">
         <table className="OrderTable">
@@ -110,22 +111,23 @@ const Mypage = () => {
           </tbody>
         </table>
       </section>
-      <section className="RecommendedSection">
-        <h2>추천 상품</h2>
+
+      <div className="RecommendedItem">추천 상품</div>
+      <div className="RecommendedSection">
         <div className="RecommendedProducts">
           {recommendedProducts.map((product) => (
-            <div key={product.productCode} className="ProductCard">
+            <div key={product.productCode} className="RecommendedProductCard">
               <img
+                className="RecommendedImage"
                 src={`http://localhost:8000/getProductImage/${product.productCode}`}
                 alt={product.productName}
-                style={{ width: '100px', height: '100px' }}
               />
               <strong>{product.productName}</strong>
               <p>{product.productPrice}원</p>
             </div>
           ))}
         </div>
-      </section>
+      </div>
     </div>
   );
 };

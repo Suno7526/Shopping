@@ -1,26 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; // Link import 추가
+import './InquiryAside.css'; // 외부 스타일 시트 불러오기
 
-const Aside = () => {
+const InquiryAside = () => {
   return (
     <div>
-      <nav>
-        <ul></ul>
-      </nav>
-      <hr />
       <aside className="sidebar">
-        <nav>
-          <Link to="/Question">
-            <button>문의하기</button>
+        <div className="sidebar-header">PASS</div>
+        <nav className="sidebar-Buttons">
+          <Link to="/Question" className="QuestionButton-div">
+            <button className="QuestionButton">✉️ 문의하기</button>
           </Link>{' '}
-          <Link to="/Inquiry">
-            <button>전체 문의내역</button>
+          <Link to="/Inquiry" className="InquiryButton-div">
+            <button className="InquiryButton">🗂️ 전체 문의내역</button>
           </Link>{' '}
-          <Link to="/MyInquiry">
-            <button>나의 문의내역</button>
+          <Link to="/MyInquiry" className="MyInquiryButton-div">
+            <button className="MyInquiryButton">📨 나의 문의내역</button>
           </Link>{' '}
-          <Link to="/BestFAQ">
-            <button>자주하는 질문</button>
+          <Link to="/BestFAQ" className="BestFAQButton-div">
+            <button className="BestFAQButton">💬 자주하는 질문</button>
           </Link>{' '}
         </nav>
       </aside>
@@ -28,4 +26,4 @@ const Aside = () => {
   );
 };
 
-export default Aside;
+export default InquiryAside;

@@ -1,4 +1,4 @@
-.wrapper {
+.Bestfaq-wrapper {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -31,7 +31,7 @@
   position: relative;
   width: 250px; /* 너비 조정 */
   height: 100px; /* 높이 설정 */
-  background-color: #232a3f;
+  background-color: #f6f4ee;
   display: flex;
   overflow: auto; /* 텍스트가 넘칠 경우 스크롤바 추가 */
   width: calc(26% - 20px); /* 모니터의 너비에 따라 동적으로 조정 */
@@ -42,18 +42,13 @@
   align-items: center;
   font-size: 23px;
   font-weight: bold;
-  color: #7d84ab;
-  border: solid 1px #7d84ab;
+  color: #5f5449;
+  border: solid 1px #5f5449;
   border-radius: 10px;
   text-decoration: none; /* 링크의 밑줄 제거 */
 }
 
 .info-rectangle:hover {
-  background-color: #232a3f;
+  background-color: #f6f4ee;
   color: #e6a15c;
-}
-
-.FAQcategory-list {
-  margin-right: 30px;
-  margin-top: 15px;
 }

@@ -39,12 +39,13 @@ const RecentItem = () => {
   };
 
   return (
-    <div className="page">
+    <div className="RecentItem-page">
       <Aside />
       <article>
         <h2>
           <div className="RecentProduct">최근 본 상품</div>
         </h2>
+        <div className="RecentProcutMainImage"></div>
       </article>
       <section className="Recentsection">
         <div className="recentProductsContainer">

@@ -45,14 +45,13 @@
   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
-article {
+.Question-Mainpage {
   height: 10em;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
   flex-direction: column;
-  border-bottom: 2px solid #000000;
 }
 
 .question-form {
