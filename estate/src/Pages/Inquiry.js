@@ -38,14 +38,15 @@ const Inquiry = () => {
           <span className="board-info-item">사용자이름</span>
         </div>
         {posts.map((post, index) => (
-          <div className="post" key={index}>
-            <span className="post-info-item">{post.questionType}</span>
-            <h2 className="post-title">{post.questionTitle}</h2>
-            <p className="post-username">
-              {sessionStorage.getItem('userName')}
-            </p>
-            {/* 사용자 이름은 Unknown으로 설정 */}
-          </div>
+          <Link to={`/MyQuestion/${post.questionCode}`} key={index}>
+            <div className="post">
+              <span className="post-info-item">{post.questionType}</span>
+              <h2 className="post-title">{post.questionTitle}</h2>
+              <p className="post-username">
+                {sessionStorage.getItem('userName')}
+              </p>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

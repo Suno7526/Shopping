@@ -68,7 +68,7 @@ function App() {
         <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
         <Route path="/MyInquiry" element={<MyInquiry />} />
         <Route path="/Search/:query" element={<Search />} />
-        <Route path="/MyQuestion" element={<MyQuestion />} />
+        <Route path="/MyQuestion/:questionCode" element={<MyQuestion />} />
       </Routes>
     </BrowserRouter>
   );
