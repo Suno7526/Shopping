@@ -6,7 +6,7 @@ const BestFAQ = () => {
   return (
     <div>
       <h2 className="Bestfaq-maintitle">궁금한 질문을 선택해주세요.</h2>
-      <div className="wrapper">
+      <div className="Bestfaq-wrapper">
         <div className="info-box">
           <div className="info-content">
             <Link to="/WithdrawETC" className="info-rectangle">

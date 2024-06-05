@@ -29,6 +29,7 @@ import ProductUpdate from './Pages/ProductUpdate';
 import MyInquiry from './Pages/MyInquiry';
 import Search from './Pages/Search';
 import MyQuestion from './Pages/MyQuestion';
+import InquiryAside from './Components/InquiryAside';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리

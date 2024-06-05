@@ -50,12 +50,13 @@ const Like = () => {
   };
 
   return (
-    <div className="page">
+    <div className="Like-page">
       <Aside />
       <article>
         <h2>
           <div className="LikeMaintitle">찜한 상품</div>
         </h2>
+        <div className="LikeMainImage"></div>
       </article>
       <section className="Likesection">
         <div className="likeItemsContainer">
