@@ -14,10 +14,9 @@ public class ReplyService {
 	@Autowired
     private ReplyRepository replyRepository;
 	
-	public Reply addReply(Reply reply) {
-	    return replyRepository.save(reply);
-	}
-
+	public void addReply(Reply reply) {
+        replyRepository.save(reply);
+    }
 
     public List<Reply> getRepliesByQuestionCode(Long questionCode) {
         return replyRepository.findByQuestionQuestionCode(questionCode);

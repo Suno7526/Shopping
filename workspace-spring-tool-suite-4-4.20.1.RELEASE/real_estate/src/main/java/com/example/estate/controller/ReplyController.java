@@ -21,17 +21,16 @@ public class ReplyController {
 
 	@Autowired
 	private ReplyService replyService;
-
+	
 	@PostMapping("/replies")
-	public ResponseEntity<Reply> addReply(@RequestBody Reply reply) {
-		Reply savedReply = replyService.addReply(reply);
-		return new ResponseEntity<>(savedReply, HttpStatus.CREATED);
+	public ResponseEntity<Void> addReply(@RequestBody Reply reply) {
+		replyService.addReply(reply);
+		return new ResponseEntity<>(HttpStatus.CREATED);
 	}
 
-	@GetMapping("/replies/{questionCode}")
-	public ResponseEntity<List<Reply>> getRepliesByQuestionCode(@PathVariable("questionCode") Long questionCode) {
-		List<Reply> replies = replyService.getRepliesByQuestionCode(questionCode);
-		return new ResponseEntity<>(replies, HttpStatus.OK);
-
-	}
-}
+	    @GetMapping("/replies/{questionCode}")
+	    public ResponseEntity<List<Reply>> getRepliesByQuestionCode(@PathVariable("questionCode") Long questionCode) {
+	        List<Reply> replies = replyService.getRepliesByQuestionCode(questionCode);
+	        return new ResponseEntity<>(replies, HttpStatus.OK);
+	
+}}

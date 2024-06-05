@@ -19,12 +19,6 @@ const MyQuestion = () => {
   const [replyingCommentIndex, setReplyingCommentIndex] = useState(null);
   const [comments, setComments] = useState([]);
 
-  const exampleComments = [
-    { name: 'Alice', content: '첫 번째 예시 댓글입니다.', date: '2024-05-20' },
-    { name: 'Bob', content: '두 번째 예시 댓글입니다.', date: '2024-05-21' },
-    // 나머지 댓글들...
-  ];
-
   const profileImages = [
     'https://i.postimg.cc/ryGyqhKY/images.jpg',
     'https://i.postimg.cc/xdqqCLWN/images.jpg',
@@ -37,7 +31,6 @@ const MyQuestion = () => {
   };
 
   useEffect(() => {
-    // questionCode를 이용하여 질문 데이터를 가져옴
     axios
       .get(`http://localhost:8000/questions/questionCode/${questionCode}`)
       .then((response) => {
@@ -87,37 +80,96 @@ const MyQuestion = () => {
     setReplyText(event.target.value);
   };
 
-  const handleReplySubmit = (event, commentIndex) => {
-    event.preventDefault(); // 기본 동작 중단
+  const handleReplySubmit = (event) => {
+    event.preventDefault();
 
     const newReply = {
-      question: { questionCode: questionCode },
-      user: { userCode: userCode },
       replyContent: replyText,
-      answerStatus: false,
+      user: { userCode: userCode },
+      question: { questionCode: questionCode },
     };
 
     axios
       .post('http://localhost:8000/replies', newReply)
       .then((response) => {
-        // 새로운 답글을 댓글 리스트에 추가
-        setComments([...comments, response.data]);
-        setReplyText(''); // 답글 작성 창 초기화
-        setReplyingCommentIndex(null); // 답글 작성 인덱스 초기화
+        setComments((prevComments) => [...prevComments, response.data]);
+        setReplyText('');
       })
       .catch((error) => {
         console.error('Error submitting reply:', error);
       });
   };
 
+  const handleAnswerSubmit = (event, commentIndex) => {
+    event.preventDefault();
+
+    const newAnswer = {
+      reply: { replyCode: comments[commentIndex].replyCode },
+      user: { userCode: userCode },
+      answerContent: replyText,
+    };
+
+    axios
+      .post('http://localhost:8000/answers', newAnswer)
+      .then((response) => {
+        const updatedComments = [...comments];
+        updatedComments[commentIndex].answer = response.data;
+        setComments(updatedComments);
+        setReplyText('');
+        setReplyingCommentIndex(null);
+      })
+      .catch((error) => {
+        console.error('Error submitting answer:', error);
+      });
+  };
+
+  const handleAnswerEdit = (event, commentIndex) => {
+    event.preventDefault();
+
+    const updatedAnswer = {
+      answerContent: replyText,
+    };
+
+    axios
+      .put(
+        `http://localhost:8000/answers/${comments[commentIndex].answer.answerCode}`,
+        updatedAnswer,
+      )
+      .then((response) => {
+        const updatedComments = [...comments];
+        updatedComments[commentIndex].answer = response.data;
+        setComments(updatedComments);
+        setReplyText('');
+        setReplyingCommentIndex(null);
+      })
+      .catch((error) => {
+        console.error('Error updating answer:', error);
+      });
+  };
+
+  const handleAnswerDelete = (event, commentIndex) => {
+    event.preventDefault();
+
+    axios
+      .delete(
+        `http://localhost:8000/answers/${comments[commentIndex].answer.answerCode}`,
+      )
+      .then(() => {
+        const updatedComments = [...comments];
+        updatedComments[commentIndex].answer = null;
+        setComments(updatedComments);
+      })
+      .catch((error) => {
+        console.error('Error deleting answer:', error);
+      });
+  };
+
   const handleReplyButtonClick = (event, commentIndex) => {
-    event.preventDefault(); // 기본 동작 중단
+    event.preventDefault();
 
     if (replyingCommentIndex === commentIndex) {
-      // 이미 답글 작성 폼이 열려있다면 닫음
       setReplyingCommentIndex(null);
     } else {
-      // 답글 작성 폼을 활성화하기 위해 관련 인덱스 설정
       setReplyingCommentIndex(commentIndex);
     }
   };
@@ -178,28 +230,11 @@ const MyQuestion = () => {
                 <div className="comment-content">
                   <div className="comment-header">
                     <span className="comment-name">
-                      {comment.user.username}
+                      {comment.user ? comment.user.name : 'Unknown'}
                     </span>
                     <span className="comment-date">{comment.registerDate}</span>
                   </div>
                   <div className="comment-text">{comment.replyContent}</div>
-                  {replyingCommentIndex === index && (
-                    <div className="Register-div">
-                      <textarea
-                        className="Registertextarea"
-                        value={replyText}
-                        onChange={handleReplyChange}
-                        placeholder="댓글을 작성해주세요..."
-                      />
-                      <button className="Register-reply-btn">댓글 등록</button>
-                    </div>
-                  )}
-                  <button
-                    className="reply-btn"
-                    onClick={(event) => handleReplyButtonClick(event, index)}
-                  >
-                    댓글
-                  </button>
                 </div>
               </li>
             ))}
@@ -211,7 +246,9 @@ const MyQuestion = () => {
               onChange={handleReplyChange}
               placeholder="댓글을 작성해주세요..."
             />
-            <button className="Register-reply-btn">댓글 등록</button>
+            <button className="Register-reply-btn" onClick={handleReplySubmit}>
+              댓글 등록
+            </button>
           </div>
         </form>
       </div>

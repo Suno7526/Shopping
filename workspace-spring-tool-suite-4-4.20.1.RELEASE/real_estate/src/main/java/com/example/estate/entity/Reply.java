@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.util.List;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -15,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 @Entity
 @Data
@@ -23,26 +26,21 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Reply {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long replyCode;
-	
-	@ManyToOne
-	@JoinColumn(name = "userCode")
-	private User user;
-	
-	@ManyToOne
-	@JoinColumn(name = "questionCode")
-	private Question question;
-	
-	@Column
-	private String replyContent; // 내용
-	
-	@Column
-	private boolean answerStatus; // 내용
-
-	
-	@CreationTimestamp
-	private Timestamp registerDate; // 등록일자
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long replyCode;
+    
+    @ManyToOne
+    @JoinColumn(name = "userCode")
+    private User user;
+    
+    @ManyToOne
+    @JoinColumn(name = "questionCode")
+    private Question question;
+    
+    @Column
+    private String replyContent; // 내용
+    
+    @CreationTimestamp
+    private Timestamp registerDate; // 등록일자
 }
