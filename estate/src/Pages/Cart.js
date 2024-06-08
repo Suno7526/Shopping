@@ -211,7 +211,7 @@ const Cart = () => {
                   </Link>
                 </div>
                 <div className="cart-product-details">
-                  <div className="cart-product-title">{item.productName}</div>
+                  <div className="cart-product-title">{item.productName}/</div>
                   <p className="cart-product-description">
                     {item.productDescription}
                   </p>

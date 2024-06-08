@@ -99,6 +99,8 @@ const Product = () => {
       await axios.post('http://localhost:8000/addToCart', {
         userCode: userCode,
         productCode: productCode,
+        cartSize: selectedSize,
+        cartColor: selectedOption,
       });
       alert('상품을 장바구니에 담았습니다.');
     } catch (error) {

@@ -27,22 +27,29 @@ public class CartController {
 	private CartService cartService;
 
 	@PostMapping("/addToCart")
-	public void addToCart(@RequestBody Map<String, Long> requestData) {
-		Long userCode = requestData.get("userCode");
-		Long productCode = requestData.get("productCode");
+    public ResponseEntity<Void> addToCart(@RequestBody Map<String, Object> requestData) {
+        try {
+            Long userCode = Long.parseLong(requestData.get("userCode").toString());
+            Long productCode = Long.parseLong(requestData.get("productCode").toString());
+            String cartSize = (String) requestData.get("cartSize");
 
-		Cart cart = new Cart();
-		User user = new User();
-		user.setUserCode(userCode);
-		cart.setUser(user);
+            Cart cart = new Cart();
+            User user = new User();
+            user.setUserCode(userCode);
+            cart.setUser(user);
 
-		Product product = new Product();
-		product.setProductCode(productCode);
-		cart.setProduct(product);
+            Product product = new Product();
+            product.setProductCode(productCode);
+            cart.setProduct(product);
 
-		cartService.addToCart(cart);
-	}
+            cart.setCartSize(cartSize);
 
+            cartService.addToCart(cart);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NumberFormatException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 	@GetMapping("/getCartProduct/{userCode}")
 	public ResponseEntity<List<Cart>> getCarts(@PathVariable("userCode") Long userCode) {
 		List<Cart> carts = cartService.findByUserCode(userCode);

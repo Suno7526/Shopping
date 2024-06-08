@@ -31,6 +31,12 @@ public class Cart {
 	@JoinColumn(name = "productCode")
 	private Product product;
 	
+	 @Column
+	    private String cartSize; // 사이즈
+	    
+	    @Column
+	    private String cartColor; // 색상
+	    
 	@Column
 	private int productCount;
 }
