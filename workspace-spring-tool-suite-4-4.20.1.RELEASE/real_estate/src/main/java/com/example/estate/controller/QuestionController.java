@@ -11,16 +11,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.estate.entity.Orders;
-import com.example.estate.entity.Product;
 import com.example.estate.entity.Question;
 import com.example.estate.entity.User;
 import com.example.estate.service.QuestionService;
-
-import jakarta.servlet.http.HttpSession;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
