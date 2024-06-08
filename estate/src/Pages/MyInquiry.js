@@ -25,13 +25,13 @@ const Inquiry = () => {
   }, []); // 빈 배열을 전달하여 컴포넌트가 마운트될 때 한 번만 실행되도록 설정
 
   return (
-    <div className="page">
+    <div className="MyInquiry-page">
       <InquiryAside />
-      <article>
-        <h4>☎︎ 문의</h4>
-        <ul>
-          <li>Q&A 문의 게시판입니다. </li>
-        </ul>
+      <article className="MyInquiry-article">
+        <h2>
+          <div className="MyInquiry-Maintitle">내 문의내역</div>
+        </h2>
+        <div className="MyInquiryMainImage"></div>
       </article>
       <div className="board-main">
         <div className="board-info">

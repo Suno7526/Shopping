@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './Inquiry.css';
-import { Link } from 'react-router-dom';
 import InquiryAside from '../Components/InquiryAside';
+import { Link } from 'react-router-dom'; // Link import 추가
 import axios from 'axios';
 
 const Inquiry = () => {
@@ -22,14 +22,15 @@ const Inquiry = () => {
   }, []);
 
   return (
-    <div className="page">
+    <div className="Inquiry-page">
       <InquiryAside />
-      <article>
-        <h4>☎︎ 문의</h4>
-        <ul>
-          <li>Q&A 문의 게시판입니다.</li>
-        </ul>
+      <article className="Inquiry-article">
+        <h2>
+          <div className="Inquiry-Maintitle">문의하기</div>
+        </h2>
+        <div className="InquiryMainImage"></div>
       </article>
+
       <div className="board-main">
         <div className="board-info">
           <span className="board-info-item">문의 종류</span>

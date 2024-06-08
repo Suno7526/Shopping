@@ -73,7 +73,7 @@ function Home() {
   return (
     <div>
       <div className="Home-MainImage"></div>
-      <div className="Home-text">
+      <div className="Home-text" id="best-item">
         <h1>Best Item</h1>
         <div className="product-list">
           {products.slice(0, 5).map((product) => (
@@ -97,7 +97,9 @@ function Home() {
       </div>
 
       {/* 메인 이미지 섹션 */}
-      <div className="recommend-item">Recommend Item</div>
+      <div className="recommend-item" id="recommend-item">
+        Recommend Item
+      </div>
       <div>
         <Slider
           ref={sliderRef}
@@ -128,8 +130,8 @@ function Home() {
       {/* 추천 상품 섹션 */}
       <div id="recommended-properties">
         <div className="Home-MiddleImage"></div>
-        <div className="container-fluid">
-          <h1 className="good-text">인기있는 콘텐츠</h1>
+        <div className="container-fluid" id="popular-content">
+          <h1 className="good-text">WEEKLY BEST</h1>
           <p className="good-sub-text">A pure CSS-only responsive masonry.</p>
           <div className="masonry">
             {products.map((product) => (
@@ -157,11 +159,11 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="Home-BottomImage"></div>
+      <div className="Home-BottomImage" id="fashion-news"></div>
 
       {/*패션 뉴스!!*/}
       <h1 className="FASHION-NEWS">FASHION NEWS</h1>
-      <p className="FASHION-NEWS-sub-text">
+      <p className="FASHION-NEWS-sub-text" id="fashion-news-content">
         A pure CSS-only responsive masonry.
       </p>
       <div className="snip-div">
@@ -260,6 +262,97 @@ function Home() {
             </div>
           </figcaption>
         </figure>
+      </div>
+
+      {/* Sidebar */}
+      <div className="btn_quick">
+        <ul className="btn_quick_wrap">
+          <li className="sidebar-item">
+            <a
+              href="#"
+              className="up"
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <img
+                src="https://atimg.sonyunara.com/2023/renew/footer/quickup.png"
+                alt="Top"
+                className="quickbtnImg"
+              />
+            </a>
+            <div className="hovertxt">
+              <span>맨 위로</span>
+            </div>
+          </li>
+          <li className="sidebar-item">
+            <a href="#best-item" className="Home-Best-Item">
+              <img
+                src="https://i.postimg.cc/xTttQtVw/download-removebg-preview-2.png"
+                alt="Best Item"
+                className="quickbtnImg"
+              />
+            </a>
+            <div className="hovertxt">
+              <span>베스트 아이템</span>
+            </div>
+          </li>
+          <li className="sidebar-item">
+            <a href="#recommend-item" className="Home-Recommend-Item">
+              <img
+                src="https://i.postimg.cc/3NLpsf09/download-removebg-preview-3.png"
+                alt="Recommend Item"
+                className="quickbtnImg"
+              />
+            </a>
+            <div className="hovertxt">
+              <span>인기있는 아이템</span>
+            </div>
+          </li>
+          <li className="sidebar-item">
+            <a href="#popular-content" className="Home-Popular-Content">
+              <img
+                src="https://i.postimg.cc/7hp7PGXT/download-removebg-preview-4.png"
+                alt="Popular Content"
+                className="quickbtnImg"
+              />
+            </a>
+            <div className="hovertxt">
+              <span>유명한 아이템</span>
+            </div>
+          </li>
+          <li className="sidebar-item">
+            <a href="#fashion-news-content" className="Home-Fashion-News">
+              <img
+                src="https://i.postimg.cc/wTmLf2T5/download-removebg-preview-5.png"
+                alt="Fashion News"
+                className="quickbtnImg"
+              />
+            </a>
+            <div className="hovertxt">
+              <span>패션 뉴스</span>
+            </div>
+          </li>
+          <li className="sidebar-item">
+            <a
+              href="#"
+              className="down"
+              onClick={() =>
+                window.scrollTo({
+                  top: document.body.scrollHeight,
+                  behavior: 'smooth',
+                })
+              }
+            >
+              <img
+                src="https://atimg.sonyunara.com/2023/renew/footer/quickup.png"
+                alt="Bottom"
+                className="quickbtnImg"
+              />
+            </a>
+            <div className="hovertxt">
+              <span>맨 아래로</span>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   );

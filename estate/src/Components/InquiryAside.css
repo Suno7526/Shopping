@@ -37,7 +37,7 @@
 }
 
 .sidebar button:hover {
-  color: #524a4a; /* 호버 상태에서의 글자색 */
+  color: #f6f4ee; /* 호버 상태에서의 글자색 */
   font-size: 20px;
 }
 
@@ -55,20 +55,26 @@
 }
 
 /*최근본상품*/
-.RecentItemButton-div {
+.QuestionButton-div {
   border-top: 1px solid #ccc; /* 위쪽 선 */
   border-bottom: 1px solid #ccc; /* 아래쪽 선 */
   padding: 10px 0; /* 위아래 여백 추가 */
   width: 100%; /* 전체 너비 사용 */
 }
 
-.LikeItemButton-div {
+.InquiryButton-div {
   border-bottom: 1px solid #ccc; /* 아래쪽 선 */
   padding: 10px 0; /* 위아래 여백 추가 */
   width: 100%; /* 전체 너비 사용 */
 }
 
-.MypageItemButton-div {
+.MyInquiryButton-div {
+  border-bottom: 1px solid #ccc; /* 아래쪽 선 */
+  padding: 10px 0; /* 위아래 여백 추가 */
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.BestFAQButton-div {
   border-bottom: 1px solid #ccc; /* 아래쪽 선 */
   padding: 10px 0; /* 위아래 여백 추가 */
   width: 100%; /* 전체 너비 사용 */

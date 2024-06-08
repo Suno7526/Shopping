@@ -1,41 +1,23 @@
 /* CSS */
-.content {
-  display: flex;
-  flex-grow: 1; /* article과 section이 남은 공간을 차지하도록 설정 */
+
+.Mypage-MainImage {
+  width: 100px;
+  height: 100%;
+  background-image: url(https://i.postimg.cc/j5P5xJCs/download.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-nav ul li {
-  margin-bottom: 10px;
-}
-
-nav ul li a {
-  text-decoration: none;
-  color: #000;
-}
-
-article {
+.Mypage-article {
   display: flex;
   justify-content: center; /* 수평 가운데 정렬 */
   align-items: center; /* 수직 가운데 정렬 */
   padding: 20px;
   flex-direction: column;
-  border-bottom: 2px solid #000000; /* th 아래쪽에 2px 두께의 회색 선 추가 */
 }
 
-article h2 {
-  align-self: center; /* 왼쪽 정렬 */
-}
-
-article ul {
-  align-self: flex-start; /* 왼쪽 정렬 */
-}
-
-section {
+.OrderSection {
   flex: 1; /* 나머지 공간을 모두 차지하도록 설정 */
   display: flex;
   justify-content: center; /* 수평 가운데 정렬 */
@@ -43,40 +25,47 @@ section {
   padding: 20px;
 }
 
-img {
-  width: 100px; /* 이미지의 너비를 100px로 설정합니다. */
-  height: auto; /* 높이를 자동으로 설정하여 이미지의 가로세로 비율을 유지합니다. */
-}
-
-/* CSS */
-table {
-  border-collapse: collapse; /* 테이블 셀 경계를 합침 */
+/*테이블*/
+.OrderTable {
+  border-collapse: collapse;
   width: 100%;
 }
-
-th,
-td {
-  border: 1px solid #ddd; /* 모든 셀에 회색 테두리 추가 */
-  padding: 8px; /* 셀 내부 여백 설정 */
-  text-align: left; /* 텍스트를 왼쪽 정렬 */
+.OrderTable th,
+.OrderTable td {
+  border: none;
+  padding: 8px;
+  vertical-align: middle;
+  position: relative;
+}
+.OrderTable th {
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+.OrderTable tr:hover {
+  box-shadow: inset 0 1px 0 #524a4a, inset 0 -1px 0 #524a4a,
+    inset 1px 0 0 #524a4a, inset -1px 0 0 #524a4a;
+}
+.PProductInfo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+}
+.PProductInfo img {
+  margin-right: 10px;
 }
 
-th {
-  background-color: #f2f2f2; /* th 배경색 지정 */
-  border-top: 2px solid #ddd; /* th 위쪽에 2px 두께의 회색 선 추가 */
-  border-bottom: 2px solid #ddd; /* th 아래쪽에 2px 두께의 회색 선 추가 */
-}
+/*상품정보 , 주문일자 , 주문번호와 같은 라인*/
 
-th:first-child {
-  border-right: 1px solid #ddd; /* 첫 번째 th 우측에 선 추가 */
-}
-
-th:last-child {
-  border-left: 1px solid #ddd; /* 마지막 th 좌측에 선 추가 */
-}
-
-th + th {
-  padding-left: 20px; /* 두 번째 th부터 왼쪽 여백 추가 */
+.ProductName,
+.ProductDate,
+.ProductNum,
+.ProductMoney,
+.ProductAD,
+.ReviewAction {
+  background-color: transparent;
+  color: #524a4a;
+  font-size: 16px;
 }
 
 .RecommendedProducts {
@@ -90,4 +79,45 @@ th + th {
   border: 1px solid #ddd;
   border-radius: 4px;
   text-align: center;
+}
+
+/* RecommendedSection 추천 상품 */
+.RecommendedItem {
+  margin-top: 4em;
+  margin-left: 2em;
+  font-size: 2em;
+}
+
+.RecommendedSection {
+  display: flex;
+  justify-content: center; /* 수평 가운데 정렬 */
+  align-items: center; /* 수직 가운데 정렬 */
+  padding: 25px;
+}
+
+.RecommendedProductCard {
+  border: 1px solid #e0e0e0e0;
+  margin: 20px;
+  width: 200px; /*RecommendedImage width와 같이 수정해야 됨*/
+  display: flex; /* 추가 */
+  flex-direction: column; /* 세로 방향으로 정렬 */
+  align-items: center; /* 가로 가운데 정렬 */
+  justify-content: center; /* 세로 가운데 정렬 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 부드러운 전환을 위해 추가 */
+}
+
+.RecommendedProductCard:hover {
+  transform: translateY(-0.5rem) scale(1.0125);
+  box-shadow: 0 0.5em 3rem -1rem rgba(0, 0, 0, 0.5);
+}
+
+.RecommendedImage {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 1em; /* 이미지와 텍스트 사이에 약간의 간격 추가 */
+}
+
+.RecommendedProductCard strong {
+  color: #524a4a; /* 색상 추가 */
+  font-size: 25px; /* 폰트 크기 추가 */
 }
