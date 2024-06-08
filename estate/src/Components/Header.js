@@ -87,7 +87,7 @@ const Header = () => {
             <li className="header-li">
               <Link to="/ProductJoin">상품등록</Link>
               <img
-                src="https://i.postimg.cc/GmsZ6YTn/download.png"
+                src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
                 alt="Product Join"
                 className="hover-image"
               />
@@ -96,7 +96,7 @@ const Header = () => {
           <li className="header-li">
             <Link to="/Cart">장바구니</Link>
             <img
-              src="https://i.postimg.cc/13126ff9/images.png"
+              src="https://i.postimg.cc/7Y3b3CXX/Empty-Cart.gif"
               alt="Cart"
               className="hover-image"
             />
@@ -104,7 +104,7 @@ const Header = () => {
           <li className="header-li">
             <Link to="/Mypage">마이페이지</Link>
             <img
-              src="https://i.postimg.cc/pdybk7Qk/images.png"
+              src="https://i.postimg.cc/rmZ5LD75/Business-Man.gif"
               alt="My Page"
               className="hover-image"
             />
@@ -112,7 +112,7 @@ const Header = () => {
           <li className="header-li">
             <Link to="/Inquiry">문의하기</Link>
             <img
-              src="https://i.postimg.cc/yYfLnNf4/images.png"
+              src="https://i.postimg.cc/QtFJCgQf/Phone.gif"
               alt="Inquiry"
               className="hover-image"
             />
