@@ -11,11 +11,40 @@ header {
 .headermenu {
   display: flex;
 }
-.tab-menu {
-  background-color: #232a3f; /* 배경색을 검은색으로 변경 */
-  display: flex;
-  align-items: center;
-  justify-content: flex-start; /* 탭을 왼쪽으로 정렬 */
+
+/*header 목록들*/
+.Home-navi {
+  height: 60px;
+}
+.Home-navi #menu {
+  float: right;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.Home-navi #menu li {
+  float: left;
+  margin-left: 30px;
+  line-height: 60px;
+}
+
+.Home-navi #menu li a {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: bold;
+  color: #434343;
+}
+
+/*로그인 정보*/
+
+.userName-li a {
+  color: #e6a15c !important; /* 텍스트를 붉은색으로 변경 */
+  font-size: 15px !important; /*왠지 모르겠지만 important넣으면 적용됨*/
+}
+
+.userName-li a:hover {
+  color: #1aa3ff !important;
 }
 
 /*search menu*/
@@ -73,6 +102,7 @@ header {
   position: relative;
   font-size: 18px;
 }
+
 .search-button {
   padding-top: 35px;
   padding-bottom: 35px;
@@ -87,17 +117,23 @@ header {
   transition: width 0.2s, background-color 0.2s;
   width: 0;
 }
-
+/*로그아웃 버튼*/
 .sign-out-button {
   padding: 5px 10px;
   background-color: transparent;
   border: none;
-  border-radius: 5px;
   font-weight: bold;
   font-size: 12px;
   margin-left: 0.5em;
   margin-top: 0.5em;
   text-decoration: none;
+  margin-top: 1.3em;
+}
+
+.sign-out-icon {
+  width: 20px;
+  height: 20px;
+  padding-left: 5px;
 }
 
 .sign-out-button:hover {
@@ -165,21 +201,35 @@ header {
   color: #e6a15c;
 }
 
-#Company {
-  color: #e6a15c;
-  font-size: 50px;
-  position: absolute;
-  padding: 30px;
-  font-weight: bold;
-}
-
-#Company:hover {
-  cursor: pointer;
-}
 #logo {
   text-decoration: none;
   font-size: 30px;
   font-weight: bold;
   color: #545454;
   display: inline;
+  cursor: pointer;
+  line-height: 60px;
+  padding-left: 20px;
+}
+
+/* header-li hover 이미지*/
+
+.header-li {
+  position: relative; /* 자식 요소의 위치를 조절하기 위해 relative 사용 */
+}
+
+/* hover 상태에서 이미지를 표시하는 스타일 */
+.header-li:hover .hover-image {
+  display: block; /* hover 시 이미지를 표시 */
+}
+
+.hover-image {
+  display: none; /* 기본적으로 이미지를 숨김 */
+  position: absolute;
+  top: 50px; /* li 요소 위에 이미지를 표시 */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 50px; /* 이미지 크기 조절 */
+  height: auto;
+  z-index: 10; /* 이미지가 다른 요소 위에 표시되도록 z-index 설정 */
 }

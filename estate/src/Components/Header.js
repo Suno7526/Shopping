@@ -50,12 +50,12 @@ const Header = () => {
 
   return (
     <div>
-      <div className="navi">
+      <div className="Home-navi">
         <a id="logo" onClick={() => navigate('/Home')}>
           PASS
         </a>
         <ul id="menu">
-          <li>
+          <li className="header-li">
             <form onSubmit={handleSearch} className="menu-form">
               <input
                 className="menu-input"
@@ -84,42 +84,75 @@ const Header = () => {
             </form>
           </li>
           {userRole === 'ADMIN' && (
-            <li>
+            <li className="header-li">
               <Link to="/ProductJoin">상품등록</Link>
+              <img
+                src="https://i.postimg.cc/GmsZ6YTn/download.png"
+                alt="Product Join"
+                className="hover-image"
+              />
             </li>
           )}
-          <li>
+          <li className="header-li">
             <Link to="/Cart">장바구니</Link>
+            <img
+              src="https://i.postimg.cc/13126ff9/images.png"
+              alt="Cart"
+              className="hover-image"
+            />
           </li>
-          <li>
+          <li className="header-li">
             <Link to="/Mypage">마이페이지</Link>
+            <img
+              src="https://i.postimg.cc/pdybk7Qk/images.png"
+              alt="My Page"
+              className="hover-image"
+            />
           </li>
-          <li>
+          <li className="header-li">
             <Link to="/Inquiry">문의하기</Link>
+            <img
+              src="https://i.postimg.cc/yYfLnNf4/images.png"
+              alt="Inquiry"
+              className="hover-image"
+            />
           </li>
-          <li>
+          <li className="header-li userName-li">
             {isLogin ? (
               <>
-                <Link to="/MyPage" className="nav-link">
-                  {sessionStorage.getItem('userName')}님
-                </Link>
-                <button className="sign-out-button" onClick={handleSignOut}>
-                  Sign Out 🚪
-                </button>
+                <Link to="/MyPage">{sessionStorage.getItem('userName')}님</Link>
+                <img
+                  src="https://i.postimg.cc/1RBB5t1n/download.png"
+                  alt="User"
+                  className="hover-image"
+                />
               </>
             ) : (
               <Link to="/UserLogin" className="nav-link">
                 Sign In
+                <img
+                  src="https://i.postimg.cc/1RBB5t1n/download.png"
+                  alt="Sign In"
+                  className="hover-image"
+                />
               </Link>
             )}
           </li>
+          <button className="sign-out-button" onClick={handleSignOut}>
+            Sign Out
+            <img
+              src="https://i.postimg.cc/ZRbmrSSn/download.png"
+              alt="Sign Out"
+              className="sign-out-icon"
+            />
+          </button>
         </ul>
       </div>
 
       <header>
         <nav id="gnb">
           <ul>
-            <li>
+            <li className="header-li">
               <Link to="/Category/OUTER">OUTER</Link>
               <ul>
                 <li>
@@ -148,7 +181,7 @@ const Header = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="header-li">
               <Link to="/Category/TOP">TOP</Link>
               <ul>
                 <li>
@@ -177,7 +210,7 @@ const Header = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="header-li">
               <Link to="/Category/BOTTOM">BOTTOM</Link>
               <ul>
                 <li>
@@ -194,7 +227,7 @@ const Header = () => {
                 </li>
               </ul>
             </li>
-            <li>
+            <li className="header-li">
               <Link to="/Category/HEADWEAR">HEADWEAR</Link>
               <ul>
                 <li>

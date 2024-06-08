@@ -175,92 +175,93 @@ const Cart = () => {
 
   return (
     <div>
-      <div style={{ marginLeft: '50px', marginRight: '50px' }}>
-        <h1>Shopping Cart</h1>
-        <div className="cart-shopping-cart">
-          <div className="cart-column-labels">
-            <label className="cart-product-image">Image</label>
-            <label className="cart-product-details">Product</label>
-            <label className="cart-product-price">Price</label>
-            <label className="cart-product-quantity">Quantity</label>
-            <label className="cart-product-removal">Remove</label>
-            <label className="cart-product-line-price">Total</label>
-          </div>
-          {cartItems.map((item) => (
-            <div className="cart-product" key={item.productCode}>
-              <div className="cart-product-image">
-                <Link to={`/product/${item.productCode}`}>
-                  <img
-                    src={`http://localhost:8000/getProductImage/${item.productCode}`}
-                    alt={item.productName}
-                  />
-                </Link>
-              </div>
-              <div className="cart-product-details">
-                <div className="cart-product-title">{item.productName}</div>
-                <p className="cart-product-description">
-                  {item.productDescription}
-                </p>
-              </div>
-              <div className="cart-product-price">{item.productPrice}원</div>
-              <div className="cart-product-quantity">
-                <input
-                  type="number"
-                  value={item.quantity}
-                  min="1"
-                  onChange={(e) =>
-                    handleQuantityChange(
-                      item.productCode,
-                      parseInt(e.target.value),
-                    )
-                  }
-                />
-              </div>
-              <div className="cart-product-removal">
-                <button
-                  className="cart-remove-product"
-                  onClick={() => handleDeleteItem(item.productCode)}
-                >
-                  Remove
-                </button>
-              </div>
-              <div className="cart-product-line-price">
-                {item.productPrice * item.quantity}원
-              </div>
-              <div className="cart-product-checkbox">
-                <input
-                  type="checkbox"
-                  checked={selectedProducts.includes(item.productCode)}
-                  onChange={() => handleCheckboxChange(item.productCode)}
-                  style={{ transform: 'scale(1.5)' }}
-                />
-              </div>
-            </div>
-          ))}
-          <div className="cart-totals">
-            <div className="cart-totals-item">
-              <label>총상품금액</label>
-              <div className="cart-totals-value" id="cart-subtotal">
-                {totalProductsPrice}원
-              </div>
-            </div>
-            <div className="cart-totals-item">
-              <label>할인금액</label>
-              <div className="cart-totals-value" id="cart-tax">
-                {discountAmount}원
-              </div>
-            </div>
-            <div className="cart-totals-item cart-totals-item-total">
-              <label>총합계</label>
-              <div className="cart-totals-value" id="cart-total">
-                {totalAmount}원
-              </div>
-            </div>
-          </div>
-          <button className="cart-checkout" onClick={handlePurchase}>
-            Checkout
-          </button>
+      <div
+        className="Cart-div"
+        style={{ marginLeft: '50px', marginRight: '50px' }}
+      >
+        <div className="Cart-Maintitle">장바구니</div>
+        <div className="Cart-MainImage"></div>
+        <div className="cart-column-labels">
+          <label className="cart-product-image-label">Image</label>
+          <label className="cart-product-details-label">Product</label>
+          <label className="cart-product-price-label">Price</label>
+          <label className="cart-product-quantity-label">Quantity</label>
+          <label className="cart-product-line-price-label">Total</label>
         </div>
+        {cartItems.map((item) => (
+          <div className="cart-product" key={item.productCode}>
+            <div className="cart-product-image">
+              <Link to={`/product/${item.productCode}`}>
+                <img
+                  src={`http://localhost:8000/getProductImage/${item.productCode}`}
+                  alt={item.productName}
+                />
+              </Link>
+            </div>
+            <div className="cart-product-details">
+              <div className="cart-product-title">{item.productName}</div>
+              <p className="cart-product-description">
+                {item.productDescription}
+              </p>
+            </div>
+            <div className="cart-product-price">{item.productPrice}원</div>
+            <div className="cart-product-quantity">
+              <input
+                type="number"
+                value={item.quantity}
+                min="1"
+                onChange={(e) =>
+                  handleQuantityChange(
+                    item.productCode,
+                    parseInt(e.target.value),
+                  )
+                }
+              />
+            </div>
+            <div className="cart-product-removal">
+              <button
+                className="cart-remove-product"
+                onClick={() => handleDeleteItem(item.productCode)}
+              >
+                Remove
+              </button>
+            </div>
+            <div className="cart-product-line-price">
+              {item.productPrice * item.quantity}원
+            </div>
+            <div className="cart-product-checkbox">
+              <input
+                type="checkbox"
+                checked={selectedProducts.includes(item.productCode)}
+                onChange={() => handleCheckboxChange(item.productCode)}
+                style={{ transform: 'scale(1.5)' }}
+              />
+            </div>
+          </div>
+        ))}
+        <div className="cart-totals">
+          <div className="cart-totals-item">
+            <label>총상품금액</label>
+            <div className="cart-totals-value" id="cart-subtotal">
+              {totalProductsPrice}원
+            </div>
+          </div>
+          <div className="cart-totals-item">
+            <label>할인금액</label>
+            <div className="cart-totals-value" id="cart-tax">
+              {discountAmount}원
+            </div>
+          </div>
+          <div className="cart-totals-item cart-totals-item-total">
+            <label>총합계</label>
+            <div className="cart-totals-value" id="cart-total">
+              {totalAmount}원
+            </div>
+          </div>
+        </div>
+        <button className="cart-checkout" onClick={handlePurchase}>
+          Checkout
+        </button>
       </div>
     </div>
   );

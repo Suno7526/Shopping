@@ -108,11 +108,6 @@ h1 {
   outline: none;
 }
 
-.nav-link:hover {
-  background-color: #e6a15c;
-  color: #232a3f;
-}
-
 /*프로젝트 명*/
 #Company {
   color: #e6a15c;

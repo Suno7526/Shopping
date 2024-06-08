@@ -5,7 +5,6 @@ import axios from 'axios';
 
 const MyQuestion = () => {
   const { questionCode } = useParams();
-  const [activeButton, setActiveButton] = useState('');
   const userCode = sessionStorage.getItem('userCode') || '';
   const [isEditing, setIsEditing] = useState(false);
   const [question, setQuestion] = useState({
@@ -16,7 +15,6 @@ const MyQuestion = () => {
   });
 
   const [replyText, setReplyText] = useState('');
-  const [replyingCommentIndex, setReplyingCommentIndex] = useState(null);
   const [comments, setComments] = useState([]);
 
   const profileImages = [
@@ -48,24 +46,6 @@ const MyQuestion = () => {
       .catch((error) => {
         console.error('Error fetching replies data:', error);
       });
-
-    const inputs = document.querySelectorAll('.input-text');
-
-    inputs.forEach((input) => {
-      input.addEventListener('focus', () => {
-        input.classList.add('not-empty');
-      });
-
-      input.addEventListener('blur', () => {
-        if (input.value === '') {
-          input.classList.remove('not-empty');
-        }
-      });
-
-      if (input.value !== '') {
-        input.classList.add('not-empty');
-      }
-    });
   }, [questionCode]);
 
   const handleTitleChange = (event) => {
@@ -92,86 +72,20 @@ const MyQuestion = () => {
     axios
       .post('http://localhost:8000/replies', newReply)
       .then((response) => {
-        setComments((prevComments) => [...prevComments, response.data]);
+        axios
+          .get(`http://localhost:8000/replies/${questionCode}`)
+          .then((response) => {
+            setComments(response.data);
+          })
+          .catch((error) => {
+            console.error('Error fetching replies data:', error);
+          });
+        setComments([...comments, response.data]);
         setReplyText('');
       })
       .catch((error) => {
-        console.error('Error submitting reply:', error);
+        console.error('댓글 제출 중 오류 발생:', error);
       });
-  };
-
-  const handleAnswerSubmit = (event, commentIndex) => {
-    event.preventDefault();
-
-    const newAnswer = {
-      reply: { replyCode: comments[commentIndex].replyCode },
-      user: { userCode: userCode },
-      answerContent: replyText,
-    };
-
-    axios
-      .post('http://localhost:8000/answers', newAnswer)
-      .then((response) => {
-        const updatedComments = [...comments];
-        updatedComments[commentIndex].answer = response.data;
-        setComments(updatedComments);
-        setReplyText('');
-        setReplyingCommentIndex(null);
-      })
-      .catch((error) => {
-        console.error('Error submitting answer:', error);
-      });
-  };
-
-  const handleAnswerEdit = (event, commentIndex) => {
-    event.preventDefault();
-
-    const updatedAnswer = {
-      answerContent: replyText,
-    };
-
-    axios
-      .put(
-        `http://localhost:8000/answers/${comments[commentIndex].answer.answerCode}`,
-        updatedAnswer,
-      )
-      .then((response) => {
-        const updatedComments = [...comments];
-        updatedComments[commentIndex].answer = response.data;
-        setComments(updatedComments);
-        setReplyText('');
-        setReplyingCommentIndex(null);
-      })
-      .catch((error) => {
-        console.error('Error updating answer:', error);
-      });
-  };
-
-  const handleAnswerDelete = (event, commentIndex) => {
-    event.preventDefault();
-
-    axios
-      .delete(
-        `http://localhost:8000/answers/${comments[commentIndex].answer.answerCode}`,
-      )
-      .then(() => {
-        const updatedComments = [...comments];
-        updatedComments[commentIndex].answer = null;
-        setComments(updatedComments);
-      })
-      .catch((error) => {
-        console.error('Error deleting answer:', error);
-      });
-  };
-
-  const handleReplyButtonClick = (event, commentIndex) => {
-    event.preventDefault();
-
-    if (replyingCommentIndex === commentIndex) {
-      setReplyingCommentIndex(null);
-    } else {
-      setReplyingCommentIndex(commentIndex);
-    }
   };
 
   return (
@@ -231,7 +145,9 @@ const MyQuestion = () => {
                   <div className="comment-header">
                     <span className="comment-name">
                       {comment.user ? comment.user.name : 'Unknown'}
+                      <div className="author-badge">작성자</div>
                     </span>
+
                     <span className="comment-date">{comment.registerDate}</span>
                   </div>
                   <div className="comment-text">{comment.replyContent}</div>
