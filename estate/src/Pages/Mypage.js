@@ -67,52 +67,62 @@ const Mypage = () => {
         <div className="Mypage-MainImage"></div>
       </article>
       <section className="OrderSection">
-        <table className="OrderTable">
-          <thead>
-            <tr>
-              <th className="ProductName">상품정보</th>
-              <th className="ProductDate">주문일자</th>
-              <th className="ProductNum">주문번호</th>
-              <th className="ProductMoney">주문금액</th>
-              <th className="ProductAD">배송주소</th>
-              <th className="ReviewAction">리뷰등록</th>
-            </tr>
-          </thead>
-          <tbody>
-            {ordersItems.map((order) => (
-              <tr key={order.orderCode}>
-                <td className="PProductInfo">
-                  <img
-                    src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
-                    alt={order.product.productName}
-                    style={{ width: '100px', height: '100px' }}
-                  />
-                  <strong>{order.product.productName}</strong> / SIZE :
-                  {order.productSize} / Color : {order.productColor}
-                  {order.product.productOption}
-                  <div></div>
-                </td>
-                <td>{formatRegisterDate(order.orderDate)}</td>
-                <td>{order.orderCode}</td>
-                <td>{order.product.productPrice}원</td>
-                <td>{order.shippingAddress}</td>
-                <td>
-                  {reviews[order.product.productCode] &&
-                  reviews[order.product.productCode].length > 0 ? (
-                    <span>이미 작성한 리뷰입니다.</span>
-                  ) : (
-                    <Link to={`/Review/${order.product.productCode}`}>
-                      리뷰등록하기
-                    </Link>
-                  )}
-                </td>
+        {ordersItems.length === 0 ? (
+          <div className="no-orders">주문 내역이 없습니다.</div>
+        ) : (
+          <table className="OrderTable">
+            <thead>
+              <tr>
+                <th className="ProductName">상품정보</th>
+                <th className="ProductDate">주문일자</th>
+                <th className="ProductNum">주문번호</th>
+                <th className="ProductMoney">주문금액</th>
+                <th className="ProductAD">배송주소</th>
+                <th className="ReviewAction">리뷰등록</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {ordersItems.map((order) => (
+                <tr key={order.orderCode}>
+                  <td className="PProductInfo">
+                    <img
+                      src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
+                      alt={order.product.productName}
+                      style={{ width: '100px', height: '100px' }}
+                    />
+                    <strong>{order.product.productName}</strong> / SIZE :
+                    {order.productSize} / Color : {order.productColor}
+                    {order.product.productOption}
+                    <div></div>
+                  </td>
+                  <td>{formatRegisterDate(order.orderDate)}</td>
+                  <td>{order.orderCode}</td>
+                  <td>{order.product.productPrice}원</td>
+                  <td>{order.shippingAddress}</td>
+                  <td>
+                    {reviews[order.product.productCode] &&
+                    reviews[order.product.productCode].length > 0 ? (
+                      <span>이미 작성한 리뷰입니다.</span>
+                    ) : (
+                      <Link to={`/Review/${order.product.productCode}`}>
+                        리뷰등록하기
+                      </Link>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </section>
 
-      <div className="RecommendedItem">추천 상품</div>
+      <div className="RecommendedItem">
+        {recommendedProducts.length === 0 ? (
+          <div className="no-recommended-products">추천 상품이 없습니다.</div>
+        ) : (
+          <span>추천 상품</span>
+        )}
+      </div>
       <div className="RecommendedSection">
         <div className="RecommendedProducts">
           {recommendedProducts.map((product) => (

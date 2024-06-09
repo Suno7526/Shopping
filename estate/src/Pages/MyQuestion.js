@@ -11,7 +11,6 @@ const MyQuestion = () => {
     questionTitle: '',
     questionContent: '',
     questionType: '',
-    userCode: userCode,
   });
 
   const [replyText, setReplyText] = useState('');
@@ -145,7 +144,10 @@ const MyQuestion = () => {
                   <div className="comment-header">
                     <span className="comment-name">
                       {comment.user ? comment.user.name : 'Unknown'}
-                      <div className="author-badge">작성자</div>
+                      {comment.user &&
+                        comment.user.userCode === question.user.userCode && (
+                          <div className="author-badge">작성자</div>
+                        )}
                     </span>
 
                     <span className="comment-date">{comment.registerDate}</span>

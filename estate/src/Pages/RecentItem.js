@@ -15,8 +15,21 @@ const RecentItem = () => {
           const response = await axios.get(
             `http://localhost:8000/getViewedProduct/${userCode}`,
           );
-          // 서버에서 이미 최신 순으로 정렬되어 반환되므로 처음부터 10개만 가져옵니다.
-          setRecentProducts(response.data.slice(0, 10));
+          // 중복된 상품을 제거하고 가장 최근에 본 상품만 남기기
+          const uniqueProducts = response.data.reduce((acc, product) => {
+            if (
+              !acc.find(
+                (item) =>
+                  item.product.productCode === product.product.productCode,
+              )
+            ) {
+              acc.push(product);
+            }
+            return acc;
+          }, []);
+
+          // 처음부터 10개만 가져옵니다.
+          setRecentProducts(uniqueProducts.slice(0, 10));
         } else {
           console.log('사용자 코드가 없습니다.');
         }

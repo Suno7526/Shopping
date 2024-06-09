@@ -6,14 +6,12 @@ import { Link } from 'react-router-dom';
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
-
+  const userCode = sessionStorage.getItem('userCode');
   useEffect(() => {
     const fetchProducts = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getCartProduct/${sessionStorage.getItem(
-            'userCode',
-          )}`,
+          `http://localhost:8000/getCartProduct/${userCode}`,
         );
         const uniqueProducts = [];
         response.data.forEach((item) => {
@@ -28,7 +26,11 @@ const Cart = () => {
         });
         setCartItems(uniqueProducts);
       } catch (error) {
-        console.error('상품을 불러오는 중 오류 발생:', error);
+        if (error.response && error.response.status === 404) {
+          setCartItems([]);
+        } else {
+          console.error('상품을 불러오는 중 오류 발생:', error);
+        }
       }
     };
     fetchProducts();
@@ -72,7 +74,12 @@ const Cart = () => {
       alert('상품을 삭제했습니다.');
       setCartItems(uniqueProducts);
     } catch (error) {
-      console.error('상품을 삭제하는 중 오류 발생:', error);
+      if (error.response && error.response.status === 404) {
+        setCartItems([]);
+        alert('장바구니가 비었습니다.');
+      } else {
+        console.error('상품을 삭제하는 중 오류 발생:', error);
+      }
     }
   };
 
@@ -181,87 +188,93 @@ const Cart = () => {
       >
         <div className="Cart-Maintitle">장바구니</div>
         <div className="Cart-MainImage"></div>
-        <div className="cart-column-labels">
-          <label className="cart-product-image-label">Image</label>
-          <label className="cart-product-details-label">Product</label>
-          <label className="cart-product-price-label">Price</label>
-          <label className="cart-product-quantity-label">Quantity</label>
-          <label className="cart-product-line-price-label">Total</label>
-        </div>
-        {cartItems.map((item) => (
-          <div className="cart-product" key={item.productCode}>
-            <div className="cart-product-image">
-              <Link to={`/product/${item.productCode}`}>
-                <img
-                  src={`http://localhost:8000/getProductImage/${item.productCode}`}
-                  alt={item.productName}
-                />
-              </Link>
+        {cartItems.length === 0 ? (
+          <div className="Cart-empty-message">장바구니가 비었습니다.</div>
+        ) : (
+          <>
+            <div className="cart-column-labels">
+              <label className="cart-product-image-label">Image</label>
+              <label className="cart-product-details-label">Product</label>
+              <label className="cart-product-price-label">Price</label>
+              <label className="cart-product-quantity-label">Quantity</label>
+              <label className="cart-product-line-price-label">Total</label>
             </div>
-            <div className="cart-product-details">
-              <div className="cart-product-title">{item.productName}</div>
-              <p className="cart-product-description">
-                {item.productDescription}
-              </p>
+            {cartItems.map((item) => (
+              <div className="cart-product" key={item.productCode}>
+                <div className="cart-product-image">
+                  <Link to={`/product/${item.productCode}`}>
+                    <img
+                      src={`http://localhost:8000/getProductImage/${item.productCode}`}
+                      alt={item.productName}
+                    />
+                  </Link>
+                </div>
+                <div className="cart-product-details">
+                  <div className="cart-product-title">{item.productName}</div>
+                  <p className="cart-product-description">
+                    {item.productDescription}
+                  </p>
+                </div>
+                <div className="cart-product-price">{item.productPrice}원</div>
+                <div className="cart-product-quantity">
+                  <input
+                    type="number"
+                    value={item.quantity}
+                    min="1"
+                    onChange={(e) =>
+                      handleQuantityChange(
+                        item.productCode,
+                        parseInt(e.target.value),
+                      )
+                    }
+                  />
+                </div>
+                <div className="cart-product-removal">
+                  <button
+                    className="cart-remove-product"
+                    onClick={() => handleDeleteItem(item.productCode)}
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div className="cart-product-line-price">
+                  {item.productPrice * item.quantity}원
+                </div>
+                <div className="cart-product-checkbox">
+                  <input
+                    type="checkbox"
+                    checked={selectedProducts.includes(item.productCode)}
+                    onChange={() => handleCheckboxChange(item.productCode)}
+                    style={{ transform: 'scale(1.5)' }}
+                  />
+                </div>
+              </div>
+            ))}
+            <div className="cart-totals">
+              <div className="cart-totals-item">
+                <label>총상품금액</label>
+                <div className="cart-totals-value" id="cart-subtotal">
+                  {totalProductsPrice}원
+                </div>
+              </div>
+              <div className="cart-totals-item">
+                <label>할인금액</label>
+                <div className="cart-totals-value" id="cart-tax">
+                  {discountAmount}원
+                </div>
+              </div>
+              <div className="cart-totals-item cart-totals-item-total">
+                <label>총합계</label>
+                <div className="cart-totals-value" id="cart-total">
+                  {totalAmount}원
+                </div>
+              </div>
             </div>
-            <div className="cart-product-price">{item.productPrice}원</div>
-            <div className="cart-product-quantity">
-              <input
-                type="number"
-                value={item.quantity}
-                min="1"
-                onChange={(e) =>
-                  handleQuantityChange(
-                    item.productCode,
-                    parseInt(e.target.value),
-                  )
-                }
-              />
-            </div>
-            <div className="cart-product-removal">
-              <button
-                className="cart-remove-product"
-                onClick={() => handleDeleteItem(item.productCode)}
-              >
-                Remove
-              </button>
-            </div>
-            <div className="cart-product-line-price">
-              {item.productPrice * item.quantity}원
-            </div>
-            <div className="cart-product-checkbox">
-              <input
-                type="checkbox"
-                checked={selectedProducts.includes(item.productCode)}
-                onChange={() => handleCheckboxChange(item.productCode)}
-                style={{ transform: 'scale(1.5)' }}
-              />
-            </div>
-          </div>
-        ))}
-        <div className="cart-totals">
-          <div className="cart-totals-item">
-            <label>총상품금액</label>
-            <div className="cart-totals-value" id="cart-subtotal">
-              {totalProductsPrice}원
-            </div>
-          </div>
-          <div className="cart-totals-item">
-            <label>할인금액</label>
-            <div className="cart-totals-value" id="cart-tax">
-              {discountAmount}원
-            </div>
-          </div>
-          <div className="cart-totals-item cart-totals-item-total">
-            <label>총합계</label>
-            <div className="cart-totals-value" id="cart-total">
-              {totalAmount}원
-            </div>
-          </div>
-        </div>
-        <button className="cart-checkout" onClick={handlePurchase}>
-          Checkout
-        </button>
+            <button className="cart-checkout" onClick={handlePurchase}>
+              Checkout
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
