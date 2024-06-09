@@ -32,6 +32,7 @@ public class CartController {
             Long userCode = Long.parseLong(requestData.get("userCode").toString());
             Long productCode = Long.parseLong(requestData.get("productCode").toString());
             String cartSize = (String) requestData.get("cartSize");
+            String cartColor = (String) requestData.get("cartColor");
 
             Cart cart = new Cart();
             User user = new User();
@@ -43,7 +44,9 @@ public class CartController {
             cart.setProduct(product);
 
             cart.setCartSize(cartSize);
-
+            cart.setCartColor(cartColor); // 추가: 색상 정보 설정
+            System.out.println(cartColor);
+            System.out.println(cartSize);
             cartService.addToCart(cart);
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (NumberFormatException e) {

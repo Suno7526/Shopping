@@ -36,6 +36,7 @@ public class Cart {
 
     @Column
     private String cartColor; // 색상
+    
 	@Column
 	private int productCount;
 }

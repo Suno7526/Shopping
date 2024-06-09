@@ -12,13 +12,15 @@ const Product = () => {
   const [mainImage, setMainImage] = useState(null); // 추가: 현재 메인 이미지 소스
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedSize, setSelectedSize] = useState(80);
+  const [selectedColor, setSelectedColor] = useState('red');
+
+  const handleClick = (index, color) => {
+    setSelectedOption(index);
+    setSelectedColor(color); // 선택한 색상 저장
+  };
 
   const handleChange = (event) => {
     setSelectedSize(event.target.value);
-  };
-
-  const handleClick = (index) => {
-    setSelectedOption(index);
   };
 
   const userCode = sessionStorage.getItem('userCode');
@@ -98,6 +100,8 @@ const Product = () => {
       await axios.post('http://localhost:8000/addToCart', {
         userCode: userCode,
         productCode: productCode,
+        cartSize: selectedSize,
+        cartColor: selectedColor, // 선택한 색상 추가
       });
       alert('상품을 장바구니에 담았습니다.');
     } catch (error) {
@@ -214,7 +218,7 @@ const Product = () => {
                     selectedOption === index ? 'clicked' : ''
                   }`}
                   style={{ backgroundColor: color }}
-                  onClick={() => handleClick(index)}
+                  onClick={() => handleClick(index, color)} // 색상 정보 전달
                 />
               ))}
             </div>

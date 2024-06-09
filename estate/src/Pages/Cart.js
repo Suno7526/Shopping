@@ -200,7 +200,7 @@ const Cart = () => {
               <label className="cart-product-line-price-label">Total</label>
             </div>
             {cartItems.map((item) => (
-              <div className="cart-product" key={item.productCode}>
+              <div className="cart-product" key={item.cartCode}>
                 <div className="cart-product-image">
                   <Link to={`/product/${item.productCode}`}>
                     <img
@@ -211,9 +211,6 @@ const Cart = () => {
                 </div>
                 <div className="cart-product-details">
                   <div className="cart-product-title">{item.productName}</div>
-                  <p className="cart-product-description">
-                    {item.productDescription}
-                  </p>
                 </div>
                 <div className="cart-product-price">{item.productPrice}원</div>
                 <div className="cart-product-quantity">
