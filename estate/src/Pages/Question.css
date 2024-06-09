@@ -183,7 +183,3 @@ button[type='submit']:hover {
 .contact-form .submit-btn:hover {
   background-color: #e6a15c;
 }
-
-.form-field-input-textarea {
-  border: none;
-}

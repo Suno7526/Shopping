@@ -98,7 +98,7 @@ function Home() {
 
       {/* 메인 이미지 섹션 */}
       <div className="recommend-item" id="recommend-item">
-        Recommend Item
+        New Item
       </div>
       <div>
         <Slider
@@ -131,7 +131,7 @@ function Home() {
       <div id="recommended-properties">
         <div className="Home-MiddleImage"></div>
         <div className="container-fluid" id="popular-content">
-          <h1 className="good-text">WEEKLY BEST</h1>
+          <h1 className="good-text">Recommend BEST</h1>
           <p className="good-sub-text">A pure CSS-only responsive masonry.</p>
           <div className="masonry">
             {products.map((product) => (
@@ -304,7 +304,7 @@ function Home() {
               />
             </a>
             <div className="hovertxt">
-              <span>인기있는 아이템</span>
+              <span>최신 아이템</span>
             </div>
           </li>
           <li className="sidebar-item">
@@ -316,7 +316,7 @@ function Home() {
               />
             </a>
             <div className="hovertxt">
-              <span>유명한 아이템</span>
+              <span>인기있는 아이템</span>
             </div>
           </li>
           <li className="sidebar-item">

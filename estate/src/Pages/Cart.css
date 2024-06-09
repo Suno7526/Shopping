@@ -44,31 +44,30 @@
 
   text-align: right;
 }
-
 /*장바구니 header 간격*/
 .cart-product-image-label {
-  margin-left: 5em;
+  margin-left: 8%;
   font-family: 'Roboto', sans-serif;
   font-size: 22px;
 }
 
 .cart-product-details-label {
-  margin-left: 4em;
+  margin-left: 6.6%;
   font-size: 22px;
 }
 
 .cart-product-price-label {
-  margin-left: 19.5em;
+  margin-left: 29.5%;
   font-size: 22px;
 }
 
 .cart-product-quantity-label {
-  margin-left: 3.7em;
+  margin-left: 6%;
   font-size: 22px;
 }
 
 .cart-product-line-price-label {
-  margin-left: 9.5em;
+  margin-left: 14.2%;
   font-size: 22px;
 }
 
