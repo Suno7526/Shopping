@@ -38,6 +38,48 @@ function App() {
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
   }, []); // 페이지 로드시 한 번만 실행되도록 빈 배열 전
 
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.innerHTML = `
+      (function() {
+        var w = window;
+        if (w.ChannelIO) { return w.console.error("ChannelIO script included twice."); }
+        var ch = function() { ch.c(arguments); };
+        ch.q = [];
+        ch.c = function(args) { ch.q.push(args); };
+        w.ChannelIO = ch;
+        function l() {
+          if (w.ChannelIOInitialized) { return; }
+          w.ChannelIOInitialized = true;
+          var s = document.createElement("script");
+          s.type = "text/javascript";
+          s.async = true;
+          s.src = "https://cdn.channel.io/plugin/ch-plugin-web.js";
+          var x = document.getElementsByTagName("script")[0];
+          if (x.parentNode) { x.parentNode.insertBefore(s, x); }
+        }
+        if (document.readyState === "complete") { l(); } else { w.addEventListener("DOMContentLoaded", l); w.addEventListener("load", l); }
+      })();
+
+      ChannelIO('boot', {
+        "pluginKey": "49f16ab4-ee61-4945-90b6-055d91c92119",
+        "memberId": sessionStorage.getItem('userEmail') || '', // fill user's member id
+        "profile": { // fill user's profile
+          "name": "USER_NAME", // fill user's name
+          "mobileNumber": "USER_MOBILE_NUMBER", // fill user's mobile number
+          "landlineNumber": "USER_LANDLINE_NUMBER", // fill user's landline number  
+          "CUSTOM_VALUE_1": "VALUE_1", // custom property
+          "CUSTOM_VALUE_2": "VALUE_2" // custom property
+        }
+      });
+    `;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <Header />
