@@ -43,11 +43,13 @@ const Inquiry = () => {
           <div className="no-posts">문의 내역이 없습니다.</div>
         ) : (
           posts.map((post, index) => (
-            <div className="post" key={index}>
-              <span className="post-info-item">{post.questionType}</span>
-              <h2 className="post-title">{post.questionTitle}</h2>
-              <p className="post-username">{userName || 'Unknown'}</p>
-            </div>
+            <Link to={`/MyQuestion/${post.questionCode}`} key={index}>
+              <div className="post" key={index}>
+                <span className="post-info-item">{post.questionType}</span>
+                <h2 className="post-title">{post.questionTitle}</h2>
+                <p className="post-username">{userName || 'Unknown'}</p>
+              </div>
+            </Link>
           ))
         )}
       </div>
