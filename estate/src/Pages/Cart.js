@@ -200,7 +200,7 @@ const Cart = () => {
               <label className="cart-product-line-price-label">Total</label>
             </div>
             {cartItems.map((item) => (
-              <div className="cart-product" key={item.cartCode}>
+              <div className="cart-product" key={item.productCode}>
                 <div className="cart-product-image">
                   <Link to={`/product/${item.productCode}`}>
                     <img
