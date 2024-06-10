@@ -27,11 +27,19 @@ public class CartController {
 	private CartService cartService;
 
 	@PostMapping("/addToCart")
+<<<<<<< HEAD
     public ResponseEntity<Void> addToCart(@RequestBody Map<String, Object> requestData) {
+=======
+	public ResponseEntity<Void> addToCart(@RequestBody Map<String, Object> requestData) {
+>>>>>>> master
         try {
             Long userCode = Long.parseLong(requestData.get("userCode").toString());
             Long productCode = Long.parseLong(requestData.get("productCode").toString());
             String cartSize = (String) requestData.get("cartSize");
+<<<<<<< HEAD
+=======
+            String cartColor = (String) requestData.get("cartColor");
+>>>>>>> master
 
             Cart cart = new Cart();
             User user = new User();
@@ -43,6 +51,18 @@ public class CartController {
             cart.setProduct(product);
 
             cart.setCartSize(cartSize);
+<<<<<<< HEAD
+=======
+            cart.setCartColor(cartColor); // 추가: 색상 정보 설정
+            System.out.println(cartColor);
+            System.out.println(cartSize);
+            cartService.addToCart(cart);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (NumberFormatException e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+>>>>>>> master
 
             cartService.addToCart(cart);
             return new ResponseEntity<>(HttpStatus.OK);

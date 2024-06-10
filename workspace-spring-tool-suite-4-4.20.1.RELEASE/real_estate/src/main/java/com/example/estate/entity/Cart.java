@@ -38,5 +38,11 @@ public class Cart {
 	    private String cartColor; // 색상
 	    
 	@Column
+    private String cartSize; // 사이즈
+
+    @Column
+    private String cartColor; // 색상
+    
+	@Column
 	private int productCount;
 }

@@ -15,7 +15,10 @@ const RecentItem = () => {
           const response = await axios.get(
             `http://localhost:8000/getViewedProduct/${userCode}`,
           );
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
           // 중복된 상품을 제거하고 가장 최근에 본 상품만 남기기
           const uniqueProducts = response.data.reduce((acc, product) => {
             if (

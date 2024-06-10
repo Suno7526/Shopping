@@ -40,8 +40,22 @@ const Like = () => {
     }
   };
 
-  const handleAddToCart = (product) => {
-    alert('장바구니에 추가되었습니다.');
+  const handleAddToCart = async (product) => {
+    try {
+      const userCode = sessionStorage.getItem('userCode');
+      const cartSize = 'M'; // 예시로 고정된 사이즈. 필요시 사용자 선택으로 변경 가능
+
+      await axios.post('http://localhost:8000/addToCart', {
+        userCode: userCode,
+        productCode: product.productCode,
+        cartSize: cartSize,
+      });
+
+      alert('장바구니에 추가되었습니다.');
+    } catch (error) {
+      console.error('장바구니에 추가하는 중 오류 발생:', error);
+      alert('장바구니에 추가하는 중 오류가 발생했습니다.');
+    }
   };
 
   const formatRegisterDate = (date) => {

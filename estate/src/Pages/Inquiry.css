@@ -27,9 +27,8 @@
   margin: 15px; /* 각 요소 사이의 간격을 설정 */
   font-size: 16px;
   font-style: Serif;
-  padding: 10px;
-  margin-right: 10em;
-  margin-left: 10em;
+  margin-right: 2%; /* em을 %로 변경 */
+  margin-left: 8%; /* em을 %로 변경 */
 }
 
 .post-title {
@@ -38,7 +37,7 @@
   font-size: 16px;
   font-style: Serif;
   padding: 10px;
-  margin-left: 5em;
+  margin-left: 2%; /* em을 %로 변경 */
 }
 
 .post-info-item {
@@ -47,25 +46,25 @@
   padding: 10px;
   font-size: 16px;
   font-style: Serif;
-  margin-left: 11.5em;
+  margin-left: 14.2%; /* em을 %로 변경 */
 }
 
 /*게시판 헤더*/
 .board-info-item {
   font-style: Serif;
   align-self: flex-start;
-  padding: 9em;
+  padding: 12%; /* em을 %로 변경 */
   font-size: 17px;
 }
 
 .board-info {
-  width: 80%;
+  width: 90%;
   margin: 0 auto;
   text-align: center;
   border-spacing: 0;
   background-color: transparent;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin-top: 1%;
+  margin-bottom: 1%;
   font-weight: bold;
 }
 

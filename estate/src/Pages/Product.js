@@ -10,16 +10,17 @@ const Product = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [mainImage, setMainImage] = useState(null); // 추가: 현재 메인 이미지 소스
-  const [subImages, setSubImages] = useState([]); // 추가: 서브 이미지들 소스
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedSize, setSelectedSize] = useState(80);
+  const [selectedColor, setSelectedColor] = useState('red');
+
+  const handleClick = (index, color) => {
+    setSelectedOption(index);
+    setSelectedColor(color); // 선택한 색상 저장
+  };
 
   const handleChange = (event) => {
     setSelectedSize(event.target.value);
-  };
-
-  const handleClick = (index) => {
-    setSelectedOption(index);
   };
 
   const userCode = sessionStorage.getItem('userCode');
@@ -100,7 +101,11 @@ const Product = () => {
         userCode: userCode,
         productCode: productCode,
         cartSize: selectedSize,
+<<<<<<< HEAD
         cartColor: selectedOption,
+=======
+        cartColor: selectedColor, // 선택한 색상 추가
+>>>>>>> master
       });
       alert('상품을 장바구니에 담았습니다.');
     } catch (error) {
@@ -142,30 +147,46 @@ const Product = () => {
             <ul className="subImg">
               <li>
                 <img
-                  src="codidi.jpg"
+                  src="https://i.postimg.cc/4NrZzq5G/4095000-17156616314608-500.jpg"
                   alt="서브 이미지1"
-                  onClick={() => handleSubImageClick('codidi.jpg')}
+                  onClick={() =>
+                    handleSubImageClick(
+                      'https://i.postimg.cc/4NrZzq5G/4095000-17156616314608-500.jpg',
+                    )
+                  }
                 />
               </li>
               <li>
                 <img
-                  src="sub02.jpg"
+                  src="https://i.postimg.cc/d0FYfCpS/4095002-17156616179333-500.jpg"
                   alt="서브 이미지2"
-                  onClick={() => handleSubImageClick('sub02.jpg')}
+                  onClick={() =>
+                    handleSubImageClick(
+                      'https://i.postimg.cc/d0FYfCpS/4095002-17156616179333-500.jpg',
+                    )
+                  }
                 />
               </li>
               <li>
                 <img
-                  src="sub01.jpg"
+                  src="https://i.postimg.cc/50NM4VxB/3791988-17150620547239-500.jpg"
                   alt="서브 이미지3"
-                  onClick={() => handleSubImageClick('sub01.jpg')}
+                  onClick={() =>
+                    handleSubImageClick(
+                      'https://i.postimg.cc/50NM4VxB/3791988-17150620547239-500.jpg',
+                    )
+                  }
                 />
               </li>
               <li>
                 <img
-                  src="sub01.jpg"
+                  src="https://i.postimg.cc/k4LcqMsQ/3791990-17156616655826-500.jpg"
                   alt="서브 이미지4"
-                  onClick={() => handleSubImageClick('sub01.jpg')}
+                  onClick={() =>
+                    handleSubImageClick(
+                      'https://i.postimg.cc/k4LcqMsQ/3791990-17156616655826-500.jpg',
+                    )
+                  }
                 />
               </li>
             </ul>
@@ -192,17 +213,16 @@ const Product = () => {
             <div className="grid-item-registerDate">
               등록 날짜 : {formatRegisterDate(product.registerDate)}
             </div>
-            <div className="option-title">옵션을 선택해주세요</div>
+            <div className="option-title">색상을 선택해주세요</div>
             <div className="grid-item-option">
-              {[1, 2, 3, 4].map((option, index) => (
-                <img
+              {['red', 'orange', 'yellow', 'green'].map((color, index) => (
+                <div
                   key={index}
-                  src={`https://via.placeholder.com/50?text=Option+${option}`}
-                  alt={`Option ${option}`}
                   className={`option-button ${
                     selectedOption === index ? 'clicked' : ''
                   }`}
-                  onClick={() => handleClick(index)}
+                  style={{ backgroundColor: color }}
+                  onClick={() => handleClick(index, color)} // 색상 정보 전달
                 />
               ))}
             </div>
