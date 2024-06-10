@@ -22,27 +22,21 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cartCode;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "userCode")
 	private User user;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "productCode")
 	private Product product;
-	
-	 @Column
-	    private String cartSize; // 사이즈
-	    
-	    @Column
-	    private String cartColor; // 색상
-	    
-	@Column
-    private String cartSize; // 사이즈
 
-    @Column
-    private String cartColor; // 색상
-    
+	@Column
+	private String cartSize; // 사이즈
+
+	@Column
+	private String cartColor; // 색상
+
 	@Column
 	private int productCount;
 }

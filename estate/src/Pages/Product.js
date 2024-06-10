@@ -101,11 +101,7 @@ const Product = () => {
         userCode: userCode,
         productCode: productCode,
         cartSize: selectedSize,
-<<<<<<< HEAD
-        cartColor: selectedOption,
-=======
         cartColor: selectedColor, // 선택한 색상 추가
->>>>>>> master
       });
       alert('상품을 장바구니에 담았습니다.');
     } catch (error) {

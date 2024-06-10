@@ -7,10 +7,7 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
   const userCode = sessionStorage.getItem('userCode');
-<<<<<<< HEAD
 
-=======
->>>>>>> master
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -214,14 +211,7 @@ const Cart = () => {
                   </Link>
                 </div>
                 <div className="cart-product-details">
-<<<<<<< HEAD
                   <div className="cart-product-title">{item.productName}/</div>
-                  <p className="cart-product-description">
-                    {item.productDescription}
-                  </p>
-=======
-                  <div className="cart-product-title">{item.productName}</div>
->>>>>>> master
                 </div>
                 <div className="cart-product-price">{item.productPrice}원</div>
                 <div className="cart-product-quantity">

@@ -49,10 +49,15 @@ public class Product {
     @Column
     private String companyName;
     
+    @Column
+    private String productColor;
+    
+    @Column
+    private String productSize;
+    
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean soldout;
 
-    
     @Column
     private String category;
     
