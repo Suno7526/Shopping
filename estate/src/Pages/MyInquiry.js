@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import './Inquiry.css'; // 외부 스타일 시트 불러오기
+import './MyInquiry.css'; // 외부 스타일 시트 불러오기
 import { Link } from 'react-router-dom'; // Link import 추가
 import InquiryAside from '../Components/InquiryAside';
 import axios from 'axios';
 
-const Inquiry = () => {
+const MyInquiry = () => {
   const [posts, setPosts] = useState([]);
   const userCode = sessionStorage.getItem('userCode');
   const userName = sessionStorage.getItem('userName');
@@ -58,4 +58,4 @@ const Inquiry = () => {
   );
 };
 
-export default Inquiry;
+export default MyInquiry;

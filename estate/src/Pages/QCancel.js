@@ -5,6 +5,8 @@ const QCancel = () => {
   const [showDetails1, setShowDetails1] = useState(false);
   const [showDetails2, setShowDetails2] = useState(false);
   const [showDetails3, setShowDetails3] = useState(false);
+  const [showDetails4, setShowDetails4] = useState(false);
+  const [showDetails5, setShowDetails5] = useState(false);
 
   const toggleDetails1 = () => {
     setShowDetails1(!showDetails1);
@@ -16,6 +18,14 @@ const QCancel = () => {
 
   const toggleDetails3 = () => {
     setShowDetails3(!showDetails3);
+  };
+
+  const toggleDetails4 = () => {
+    setShowDetails4(!showDetails4);
+  };
+
+  const toggleDetails5 = () => {
+    setShowDetails5(!showDetails5);
   };
 
   return (
@@ -58,7 +68,6 @@ const QCancel = () => {
           {showDetails2 && (
             <div className="QCancel-Q2detail">
               <div className="QCancel-Q2detailP">
-                <img src="Image/Cancelimg.jpg" alt="Cancellation Image" />
                 <strong>
                   아래 사유에 해당 되는 경우 교환(환불)이 가능하지 않습니다.
                 </strong>
@@ -74,6 +83,86 @@ const QCancel = () => {
                 감소하는 경우 반품이 가능하지 않습니다.
                 <br />※ 주문 제작 상품의 경우 회원님을 위한 제작 후 배송으로
                 반품이 가능하지 않습니다.
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="QCancel-Q3-container">
+          <div className="QCancel-Q3" onClick={toggleDetails3}>
+            교환/환불(반품) 비용은 무료인가요?
+          </div>
+          {showDetails3 && (
+            <div className="QCancel-Q3detail">
+              <div className="QCancel-Q3detailP">
+                회원 사유의 반품 접수 시 교환/환불(반품) 배송비가 부과됩니다.
+                <br></br>
+                배송비는 환불(반품) 접수 시 차감, 교환의 경우 결제해 주셔야 반품
+                접수가 정상적으로 완료됩니다. <br></br>
+                <br></br>■ 반품 접수 시 주의 사항 - 제주/도서산간지역의 경우
+                교환/환불 접수 시 제주/도서산간지역의 비용이 추가되어 배송비가
+                안내됩니다. <br></br>- 제주/도서산간지역의 경우 반품 접수 이후
+                회수 또는 교환 주소지 변경이 가능하지 않습니다. <br></br>-
+                휴대전화 결제 또는 환불금액이 반품 배송비보다 적을 경우 반품
+                접수 시 배송비를 결제해 주셔야 합니다. <br></br>- 안내서에
+                배송비 동봉 등에 대한 내용이 있더라도, 동봉하면 안 됩니다.
+                <br></br> - 해외 배송 상품일 경우 왕복 택배 비용 및 관세/통관
+                비용을 부담해 주셔야 합니다. <br></br>- 브랜드 및 주문한 내용에
+                따라 반품 배송비는 상품 각각 청구 될 수 있고 계약된 택배사가
+                아닌 다른 택배사 이용 시 초과운임이 발생할 수 있습니다.{' '}
+                <br></br>- 브랜드의 계약된 택배사로 반품 신규 접수 시 초과운임이
+                발생되니 받으셨던 운송장 번호로 반품 접수해 주세요. <br></br>-
+                반품비용은 상품별로 달라 주문 내역의 판매자 정보, 교환/환불 접수
+                페이지 또는 각 상품 페이지 하단 교환/환불 안내에서 확인
+                가능합니다.
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="QCancel-Q4-container">
+          <div className="QCancel-Q4" onClick={toggleDetails4}>
+            주문을 취소(옵션변경)를 하고 싶어요.
+          </div>
+          {showDetails4 && (
+            <div className="QCancel-Q4detail">
+              <div className="QCancel-Q4detailP">
+                주문 후 주문 상태에 따라 마이페이지 > 주문/배송/픽업 조회에서
+                즉시 취소 또는 취소 요청이 가능합니다.<br></br>
+                <br></br> ■ 주문 상태별 취소 안내 <br></br>
+                <br></br>- 입금 확인: 신청 즉시 주문이 취소되고, 사용한 적립금과
+                쿠폰은 반환되어 재사용 가능합니다.<br></br> - 출고 처리중: 취소
+                요청 승인 시 주문이 자동 취소됩니다. <br></br>
+                <br></br>
+                배송 준비가 완료된 경우 취소 요청이 거절될 수 있습니다.{' '}
+                <br></br>
+                <br></br>※ 가상 계좌 결제는 2일 이내 입금하지 않을 경우와 재고
+                품절 시 주문은 자동으로 취소됩니다. <br></br>※ 반환된 쿠폰의
+                유효기간이 만료된 경우 재사용이 가능하지 않습니다. <br></br>※
+                옵션 변경의 경우 입금 확인 상태에서만 가능하며, 입금하지 않은
+                주문의 옵션 변경을 원하는 경우 주문 취소 후 재주문해 주세요.
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="QCancel-Q5-container">
+          <div className="QCancel-Q5" onClick={toggleDetails5}>
+            반품접수는 어떻게 하나요?
+          </div>
+          {showDetails5 && (
+            <div className="QCancel-Q5detail">
+              <div className="QCancel-Q5detailP">
+                교환(환불) 접수 시 선택했던 방법으로 반품 접수해 주세요.
+                <br></br>
+                <br></br> ■ 회수해 주세요 무신사 자동회수 서비스로 택배기사가
+                요청한 회수지로 평일 기준 1일 ~ 3일 이내 방문합니다. <br></br>
+                <br></br>※ 방문 전 택배 기사분이 연락 후 방문 예정이며,
+                비대면으로 상품을 전달할 때는 반품 상자를 구분할 수 있도록 표시
+                후 회수 장소에 보관해 주세요. <br></br>
+                <br></br>■ 직접 보냈어요 상품을 받은 택배사와 같은 택배사로
+                고객님께서 직접 반품 예약을 해주셔야 합니다. <br></br>상품 회수
+                완료 시 반송장 정보를 입력해 주세요. <br></br>※ 계약된 택배사가
+                아닌 다른 택배사 이용 시 추가 비용 발생할 수 있고 2개 이상의
+                브랜드 반송 시, 각각 반송지로 보내주세요. <br></br>※ 안내서에
+                배송비 동봉 등에 대한 내용이 있더라도, 동봉하면 안 됩니다.
               </div>
             </div>
           )}

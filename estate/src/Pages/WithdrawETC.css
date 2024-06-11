@@ -80,3 +80,30 @@
   padding: 12px; /* 내부 여백 설정 */
   border-top: 1px solid #232a3f;
 }
+
+/*Q3 detail*/
+
+.Q3detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.WithdrawETC-Q3-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.WithdrawETC-Q3 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+.WithdrawETC-Q3detail p {
+  padding: 10px; /* 내부 여백 설정 */
+  border-top: 2px solid #232a3f;
+}

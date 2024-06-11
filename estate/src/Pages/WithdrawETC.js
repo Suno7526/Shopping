@@ -62,13 +62,33 @@ const WithdrawETC = () => {
 
         <div className="WithdrawETC-Q2-container">
           <div className="WithdrawETC-Q2" onClick={toggleDetails2}>
-            두 번째 질문은 무엇인가요?
+            회원 탈퇴를 취소하고 싶습니다.
           </div>
           {showDetails2 && (
             <div className="WithdrawETC-Q2detail">
               <div className="Q2detailP">
-                두 번째 질문에 대한 답변입니다.dafs <br />
-                dakjsndaknsnjksnkjsnjdj
+                ■ 탈퇴 신청일로부터 5일 이내 재로그인 시 탈퇴 신청이 취소됩니다.{' '}
+                <br></br>
+                <br></br>※ 탈퇴 5일 후에는 개인 정보가 삭제되어 탈퇴 취소가
+                가능하지 않습니다. <br></br>
+                <br></br>※ 회원 탈퇴 시 동일한 휴대폰 명의로 재가입은 탈퇴 30일
+                이후 가능합니다.
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="WithdrawETC-Q3-container">
+          <div className="WithdrawETC-Q3" onClick={toggleDetails2}>
+            비회원으로 구매를 하려고 하는데 주의해야 할 점이 있나요?
+          </div>
+          {showDetails2 && (
+            <div className="WithdrawETC-Q3detail">
+              <div className="Q3detailP">
+                비회원 주문 시 주문 내역(배송 및 교환, 환불 등) 조회를 위해
+                주문번호를 알고 있어야 합니다. <br></br>
+                <br></br>※ 주문 완료 시 주문번호는 이메일로 발송됩니다. ※ 무신사
+                회원으로 주문하면 할인 및 적립금과 사은품 등의 다양한 혜택을
+                받을 수 있습니다.
               </div>
             </div>
           )}

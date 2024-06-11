@@ -76,3 +76,68 @@
 }
 
 /*Q2 끝*/
+
+.QCancel-Q3detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QCancel-Q3-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QCancel-Q3 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+/*Q3 끝*/
+.QCancel-Q4detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QCancel-Q4-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QCancel-Q4 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+/*Q4 끝*/
+
+.QCancel-Q5detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QCancel-Q5-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QCancel-Q5 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+/*Q5 끝*/

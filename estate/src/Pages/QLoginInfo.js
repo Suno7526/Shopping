@@ -58,13 +58,18 @@ const QLoginInfo = () => {
 
         <div className="QLoginInfo-Q2-container">
           <div className="QLoginInfo-Q2" onClick={toggleDetails2}>
-            두 번째 질문은 무엇인가요?
+            아이디 및 비밀번호를 변경할 수 있나요??
           </div>
           {showDetails2 && (
             <div className="QLoginInfo-Q2detail">
               <div className="QLoginInfo-Q2detailP">
-                두 번째 질문에 대한 답변입니다.dafs <br />
-                dakjsndaknsnjksnkjsnjdj
+                아이디는 변경이 가능하지 않지만 비밀번호는 변경 가능합니다.{' '}
+                <br></br>
+                <br></br>■ 비밀번호 변경 경로 모바일(앱/웹) : 마이페이지 > 내
+                정보 관리 > 오른쪽 위 톱니바퀴 <br></br>
+                <br></br>※ 탈퇴 후 재가입을 하더라도 동일한 아이디는 사용할 수
+                없습니다. <br></br>※ 탈퇴 시 아이디를 제외한 모든 개인 정보는
+                삭제 됩니다.
               </div>
             </div>
           )}
@@ -72,13 +77,20 @@ const QLoginInfo = () => {
 
         <div className="QLoginInfo-Q3-container">
           <div className="QLoginInfo-Q3" onClick={toggleDetails3}>
-            세 번째 질문은 무엇인가요?
+            회원 정보 수정은 어디서 하나요?
           </div>
           {showDetails3 && (
             <div className="QLoginInfo-Q3detail">
               <div className="QLoginInfo-Q3detailP">
-                세 번째 질문에 대한 답변입니다.dafs <br />
-                으으으으으으아아아아ㅏ
+                회원 정보 수정은 아래 경로로 직접 변경 가능합니다.<br></br>
+                <br></br> ■ 회원 정보 수정 모바일(앱/웹) : 마이페이지 > 내 정보
+                관리 > 오른쪽 위 톱니바퀴 ※ 원활한 주문 및 배송을 위해 회원
+                정보를 정확하게 기재해 주세요.<br></br> ■ 이름 개명 시 수정
+                모바일(앱/웹) : 마이페이지 > 내 정보 관리 > 오른쪽 위 톱니바퀴 >
+                회원 정보 > 이름/휴대전화/생년월일 <br></br>
+                <br></br>※ 개명한 이름이 NICE 평가 정보에 등록되어 있어야
+                합니다.<br></br> ※ 본인인증을 통해 NICE 평가 정보 적용된
+                이름(실명)을 기준으로 변경됩니다.
               </div>
             </div>
           )}

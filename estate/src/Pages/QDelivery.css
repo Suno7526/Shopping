@@ -76,3 +76,69 @@
 }
 
 /*Q2 끝*/
+
+.QDelivery-Q3detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QDelivery-Q3-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QDelivery-Q3 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+/*Q3 끝*/
+
+.QDelivery-Q4detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QDelivery-Q4-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QDelivery-Q4 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+/*Q4 끝*/
+
+.QDelivery-Q5detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QDelivery-Q5-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QDelivery-Q5 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
+
+/*Q5 끝*/

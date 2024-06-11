@@ -1,4 +1,4 @@
-.sidebar {
+.Inquiry-sidebar {
   display: flex;
   align-items: stretch; /* 자식 요소들이 사이드바 전체 너비를 차지하게 합니다 */
   position: relative;
@@ -7,24 +7,24 @@
   height: 500px;
   border: 1px solid gray;
   align-items: center;
-  z-index: 2;
+  z-index: 700;
   background-color: #f6f4ee;
   margin-top: 9.9em;
   margin-right: 5px;
 }
 
-.sidebar a {
+.Inquiry-sidebar a {
   text-decoration: none; /* 링크에 대한 밑줄 제거 */
   color: inherit; /* 부모 요소로부터 상속된 글자 색상 사용 */
 }
 
-.sidebar-Buttons {
+.Inquiry-sidebar-Buttons {
   display: flex;
   flex-direction: column;
   gap: 10px; /* 버튼 간격 추가 */
 }
 
-.sidebar button {
+.Inquiry-sidebar button {
   font-size: 16px;
   font-style: sans-serif;
   display: block;
@@ -36,12 +36,12 @@
   background-color: transparent;
 }
 
-.sidebar button:hover {
-  color: #f6f4ee; /* 호버 상태에서의 글자색 */
+.Inquiry-sidebar button:hover {
+  color: #080808; /* 호버 상태에서의 글자색 */
   font-size: 20px;
 }
 
-.sidebar-header {
+.Inquiry-sidebar-header {
   width: 100%;
   background-color: #f6f4ee;
   color: #5f5449; /* 글자색 변경 */

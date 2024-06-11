@@ -96,3 +96,25 @@
   font-size: 20px;
   cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
 }
+
+/*Q4*/
+
+.QProduct-Q4detailP {
+  display: flex;
+  flex-direction: column;
+  padding-left: 40px;
+  padding: 2em;
+  border: 1px solid #eaeaea;
+}
+
+.QProduct-Q4-container {
+  padding: 10px; /* 내부 여백 설정 */
+  margin-left: 13em;
+  margin-top: 20px;
+}
+
+.QProduct-Q4 {
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer; /* 마우스 오버 시 포인터로 변경 */
+}
