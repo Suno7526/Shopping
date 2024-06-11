@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from 'react';
-<<<<<<< HEAD
-import './Inquiry.css';
-import { Link } from 'react-router-dom';
-=======
 import './MyInquiry.css'; // 외부 스타일 시트 불러오기
 import { Link } from 'react-router-dom'; // Link import 추가
->>>>>>> yoon3
 import InquiryAside from '../Components/InquiryAside';
 import axios from 'axios';
 

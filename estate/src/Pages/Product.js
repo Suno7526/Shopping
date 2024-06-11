@@ -12,13 +12,12 @@ const Product = () => {
   const [mainImage, setMainImage] = useState(null); // 추가: 현재 메인 이미지 소스
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedSize, setSelectedSize] = useState(80);
-<<<<<<< HEAD
   const [selectedColor, setSelectedColor] = useState('red');
 
   const handleClick = (index, color) => {
     setSelectedOption(index);
     setSelectedColor(color); // 선택한 색상 저장
-=======
+  };
   const [rating, setRating] = useState(0); // 별점
   const [comment, setComment] = useState(''); // 댓글
   const [image, setImage] = useState(null); // 댓글
@@ -32,24 +31,16 @@ const Product = () => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
     }
->>>>>>> yoon3
   };
 
   const handleChange = (event) => {
     setSelectedSize(event.target.value);
   };
 
-<<<<<<< HEAD
-=======
-  const handleClick = (index) => {
-    setSelectedOption(index);
-  };
-
   const handleRatingChange = (value) => {
     setRating(value);
   };
 
->>>>>>> yoon3
   const userCode = sessionStorage.getItem('userCode');
 
   useEffect(() => {
