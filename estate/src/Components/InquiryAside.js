@@ -5,9 +5,9 @@ import './InquiryAside.css'; // 외부 스타일 시트 불러오기
 const InquiryAside = () => {
   return (
     <div>
-      <aside className="sidebar">
-        <div className="sidebar-header">PASS</div>
-        <nav className="sidebar-Buttons">
+      <aside className="Inquiry-sidebar">
+        <div className="Inquiry-sidebar-header">PASS</div>
+        <nav className="Inquiry-sidebar-Buttons">
           <Link to="/Question" className="QuestionButton-div">
             <button className="QuestionButton">✉️ 문의하기</button>
           </Link>{' '}

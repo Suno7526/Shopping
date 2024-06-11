@@ -75,6 +75,7 @@ const Modal = ({ isOpen, onClose, product }) => {
   };
 
   const handleOrderClick = () => {
+    requestPay();
     onOrder();
   };
 

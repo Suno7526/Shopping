@@ -103,13 +103,19 @@ const QExchange = () => {
 
         <div className="QExchange-Q3-container">
           <div className="QExchange-Q3" onClick={toggleDetails3}>
-            세 번째 질문은 무엇인가요?
+            상품은 보냈는데 언제 교환상품이 배송 되나요?
           </div>
           {showDetails3 && (
             <div className="QExchange-Q3detail">
               <div className="QExchange-Q3detailP">
-                세 번째 질문에 대한 답변입니다.dafs <br />
-                으으으으으으아아아아ㅏ
+                교환 진행 과정은 아래 내용 참고해 주세요. <br></br>
+                <br></br>■ 교환 진행 과정 상품 회수 > 반품 도착 > 검수 진행 >
+                교환 상품 출고 <br></br>
+                <br></br>※ 상품 회수 후 반품 도착까지 평일 기준 1일 ~ 2일
+                소요됩니다. <br></br>※ 검수 기간은 평일 기준 1일 ~ 3일
+                소요됩니다. <br></br>※ 교환 상품 출고 까지는 평일 기준 1일 ~ 3일
+                소요됩니다. <br></br>※ 해외 배송 교환의 경우 평일 기준 2주 이상
+                소요됩니다.
               </div>
             </div>
           )}

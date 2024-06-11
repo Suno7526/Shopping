@@ -12,17 +12,44 @@ const Product = () => {
   const [mainImage, setMainImage] = useState(null); // 추가: 현재 메인 이미지 소스
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedSize, setSelectedSize] = useState(80);
+<<<<<<< HEAD
   const [selectedColor, setSelectedColor] = useState('red');
 
   const handleClick = (index, color) => {
     setSelectedOption(index);
     setSelectedColor(color); // 선택한 색상 저장
+=======
+  const [rating, setRating] = useState(0); // 별점
+  const [comment, setComment] = useState(''); // 댓글
+  const [image, setImage] = useState(null); // 댓글
+
+  //댓글 설정 const
+  const handleCommentChange = (event) => {
+    setComment(event.target.value);
+  };
+
+  const handleImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+    }
+>>>>>>> yoon3
   };
 
   const handleChange = (event) => {
     setSelectedSize(event.target.value);
   };
 
+<<<<<<< HEAD
+=======
+  const handleClick = (index) => {
+    setSelectedOption(index);
+  };
+
+  const handleRatingChange = (value) => {
+    setRating(value);
+  };
+
+>>>>>>> yoon3
   const userCode = sessionStorage.getItem('userCode');
 
   useEffect(() => {
@@ -476,6 +503,99 @@ const Product = () => {
         onClose={handleCloseModal}
         product={product}
       />
+
+      {/* 별점 레이팅 */}
+      <ul className="contentNav">
+        <li className="active">
+          <p>구매 후기</p>
+        </li>
+      </ul>
+      <div className="reviews-section">
+        <div className="Userreviews">
+          <div className="user-info">
+            <img
+              src="https://i.postimg.cc/59mNLwVZ/download.png"
+              alt="User"
+              className="user-image"
+            />
+            <div className="reviews-user-name">John Doe</div>
+          </div>
+        </div>
+        <div className="starAndComment">
+          <div className="reviews-comment">
+            <div className="comment-header">
+              <div className="feedback">
+                <p className="product-star-rating">상품 별점</p>
+                <div className="emoji-wrapper">
+                  {rating === 1 && <div className="emoji">😠</div>}
+                  {rating === 2 && <div className="emoji">🙁</div>}
+                  {rating === 3 && <div className="emoji">😀</div>}
+                  {rating === 4 && <div className="emoji">😍</div>}
+                  {rating === 5 && <div className="emoji">😎</div>}
+                </div>
+                <div className="rating">
+                  <input
+                    type="radio"
+                    name="rating"
+                    id="rating-5"
+                    checked={rating === 5}
+                    onChange={() => handleRatingChange(5)}
+                  />
+                  <label htmlFor="rating-5"></label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    id="rating-4"
+                    checked={rating === 4}
+                    onChange={() => handleRatingChange(4)}
+                  />
+                  <label htmlFor="rating-4"></label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    id="rating-3"
+                    checked={rating === 3}
+                    onChange={() => handleRatingChange(3)}
+                  />
+                  <label htmlFor="rating-3"></label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    id="rating-2"
+                    checked={rating === 2}
+                    onChange={() => handleRatingChange(2)}
+                  />
+                  <label htmlFor="rating-2"></label>
+                  <input
+                    type="radio"
+                    name="rating"
+                    id="rating-1"
+                    checked={rating === 1}
+                    onChange={() => handleRatingChange(1)}
+                  />
+                  <label htmlFor="rating-1"></label>
+                </div>
+              </div>
+            </div>
+            <div className="comment-user">
+              <img
+                src={mainImage}
+                alt="Product"
+                className="user-property-image"
+              />
+              <div className="comment-product">
+                상품 정보: {product.productName}
+              </div>
+            </div>
+            <textarea
+              className="comment-textarea"
+              value={comment}
+              onChange={handleCommentChange}
+              placeholder="..."
+            ></textarea>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './RecentItem.css'; // 외부 스타일 시트 불러오기
 import Aside from '../Components/Aside';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RecentItem = () => {
   const [recentProducts, setRecentProducts] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRecentProducts = async () => {
@@ -42,13 +43,11 @@ const RecentItem = () => {
   }, []);
 
   const addToCart = (product) => {
-    alert('장바구니에 추가되었습니다.');
-    // 장바구니에 상품을 추가하는 로직을 추가할 수 있습니다.
+    navigate(`/product/${product.productCode}`);
   };
 
   const addToWishlist = (product) => {
-    alert('찜 목록에 추가되었습니다.');
-    // 찜 목록에 상품을 추가하는 로직을 추가할 수 있습니다.
+    navigate(`/product/${product.productCode}`);
   };
 
   return (

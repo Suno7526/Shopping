@@ -223,7 +223,7 @@
 .masonry {
   /* 인기있는 콘텐츠 container */
   column-count: 6;
-  margin: 2%; /* margin을 % 단위로 변경 */
+  margin: 8%; /* margin을 % 단위로 변경 */
   font-size: 1em;
   background: #ffff;
 }
@@ -244,6 +244,7 @@
   margin: 1% 0; /* margin을 % 단위로 변경 */
   text-align: center;
   color: #373737;
+  font-size: 1.1em;
 }
 
 .HomeGriditem img {

@@ -131,7 +131,7 @@ function Home() {
       <div id="recommended-properties">
         <div className="Home-MiddleImage"></div>
         <div className="container-fluid" id="popular-content">
-          <h1 className="good-text">Recommend BEST</h1>
+          <h1 className="good-text">Recommend Item</h1>
           <p className="good-sub-text">A pure CSS-only responsive masonry.</p>
           <div className="masonry">
             {products.map((product) => (
