@@ -14,9 +14,26 @@ const Cart = () => {
         const response = await axios.get(
           `http://localhost:8000/cart/${userCode}`,
         );
-        setCartItems(response.data);
+        const uniqueProducts = [];
+        response.data.forEach((item) => {
+          const existingProductIndex = uniqueProducts.findIndex(
+            (product) => product.productCode === item.product.productCode,
+          );
+          if (existingProductIndex !== -1) {
+            // 이미 있는 상품일 경우 수량만 증가시킴
+            uniqueProducts[existingProductIndex].quantity += 1;
+          } else {
+            // 새로운 상품일 경우 수량을 포함하여 배열에 추가
+            uniqueProducts.push({ ...item, quantity: 1 });
+          }
+        });
+        setCartItems(uniqueProducts);
       } catch (error) {
-        console.error('Error fetching cart items:', error);
+        if (error.response && error.response.status === 404) {
+          setCartItems([]);
+        } else {
+          console.error('상품을 불러오는 중 오류 발생:', error);
+        }
       }
     };
 
@@ -135,22 +152,9 @@ const Cart = () => {
     }
   };
 
-  const totalProductsPrice = cartItems.reduce(
-    (acc, item) => acc + item.product.productPrice * item.quantity,
-    0,
-  );
-
-  const selectedProductsTotalPrice = selectedProducts.reduce(
-    (acc, productCode) => {
-      const selectedProduct = cartItems.find(
-        (item) => item.product.productCode === productCode,
-      );
-      return (
-        acc + selectedProduct.product.productPrice * selectedProduct.quantity
-      );
-    },
-    0,
-  );
+  const totalProductsPrice = cartItems
+    .filter((item) => selectedProducts.includes(item.product.productCode))
+    .reduce((acc, item) => acc + item.product.productPrice * item.quantity, 0);
 
   const discountAmount = 5000;
   const totalAmount = totalProductsPrice - discountAmount;
