@@ -6,6 +6,7 @@ import Join from './Pages/Join';
 import Home from './Pages/Home';
 import ProductJoin from './Pages/ProductJoin';
 import Cart from './Pages/Cart';
+import Cart2 from './Pages/Cart2';
 import Product from './Pages/Product';
 import Mypage from './Pages/Mypage';
 import RecentItem from './Pages/RecentItem';
@@ -95,6 +96,7 @@ function App() {
         <Route path="/product/:productCode" element={<Product />} />
         <Route path="/Category/:category" element={<Category />} />
         <Route path="/Cart" element={<Cart />} />
+        <Route path="/Cart2" element={<Cart2 />} />
         <Route path="/Mypage" element={<Mypage />} />
         <Route path="/Question" element={<Question />} />
         <Route path="/Inquiry" element={<Inquiry />} />

@@ -9,32 +9,18 @@ const Cart = () => {
   const userCode = sessionStorage.getItem('userCode');
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const fetchCartItems = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getCartProduct/${userCode}`,
+          `http://localhost:8000/cart/${userCode}`,
         );
-        const uniqueProducts = [];
-        response.data.forEach((item) => {
-          const existingProduct = uniqueProducts.find(
-            (product) => product.productCode === item.product.productCode,
-          );
-          if (existingProduct) {
-            existingProduct.quantity += 1;
-          } else {
-            uniqueProducts.push({ ...item.product, quantity: 1 });
-          }
-        });
-        setCartItems(uniqueProducts);
+        setCartItems(response.data);
       } catch (error) {
-        if (error.response && error.response.status === 404) {
-          setCartItems([]);
-        } else {
-          console.error('상품을 불러오는 중 오류 발생:', error);
-        }
+        console.error('Error fetching cart items:', error);
       }
     };
-    fetchProducts();
+
+    fetchCartItems();
 
     const jquery = document.createElement('script');
     jquery.src = 'http://code.jquery.com/jquery-1.12.4.min.js';
@@ -47,33 +33,18 @@ const Cart = () => {
       document.head.removeChild(jquery);
       document.head.removeChild(iamport);
     };
-  }, []);
+  }, [userCode]);
 
   const handleDeleteItem = async (productCode) => {
     try {
       await axios.delete(
-        `http://localhost:8000/deleteCartItem/${sessionStorage.getItem(
-          'userCode',
-        )}/${productCode}`,
+        `http://localhost:8000/deleteCartItem/${userCode}/${productCode}`,
       );
       const response = await axios.get(
-        `http://localhost:8000/getCartProduct/${sessionStorage.getItem(
-          'userCode',
-        )}`,
+        `http://localhost:8000/cart/${userCode}`,
       );
-      const uniqueProducts = [];
-      response.data.forEach((item) => {
-        const existingProduct = uniqueProducts.find(
-          (product) => product.productCode === item.product.productCode,
-        );
-        if (existingProduct) {
-          existingProduct.quantity += 1;
-        } else {
-          uniqueProducts.push({ ...item.product, quantity: 1 });
-        }
-      });
+      setCartItems(response.data);
       alert('상품을 삭제했습니다.');
-      setCartItems(uniqueProducts);
     } catch (error) {
       if (error.response && error.response.status === 404) {
         setCartItems([]);
@@ -98,7 +69,7 @@ const Cart = () => {
   const handleQuantityChange = (productCode, newQuantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.productCode === productCode
+        item.product.productCode === productCode
           ? { ...item, quantity: newQuantity }
           : item,
       ),
@@ -111,9 +82,10 @@ const Cart = () => {
       let totalPrice = 0;
       selectedProducts.forEach((productCode) => {
         const selectedProduct = cartItems.find(
-          (item) => item.productCode === productCode,
+          (item) => item.product.productCode === productCode,
         );
-        totalPrice += selectedProduct.productPrice * selectedProduct.quantity;
+        totalPrice +=
+          selectedProduct.product.productPrice * selectedProduct.quantity;
       });
 
       const { IMP } = window;
@@ -164,16 +136,18 @@ const Cart = () => {
   };
 
   const totalProductsPrice = cartItems.reduce(
-    (acc, item) => acc + item.productPrice * item.quantity,
+    (acc, item) => acc + item.product.productPrice * item.quantity,
     0,
   );
 
   const selectedProductsTotalPrice = selectedProducts.reduce(
     (acc, productCode) => {
       const selectedProduct = cartItems.find(
-        (item) => item.productCode === productCode,
+        (item) => item.product.productCode === productCode,
       );
-      return acc + selectedProduct.productPrice * selectedProduct.quantity;
+      return (
+        acc + selectedProduct.product.productPrice * selectedProduct.quantity
+      );
     },
     0,
   );
@@ -201,19 +175,24 @@ const Cart = () => {
               <label className="cart-product-line-price-label">Total</label>
             </div>
             {cartItems.map((item) => (
-              <div className="cart-product" key={item.productCode}>
+              <div className="cart-product" key={item.cartCode}>
                 <div className="cart-product-image">
-                  <Link to={`/product/${item.productCode}`}>
+                  <Link to={`/product/${item.product.productCode}`}>
                     <img
-                      src={`http://localhost:8000/getProductImage/${item.productCode}`}
-                      alt={item.productName}
+                      src={`http://localhost:8000/getProductImage/${item.product.productCode}`}
+                      alt={item.product.productName}
                     />
                   </Link>
                 </div>
                 <div className="cart-product-details">
-                  <div className="cart-product-title">{item.productName}/</div>
+                  <div className="cart-product-title">
+                    {item.product.productName} / 색상 : {item.cartColor} /
+                    사이즈 : {item.cartSize}
+                  </div>
                 </div>
-                <div className="cart-product-price">{item.productPrice}원</div>
+                <div className="cart-product-price">
+                  {item.product.productPrice}원
+                </div>
                 <div className="cart-product-quantity">
                   <input
                     type="number"
@@ -221,7 +200,7 @@ const Cart = () => {
                     min="1"
                     onChange={(e) =>
                       handleQuantityChange(
-                        item.productCode,
+                        item.product.productCode,
                         parseInt(e.target.value),
                       )
                     }
@@ -230,19 +209,23 @@ const Cart = () => {
                 <div className="cart-product-removal">
                   <button
                     className="cart-remove-product"
-                    onClick={() => handleDeleteItem(item.productCode)}
+                    onClick={() => handleDeleteItem(item.product.productCode)}
                   >
                     Remove
                   </button>
                 </div>
                 <div className="cart-product-line-price">
-                  {item.productPrice * item.quantity}원
+                  {item.product.productPrice * item.quantity}원
                 </div>
                 <div className="cart-product-checkbox">
                   <input
                     type="checkbox"
-                    checked={selectedProducts.includes(item.productCode)}
-                    onChange={() => handleCheckboxChange(item.productCode)}
+                    checked={selectedProducts.includes(
+                      item.product.productCode,
+                    )}
+                    onChange={() =>
+                      handleCheckboxChange(item.product.productCode)
+                    }
                     style={{ transform: 'scale(1.5)' }}
                   />
                 </div>

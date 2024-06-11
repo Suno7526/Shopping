@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.estate.entity.Cart;
 import com.example.estate.entity.Product;
 import com.example.estate.entity.User;
+import com.example.estate.repository.CartRepository;
 import com.example.estate.service.CartService;
 
 @RestController
@@ -25,6 +27,9 @@ public class CartController {
 
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+    private CartRepository cartRepository;
 
 	@PostMapping("/addToCart")
 	public ResponseEntity<Void> addToCart(@RequestBody Map<String, Object> requestData) {
@@ -74,4 +79,9 @@ public class CartController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@GetMapping("/cart/{userCode}")
+    public List<Cart> getCart(@PathVariable("userCode") Long userCode) {
+        return cartRepository.findByUserUserCode(userCode);
+    }
 }
