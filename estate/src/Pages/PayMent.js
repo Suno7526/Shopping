@@ -3,6 +3,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 
 const Payment = () => {
+  const userCode = sessionStorage.getItem('userCode');
   const location = useLocation();
   const { selectedProducts } = location.state;
 
@@ -15,16 +16,17 @@ const Payment = () => {
           {/* 상품 정보를 출력하는 부분 */}
           <div className="payment-info-container">
             <p className="payment-info-p">주문상품정보</p>
-            {selectedProducts.map((product) => (
-              <div className="payment-info" key={product.product.productCode}>
+            {selectedProducts.map((cart) => (
+              <div className="payment-info" key={cart.product.productCode}>
                 <img
-                  src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
-                  alt={product.product.productName}
+                  src={`http://localhost:8000/getProductImage/${cart.product.productCode}`}
+                  alt={cart.product.productName}
                   className="Payment-Item"
                 />
                 <div className="product-info">
-                  상품 정보: {product.product.productName} / 수량:{' '}
-                  {product.quantity} / 가격: {product.product.productPrice}원
+                  상품 정보: {cart.product.productName}/사이즈 : {cart.cartSize}{' '}
+                  / 색상 : {cart.cartColor}/ 수량:
+                  {cart.quantity} / 가격: {cart.product.productPrice}원
                 </div>
               </div>
             ))}
@@ -34,9 +36,15 @@ const Payment = () => {
             <p className="Orderer-title">주문자정보</p>
             <div className="OrdererAndButton">
               <div className="Orderer-info">
-                <p className="Orderer-Name">홍길동</p>
-                <p className="Orderer-Phone">01012345678</p>
-                <p className="Orderer-Email">user@imweb.me</p>
+                <p className="Orderer-Name">
+                  {sessionStorage.getItem('userName')}
+                </p>
+                <p className="Orderer-Phone">
+                  {sessionStorage.getItem('userPhone')}
+                </p>
+                <p className="Orderer-Email">
+                  {sessionStorage.getItem('userEmail')}
+                </p>
               </div>
               <div className="Orderer-Button">
                 <button className="Orderer-Edit-Btn"> 수정 </button>
@@ -49,7 +57,7 @@ const Payment = () => {
             <div className="DeliveryAndButton">
               <div className="Delivery-info">
                 <p className="Delivery-address">
-                  서울특별시 서대문구 성산로7길 89-8 (연희동) 주식회사 아이웹
+                  {sessionStorage.getItem('userAddress')}
                 </p>
                 <select
                   id="Delivery-ListBox"
