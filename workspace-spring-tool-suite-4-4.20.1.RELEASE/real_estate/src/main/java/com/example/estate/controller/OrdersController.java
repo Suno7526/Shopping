@@ -48,7 +48,6 @@ public class OrdersController {
 	    orders.setOrderStatus("준비중");
 	    orders.setRefundReason("X");
 	    
-	   
 	    if (request != null && request.equals("기타사항")) {
 	        customRequest = (String) requestData.get("customRequest");
 	        orders.setRequest(customRequest);
@@ -61,7 +60,7 @@ public class OrdersController {
 	}
 
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	
 	@GetMapping("/getOrdersProduct/{userCode}")
 	public ResponseEntity<List<Orders>> getOrders(@PathVariable("userCode") Long userCode) {
 	    List<Orders> orders = ordersService.findByUserCode(userCode);

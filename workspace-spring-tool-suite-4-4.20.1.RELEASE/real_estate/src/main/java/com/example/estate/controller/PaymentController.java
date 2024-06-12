@@ -58,7 +58,6 @@ public class PaymentController {
             Product product = productRepository.findByProductCode(productCode);
             if (product != null) {
             	product.setDeliveryStatus("상품 준비중");
-                product.setProductStuck(product.getProductStuck() - 1); // 상품 재고 감소
                 productRepository.save(product);
             }
 

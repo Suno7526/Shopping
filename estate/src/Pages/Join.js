@@ -190,6 +190,7 @@ const Join = () => {
           onChange={handleInputChange}
           className="join-input"
         />
+        <div className="YYYYMMDD-title">생년월일을 기입해주세요!</div>
         <div className="date-label-container">
           <label htmlFor="year" className="join-label">
             년도

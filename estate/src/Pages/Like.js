@@ -106,7 +106,7 @@ const Like = () => {
                         className="Likeadd-to-cart-btn"
                         onClick={() => handleAddToCart(product.product)}
                       >
-                        장바구니에 추가
+                        상품페이지 이동
                       </button>
                       <button
                         className="Likeunlike-item-btn"

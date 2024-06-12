@@ -49,24 +49,9 @@ const Modal = ({ isOpen, onClose, product }) => {
       productCode: product.productCode,
       shippingAddress: sessionStorage.getItem('userAddress'),
       productSize: size,
-      productColor: color, // 색상 추가
+      productColor: color,
       request: requestType === '기타사항' ? customRequest : requestType,
     };
-
-    try {
-      const response = await axios.post(
-        'http://localhost:8000/orders/add',
-        orderData,
-      );
-
-      if (response.status === 200) {
-        alert('주문 되었습니다.');
-        onClose();
-      }
-    } catch (error) {
-      console.error('주문에 실패하였습니다:', error);
-      alert('주문에 실패하였습니다.');
-    }
   };
 
   const openDeliveryAddressWindow = () => {
@@ -75,66 +60,7 @@ const Modal = ({ isOpen, onClose, product }) => {
   };
 
   const handleOrderClick = () => {
-    requestPay();
     onOrder();
-  };
-
-  useEffect(() => {
-    const jquery = document.createElement('script');
-    jquery.src = 'http://code.jquery.com/jquery-1.12.4.min.js';
-    const iamport = document.createElement('script');
-    iamport.src = 'http://cdn.iamport.kr/js/iamport.payment-1.1.7.js';
-    document.head.appendChild(jquery);
-    document.head.appendChild(iamport);
-
-    return () => {
-      document.head.removeChild(jquery);
-      document.head.removeChild(iamport);
-    };
-  }, []);
-
-  const requestPay = () => {
-    const { IMP } = window;
-    IMP.init('imp33740768');
-
-    IMP.request_pay(
-      {
-        pg: 'html5_inicis',
-        pay_method: 'card',
-        merchant_uid: new Date().getTime().toString(), // 주문 번호로 사용
-        name: product.productName,
-        amount: 100,
-        buyer_email: sessionStorage.getItem('userEmail'),
-        buyer_name: sessionStorage.getItem('userName'),
-        buyer_tel: sessionStorage.getItem('userPhone'),
-        buyer_addr: sessionStorage.getItem('userAddress'),
-        buyer_postcode: '123-456',
-      },
-      async (rsp) => {
-        if (rsp.success) {
-          try {
-            const { data } = await axios.post(
-              'http://localhost:8000/verifyIamport/' + rsp.imp_uid,
-              {
-                productCode: product.productCode,
-                userCode: sessionStorage.getItem('userCode'),
-              },
-            );
-            if (rsp.paid_amount === data.response.amount) {
-              alert('결제 성공');
-              await onOrder(); // 결제 성공 시 onOrder 함수 호출
-            } else {
-              alert('결제 실패');
-            }
-          } catch (error) {
-            console.error('Error while verifying payment:', error);
-            alert('결제 실패');
-          }
-        } else {
-          alert('결제 실패');
-        }
-      },
-    );
   };
 
   return (

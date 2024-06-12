@@ -47,6 +47,12 @@
   box-sizing: border-box;
 }
 
+.YYYYMMDD-title {
+  margin-bottom: 5%;
+  margin-top: 5%;
+  color: #000;
+}
+
 /* 생년월일과 전화번호 레이블 컨테이너 스타일 */
 .date-label-container,
 #phone-label-container {
