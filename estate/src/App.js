@@ -30,6 +30,7 @@ import MyInquiry from './Pages/MyInquiry';
 import Search from './Pages/Search';
 import MyQuestion from './Pages/MyQuestion';
 import Payment from './Pages/Payment';
+import PaymentProduct from './Pages/PaymentProduct';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -112,6 +113,7 @@ function App() {
         <Route path="/Search/:query" element={<Search />} />
         <Route path="/MyQuestion/:questionCode" element={<MyQuestion />} />
         <Route path="/Payment" element={<Payment />} />
+        <Route path="/PaymentProduct" element={<PaymentProduct />} />
       </Routes>
     </BrowserRouter>
   );

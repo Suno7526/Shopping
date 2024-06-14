@@ -1,8 +1,8 @@
 import './Product.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import Modal from './Modal.js'; // Modal 컴포넌트 import
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const Product = () => {
   const { productCode } = useParams();
@@ -14,6 +14,7 @@ const Product = () => {
   const [selectedSize, setSelectedSize] = useState(80);
   const [selectedColor, setSelectedColor] = useState('red');
   const [reviews, setReviews] = useState([]);
+  const navigate = useNavigate();
 
   const handleClick = (index, color) => {
     setSelectedOption(index);
@@ -141,7 +142,8 @@ const Product = () => {
   };
 
   const handlePurchaseClick = () => {
-    setIsModalOpen(true);
+    navigate('/paymentproduct', { state: { product } });
+    // setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
