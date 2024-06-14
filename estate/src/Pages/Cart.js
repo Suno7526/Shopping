@@ -19,7 +19,9 @@ const Cart = () => {
         response.data.forEach((item) => {
           const existingProductIndex = uniqueProducts.findIndex(
             (product) =>
-              product.product.productCode === item.product.productCode,
+              product.product.productCode === item.product.productCode &&
+              product.cartColor === item.cartColor &&
+              product.cartSize === item.cartSize,
           );
           if (existingProductIndex !== -1) {
             uniqueProducts[existingProductIndex].quantity += 1;
@@ -52,10 +54,10 @@ const Cart = () => {
     };
   }, [userCode]);
 
-  const handleDeleteItem = async (productCode) => {
+  const handleDeleteItem = async (cartCode) => {
     try {
       await axios.delete(
-        `http://localhost:8000/deleteCartItem/${userCode}/${productCode}`,
+        `http://localhost:8000/deleteCartItem/${userCode}/${cartCode}`,
       );
       const response = await axios.get(
         `http://localhost:8000/cart/${userCode}`,
@@ -80,12 +82,10 @@ const Cart = () => {
     );
   };
 
-  const handleQuantityChange = (productCode, newQuantity) => {
+  const handleQuantityChange = (cartCode, newQuantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.product.productCode === productCode
-          ? { ...item, quantity: newQuantity }
-          : item,
+        item.cartCode === cartCode ? { ...item, quantity: newQuantity } : item,
       ),
     );
   };
@@ -150,7 +150,7 @@ const Cart = () => {
                     min="1"
                     onChange={(e) =>
                       handleQuantityChange(
-                        item.product.productCode,
+                        item.cartCode,
                         parseInt(e.target.value),
                       )
                     }
@@ -159,7 +159,7 @@ const Cart = () => {
                 <div className="cart-product-removal">
                   <button
                     className="cart-remove-product"
-                    onClick={() => handleDeleteItem(item.product.productCode)}
+                    onClick={() => handleDeleteItem(item.cartCode)}
                   >
                     Remove
                   </button>

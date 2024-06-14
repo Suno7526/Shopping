@@ -11,8 +11,8 @@ const Product = () => {
   const [isLiked, setIsLiked] = useState(false);
   const [mainImage, setMainImage] = useState(null); // 추가: 현재 메인 이미지 소스
   const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(80);
-  const [selectedColor, setSelectedColor] = useState('red');
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
   const [reviews, setReviews] = useState([]);
   const navigate = useNavigate();
 
@@ -128,6 +128,16 @@ const Product = () => {
         console.log('로그인이 필요합니다.');
         return;
       }
+      // 색상과 사이즈 유효성 검사 추가
+      if (!selectedColor) {
+        alert('색상을 선택해주세요.');
+        return;
+      }
+
+      if (!selectedSize) {
+        alert('사이즈를 선택해주세요.');
+        return;
+      }
 
       await axios.post('http://localhost:8000/addToCart', {
         userCode: userCode,
@@ -142,8 +152,23 @@ const Product = () => {
   };
 
   const handlePurchaseClick = () => {
-    navigate('/paymentproduct', { state: { product } });
-    // setIsModalOpen(true);
+    if (!selectedColor) {
+      alert('색상을 선택해주세요.');
+      return;
+    }
+
+    if (!selectedSize) {
+      alert('사이즈를 선택해주세요.');
+      return;
+    }
+
+    navigate('/paymentproduct', {
+      state: {
+        product,
+        selectedColor,
+        selectedSize,
+      },
+    });
   };
 
   const handleCloseModal = () => {

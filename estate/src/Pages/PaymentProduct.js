@@ -6,7 +6,7 @@ import axios from 'axios';
 const Payment = () => {
   const userCode = parseInt(sessionStorage.getItem('userCode'), 10);
   const location = useLocation();
-  const { product } = location.state;
+  const { product, selectedColor, selectedSize } = location.state;
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -51,8 +51,8 @@ const Payment = () => {
                   userCode: userCode,
                   productCode: productCode,
                   shippingAddress: sessionStorage.getItem('userAddress'),
-                  productSize: product.productSize,
-                  productColor: product.productColor,
+                  productSize: selectedSize,
+                  productColor: selectedColor,
                   request: '', // 요청사항 필드 추가 가능
                 };
                 await axios.post('http://localhost:8000/orders/add', orderData);
@@ -89,12 +89,10 @@ const Payment = () => {
                 className="Payment-ItemImage"
               />
               <div className="Payment-product-info">
-                <div className="Payment-productName">{product.productName}</div>{' '}
-                <div className="Payment-productSize">
-                  Size : {product.productSize}{' '}
-                </div>
+                <div className="Payment-productName">{product.productName}</div>
+                <div className="Payment-productSize">Size : {selectedSize}</div>
                 <div className="Payment-productColor">
-                  Color : {product.productColor}
+                  Color : {selectedColor}
                 </div>
                 <div className="Payment-productQuantity">수량: 1</div>
                 <div className="Payment-productPrice">
@@ -137,10 +135,12 @@ const Payment = () => {
                   className="Delivery-ListBox-input"
                 >
                   <option value="">배송메모를 선택하세요</option>
-                  <option value="">문 앞</option>
-                  <option value="">직접 받고 부재 시 문 앞</option>
-                  <option value="">경비실</option>
-                  <option value="">택배함</option>
+                  <option value="문 앞">문 앞</option>
+                  <option value="직접 받고 부재 시 문 앞">
+                    직접 받고 부재 시 문 앞
+                  </option>
+                  <option value="경비실">경비실</option>
+                  <option value="택배함">택배함</option>
                 </select>
               </div>
               <div className="Payment-Delivery-Button">
