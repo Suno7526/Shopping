@@ -90,15 +90,11 @@ const Cart = () => {
     );
   };
 
-  const handlePurchase = async () => {
-    try {
-      if (selectedProducts.length > 0) {
-        navigate('/payment', { state: { selectedProducts } });
-      } else {
-        alert('구매할 상품을 선택해주세요.');
-      }
-    } catch (error) {
-      console.error('상품을 결제하는 중 오류 발생:', error);
+  const handlePurchase = () => {
+    if (selectedProducts.length > 0) {
+      navigate('/payment', { state: { selectedProducts } });
+    } else {
+      alert('구매할 상품을 선택해주세요.');
     }
   };
 

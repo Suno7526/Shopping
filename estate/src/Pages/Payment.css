@@ -22,15 +22,11 @@
 .payment-info-container {
   padding: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
   background-color: #fff;
 }
 
-.payment-info {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
+.Payment-payment-info {
+  margin-bottom: 12px;
 }
 
 .payment-info-p {
@@ -52,16 +48,21 @@
   font-weight: bold;
 }
 
-.product-info {
-  font-size: 1.2rem;
-  margin-top: 20px;
+/*Payment 아이템 이미지*/
+.Payment-ItemImage {
+  width: 200px;
+  height: 200px;
+}
+
+.Payment-productName {
+  font-size: 14px;
+  font-weight: 400;
 }
 
 /*주문자정보*/
 .Orderer-section {
   padding: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
   margin-top: 2%;
   background-color: #fff;
 }
@@ -99,7 +100,6 @@
 .Delivery-section {
   padding: 40px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
   margin-top: 2%;
   background-color: #fff;
 }
@@ -111,6 +111,10 @@
   font-size: 20px;
 }
 
+.Payment-Delivery-Button {
+  margin-left: 47%;
+}
+
 .Delivery-Edit-Btn {
   padding: 5px 10px;
   background-color: #fff;
@@ -120,6 +124,10 @@
 
 .DeliveryAndButton {
   display: flex;
+}
+
+.Delivery-ListBox-input {
+  width: 150%;
 }
 
 .Delivery-Phone {
@@ -136,7 +144,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   width: 20%;
   margin-left: 2%;
-  height: 25em;
+  height: 25%;
   background-color: #fff;
 }
 

@@ -18,6 +18,7 @@ import com.example.estate.entity.Orders;
 import com.example.estate.entity.Product;
 import com.example.estate.entity.User;
 import com.example.estate.service.OrdersService;
+import com.example.estate.service.ProductService;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -25,6 +26,9 @@ public class OrdersController {
 
 	@Autowired
 	private OrdersService ordersService;
+
+	@Autowired
+    private ProductService productService;
 
 	@PostMapping("/orders/add")
 	public void ordersProduct(@RequestBody Map<String, Object> requestData) {
@@ -47,6 +51,7 @@ public class OrdersController {
 	    orders.setProduct(product);
 	    orders.setOrderStatus("준비중");
 	    orders.setRefundReason("X");
+	    orders.setShippingAddress(shippingAddress);
 	    
 	    if (request != null && request.equals("기타사항")) {
 	        customRequest = (String) requestData.get("customRequest");
@@ -54,9 +59,13 @@ public class OrdersController {
 	    } else {
 	        orders.setRequest(request);
 	    }
+	    
 
-	    orders.setShippingAddress(shippingAddress);
+	    
 	    ordersService.ordersProduct(orders);
+	    
+	    
+		    
 	}
 
 
