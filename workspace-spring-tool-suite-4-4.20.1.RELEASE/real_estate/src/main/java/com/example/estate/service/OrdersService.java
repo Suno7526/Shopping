@@ -23,4 +23,9 @@ public class OrdersService {
     public List<Orders> findByUserCode(Long userCode) {
         return ordersRepository.findByUserUserCode(userCode);
     }
+	
+	@Transactional(readOnly = true)
+	public Orders getOrderDetails(Long orderCode) {
+        return ordersRepository.findByOrderCode(orderCode);
+    }
 }

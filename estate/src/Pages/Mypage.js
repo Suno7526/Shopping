@@ -102,11 +102,10 @@ const Mypage = () => {
                   <td>{order.orderStatus}</td>
                   <td>{order.shippingAddress}</td>
                   <td>
-                    {reviews[order.product.productCode] &&
-                    reviews[order.product.productCode].length > 0 ? (
+                    {order.reviewCheck ? (
                       <span>이미 작성한 리뷰입니다.</span>
                     ) : (
-                      <Link to={`/Review/${order.product.productCode}`}>
+                      <Link to={`/Review/${order.orderCode}`}>
                         리뷰등록하기
                       </Link>
                     )}

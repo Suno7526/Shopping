@@ -6,9 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.example.estate.entity.Orders;
 import com.example.estate.entity.Product;
 import com.example.estate.entity.Review;
 import com.example.estate.entity.User;
+import com.example.estate.repository.OrdersRepository;
 import com.example.estate.repository.ProductRepository;
 import com.example.estate.repository.ReviewRepository;
 import com.example.estate.repository.UserRepository;
@@ -25,11 +27,19 @@ public class ReviewService {
     @Autowired
     private ProductRepository productRepository;
 
+    @Autowired
+    private OrdersRepository ordersRepository;
+
     @Transactional
     public void saveReview(byte[] productImage, int reviewPoint, String reviewContent, Long userCode, Long productCode) {
         try {
             User user = userRepository.findById(userCode).orElseThrow(() -> new RuntimeException("User not found"));
             Product product = productRepository.findById(productCode).orElseThrow(() -> new RuntimeException("Product not found"));
+            Orders order = ordersRepository.findByUser_UserCodeAndProduct_ProductCode(userCode, productCode);
+
+            if (order == null) {
+                throw new RuntimeException("Order not found");
+            }
 
             Review review = new Review();
             review.setProductImage(productImage);
@@ -39,6 +49,9 @@ public class ReviewService {
             review.setProduct(product);
 
             reviewRepository.save(review);
+
+            order.setReviewCheck(true); // reviewCheck 값을 true로 설정
+            ordersRepository.save(order);
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException("리뷰 저장 실패");

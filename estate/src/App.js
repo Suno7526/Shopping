@@ -107,7 +107,7 @@ function App() {
         <Route path="/QDelivery" element={<QDelivery />} />
         <Route path="/QCancel" element={<QCancel />} />
         <Route path="/QExchange" element={<QExchange />} />
-        <Route path="/Review/:productCode" element={<Review />} />
+        <Route path="/Review/:orderCode" element={<Review />} />
         <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
         <Route path="/MyInquiry" element={<MyInquiry />} />
         <Route path="/Search/:query" element={<Search />} />

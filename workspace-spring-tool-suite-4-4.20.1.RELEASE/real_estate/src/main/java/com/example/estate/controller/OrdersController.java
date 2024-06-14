@@ -28,57 +28,55 @@ public class OrdersController {
 	private OrdersService ordersService;
 
 	@Autowired
-    private ProductService productService;
+	private ProductService productService;
 
 	@PostMapping("/orders/add")
 	public void ordersProduct(@RequestBody Map<String, Object> requestData) {
-	    Long userCode = Long.valueOf((Integer) requestData.get("userCode"));
-	    Long productCode = Long.valueOf((Integer) requestData.get("productCode"));
-	    String shippingAddress = (String) requestData.get("shippingAddress");
-	    String productSize = (String) requestData.get("productSize");
-	    String productColor = (String) requestData.get("productColor");
-	    String request = (String) requestData.get("request");
-	    String customRequest = "";
-	    
-	    Orders orders = new Orders();
-	    User user = new User();
-	    user.setUserCode(userCode);
-	    orders.setUser(user);
-	    Product product = new Product();
-	    product.setProductCode(productCode);
-	    orders.setProductSize(productSize);
-	    orders.setProductColor(productColor);
-	    orders.setProduct(product);
-	    orders.setOrderStatus("준비중");
-	    orders.setRefundReason("X");
-	    orders.setShippingAddress(shippingAddress);
-	    
-	    if (request != null && request.equals("기타사항")) {
-	        customRequest = (String) requestData.get("customRequest");
-	        orders.setRequest(customRequest);
-	    } else {
-	        orders.setRequest(request);
-	    }
-	    
+		Long userCode = Long.valueOf((Integer) requestData.get("userCode"));
+		Long productCode = Long.valueOf((Integer) requestData.get("productCode"));
+		String shippingAddress = (String) requestData.get("shippingAddress");
+		String productSize = (String) requestData.get("productSize");
+		String productColor = (String) requestData.get("productColor");
+		String request = (String) requestData.get("request");
+		String customRequest = "";
 
-	    
-	    ordersService.ordersProduct(orders);
-	    
-	    
-		    
+		Orders orders = new Orders();
+		User user = new User();
+		user.setUserCode(userCode);
+		orders.setUser(user);
+		Product product = new Product();
+		product.setProductCode(productCode);
+		orders.setProductSize(productSize);
+		orders.setProductColor(productColor);
+		orders.setProduct(product);
+		orders.setOrderStatus("준비중");
+		orders.setRefundReason("X");
+		orders.setShippingAddress(shippingAddress);
+
+		if (request != null && request.equals("기타사항")) {
+			customRequest = (String) requestData.get("customRequest");
+			orders.setRequest(customRequest);
+		} else {
+			orders.setRequest(request);
+		}
+
+		ordersService.ordersProduct(orders);
+
 	}
 
-
-	
 	@GetMapping("/getOrdersProduct/{userCode}")
 	public ResponseEntity<List<Orders>> getOrders(@PathVariable("userCode") Long userCode) {
-	    List<Orders> orders = ordersService.findByUserCode(userCode);
-	    if (!orders.isEmpty()) {
-	        return new ResponseEntity<>(orders, HttpStatus.OK);
-	    } else {
-	        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	    }
+		List<Orders> orders = ordersService.findByUserCode(userCode);
+		if (!orders.isEmpty()) {
+			return new ResponseEntity<>(orders, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 	
-	
+	@GetMapping("/getOrder/{orderCode}")
+    public Orders getOrderDetails(@PathVariable("orderCode") Long orderCode) {
+        return ordersService.getOrderDetails(orderCode);
+    }
+
 }

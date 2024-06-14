@@ -4,29 +4,28 @@ import axios from 'axios';
 import './Review.css'; // 외부 스타일 시트 불러오기
 
 const Review = () => {
-  const { productCode } = useParams();
-  const [productName, setProductName] = useState('');
-  const [productImage, setProductImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
-
+  const { orderCode } = useParams(); // useParams에서 orderCode를 받아옵니다.
+  const [orderData, setOrderData] = useState(null);
   const [reviewData, setReviewData] = useState({
     reviewContent: '',
     reviewPoint: 0,
   });
+  const [productImage, setProductImage] = useState(null);
+  const [previewImage, setPreviewImage] = useState(null);
 
   useEffect(() => {
-    const fetchProductName = async () => {
+    const fetchOrderData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getProduct/${productCode}`,
+          `http://localhost:8000/getOrder/${orderCode}`,
         );
-        setProductName(response.data.productName);
+        setOrderData(response.data);
       } catch (error) {
-        console.error('Error fetching product name:', error);
+        console.error('Error fetching order data:', error);
       }
     };
-    fetchProductName();
-  }, [productCode]);
+    fetchOrderData();
+  }, [orderCode]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -46,8 +45,9 @@ const Review = () => {
       }
 
       const formData = new FormData();
-      formData.append('productCode', productCode);
+
       formData.append('userCode', sessionStorage.getItem('userCode'));
+      formData.append('productCode', orderData.product.productCode);
       formData.append('reviewContent', reviewData.reviewContent);
       formData.append('reviewPoint', reviewData.reviewPoint);
       formData.append('productImage', productImage);
@@ -64,11 +64,16 @@ const Review = () => {
       console.error('리뷰 저장 오류:', error);
     }
   };
+
   const handleFileChange = (e) => {
     const imageFile = e.target.files[0];
     setProductImage(imageFile);
     setPreviewImage(URL.createObjectURL(imageFile));
   };
+
+  if (!orderData) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="App">
@@ -79,7 +84,7 @@ const Review = () => {
       <div id="reviewform">
         <form encType="multipart/form-data">
           <label htmlFor="productName" className="review-label">
-            상품명 : {productName}
+            상품명 : {orderData.product.productName}
           </label>
 
           <label htmlFor="reviewContent" className="review-label">
