@@ -1,11 +1,14 @@
 package com.example.estate.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.example.estate.entity.Orders;
 import com.example.estate.entity.Product;
@@ -27,15 +30,24 @@ public class ProductService {
     private ViewedProductRepository viewedProductRepository;
     
     @Transactional
-    public void saveProduct(byte[] productImage, String productName, String information, int productPrice, String companyName, int productStuck, String category) {
+    public void saveProduct(List<MultipartFile> productImages, String productName, String information, int productPrice, String companyName, int productStuck, String category) throws IOException {
         try {
+            List<byte[]> images = productImages.stream()
+                .map(image -> {
+                    try {
+                        return image.getBytes();
+                    } catch (IOException e) {
+                        throw new RuntimeException("이미지 저장 실패");
+                    }
+                }).collect(Collectors.toList());
+
             Product product = new Product();
             product.setProductName(productName);
             product.setInformation(information);
             product.setProductPrice(productPrice);
             product.setCompanyName(companyName);
             product.setProductStuck(productStuck);
-            product.setProductImage(productImage);
+            product.setProductImages(images); // 이 부분을 배열로 설정
             product.setCategory(category);
             productRepository.save(product);
         } catch (Exception e) {
@@ -45,17 +57,16 @@ public class ProductService {
     }
 
     @Transactional(readOnly = true)
-    public byte[] getProductImage(Long productCode) {
-        try {
-            Product product = findByProductCode(productCode);
-            if (product != null) {
-                return product.getProductImage();
-            }
-            return null;
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("이미지 가져오기 실패");
-        }
+    public List<byte[]> getProductImages(Long productCode) {
+        Product product = productRepository.findByProductCode(productCode);
+        Hibernate.initialize(product.getProductImages()); // Lazy 로딩된 컬렉션 초기화
+
+        // 이미지 바이트 배열 추출
+        List<byte[]> imageBytes = product.getProductImages().stream()
+                .map(imageData -> imageData) // 이미지 엔티티에서 바이트 배열 데이터 추출
+                .collect(Collectors.toList());
+
+        return imageBytes;
     }
 
     @Transactional(readOnly = true)
@@ -68,7 +79,7 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public void incrementViewCount(Long productCode) {
         Product product = productRepository.findByProductCode(productCode);
         if (product != null) {
@@ -77,17 +88,18 @@ public class ProductService {
         }
     }
     
+    @Transactional(readOnly = true)
     public List<Product> getProductsByCategory(String category) {
         return productRepository.findByCategory(category);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public void deleteProduct(Long productCode) {
     	productRepository.deleteById(productCode);
     	viewedProductRepository.deleteById(productCode);
     }
     
-    @Transactional
+    @Transactional(readOnly = true)
     public boolean updateProduct(Long productCode, Product updatedProduct) {
         Product existingProduct = productRepository.findByProductCode(productCode);
         if (existingProduct != null) {
@@ -107,6 +119,7 @@ public class ProductService {
         return productRepository.findByCategoryContainingIgnoreCaseOrProductNameContainingIgnoreCase(query, query);
     }
     
+    @Transactional(readOnly = true)
     public List<Product> recommendProducts(Long userCode) {
         // 최근 본 상품 가져오기
         List<ViewedProduct> viewedProducts = viewedProductRepository.findByUserUserCode(userCode);

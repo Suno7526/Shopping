@@ -7,7 +7,6 @@ const Payment = () => {
   const userCode = parseInt(sessionStorage.getItem('userCode'), 10);
   const location = useLocation();
   const { selectedProducts } = location.state;
-  const { Product } = location.state;
 
   useEffect(() => {
     const jquery = document.createElement('script');
