@@ -73,17 +73,20 @@ const ProductJoin = () => {
   };
 
   return (
-    <div className="product-join-container">
-      <div className="product-join-form">
+    <div className="App">
+      <div id="propertyform">
         <h2>상품 등록</h2>
         <form onSubmit={handleSubmit}>
-          <label htmlFor="productName">상품명:</label>
+          <label htmlFor="productName" className="productJoin-label">
+            상품명:
+          </label>
           <input
             type="text"
             id="productName"
             name="productName"
             value={productData.productName}
             onChange={handleInputChange}
+            className="productJoin-input"
             required
           />
           <br />
@@ -94,6 +97,7 @@ const ProductJoin = () => {
             name="information"
             value={productData.information}
             onChange={handleInputChange}
+            className="productJoin-input"
             required
           />
           <br />
@@ -105,6 +109,7 @@ const ProductJoin = () => {
             name="productPrice"
             value={productData.productPrice}
             onChange={handleInputChange}
+            className="productJoin-input"
             required
           />
           <br />
@@ -116,6 +121,7 @@ const ProductJoin = () => {
             name="companyName"
             value={productData.companyName}
             onChange={handleInputChange}
+            className="productJoin-input"
             required
           />
           <br />
@@ -127,6 +133,7 @@ const ProductJoin = () => {
             name="productStuck"
             value={productData.productStuck}
             onChange={handleInputChange}
+            className="productJoin-input"
             required
           />
           <br />
@@ -137,13 +144,41 @@ const ProductJoin = () => {
             name="category"
             value={productData.category}
             onChange={handleInputChange}
+            className="productJoin-input"
             required
           >
             <option value="">카테고리 선택</option>
-            <option value="상의">상의</option>
-            <option value="하의">하의</option>
-            <option value="모자">모자</option>
-            <option value="기타">기타</option>
+            <optgroup label="아우터">
+              <option value="재킷">재킷</option>
+              <option value="집업">집업</option>
+              <option value="점퍼">점퍼</option>
+              <option value="코트">코트</option>
+              <option value="패딩/파카">패딩/파카</option>
+              <option value="모피/머스탱">모피/머스탱</option>
+            </optgroup>
+            <optgroup label="상의">
+              <option value="민소매">민소매</option>
+              <option value="조끼">조끼</option>
+              <option value="반팔티">반팔티</option>
+              <option value="긴팔티">긴팔티</option>
+              <option value="셔츠">셔츠</option>
+              <option value="크루넥">크루 넥</option>
+              <option value="니트">니트</option>
+              <option value="후드">후드</option>
+            </optgroup>
+            <optgroup label="하의">
+              <option value="반바지">반바지</option>
+              <option value="츄리닝">츄리닝</option>
+              <option value="긴바지">긴바지</option>
+              <option value="치마">치마</option>
+            </optgroup>
+            <optgroup label="모자">
+              <option value="캡">캡</option>
+              <option value="버킷햇">버킷햇</option>
+              <option value="스냅백">스냅백</option>
+              <option value="비니">비니</option>
+              <option value="기타">기타</option>
+            </optgroup>
           </select>
           <br />
 
@@ -161,7 +196,12 @@ const ProductJoin = () => {
           {previewImages.length > 0 && (
             <div className="image-preview">
               {previewImages.map((src, index) => (
-                <img key={index} src={src} alt={`preview ${index}`} />
+                <img
+                  key={index}
+                  src={src}
+                  alt={`preview ${index}`}
+                  style={{ width: '200px', height: '200px', marginTop: '10px' }}
+                />
               ))}
             </div>
           )}
