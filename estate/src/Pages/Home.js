@@ -114,7 +114,7 @@ function Home() {
             <div key={product.productCode} className="Home-property-wrapper">
               <Link to={`/product/${product.productCode}`}>
                 <img
-                  src={`http://localhost:8000//getProductImages/${product.productCode}`}
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
                   alt={`Product ${index}`}
                   className="property-image"
                   onClick={() => handleClickProduct(product.productCode)}

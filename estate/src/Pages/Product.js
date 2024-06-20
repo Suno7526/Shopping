@@ -14,6 +14,7 @@ const Product = () => {
   const [selectedSize, setSelectedSize] = useState(null);
   const [selectedColor, setSelectedColor] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [averageReviewPoint, setAverageReviewPoint] = useState(0);
   const navigate = useNavigate();
 
   const [imageUrls, setImageUrls] = useState([]);
@@ -96,6 +97,7 @@ const Product = () => {
           `http://localhost:8000/getReviews/${productCode}`,
         );
         setReviews(response.data);
+        calculateAverageReviewPoint(response.data);
       } catch (error) {
         console.error('리뷰를 불러오는 중 오류 발생:', error);
       }
@@ -205,6 +207,20 @@ const Product = () => {
     return `${year}-${month}-${day}`;
   };
 
+  const calculateAverageReviewPoint = (reviews) => {
+    if (reviews.length === 0) {
+      setAverageReviewPoint(0);
+      return;
+    }
+
+    const totalPoints = reviews.reduce(
+      (acc, review) => acc + review.reviewPoint,
+      0,
+    );
+    const average = totalPoints / reviews.length;
+    setAverageReviewPoint(average.toFixed(2)); // 소수점 둘째 자리까지 표시
+  };
+
   if (!product) {
     return <div>Loading...</div>;
   }
@@ -237,7 +253,9 @@ const Product = () => {
         <section id="description-card-section">
           <div className="description-card">
             <div className="grid-item-productName">
-              [제조사] 상품 명 : {product.productName}
+              {product.companyName}
+              <br></br>
+              상품 명 : {product.productName}
             </div>
             <div className="grid-item-productPrice">
               💲 판매가 : {product.productPrice}
@@ -286,7 +304,7 @@ const Product = () => {
             </div>
 
             <div className="grid-item-userPoint">
-              별점 : {product.userPoint}
+              별점 : {averageReviewPoint}
             </div>
 
             {/* 버튼 추가 */}

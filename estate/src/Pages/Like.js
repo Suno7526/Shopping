@@ -58,11 +58,6 @@ const Like = () => {
     }
   };
 
-  const formatRegisterDate = (date) => {
-    const options = { year: 'numeric', month: 'long', day: 'numeric' };
-    return new Date(date).toLocaleDateString(undefined, options);
-  };
-
   return (
     <div className="Like-page">
       <Aside />
@@ -95,11 +90,11 @@ const Like = () => {
                     <div className="LikeproductInfo">
                       <div>
                         <strong>
-                          [제조사] 상품 명 : {product.product.productName}
+                          {product.product.companyName} <br></br>상품 명 :{' '}
+                          {product.product.productName}
                         </strong>
                       </div>
                       <div>판매가 : {product.product.productPrice}</div>
-                      <div>별점 : {product.product.userPoint}</div>
                     </div>
                     <div className="Likebutton-container">
                       <button
