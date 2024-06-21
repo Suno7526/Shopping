@@ -76,7 +76,7 @@ const Mypage = () => {
                 <th className="ProductName">상품정보</th>
                 <th className="ProductDate">주문일자</th>
                 <th className="ProductNum">주문번호</th>
-                <th className="ProductMoney">주문금액</th>
+                <th className="ProductMoney">배송현황</th>
                 <th className="ProductAD">배송주소</th>
                 <th className="ReviewAction">리뷰등록</th>
               </tr>
@@ -85,11 +85,13 @@ const Mypage = () => {
               {ordersItems.map((order) => (
                 <tr key={order.orderCode}>
                   <td className="PProductInfo">
-                    <img
-                      src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
-                      alt={order.product.productName}
-                      style={{ width: '100px', height: '100px' }}
-                    />
+                    <Link to={`/product/${order.product.productCode}`}>
+                      <img
+                        src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
+                        alt={order.product.productName}
+                        style={{ width: '100px', height: '100px' }}
+                      />
+                    </Link>
                     <strong>{order.product.productName}</strong> / SIZE :
                     {order.productSize} / Color : {order.productColor}
                     {order.product.productOption}
@@ -97,7 +99,7 @@ const Mypage = () => {
                   </td>
                   <td>{formatRegisterDate(order.orderDate)}</td>
                   <td>{order.orderCode}</td>
-                  <td>{order.product.productPrice}원</td>
+                  <td>{order.orderStatus}</td>
                   <td>{order.shippingAddress}</td>
                   <td>
                     {reviews[order.product.productCode] &&
@@ -132,8 +134,10 @@ const Mypage = () => {
                 src={`http://localhost:8000/getProductImage/${product.productCode}`}
                 alt={product.productName}
               />
-              <strong>{product.productName}</strong>
-              <p>{product.productPrice}원</p>
+              <div className="MypageRecommended-productname">
+                {product.productName}
+              </div>
+              <p className="MypageRecommended-P">{product.productPrice}원</p>
             </div>
           ))}
         </div>

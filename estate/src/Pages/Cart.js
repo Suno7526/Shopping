@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './Cart.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [selectedProducts, setSelectedProducts] = useState([]);
+  const navigate = useNavigate();
   const userCode = sessionStorage.getItem('userCode');
 
   useEffect(() => {
@@ -17,13 +18,14 @@ const Cart = () => {
         const uniqueProducts = [];
         response.data.forEach((item) => {
           const existingProductIndex = uniqueProducts.findIndex(
-            (product) => product.productCode === item.product.productCode,
+            (product) =>
+              product.product.productCode === item.product.productCode &&
+              product.cartColor === item.cartColor &&
+              product.cartSize === item.cartSize,
           );
           if (existingProductIndex !== -1) {
-            // 이미 있는 상품일 경우 수량만 증가시킴
             uniqueProducts[existingProductIndex].quantity += 1;
           } else {
-            // 새로운 상품일 경우 수량을 포함하여 배열에 추가
             uniqueProducts.push({ ...item, quantity: 1 });
           }
         });
@@ -52,10 +54,10 @@ const Cart = () => {
     };
   }, [userCode]);
 
-  const handleDeleteItem = async (productCode) => {
+  const handleDeleteItem = async (cartCode) => {
     try {
       await axios.delete(
-        `http://localhost:8000/deleteCartItem/${userCode}/${productCode}`,
+        `http://localhost:8000/deleteCartItem/${userCode}/${cartCode}`,
       );
       const response = await axios.get(
         `http://localhost:8000/cart/${userCode}`,
@@ -72,88 +74,32 @@ const Cart = () => {
     }
   };
 
-  const handleCheckboxChange = (productCode) => {
-    const selectedIndex = selectedProducts.indexOf(productCode);
-    if (selectedIndex === -1) {
-      setSelectedProducts([...selectedProducts, productCode]);
-    } else {
-      const updatedSelectedProducts = [...selectedProducts];
-      updatedSelectedProducts.splice(selectedIndex, 1);
-      setSelectedProducts(updatedSelectedProducts);
-    }
+  const handleCheckboxChange = (product) => {
+    setSelectedProducts((prevSelected) =>
+      prevSelected.includes(product)
+        ? prevSelected.filter((item) => item !== product)
+        : [...prevSelected, product],
+    );
   };
 
-  const handleQuantityChange = (productCode, newQuantity) => {
+  const handleQuantityChange = (cartCode, newQuantity) => {
     setCartItems((prevItems) =>
       prevItems.map((item) =>
-        item.product.productCode === productCode
-          ? { ...item, quantity: newQuantity }
-          : item,
+        item.cartCode === cartCode ? { ...item, quantity: newQuantity } : item,
       ),
     );
   };
 
-  const handlePurchase = async () => {
-    try {
-      const orderName = 'Selected Products Purchase';
-      let totalPrice = 0;
-      selectedProducts.forEach((productCode) => {
-        const selectedProduct = cartItems.find(
-          (item) => item.product.productCode === productCode,
-        );
-        totalPrice +=
-          selectedProduct.product.productPrice * selectedProduct.quantity;
-      });
-
-      const { IMP } = window;
-      IMP.init('imp33740768');
-
-      IMP.request_pay(
-        {
-          pg: 'html5_inicis',
-          pay_method: 'card',
-          merchant_uid: new Date().getTime().toString(),
-          name: orderName,
-          amount: totalPrice,
-          buyer_email: sessionStorage.getItem('userEmail'),
-          buyer_name: sessionStorage.getItem('userName'),
-          buyer_tel: sessionStorage.getItem('userPhone'),
-          buyer_addr: sessionStorage.getItem('userAddress'),
-          buyer_postcode: '123-456',
-        },
-        async (rsp) => {
-          if (rsp.success) {
-            try {
-              for (const productCode of selectedProducts) {
-                const { data } = await axios.post(
-                  'http://localhost:8000/verifyIamport/' + rsp.imp_uid,
-                  {
-                    productCode: productCode,
-                    userCode: sessionStorage.getItem('userCode'),
-                  },
-                );
-                if (rsp.paid_amount === data.response.amount) {
-                  alert('결제 성공');
-                } else {
-                  alert('결제 실패');
-                }
-              }
-            } catch (error) {
-              console.error('Error while verifying payment:', error);
-              alert('결제 실패');
-            }
-          } else {
-            alert('결제 실패');
-          }
-        },
-      );
-    } catch (error) {
-      console.error('상품을 결제하는 중 오류 발생:', error);
+  const handlePurchase = () => {
+    if (selectedProducts.length > 0) {
+      navigate('/payment', { state: { selectedProducts } });
+    } else {
+      alert('구매할 상품을 선택해주세요.');
     }
   };
 
   const totalProductsPrice = cartItems
-    .filter((item) => selectedProducts.includes(item.product.productCode))
+    .filter((item) => selectedProducts.includes(item))
     .reduce((acc, item) => acc + item.product.productPrice * item.quantity, 0);
 
   const discountAmount = 5000;
@@ -204,7 +150,7 @@ const Cart = () => {
                     min="1"
                     onChange={(e) =>
                       handleQuantityChange(
-                        item.product.productCode,
+                        item.cartCode,
                         parseInt(e.target.value),
                       )
                     }
@@ -213,7 +159,7 @@ const Cart = () => {
                 <div className="cart-product-removal">
                   <button
                     className="cart-remove-product"
-                    onClick={() => handleDeleteItem(item.product.productCode)}
+                    onClick={() => handleDeleteItem(item.cartCode)}
                   >
                     Remove
                   </button>
@@ -224,12 +170,8 @@ const Cart = () => {
                 <div className="cart-product-checkbox">
                   <input
                     type="checkbox"
-                    checked={selectedProducts.includes(
-                      item.product.productCode,
-                    )}
-                    onChange={() =>
-                      handleCheckboxChange(item.product.productCode)
-                    }
+                    checked={selectedProducts.includes(item)}
+                    onChange={() => handleCheckboxChange(item)}
                     style={{ transform: 'scale(1.5)' }}
                   />
                 </div>

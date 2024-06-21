@@ -1,12 +1,12 @@
 import './Payment.css';
-import React, { useMemo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
 const Payment = () => {
   const userCode = parseInt(sessionStorage.getItem('userCode'), 10);
   const location = useLocation();
-  const { selectedProducts } = location.state;
+  const { product, selectedColor, selectedSize } = location.state;
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -16,24 +16,6 @@ const Payment = () => {
     document.head.appendChild(jquery);
     document.head.appendChild(iamport);
   }, []);
-
-  const { totalPrice, orderName } = useMemo(() => {
-    let total = 0;
-    let name = '';
-
-    selectedProducts.forEach((cart, index) => {
-      total += cart.product.productPrice * cart.quantity;
-      name += cart.product.productName;
-      if (index !== selectedProducts.length - 1) {
-        name += ', ';
-      }
-    });
-
-    return {
-      totalPrice: total + 2500, // add shipping fee
-      orderName: name,
-    };
-  }, [selectedProducts]);
 
   const handlePurchase = async () => {
     try {
@@ -45,8 +27,8 @@ const Payment = () => {
           pg: 'html5_inicis',
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
-          name: orderName,
-          amount: 100, //totalPrice,
+          name: product.productName,
+          amount: product.productPrice + 2500, // 상품 가격에 배송비 추가
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
@@ -56,38 +38,30 @@ const Payment = () => {
         async (rsp) => {
           if (rsp.success) {
             try {
-              for (const cart of selectedProducts) {
-                const productCode = parseInt(cart.product.productCode, 10);
-                const { data } = await axios.post(
-                  'http://localhost:8000/verifyIamport/' + rsp.imp_uid,
-                  {
-                    productCode: productCode,
-                    userCode: userCode,
-                  },
-                );
-                if (rsp.paid_amount === data.response.amount) {
-                  const orderData = {
-                    userCode: userCode,
-                    productCode: productCode,
-                    shippingAddress: sessionStorage.getItem('userAddress'),
-                    productSize: cart.cartSize,
-                    productColor: cart.cartColor,
-                    request: '', // Add request if you have a field for it
-                  };
-                  await axios.post(
-                    'http://localhost:8000/orders/add',
-                    orderData,
-                  );
-                } else {
-                  alert('결제 실패');
-                }
-              }
-              alert('결제 성공');
-            } catch (error) {
-              console.error(
-                'Error while verifying payment or creating order:',
-                error,
+              const productCode = parseInt(product.productCode, 10);
+              const { data } = await axios.post(
+                `http://localhost:8000/verifyIamport/${rsp.imp_uid}`,
+                {
+                  productCode: productCode,
+                  userCode: userCode,
+                },
               );
+              if (rsp.paid_amount === data.response.amount) {
+                const orderData = {
+                  userCode: userCode,
+                  productCode: productCode,
+                  shippingAddress: sessionStorage.getItem('userAddress'),
+                  productSize: selectedSize,
+                  productColor: selectedColor,
+                  request: '', // 요청사항 필드 추가 가능
+                };
+                await axios.post('http://localhost:8000/orders/add', orderData);
+                alert('결제 성공');
+              } else {
+                alert('결제 실패');
+              }
+            } catch (error) {
+              console.error('결제 검증 또는 주문 생성 중 오류:', error);
               alert('결제 실패');
             }
           } else {
@@ -108,35 +82,24 @@ const Payment = () => {
           {/* 상품 정보를 출력하는 부분 */}
           <div className="payment-info-container">
             <p className="payment-info-p">주문상품정보</p>
-            {selectedProducts.map((cart) => (
-              <div
-                className="Payment-payment-info"
-                key={cart.product.productCode}
-              >
-                <img
-                  src={`http://localhost:8000/getProductImage/${cart.product.productCode}`}
-                  alt={cart.product.productName}
-                  className="Payment-ItemImage"
-                />
-                <div className="Payment-product-info">
-                  <div className="Payment-productName">
-                    {cart.product.productName}
-                  </div>{' '}
-                  <div className="Payment-productSize">
-                    Size : {cart.cartSize}{' '}
-                  </div>
-                  <div className="Payment-productColor">
-                    Color : {cart.cartColor}
-                  </div>
-                  <div className="Payment-productQuantity">
-                    수량:{cart.quantity}
-                  </div>
-                  <div className="Payment-productPrice">
-                    가격: {cart.product.productPrice}원
-                  </div>
+            <div className="Payment-payment-info" key={product.productCode}>
+              <img
+                src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                alt={product.productName}
+                className="Payment-ItemImage"
+              />
+              <div className="Payment-product-info">
+                <div className="Payment-productName">{product.productName}</div>
+                <div className="Payment-productSize">Size : {selectedSize}</div>
+                <div className="Payment-productColor">
+                  Color : {selectedColor}
+                </div>
+                <div className="Payment-productQuantity">수량: 1</div>
+                <div className="Payment-productPrice">
+                  가격: {product.productPrice}원
                 </div>
               </div>
-            ))}
+            </div>
           </div>
 
           <div className="Orderer-section">
@@ -172,10 +135,12 @@ const Payment = () => {
                   className="Delivery-ListBox-input"
                 >
                   <option value="">배송메모를 선택하세요</option>
-                  <option value="">문 앞</option>
-                  <option value="">직접 받고 부재 시 문 앞</option>
-                  <option value="">경비실</option>
-                  <option value="">택배함</option>
+                  <option value="문 앞">문 앞</option>
+                  <option value="직접 받고 부재 시 문 앞">
+                    직접 받고 부재 시 문 앞
+                  </option>
+                  <option value="경비실">경비실</option>
+                  <option value="택배함">택배함</option>
                 </select>
               </div>
               <div className="Payment-Delivery-Button">
@@ -190,15 +155,16 @@ const Payment = () => {
           <div className="Final-paymentamountAndButton">
             <div className="Final-paymentamount-info">
               <div className="Final-paymentamount-price">
-                상품가격 {totalPrice - 2500}원
+                상품가격 {product.productPrice}원
               </div>
               <div className="Final-paymentamount-delivery-fee">
                 배송비 = 2500원
               </div>
               <div className="Final-payment-total-div">
                 <p className="Final-paymentamount-total">총 결제금액 </p>
-                <p className="Final-paymentmount-total-won">{totalPrice}원</p>
-                <p className=""></p>
+                <p className="Final-paymentmount-total-won">
+                  {product.productPrice + 2500}원
+                </p>
               </div>
               <button className="cart-checkout" onClick={handlePurchase}>
                 결제

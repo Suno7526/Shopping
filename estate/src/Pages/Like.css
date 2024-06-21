@@ -38,7 +38,7 @@
 
 .likeItemCard:hover {
   border-color: #888; /* 호버 시 테두리 색 변경 */
-  transform: scale(1.05); /* 호버 시 크기 조정 */
+  transform: scale(1.006); /* 호버 시 크기 조정 */
 }
 
 .LikeproductImage {
@@ -89,17 +89,6 @@
   color: #fff; /* 호버 시 흰색 글자색 */
 }
 
-/* 장바구니 아이콘 스타일 */
-.Likeadd-to-cart-btn::before {
-  content: '\1F6D2'; /* 장바구니 아이콘 */
-  margin-right: 5px; /* 장바구니 아이콘과 버튼 텍스트 사이 간격 설정 */
-  position: absolute; /* 아이콘 위치 설정 */
-  left: 0; /* 왼쪽 여백 설정 */
-  top: 50%; /* 상단 여백 설정 */
-  transform: translateY(-50%); /* 수직 가운데 정렬 */
-  transition: left 0.3s; /* 위치 변경 시 부드러운 전환 효과 */
-}
-
-.Likeadd-to-cart-btn:hover::before {
-  left: -22px; /* 호버 시 왼쪽으로 이동 */
+.LikeproductInfo {
+  flex-grow: 1; /* LikeproductInfo가 남은 공간을 차지하도록 합니다. */
 }

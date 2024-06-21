@@ -13,6 +13,7 @@ const Product = () => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [selectedSize, setSelectedSize] = useState(80);
   const [selectedColor, setSelectedColor] = useState('red');
+  const [reviews, setReviews] = useState([]);
 
   const handleClick = (index, color) => {
     setSelectedOption(index);
@@ -61,7 +62,19 @@ const Product = () => {
       }
     };
 
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getReviews/${productCode}`,
+        );
+        setReviews(response.data);
+      } catch (error) {
+        console.error('리뷰를 불러오는 중 오류 발생:', error);
+      }
+    };
+
     fetchProduct();
+    fetchReviews();
   }, [productCode]);
 
   const checkLiked = async (product) => {
@@ -78,11 +91,6 @@ const Product = () => {
     } catch (error) {
       console.error('찜한 상품을 확인하는 중 오류 발생:', error);
     }
-  };
-
-  // 서브 이미지 클릭 처리 함수
-  const handleSubImageClick = (subImageUrl) => {
-    setMainImage(subImageUrl); // 클릭된 서브 이미지를 메인 이미지로 설정
   };
 
   const handleLikeClick = async () => {
@@ -106,6 +114,11 @@ const Product = () => {
     } catch (error) {
       console.error('상품을 찜하는 중 오류 발생:', error);
     }
+  };
+
+  // 서브 이미지 클릭 처리 함수
+  const handleSubImageClick = (subImageUrl) => {
+    setMainImage(subImageUrl); // 클릭된 서브 이미지를 메인 이미지로 설정
   };
 
   const handleAddToCartClick = async () => {
@@ -495,98 +508,51 @@ const Product = () => {
         product={product}
       />
 
-      {/* 별점 레이팅 */}
       <ul className="contentNav">
         <li className="active">
           <p>구매 후기</p>
         </li>
       </ul>
-      <div className="reviews-section">
-        <div className="Userreviews">
-          <div className="user-info">
-            <img
-              src="https://i.postimg.cc/59mNLwVZ/download.png"
-              alt="User"
-              className="user-image"
-            />
-            <div className="reviews-user-name">John Doe</div>
-          </div>
-        </div>
-        <div className="starAndComment">
-          <div className="reviews-comment">
-            <div className="comment-header">
-              <div className="feedback">
-                <p className="product-star-rating">상품 별점</p>
-                <div className="emoji-wrapper">
-                  {rating === 1 && <div className="emoji">😠</div>}
-                  {rating === 2 && <div className="emoji">🙁</div>}
-                  {rating === 3 && <div className="emoji">😀</div>}
-                  {rating === 4 && <div className="emoji">😍</div>}
-                  {rating === 5 && <div className="emoji">😎</div>}
+
+      <ul>
+        {reviews.map((review) => (
+          <li key={review.reviewCode}>
+            <div className="reviews-section">
+              <div className="Userreviews">
+                <div className="user-info">
+                  <img
+                    src="https://i.postimg.cc/59mNLwVZ/download.png"
+                    alt="User"
+                    className="user-image"
+                  />
+                  <div className="reviews-user-name">{review.user.name}</div>
                 </div>
-                <div className="rating">
-                  <input
-                    type="radio"
-                    name="rating"
-                    id="rating-5"
-                    checked={rating === 5}
-                    onChange={() => handleRatingChange(5)}
-                  />
-                  <label htmlFor="rating-5"></label>
-                  <input
-                    type="radio"
-                    name="rating"
-                    id="rating-4"
-                    checked={rating === 4}
-                    onChange={() => handleRatingChange(4)}
-                  />
-                  <label htmlFor="rating-4"></label>
-                  <input
-                    type="radio"
-                    name="rating"
-                    id="rating-3"
-                    checked={rating === 3}
-                    onChange={() => handleRatingChange(3)}
-                  />
-                  <label htmlFor="rating-3"></label>
-                  <input
-                    type="radio"
-                    name="rating"
-                    id="rating-2"
-                    checked={rating === 2}
-                    onChange={() => handleRatingChange(2)}
-                  />
-                  <label htmlFor="rating-2"></label>
-                  <input
-                    type="radio"
-                    name="rating"
-                    id="rating-1"
-                    checked={rating === 1}
-                    onChange={() => handleRatingChange(1)}
-                  />
-                  <label htmlFor="rating-1"></label>
+              </div>
+              <div className="starAndComment">
+                <div className="reviews-comment">
+                  <div className="comment-header"></div>
+                  <div className="comment-user">
+                    <img
+                      src={`http://localhost:8000/getProductImage/${review.product.productCode}`}
+                      alt="Product"
+                      className="user-property-image"
+                    />
+                    <div className="comment-product">
+                      상품 정보: {review.product.productName}
+                    </div>
+                  </div>
+                  <textarea
+                    className="comment-textarea"
+                    value={review.reviewContent}
+                    onChange={handleCommentChange}
+                    placeholder="..."
+                  ></textarea>
                 </div>
               </div>
             </div>
-            <div className="comment-user">
-              <img
-                src={mainImage}
-                alt="Product"
-                className="user-property-image"
-              />
-              <div className="comment-product">
-                상품 정보: {product.productName}
-              </div>
-            </div>
-            <textarea
-              className="comment-textarea"
-              value={comment}
-              onChange={handleCommentChange}
-              placeholder="..."
-            ></textarea>
-          </div>
-        </div>
-      </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

@@ -83,15 +83,17 @@ const Category = () => {
 
   return (
     <div>
-      <div id="recommended-properties">
+      <div id="Category-recommended-properties">
         <div className="JacketImage"></div>
-        <div className="Category-item">{category}🔍</div>
+        <div className="Category-item">{category}</div>
+        <div className="Secend-Category-item"> Item</div>
+        <div className="Category-item-line"></div>
 
-        <div id="guides-properties">
-          <div className="guides-section">
+        <div id="Category-guides-properties">
+          <div className="Category-guides-section">
             {products.map((product, index) => (
               <div
-                className="guides-card"
+                className="Category-guides-card"
                 data-rank={index + 1}
                 key={product.productCode}
               >
@@ -101,26 +103,29 @@ const Category = () => {
                     alt={`코디 ${product.productCode}`}
                     className="property-image"
                     style={{
-                      width: '12em',
-                      height: '12em',
+                      width: '15em',
+                      height: '20em',
                     }}
                     onClick={() => handleClickProduct(product.productCode)}
                   />
                 </Link>
 
-                <div className="product-info">
-                  <p>
-                    <strong>회사명:</strong> {product.companyName}
-                  </p>
-                  <p>
-                    <strong>상품명:</strong> {product.productName}
-                  </p>
-                  <p>
-                    <strong>가격</strong> {product.productPrice}₩
-                  </p>
-                  <p>
-                    <strong>조회수:</strong> {product.viewCount}
-                  </p>
+                <div className="Category-product-info">
+                  <div className="Category-productPrice">
+                    {product.productPrice}원
+                  </div>
+                  <div className="Category-productName">
+                    {product.productName}
+                  </div>
+
+                  <div className="Category-viewCount">
+                    <img
+                      src="https://i.postimg.cc/XNRxQKLY/download.png"
+                      className="views-icon"
+                      alt="조회수"
+                    />
+                    {product.viewCount}
+                  </div>
                 </div>
               </div>
             ))}

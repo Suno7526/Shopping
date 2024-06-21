@@ -138,7 +138,7 @@ function Home() {
               <div className="HomeGriditem" key={product.productCode}>
                 <a
                   href={`/product/${product.productCode}`}
-                  className="product"
+                  className="HomeGrud-product"
                   onClick={() => handleClickProduct(product.productCode)}
                 >
                   <div className="image-container">

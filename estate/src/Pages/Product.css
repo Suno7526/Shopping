@@ -417,7 +417,7 @@ select {
   justify-content: center;
   align-items: flex-start; /* 유저 리뷰를 상단에 맞춤 */
   margin-left: 10em;
-  height: 70vh;
+  height: 55vh;
 }
 
 .star-container {
