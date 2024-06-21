@@ -6,8 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.example.estate.entity.Cart;
-import com.example.estate.entity.Likes;
 import com.example.estate.entity.Orders;
 import com.example.estate.repository.OrdersRepository;
 
@@ -24,5 +22,10 @@ public class OrdersService {
 	@Transactional(readOnly = true)
     public List<Orders> findByUserCode(Long userCode) {
         return ordersRepository.findByUserUserCode(userCode);
+    }
+	
+	@Transactional(readOnly = true)
+	public Orders getOrderDetails(Long orderCode) {
+        return ordersRepository.findByOrderCode(orderCode);
     }
 }

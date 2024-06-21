@@ -28,7 +28,7 @@ const Payment = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: product.productName,
-          amount: product.productPrice + 2500, // 상품 가격에 배송비 추가
+          amount: product.productPrice + 100, // 상품 가격에 배송비 추가
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
@@ -141,6 +141,7 @@ const Payment = () => {
                   </option>
                   <option value="경비실">경비실</option>
                   <option value="택배함">택배함</option>
+                  <option value="기타사항">기타사항</option>
                 </select>
               </div>
               <div className="Payment-Delivery-Button">
@@ -163,7 +164,7 @@ const Payment = () => {
               <div className="Final-payment-total-div">
                 <p className="Final-paymentamount-total">총 결제금액 </p>
                 <p className="Final-paymentmount-total-won">
-                  {product.productPrice + 2500}원
+                  {product.productPrice + 100}원
                 </p>
               </div>
               <button className="cart-checkout" onClick={handlePurchase}>

@@ -1,45 +1,79 @@
 import './Product.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import Modal from './Modal.js'; // Modal 컴포넌트 import
+import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const Product = () => {
   const { productCode } = useParams();
   const [product, setProduct] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
-  const [mainImage, setMainImage] = useState(null); // 추가: 현재 메인 이미지 소스
+  const [mainImage, setMainImage] = useState(null); // 현재 메인 이미지 소스
   const [selectedOption, setSelectedOption] = useState(null);
-  const [selectedSize, setSelectedSize] = useState(80);
-  const [selectedColor, setSelectedColor] = useState('red');
+  const [selectedSize, setSelectedSize] = useState(null);
+  const [selectedColor, setSelectedColor] = useState(null);
   const [reviews, setReviews] = useState([]);
+  const [averageReviewPoint, setAverageReviewPoint] = useState(0);
+  const navigate = useNavigate();
 
-  const handleClick = (index, color) => {
+  const [imageUrls, setImageUrls] = useState([]);
+  useEffect(() => {
+    const fetchProductImages = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getProductImages/${productCode}`,
+          {
+            responseType: 'json', // JSON 형태로 받아옵니다.
+          },
+        );
+
+        setImageUrls(response.data);
+        if (response.data.length > 0) {
+          // 첫 번째 이미지를 메인 이미지로 설정
+          setMainImage(convertToBlobUrl(response.data[0]));
+        }
+      } catch (error) {
+        console.error('상품 이미지를 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchProductImages();
+  }, [productCode]);
+
+  // Base64 문자열을 Blob URL로 변환하는 함수
+  const convertToBlobUrl = (base64String) => {
+    const byteCharacters = atob(base64String);
+    const byteArrays = [];
+
+    for (let offset = 0; offset < byteCharacters.length; offset += 512) {
+      const slice = byteCharacters.slice(offset, offset + 512);
+
+      const byteNumbers = new Array(slice.length);
+      for (let i = 0; i < slice.length; i++) {
+        byteNumbers[i] = slice.charCodeAt(i);
+      }
+
+      const byteArray = new Uint8Array(byteNumbers);
+      byteArrays.push(byteArray);
+    }
+
+    const blob = new Blob(byteArrays, { type: 'image/jpeg' }); // 이미지 타입에 따라 수정
+    return URL.createObjectURL(blob);
+  };
+
+  const handleClick = (index, imageUrl) => {
+    setSelectedOption(index);
+    setMainImage(convertToBlobUrl(imageUrl)); // 클릭된 서브 이미지를 메인 이미지로 설정
+  };
+
+  const colorChange = (index, color) => {
     setSelectedOption(index);
     setSelectedColor(color); // 선택한 색상 저장
   };
-  const [rating, setRating] = useState(0); // 별점
-  const [comment, setComment] = useState(''); // 댓글
-  const [image, setImage] = useState(null); // 댓글
 
-  //댓글 설정 const
-  const handleCommentChange = (event) => {
-    setComment(event.target.value);
-  };
-
-  const handleImageChange = (event) => {
-    if (event.target.files && event.target.files[0]) {
-      setImage(URL.createObjectURL(event.target.files[0]));
-    }
-  };
-
-  const handleChange = (event) => {
+  const sizeChange = (event) => {
     setSelectedSize(event.target.value);
-  };
-
-  const handleRatingChange = (value) => {
-    setRating(value);
   };
 
   const userCode = sessionStorage.getItem('userCode');
@@ -51,11 +85,6 @@ const Product = () => {
           `http://localhost:8000/getProduct/${productCode}`,
         );
         setProduct(response.data);
-        setMainImage(
-          `http://localhost:8000/getProductImage/${parseInt(
-            response.data.productCode,
-          )}`,
-        ); // 메인 이미지 설정
         checkLiked(response.data);
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
@@ -68,6 +97,7 @@ const Product = () => {
           `http://localhost:8000/getReviews/${productCode}`,
         );
         setReviews(response.data);
+        calculateAverageReviewPoint(response.data);
       } catch (error) {
         console.error('리뷰를 불러오는 중 오류 발생:', error);
       }
@@ -127,6 +157,16 @@ const Product = () => {
         console.log('로그인이 필요합니다.');
         return;
       }
+      // 색상과 사이즈 유효성 검사 추가
+      if (!selectedColor) {
+        alert('색상을 선택해주세요.');
+        return;
+      }
+
+      if (!selectedSize) {
+        alert('사이즈를 선택해주세요.');
+        return;
+      }
 
       await axios.post('http://localhost:8000/addToCart', {
         userCode: userCode,
@@ -141,7 +181,23 @@ const Product = () => {
   };
 
   const handlePurchaseClick = () => {
-    setIsModalOpen(true);
+    if (!selectedColor) {
+      alert('색상을 선택해주세요.');
+      return;
+    }
+
+    if (!selectedSize) {
+      alert('사이즈를 선택해주세요.');
+      return;
+    }
+
+    navigate('/paymentproduct', {
+      state: {
+        product,
+        selectedColor,
+        selectedSize,
+      },
+    });
   };
 
   const handleCloseModal = () => {
@@ -154,6 +210,20 @@ const Product = () => {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
+  };
+
+  const calculateAverageReviewPoint = (reviews) => {
+    if (reviews.length === 0) {
+      setAverageReviewPoint(0);
+      return;
+    }
+
+    const totalPoints = reviews.reduce(
+      (acc, review) => acc + review.reviewPoint,
+      0,
+    );
+    const average = totalPoints / reviews.length;
+    setAverageReviewPoint(average.toFixed(2)); // 소수점 둘째 자리까지 표시
   };
 
   if (!product) {
@@ -172,50 +242,15 @@ const Product = () => {
               className="product-property-image"
             />
             <ul className="subImg">
-              <li>
-                <img
-                  src="https://i.postimg.cc/4NrZzq5G/4095000-17156616314608-500.jpg"
-                  alt="서브 이미지1"
-                  onClick={() =>
-                    handleSubImageClick(
-                      'https://i.postimg.cc/4NrZzq5G/4095000-17156616314608-500.jpg',
-                    )
-                  }
-                />
-              </li>
-              <li>
-                <img
-                  src="https://i.postimg.cc/d0FYfCpS/4095002-17156616179333-500.jpg"
-                  alt="서브 이미지2"
-                  onClick={() =>
-                    handleSubImageClick(
-                      'https://i.postimg.cc/d0FYfCpS/4095002-17156616179333-500.jpg',
-                    )
-                  }
-                />
-              </li>
-              <li>
-                <img
-                  src="https://i.postimg.cc/50NM4VxB/3791988-17150620547239-500.jpg"
-                  alt="서브 이미지3"
-                  onClick={() =>
-                    handleSubImageClick(
-                      'https://i.postimg.cc/50NM4VxB/3791988-17150620547239-500.jpg',
-                    )
-                  }
-                />
-              </li>
-              <li>
-                <img
-                  src="https://i.postimg.cc/k4LcqMsQ/3791990-17156616655826-500.jpg"
-                  alt="서브 이미지4"
-                  onClick={() =>
-                    handleSubImageClick(
-                      'https://i.postimg.cc/k4LcqMsQ/3791990-17156616655826-500.jpg',
-                    )
-                  }
-                />
-              </li>
+              {imageUrls.map((imageUrl, index) => (
+                <li key={index}>
+                  <img
+                    src={convertToBlobUrl(imageUrl)}
+                    alt={`서브 이미지 ${index}`}
+                    onClick={() => handleClick(index, imageUrl)}
+                  />
+                </li>
+              ))}
             </ul>
           </div>
         </aside>
@@ -223,7 +258,9 @@ const Product = () => {
         <section id="description-card-section">
           <div className="description-card">
             <div className="grid-item-productName">
-              [제조사] 상품 명 : {product.productName}
+              {product.companyName}
+              <br></br>
+              상품 명 : {product.productName}
             </div>
             <div className="grid-item-productPrice">
               💲 판매가 : {product.productPrice}
@@ -249,7 +286,7 @@ const Product = () => {
                     selectedOption === index ? 'clicked' : ''
                   }`}
                   style={{ backgroundColor: color }}
-                  onClick={() => handleClick(index, color)} // 색상 정보 전달
+                  onClick={() => colorChange(index, color)} // 색상 정보 전달
                 />
               ))}
             </div>
@@ -258,7 +295,7 @@ const Product = () => {
               <select
                 id="size-input"
                 value={selectedSize}
-                onChange={handleChange}
+                onChange={sizeChange}
               >
                 {[...Array(9)].map((_, index) => {
                   const size = 80 + index * 5;
@@ -272,7 +309,7 @@ const Product = () => {
             </div>
 
             <div className="grid-item-userPoint">
-              별점 : {product.userPoint}
+              별점 : {averageReviewPoint}
             </div>
 
             {/* 버튼 추가 */}
@@ -435,66 +472,36 @@ const Product = () => {
               <img
                 src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
                 alt="서브 이미지1"
-                onClick={() =>
-                  handleSubImageClick(
-                    'https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg',
-                  )
-                }
               />
             </li>
             <li>
               <img
                 src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
                 alt="서브 이미지2"
-                onClick={() =>
-                  handleSubImageClick(
-                    'https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg',
-                  )
-                }
               />
             </li>
             <li>
               <img
                 src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
                 alt="서브 이미지3"
-                onClick={() =>
-                  handleSubImageClick(
-                    'https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg',
-                  )
-                }
               />
             </li>
             <li>
               <img
                 src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
                 alt="서브 이미지4"
-                onClick={() =>
-                  handleSubImageClick(
-                    'https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg',
-                  )
-                }
               />
             </li>
             <li>
               <img
                 src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
                 alt="서브 이미지5"
-                onClick={() =>
-                  handleSubImageClick(
-                    'https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg',
-                  )
-                }
               />
             </li>
             <li>
               <img
                 src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
                 alt="서브 이미지6"
-                onClick={() =>
-                  handleSubImageClick(
-                    'https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg',
-                  )
-                }
               />
             </li>
           </ul>
@@ -544,7 +551,6 @@ const Product = () => {
                   <textarea
                     className="comment-textarea"
                     value={review.reviewContent}
-                    onChange={handleCommentChange}
                     placeholder="..."
                   ></textarea>
                 </div>

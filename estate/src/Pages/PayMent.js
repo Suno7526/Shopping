@@ -190,10 +190,10 @@ const Payment = () => {
           <div className="Final-paymentamountAndButton">
             <div className="Final-paymentamount-info">
               <div className="Final-paymentamount-price">
-                상품가격 {totalPrice - 2500}원
+                상품가격 {totalPrice - 100}원
               </div>
               <div className="Final-paymentamount-delivery-fee">
-                배송비 = 2500원
+                배송비 = 100원
               </div>
               <div className="Final-payment-total-div">
                 <p className="Final-paymentamount-total">총 결제금액 </p>

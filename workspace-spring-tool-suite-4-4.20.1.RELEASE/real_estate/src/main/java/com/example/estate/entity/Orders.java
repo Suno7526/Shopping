@@ -52,6 +52,12 @@ public class Orders {
     
     @Column
     private String productColor; // 색상
+    
+    @Column
+    private int orderCount; // 주문 수량
+    
+    @Column
+    private boolean reviewCheck; // 리뷰 등록 여부
 
     @CreationTimestamp
     private Timestamp orderDate; // 등록일

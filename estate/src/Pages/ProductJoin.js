@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
-import { useState, useEffect } from 'react';
 import './ProductJoin.css'; // 외부 스타일 시트 불러오기
 
 const ProductJoin = () => {
@@ -13,8 +12,8 @@ const ProductJoin = () => {
     category: '',
   });
 
-  const [productImage, setProductImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [productImages, setProductImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -22,9 +21,14 @@ const ProductJoin = () => {
   };
 
   const handleFileChange = (e) => {
-    const imageFile = e.target.files[0];
-    setProductImage(imageFile);
-    setPreviewImage(URL.createObjectURL(imageFile));
+    const imageFiles = Array.from(e.target.files);
+
+    const newProductImages = [...productImages, ...imageFiles];
+    console.log('선택한 파일들:', newProductImages); // 콘솔에 선택한 파일들을 출력
+    setProductImages(newProductImages);
+
+    const imagePreviews = imageFiles.map((file) => URL.createObjectURL(file));
+    setPreviewImages([...previewImages, ...imagePreviews]);
   };
 
   const handleSubmit = async (e) => {
@@ -37,10 +41,10 @@ const ProductJoin = () => {
         !productData.companyName ||
         !productData.productStuck ||
         !productData.category ||
-        !productImage
+        productImages.length === 0
       ) {
         alert(
-          '상품명, 설명, 가격, 회사명, 재고, 제품 크기, 사용자 포인트, 그리고 이미지를 모두 입력해주세요.',
+          '상품명, 설명, 가격, 회사명, 재고, 상품 카테고리, 그리고 이미지를 모두 입력해주세요.',
         );
         return;
       }
@@ -52,30 +56,27 @@ const ProductJoin = () => {
       formData.append('companyName', productData.companyName);
       formData.append('productStuck', productData.productStuck);
       formData.append('category', productData.category);
-      formData.append('productImage', productImage);
 
-      const response = await axios.post(
-        'http://localhost:8000/saveProduct',
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        },
-      );
+      productImages.forEach((image, index) => {
+        formData.append('productImages', image);
+      });
 
-      console.log(response.data);
-      alert('상품 등록 성공');
+      await axios.post('http://localhost:8000/saveProduct', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+
+      alert('상품이 성공적으로 등록되었습니다.');
     } catch (error) {
+      console.error('상품 등록 실패:', error);
       alert('상품 등록 실패');
-      console.error('상품 저장 오류:', error);
     }
   };
 
   return (
     <div className="App">
       <div id="propertyform">
-        <form encType="multipart/form-data">
+        <h2>상품 등록</h2>
+        <form onSubmit={handleSubmit}>
           <label htmlFor="productName" className="productJoin-label">
             상품명:
           </label>
@@ -86,35 +87,34 @@ const ProductJoin = () => {
             value={productData.productName}
             onChange={handleInputChange}
             className="productJoin-input"
+            required
           />
+          <br />
 
-          <label htmlFor="information" className="productJoin-label">
-            설명:
-          </label>
-          <input
-            type="text"
+          <label htmlFor="information">설명:</label>
+          <textarea
             id="information"
             name="information"
             value={productData.information}
             onChange={handleInputChange}
             className="productJoin-input"
+            required
           />
+          <br />
 
-          <label htmlFor="productPrice" className="productJoin-label">
-            가격:
-          </label>
+          <label htmlFor="productPrice">가격:</label>
           <input
-            type="text"
+            type="number"
             id="productPrice"
             name="productPrice"
             value={productData.productPrice}
             onChange={handleInputChange}
             className="productJoin-input"
+            required
           />
+          <br />
 
-          <label htmlFor="companyName" className="productJoin-label">
-            회사명:
-          </label>
+          <label htmlFor="companyName">회사명:</label>
           <input
             type="text"
             id="companyName"
@@ -122,31 +122,32 @@ const ProductJoin = () => {
             value={productData.companyName}
             onChange={handleInputChange}
             className="productJoin-input"
+            required
           />
+          <br />
 
-          <label htmlFor="productStuck" className="productJoin-label">
-            재고:
-          </label>
+          <label htmlFor="productStuck">재고:</label>
           <input
-            type="text"
+            type="number"
             id="productStuck"
             name="productStuck"
             value={productData.productStuck}
             onChange={handleInputChange}
             className="productJoin-input"
+            required
           />
+          <br />
 
-          <label htmlFor="category" className="productJoin-label">
-            상품 카테고리:
-          </label>
+          <label htmlFor="category">카테고리:</label>
           <select
             id="category"
             name="category"
             value={productData.category}
             onChange={handleInputChange}
             className="productJoin-input"
+            required
           >
-            <option value="">카테고리를 선택하세요</option>
+            <option value="">카테고리 선택</option>
             <optgroup label="아우터">
               <option value="재킷">재킷</option>
               <option value="집업">집업</option>
@@ -179,31 +180,33 @@ const ProductJoin = () => {
               <option value="기타">기타</option>
             </optgroup>
           </select>
+          <br />
 
-          <div id="property-details">
-            <label htmlFor="productImage" className="productJoin-label">
-              사진 업로드:
-            </label>
-            <input
-              type="file"
-              id="productImage"
-              name="productImage"
-              accept="image/*"
-              onChange={handleFileChange}
-              className="productJoin-input"
-            />
-            {previewImage && (
-              <img
-                src={previewImage}
-                alt="이미지 미리보기"
-                style={{ width: '200px', height: '200px', marginTop: '10px' }}
-              />
-            )}
-          </div>
+          <label htmlFor="productImages">상품 이미지:</label>
+          <input
+            type="file"
+            id="productImages"
+            name="productImages"
+            multiple
+            onChange={handleFileChange}
+            required
+          />
+          <br />
 
-          <button type="button" onClick={handleSubmit}>
-            상품 등록
-          </button>
+          {previewImages.length > 0 && (
+            <div className="image-preview">
+              {previewImages.map((src, index) => (
+                <img
+                  key={index}
+                  src={src}
+                  alt={`preview ${index}`}
+                  style={{ width: '200px', height: '200px', marginTop: '10px' }}
+                />
+              ))}
+            </div>
+          )}
+
+          <button type="submit">상품 등록</button>
         </form>
       </div>
     </div>

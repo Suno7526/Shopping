@@ -64,11 +64,10 @@ function Home() {
   };
 
   useEffect(() => {
-    // 페이지가 로드될 때나 products가 업데이트될 때 slick 슬라이더를 초기화합니다.
     if (wrapperRef.current) {
-      wrapperRef.current.Slider(); // slick 슬라이더 초기화
+      wrapperRef.current.Slider();
     }
-  }, [products]); // products 상태가 변경될 때마다 slick 슬라이더를 재설정합니다.
+  }, [products]);
 
   return (
     <div>
@@ -96,7 +95,6 @@ function Home() {
         <div className="clearfix" />
       </div>
 
-      {/* 메인 이미지 섹션 */}
       <div className="recommend-item" id="recommend-item">
         New Item
       </div>
@@ -109,8 +107,8 @@ function Home() {
           arrows={false}
           dots={true}
           autoplay={true}
-          centerMode={true} // 슬라이드 간격을 적용하기 위해 centerMode 사용
-          centerPadding="10px" // 슬라이드 간격 설정
+          centerMode={true}
+          centerPadding="10px"
         >
           {products.map((product, index) => (
             <div key={product.productCode} className="Home-property-wrapper">
@@ -127,7 +125,6 @@ function Home() {
         </Slider>
       </div>
 
-      {/* 추천 상품 섹션 */}
       <div id="recommended-properties">
         <div className="Home-MiddleImage"></div>
         <div className="container-fluid" id="popular-content">
@@ -161,7 +158,6 @@ function Home() {
       </div>
       <div className="Home-BottomImage" id="fashion-news"></div>
 
-      {/*패션 뉴스!!*/}
       <h1 className="FASHION-NEWS">FASHION NEWS</h1>
       <p className="FASHION-NEWS-sub-text" id="fashion-news-content">
         A pure CSS-only responsive masonry.
@@ -264,7 +260,6 @@ function Home() {
         </figure>
       </div>
 
-      {/* Sidebar */}
       <div className="btn_quick">
         <ul className="btn_quick_wrap">
           <li className="sidebar-item">

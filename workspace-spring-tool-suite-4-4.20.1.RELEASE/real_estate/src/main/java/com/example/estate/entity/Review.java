@@ -37,6 +37,7 @@ public class Review {
     @Column
     private String reviewContent;
     
+    
     @Column
     private int reviewPoint;
 }
