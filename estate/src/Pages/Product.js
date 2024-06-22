@@ -547,6 +547,7 @@ const Product = () => {
                     <div className="comment-product">
                       상품 정보: {review.product.productName}
                     </div>
+                    <div> 별점 : {review.reviewPoint}</div>
                   </div>
                   <textarea
                     className="comment-textarea"

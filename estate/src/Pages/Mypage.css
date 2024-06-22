@@ -129,3 +129,15 @@
   letter-spacing: 1px;
   font-size: 15px;
 }
+/*주문 내역이 없습니다*/
+.no-orders {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+/*추천 상품이 없습니다.*/
+.no-recommended-products {
+  margin-top: 40%;
+  display: flex;
+  justify-content: center;
+}

@@ -1,5 +1,5 @@
 import './Payment.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 
@@ -7,6 +7,9 @@ const Payment = () => {
   const userCode = parseInt(sessionStorage.getItem('userCode'), 10);
   const location = useLocation();
   const { product, selectedColor, selectedSize } = location.state;
+
+  const [deliveryMemo, setDeliveryMemo] = useState('');
+  const [customMemo, setCustomMemo] = useState('');
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -53,7 +56,8 @@ const Payment = () => {
                   shippingAddress: sessionStorage.getItem('userAddress'),
                   productSize: selectedSize,
                   productColor: selectedColor,
-                  request: '', // 요청사항 필드 추가 가능
+                  request:
+                    deliveryMemo === '기타사항' ? customMemo : deliveryMemo, // 요청사항 필드 추가 가능
                 };
                 await axios.post('http://localhost:8000/orders/add', orderData);
                 alert('결제 성공');
@@ -133,6 +137,8 @@ const Payment = () => {
                   id="Delivery-ListBox"
                   name="Delivery-ListBox"
                   className="Delivery-ListBox-input"
+                  value={deliveryMemo}
+                  onChange={(e) => setDeliveryMemo(e.target.value)}
                 >
                   <option value="">배송메모를 선택하세요</option>
                   <option value="문 앞">문 앞</option>
@@ -143,6 +149,14 @@ const Payment = () => {
                   <option value="택배함">택배함</option>
                   <option value="기타사항">기타사항</option>
                 </select>
+                {deliveryMemo === '기타사항' && (
+                  <input
+                    type="text"
+                    placeholder="기타 사항을 입력하세요"
+                    value={customMemo}
+                    onChange={(e) => setCustomMemo(e.target.value)} //기타사항 텍스트 생성
+                  />
+                )}
               </div>
               <div className="Payment-Delivery-Button">
                 <button className="Delivery-Edit-Btn"> 수정 </button>

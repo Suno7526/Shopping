@@ -17,7 +17,7 @@
   margin-left: 220px; /* Aside의 넓이만큼 왼쪽 여백 추가 */
 }
 
-.board-main {
+.MyInquiry-board-main {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -25,10 +25,9 @@
   padding: 20px;
 }
 
-.board-info {
+.MyInquiry-board-info {
   padding: 10px;
   width: 100%;
-  margin: 0 auto;
   text-align: center;
   border-spacing: 0;
   background-color: transparent;
@@ -39,27 +38,28 @@
 
 /*문의하기 헤더들*/
 
-.board-info-item-type {
+.MyInquiry-board-info-type {
   font-style: Serif;
   font-size: 17px;
   flex: 1;
   margin: 12%;
 }
 
-.board-info-item-title {
+.MyInquiry-board-info-title {
+  font-style: Serif;
+  font-size: 17px;
+  flex: 1;
+  margin: 13%;
+}
+
+.MyInquiry-board-info-name {
   font-style: Serif;
   font-size: 17px;
   flex: 1;
   margin: 12%;
 }
 
-.board-info-item-name {
-  font-style: Serif;
-  font-size: 17px;
-  flex: 1;
-  margin: 12%;
-}
-
+/*POST 부분*/
 .post {
   display: flex;
   flex-direction: row;
@@ -101,4 +101,11 @@
   margin: 20px;
   font-size: 18px;
   color: #524a4a;
+}
+
+/*문의 내역이 없습니다*/
+.no-posts {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10%;
 }

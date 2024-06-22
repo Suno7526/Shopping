@@ -182,3 +182,12 @@
 .cart-checkout:hover {
   background-color: #494;
 }
+
+/*장바구니가 비었습니다 메세지*/
+.Cart-empty-message {
+  display: flex;
+  justify-content: center;
+  margin-top: 10%;
+  font-size: 20px;
+  font-weight: bold;
+}
