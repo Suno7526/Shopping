@@ -114,7 +114,7 @@ const Cart = () => {
         <div className="Cart-Maintitle">장바구니</div>
         <div className="Cart-MainImage"></div>
         {cartItems.length === 0 ? (
-          <div className="Cart-empty-message">장바구니가 비었습니다.</div>
+          <div className="Cart-empty-message">장바구니가 비어있습니다.</div>
         ) : (
           <>
             <div className="cart-column-labels">

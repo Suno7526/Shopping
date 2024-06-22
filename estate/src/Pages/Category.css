@@ -59,7 +59,7 @@
 }
 
 .Category-productName {
-  font-size: 15px;
+  font-size: 20px;
   display: -webkit-box;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -69,10 +69,12 @@
   -webkit-box-orient: vertical;
   margin-bottom: 3%;
   margin-top: 3%;
+  font-weight: 550;
+  color: #474747;
 }
 
 .Category-productPrice {
-  font-size: 12px;
+  font-size: 18px;
   font-weight: 500;
   color: rgb(0, 0, 0);
 }

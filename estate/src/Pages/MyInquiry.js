@@ -33,11 +33,11 @@ const MyInquiry = () => {
         </h2>
         <div className="MyInquiryMainImage"></div>
       </article>
-      <div className="board-main">
-        <div className="board-info">
-          <span className="board-info-item">문의 종류</span>
-          <span className="board-info-item">제목</span>
-          <span className="board-info-item">사용자이름</span>
+      <div className="MyInquiry-board-main">
+        <div className="MyInquiry-board-info">
+          <span className="MyInquiry-board-info-type">문의 종류</span>
+          <span className="MyInquiry-board-info-title">제목</span>
+          <span className="MyInquiry-board-info-name">사용자이름</span>
         </div>
         {posts.length === 0 ? (
           <div className="no-posts">문의 내역이 없습니다.</div>

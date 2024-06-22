@@ -50,7 +50,7 @@
   font-style: Serif;
   font-size: 17px;
   flex: 1;
-  margin: 12%;
+  margin: 13%;
 }
 
 .board-info-item-name {
@@ -72,28 +72,28 @@
 
 .post-info-item {
   flex: 1;
-  margin-left: 15%; /* Adjusted from 15px to 2% for uniform spacing */
-  padding: 2%; /* Adjusted from 10px to 2% for uniform spacing */
+  margin-left: 2%; /* Adjusted for uniform spacing */
+  padding: 2%; /* Adjusted for uniform spacing */
   font-size: 16px;
   font-style: Serif;
   text-align: center;
 }
 
 .post-title {
-  margin-left: 15.5%; /* Adjusted from 15px to 2% for uniform spacing */
+  margin-left: 2%; /* Adjusted for uniform spacing */
   font-size: 16px;
   font-style: Serif;
-  padding: 2%; /* Adjusted from 10px to 2% for uniform spacing */
+  padding: 2%; /* Adjusted for uniform spacing */
   flex: 3;
 }
 
 .post-username {
   flex: 1;
   text-align: center;
-  margin: 2%; /* Adjusted from 15px to 2% for uniform spacing */
+  margin: 2%; /* Adjusted for uniform spacing */
   font-size: 16px;
   font-style: Serif;
-  margin-right: 18%;
+  margin-right: 2%; /* Adjusted for uniform spacing */
 }
 
 .no-posts {
