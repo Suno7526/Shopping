@@ -92,3 +92,6 @@
 .LikeproductInfo {
   flex-grow: 1; /* LikeproductInfo가 남은 공간을 차지하도록 합니다. */
 }
+.no-like-items {
+  font-size: 30px;
+}

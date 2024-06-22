@@ -129,7 +129,7 @@ function Home() {
         <div className="Home-MiddleImage"></div>
         <div className="container-fluid" id="popular-content">
           <h1 className="good-text">Recommend Item</h1>
-          <p className="good-sub-text">A pure CSS-only responsive masonry.</p>
+          <br></br>
           <div className="masonry">
             {products.map((product) => (
               <div className="HomeGriditem" key={product.productCode}>
@@ -159,9 +159,7 @@ function Home() {
       <div className="Home-BottomImage" id="fashion-news"></div>
 
       <h1 className="FASHION-NEWS">FASHION NEWS</h1>
-      <p className="FASHION-NEWS-sub-text" id="fashion-news-content">
-        A pure CSS-only responsive masonry.
-      </p>
+      <p className="FASHION-NEWS-sub-text" id="fashion-news-content"></p>
       <div className="snip-div">
         <figure className="snip1249">
           <div className="image">

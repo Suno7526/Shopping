@@ -76,19 +76,15 @@ const RecentItem = () => {
                     <strong>
                       [제조사] 상품 명 : {product.product.productName}
                     </strong>
-                    <br />${product.product.productPrice}
+                    <br />
+                    {product.product.productPrice}
                     <div className="RecentItem-button-container">
-                      <button
-                        className="RecentCartBtn"
-                        onClick={() => addToCart(product.product)}
-                      >
-                        장바구니에 추가
-                      </button>
+                      <button className="RecentCartBtn">페이지로 이동</button>
                       <button
                         className="RecentLikeBtn"
                         onClick={() => addToWishlist(product.product)}
                       >
-                        찜하기
+                        이동
                       </button>
                     </div>
                   </div>

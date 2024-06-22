@@ -97,12 +97,11 @@ const Like = () => {
                       <div>판매가 : {product.product.productPrice}</div>
                     </div>
                     <div className="Likebutton-container">
-                      <button
-                        className="Likeadd-to-cart-btn"
-                        onClick={() => handleAddToCart(product.product)}
-                      >
-                        상품페이지 이동
-                      </button>
+                      <Link to={`/product/${product.product.productCode}`}>
+                        <button className="Likeadd-to-cart-btn">
+                          상품페이지 이동
+                        </button>
+                      </Link>
                       <button
                         className="Likeunlike-item-btn"
                         onClick={() =>

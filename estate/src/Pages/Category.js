@@ -111,11 +111,12 @@ const Category = () => {
                 </Link>
 
                 <div className="Category-product-info">
-                  <div className="Category-productPrice">
-                    {product.productPrice}원
-                  </div>
+                  <div>{product.companyName}</div>
                   <div className="Category-productName">
                     {product.productName}
+                  </div>
+                  <div className="Category-productPrice">
+                    {product.productPrice}원
                   </div>
 
                   <div className="Category-viewCount">

@@ -17,7 +17,7 @@ const Payment = () => {
     document.head.appendChild(iamport);
   }, []);
 
-  const { totalPrice, orderName } = useMemo(() => {
+  const { totalPrice, orderName, total } = useMemo(() => {
     let total = 0;
     let name = '';
 
@@ -32,6 +32,7 @@ const Payment = () => {
     return {
       totalPrice: total + 2500, // add shipping fee
       orderName: name,
+      total: total,
     };
   }, [selectedProducts]);
 
@@ -190,10 +191,10 @@ const Payment = () => {
           <div className="Final-paymentamountAndButton">
             <div className="Final-paymentamount-info">
               <div className="Final-paymentamount-price">
-                상품가격 {totalPrice - 100}원
+                상품가격 {total}원
               </div>
               <div className="Final-paymentamount-delivery-fee">
-                배송비 = 100원
+                배송비 = 2500원
               </div>
               <div className="Final-payment-total-div">
                 <p className="Final-paymentamount-total">총 결제금액 </p>

@@ -128,11 +128,13 @@ const Mypage = () => {
         <div className="RecommendedProducts">
           {recommendedProducts.map((product) => (
             <div key={product.productCode} className="RecommendedProductCard">
-              <img
-                className="RecommendedImage"
-                src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                alt={product.productName}
-              />
+              <Link to={`/product/${product.productCode}`}>
+                <img
+                  className="RecommendedImage"
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  alt={product.productName}
+                />
+              </Link>
               <div className="MypageRecommended-productname">
                 {product.productName}
               </div>

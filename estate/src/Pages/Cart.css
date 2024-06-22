@@ -182,3 +182,7 @@
 .cart-checkout:hover {
   background-color: #494;
 }
+.Cart-empty-message {
+  font-size: 30px;
+  text-align: center;
+}

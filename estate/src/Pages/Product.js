@@ -154,7 +154,7 @@ const Product = () => {
   const handleAddToCartClick = async () => {
     try {
       if (!userCode) {
-        console.log('로그인이 필요합니다.');
+        alert('로그인이 필요합니다.');
         return;
       }
       // 색상과 사이즈 유효성 검사 추가
@@ -181,6 +181,10 @@ const Product = () => {
   };
 
   const handlePurchaseClick = () => {
+    if (!userCode) {
+      alert('로그인이 필요합니다.');
+      return;
+    }
     if (!selectedColor) {
       alert('색상을 선택해주세요.');
       return;
@@ -547,6 +551,7 @@ const Product = () => {
                     <div className="comment-product">
                       상품 정보: {review.product.productName}
                     </div>
+                    <div> 별점 : {review.reviewPoint}</div>
                   </div>
                   <textarea
                     className="comment-textarea"
