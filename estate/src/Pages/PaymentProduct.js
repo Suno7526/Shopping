@@ -1,6 +1,6 @@
 import './Payment.css';
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Payment = () => {
@@ -10,6 +10,7 @@ const Payment = () => {
 
   const [deliveryMemo, setDeliveryMemo] = useState('');
   const [customMemo, setCustomMemo] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -61,6 +62,7 @@ const Payment = () => {
                 };
                 await axios.post('http://localhost:8000/orders/add', orderData);
                 alert('결제 성공');
+                navigate('/mypage'); // 결제 성공 시 마이페이지로 이동
               } else {
                 alert('결제 실패');
               }

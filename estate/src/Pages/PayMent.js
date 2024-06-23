@@ -1,12 +1,16 @@
 import './Payment.css';
-import React, { useMemo, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import React, { useMemo, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const Payment = () => {
   const userCode = parseInt(sessionStorage.getItem('userCode'), 10);
   const location = useLocation();
   const { selectedProducts } = location.state;
+
+  const [deliveryMemo, setDeliveryMemo] = useState('');
+  const [customMemo, setCustomMemo] = useState('');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -73,7 +77,8 @@ const Payment = () => {
                     shippingAddress: sessionStorage.getItem('userAddress'),
                     productSize: cart.cartSize,
                     productColor: cart.cartColor,
-                    request: '', // Add request if you have a field for it
+                    request:
+                      deliveryMemo === '기타사항' ? customMemo : deliveryMemo,
                   };
                   await axios.post(
                     'http://localhost:8000/orders/add',
@@ -84,6 +89,7 @@ const Payment = () => {
                 }
               }
               alert('결제 성공');
+              navigate('/mypage'); // 결제 성공 시 마이페이지로 이동
             } catch (error) {
               console.error(
                 'Error while verifying payment or creating order:',
@@ -154,9 +160,6 @@ const Payment = () => {
                   {sessionStorage.getItem('userEmail')}
                 </p>
               </div>
-              <div className="Orderer-Button">
-                <button className="Orderer-Edit-Btn"> 수정 </button>
-              </div>
             </div>
           </div>
 
@@ -171,16 +174,26 @@ const Payment = () => {
                   id="Delivery-ListBox"
                   name="Delivery-ListBox"
                   className="Delivery-ListBox-input"
+                  value={deliveryMemo}
+                  onChange={(e) => setDeliveryMemo(e.target.value)}
                 >
                   <option value="">배송메모를 선택하세요</option>
-                  <option value="">문 앞</option>
-                  <option value="">직접 받고 부재 시 문 앞</option>
-                  <option value="">경비실</option>
-                  <option value="">택배함</option>
+                  <option value="문 앞">문 앞</option>
+                  <option value="직접 받고 부재 시 문 앞">
+                    직접 받고 부재 시 문 앞
+                  </option>
+                  <option value="경비실">경비실</option>
+                  <option value="택배함">택배함</option>
+                  <option value="기타사항">기타사항</option>
                 </select>
-              </div>
-              <div className="Payment-Delivery-Button">
-                <button className="Delivery-Edit-Btn"> 수정 </button>
+                {deliveryMemo === '기타사항' && (
+                  <input
+                    type="text"
+                    placeholder="기타 사항을 입력하세요"
+                    value={customMemo}
+                    onChange={(e) => setCustomMemo(e.target.value)} //기타사항 텍스트 생성
+                  />
+                )}
               </div>
             </div>
           </div>
