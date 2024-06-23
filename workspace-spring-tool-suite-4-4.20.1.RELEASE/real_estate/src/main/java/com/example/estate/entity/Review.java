@@ -1,6 +1,9 @@
 package com.example.estate.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -31,8 +34,9 @@ public class Review {
     @JoinColumn(name = "productCode")
     private Product product;
     
-    @Column(columnDefinition = "LONGBLOB")
-    private byte[] productImage;
+    @ElementCollection
+    @Column(nullable = false, columnDefinition = "LONGBLOB")
+    private List<byte[]> productImages; // 이 부분을 배열로 설정
     
     @Column
     private String reviewContent;

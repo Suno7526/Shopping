@@ -1,7 +1,9 @@
 package com.example.estate.controller;
 
 import java.io.IOException;
+import java.util.Base64;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -23,47 +25,40 @@ import com.example.estate.service.ReviewService;
 @CrossOrigin(origins = "http://localhost:3000")
 public class ReviewController {
 
-    @Autowired
-    private ReviewService reviewService;
+	@Autowired
+	private ReviewService reviewService;
 
-    @PostMapping("/saveReview")
-    public ResponseEntity<String> saveReview(@RequestParam("productImage") MultipartFile productImage,
-                                             @RequestParam("reviewPoint") int reviewPoint,
-                                             @RequestParam("reviewContent") String reviewContent,
-                                             @RequestParam("userCode") Long userCode,
-                                             @RequestParam("productCode") Long productCode) {
-        try {
-            byte[] imageBytes = productImage.getBytes();
-            reviewService.saveReview(imageBytes, reviewPoint, reviewContent, userCode, productCode);
-            return new ResponseEntity<>("리뷰 등록 성공", HttpStatus.OK);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity<>("리뷰 등록에 실패했습니다. 다시 시도해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    	
-    @GetMapping("/getReviews/{productCode}")
-    public ResponseEntity<List<Review>> getReviews(@PathVariable("productCode") Long productCode) {
-        try {
-            List<Review> reviews = reviewService.getReviewsByProductCode(productCode);
-            return new ResponseEntity<>(reviews, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
-    
-    @GetMapping("/getReviewImage/{reviewCode}")
-    public ResponseEntity<byte[]> getReviewImage(@PathVariable("reviewCode") Long reviewCode) {
-        try {
-            byte[] imageBytes = reviewService.getReviewImage(reviewCode);
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.IMAGE_JPEG); // 이미지 타입에 따라 변경
-            return new ResponseEntity<>(imageBytes, headers, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
+	@PostMapping("/saveReview")
+	public ResponseEntity<String> saveReview(@RequestParam("productImages") List<MultipartFile> productImages,
+			@RequestParam("reviewPoint") int reviewPoint, @RequestParam("reviewContent") String reviewContent,
+			@RequestParam("userCode") Long userCode, @RequestParam("productCode") Long productCode,
+			@RequestParam("orderCode") Long orderCode) {
+		reviewService.saveReview(productImages, reviewPoint, reviewContent, userCode, productCode, orderCode);
+		return new ResponseEntity<>("리뷰 등록 성공", HttpStatus.OK);
+	}
+
+	@GetMapping("/getReviews/{productCode}")
+	public ResponseEntity<List<Review>> getReviews(@PathVariable("productCode") Long productCode) {
+		try {
+			List<Review> reviews = reviewService.getReviewsByProductCode(productCode);
+			return new ResponseEntity<>(reviews, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+	@GetMapping("/getReviewImages/{reviewCode}")
+	public ResponseEntity<List<String>> getProductImages(@PathVariable("reviewCode") Long reviewCode) {
+		try {
+			List<byte[]> imageBytesList = reviewService.getReviewImage(reviewCode);
+			List<String> base64Images = imageBytesList.stream()
+					.map(imageBytes -> Base64.getEncoder().encodeToString(imageBytes)).collect(Collectors.toList());
+			return new ResponseEntity<>(base64Images, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 }

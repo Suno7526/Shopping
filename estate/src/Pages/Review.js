@@ -10,8 +10,8 @@ const Review = () => {
     reviewContent: '',
     reviewPoint: 0,
   });
-  const [productImage, setProductImage] = useState(null);
-  const [previewImage, setPreviewImage] = useState(null);
+  const [productImages, setProductImages] = useState([]);
+  const [previewImages, setPreviewImages] = useState([]);
 
   useEffect(() => {
     const fetchOrderData = async () => {
@@ -36,6 +36,16 @@ const Review = () => {
     setReviewData({ ...reviewData, reviewPoint: point });
   };
 
+  const handleFileChange = (e) => {
+    const imageFiles = Array.from(e.target.files);
+
+    const newProductImages = [...productImages, ...imageFiles];
+    setProductImages(newProductImages);
+
+    const imagePreviews = imageFiles.map((file) => URL.createObjectURL(file));
+    setPreviewImages([...previewImages, ...imagePreviews]);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -45,12 +55,14 @@ const Review = () => {
       }
 
       const formData = new FormData();
-
       formData.append('userCode', sessionStorage.getItem('userCode'));
       formData.append('productCode', orderData.product.productCode);
       formData.append('reviewContent', reviewData.reviewContent);
       formData.append('reviewPoint', reviewData.reviewPoint);
-      formData.append('productImage', productImage);
+      formData.append('orderCode', orderCode);
+      productImages.forEach((image, index) => {
+        formData.append('productImages', image);
+      });
 
       const response = await axios.post(
         'http://localhost:8000/saveReview',
@@ -65,12 +77,6 @@ const Review = () => {
     }
   };
 
-  const handleFileChange = (e) => {
-    const imageFile = e.target.files[0];
-    setProductImage(imageFile);
-    setPreviewImage(URL.createObjectURL(imageFile));
-  };
-
   if (!orderData) {
     return <div>Loading...</div>;
   }
@@ -82,7 +88,7 @@ const Review = () => {
       <title>리뷰 등록</title>
 
       <div id="reviewform">
-        <form encType="multipart/form-data">
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
           <label htmlFor="productName" className="review-label">
             상품명 : {orderData.product.productName}
           </label>
@@ -98,23 +104,33 @@ const Review = () => {
             className="review-input"
           ></textarea>
           <div id="property-details">
-            <label htmlFor="productImage" className="review-label">
+            <label htmlFor="productImages" className="review-label">
               사진 업로드
             </label>
             <input
               type="file"
-              id="productImage"
-              name="productImage"
+              id="productImages"
+              name="productImages"
               accept="image/*"
+              multiple
               onChange={handleFileChange}
               className="review-input"
             />
-            {previewImage && (
-              <img
-                src={previewImage}
-                alt="이미지 미리보기"
-                style={{ width: '200px', height: '200px', marginTop: '10px' }}
-              />
+            {previewImages.length > 0 && (
+              <div className="image-preview">
+                {previewImages.map((src, index) => (
+                  <img
+                    key={index}
+                    src={src}
+                    alt={`preview ${index}`}
+                    style={{
+                      width: '200px',
+                      height: '200px',
+                      marginTop: '10px',
+                    }}
+                  />
+                ))}
+              </div>
             )}
           </div>
           <label htmlFor="reviewPoint" className="review-label">
@@ -133,11 +149,7 @@ const Review = () => {
               </span>
             ))}
           </div>
-          <button
-            type="button"
-            onClick={handleSubmit}
-            className="review-button"
-          >
+          <button type="submit" className="review-button">
             리뷰 등록
           </button>
         </form>

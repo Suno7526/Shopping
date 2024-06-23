@@ -10,7 +10,7 @@ import com.example.estate.entity.Orders;
 public interface OrdersRepository extends JpaRepository<Orders, Long> {
 	List<Orders> findByUserUserCode(Long userCode); // findByUserUserCode 메서드 추가
 
-	Orders findByUser_UserCodeAndProduct_ProductCode(Long userCode, Long productCode);
+	 Orders findFirstByUser_UserCodeAndProduct_ProductCode(Long userCode, Long productCode);
 	
 	Orders findByOrderCode(Long orderCode);
 }
