@@ -131,6 +131,14 @@
 }
 
 .no-orders {
+  margin-top: 10%;
   font-size: 30px;
   text-align: left;
+}
+
+/*추천상품이없습니다*/
+.no-recommended-products {
+  margin-top: 40%;
+  display: flex;
+  justify-content: center;
 }

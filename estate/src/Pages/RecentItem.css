@@ -100,3 +100,9 @@
   content: '\2665'; /* 하트 아이콘 */
   margin-right: 5px; /* 하트 아이콘과 Like 문구 사이 간격 설정 */
 }
+
+/*no-RecentItem 최근 본 상품이 없습니다.*/
+.no-RecentItem {
+  margin-top: 35%;
+  font-size: 35px;
+}

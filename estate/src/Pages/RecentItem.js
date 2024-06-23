@@ -96,7 +96,7 @@ const RecentItem = () => {
               ),
             )
           ) : (
-            <div>최근 본 상품이 없습니다.</div>
+            <div className="no-RecentItem">최근 본 상품이 없습니다.</div>
           )}
         </div>
       </section>

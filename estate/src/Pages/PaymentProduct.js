@@ -120,9 +120,6 @@ const Payment = () => {
                   {sessionStorage.getItem('userEmail')}
                 </p>
               </div>
-              <div className="Orderer-Button">
-                <button className="Orderer-Edit-Btn"> 수정 </button>
-              </div>
             </div>
           </div>
 
@@ -157,9 +154,6 @@ const Payment = () => {
                     onChange={(e) => setCustomMemo(e.target.value)} //기타사항 텍스트 생성
                   />
                 )}
-              </div>
-              <div className="Payment-Delivery-Button">
-                <button className="Delivery-Edit-Btn"> 수정 </button>
               </div>
             </div>
           </div>

@@ -512,13 +512,6 @@ const Product = () => {
         </div>
       </div>
 
-      {/* 모달 */}
-      <Modal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        product={product}
-      />
-
       <ul className="contentNav">
         <li className="active">
           <p>구매 후기</p>
