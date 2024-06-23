@@ -472,42 +472,15 @@ const Product = () => {
         {/* 상품정보 */}
         <div className="Product-information-image">
           <ul className="Product-information-subImg2">
-            <li>
-              <img
-                src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
-                alt="서브 이미지1"
-              />
-            </li>
-            <li>
-              <img
-                src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
-                alt="서브 이미지2"
-              />
-            </li>
-            <li>
-              <img
-                src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
-                alt="서브 이미지3"
-              />
-            </li>
-            <li>
-              <img
-                src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
-                alt="서브 이미지4"
-              />
-            </li>
-            <li>
-              <img
-                src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
-                alt="서브 이미지5"
-              />
-            </li>
-            <li>
-              <img
-                src="https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg"
-                alt="서브 이미지6"
-              />
-            </li>
+            {imageUrls.map((imageUrl, index) => (
+              <li key={index}>
+                <img
+                  src={convertToBlobUrl(imageUrl)}
+                  alt={`서브 이미지 ${index}`}
+                  onClick={() => handleClick(index, imageUrl)}
+                />
+              </li>
+            ))}
           </ul>
         </div>
       </div>
