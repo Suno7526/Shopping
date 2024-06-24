@@ -94,8 +94,8 @@ public class ProductService {
 
     @Transactional
     public void deleteProduct(Long productCode) {
-    	productRepository.deleteById(productCode);
-    	viewedProductRepository.deleteById(productCode);
+       productRepository.deleteById(productCode);
+       viewedProductRepository.deleteById(productCode);
     }
     
     @Transactional

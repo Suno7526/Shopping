@@ -159,7 +159,7 @@ const Cart = () => {
                 <div className="cart-product-removal">
                   <button
                     className="cart-remove-product"
-                    onClick={() => handleDeleteItem(item.cartCode)}
+                    onClick={() => handleDeleteItem(item.product.productCode)}
                   >
                     Remove
                   </button>
