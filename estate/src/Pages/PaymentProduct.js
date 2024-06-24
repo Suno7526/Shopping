@@ -10,6 +10,9 @@ const Payment = () => {
 
   const [deliveryMemo, setDeliveryMemo] = useState('');
   const [customMemo, setCustomMemo] = useState('');
+  const [shippingAddress, setShippingAddress] = useState(
+    sessionStorage.getItem('userAddress') || '',
+  );
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,7 +39,7 @@ const Payment = () => {
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
-          buyer_addr: sessionStorage.getItem('userAddress'),
+          buyer_addr: shippingAddress,
           buyer_postcode: '123-456',
         },
         async (rsp) => {
@@ -54,7 +57,7 @@ const Payment = () => {
                 const orderData = {
                   userCode: userCode,
                   productCode: productCode,
-                  shippingAddress: sessionStorage.getItem('userAddress'),
+                  shippingAddress: shippingAddress,
                   productSize: selectedSize,
                   productColor: selectedColor,
                   request:
@@ -129,9 +132,12 @@ const Payment = () => {
             <p className="Delivery-title">배송지 정보</p>
             <div className="DeliveryAndButton">
               <div className="Delivery-info">
-                <p className="Delivery-address">
-                  {sessionStorage.getItem('userAddress')}
-                </p>
+                <input
+                  type="text"
+                  value={shippingAddress}
+                  onChange={(e) => setShippingAddress(e.target.value)}
+                  className="Delivery-address-input"
+                />
                 <select
                   id="Delivery-ListBox"
                   name="Delivery-ListBox"

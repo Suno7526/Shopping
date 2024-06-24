@@ -11,8 +11,28 @@ const Question = () => {
     questionTitle: '',
     questionContent: '',
     questionType: '',
+    orderCode: '',
     userCode: userCode,
   });
+  const [ordersItems, setOrdersItems] = useState([]);
+
+  // 사용자 주문 내역을 가져오는 함수
+  useEffect(() => {
+    const fetchOrders = async () => {
+      try {
+        const userCode = sessionStorage.getItem('userCode');
+        const response = await axios.get(
+          `http://localhost:8000/getOrdersProduct/${userCode}`,
+        );
+        const orders = response.data.reverse();
+        setOrdersItems(orders);
+      } catch (error) {
+        console.error('주문 내역을 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchOrders();
+  }, []);
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -27,6 +47,10 @@ const Question = () => {
     setQuestion({ ...question, questionContent: event.target.value });
   };
 
+  const handleOrderChange = (event) => {
+    setQuestion({ ...question, orderCode: event.target.value });
+  };
+
   const handleSubmit = async () => {
     if (!question.questionTitle || !question.questionContent || !questionType) {
       alert('모든 필드를 입력해 주세요.');
@@ -38,6 +62,7 @@ const Question = () => {
         questionTitle: question.questionTitle,
         questionContent: question.questionContent,
         questionType: questionType,
+        orderCode: question.orderCode,
         userCode: userCode,
       });
 
@@ -47,6 +72,7 @@ const Question = () => {
           questionTitle: '',
           questionContent: '',
           questionType: '',
+          orderCode: '',
           userCode: userCode,
         });
         setActiveButton('');
@@ -145,6 +171,30 @@ const Question = () => {
               제목
             </label>
           </div>
+
+          <div className="form-field">
+            <label htmlFor="product" className="question-label">
+              어떤 상품에 대한 문의인가요?
+            </label>
+            <select
+              id="product"
+              name="product"
+              value={question.orderCode}
+              onChange={handleOrderChange}
+              className="form-field-input-select-question"
+              required
+            >
+              <option value="" className="question-option">
+                해당사항 없음
+              </option>
+              {ordersItems.map((order) => (
+                <option key={order.product.productCode} value={order.orderCode}>
+                  {order.orderCode}/{order.product.productName}
+                </option>
+              ))}
+            </select>
+          </div>
+
           <div className="questionContent">
             <div className="form-field">
               <label htmlFor="questionContent2" className="label2">

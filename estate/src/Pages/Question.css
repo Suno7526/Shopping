@@ -178,3 +178,13 @@ button[type='submit'] {
 .contact-form .submit-btn:hover {
   background-color: #e6a15c;
 }
+.question-option {
+  width: 20%;
+}
+.question-label {
+  width: 100%;
+  margin-bottom: 30px;
+}
+.form-field-input-select-question {
+  width: 20%;
+}

@@ -79,9 +79,8 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    @Transactional(readOnly = true)
-    public void incrementViewCount(Long productCode) {
-        Product product = productRepository.findByProductCode(productCode);
+    @Transactional
+    public void incrementViewCount(Product product) {
         if (product != null) {
             product.setViewCount(product.getViewCount() + 1);
             productRepository.save(product);
@@ -93,13 +92,13 @@ public class ProductService {
         return productRepository.findByCategory(category);
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public void deleteProduct(Long productCode) {
     	productRepository.deleteById(productCode);
     	viewedProductRepository.deleteById(productCode);
     }
     
-    @Transactional(readOnly = true)
+    @Transactional
     public boolean updateProduct(Long productCode, Product updatedProduct) {
         Product existingProduct = productRepository.findByProductCode(productCode);
         if (existingProduct != null) {
@@ -144,6 +143,4 @@ public class ProductService {
         // 중복 제거
         return recommendedProducts.stream().distinct().collect(Collectors.toList());
     }
-    
-    
 }
