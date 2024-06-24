@@ -10,6 +10,10 @@ const Payment = () => {
 
   const [deliveryMemo, setDeliveryMemo] = useState('');
   const [customMemo, setCustomMemo] = useState('');
+  const [shippingAddress, setShippingAddress] = useState(
+    sessionStorage.getItem('userAddress') || '',
+  );
+  const [extraAddress, setExtraAddress] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,7 +23,44 @@ const Payment = () => {
     iamport.src = 'http://cdn.iamport.kr/js/iamport.payment-1.1.7.js';
     document.head.appendChild(jquery);
     document.head.appendChild(iamport);
+
+    // Daum 우편번호 서비스 스크립트 로드
+    const daumPostcode = document.createElement('script');
+    daumPostcode.src =
+      '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    document.head.appendChild(daumPostcode);
+
+    return () => {
+      document.head.removeChild(jquery);
+      document.head.removeChild(iamport);
+      document.head.removeChild(daumPostcode);
+    };
   }, []);
+
+  const handlePostcode = () => {
+    new window.daum.Postcode({
+      oncomplete: function (data) {
+        let addr = data.address;
+        let extraAddr = '';
+
+        if (data.userSelectedType === 'R') {
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraAddr += data.bname;
+          }
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraAddr +=
+              extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+          }
+          if (extraAddr !== '') {
+            extraAddr = ' (' + extraAddr + ')';
+          }
+          addr += extraAddr;
+        }
+
+        setShippingAddress(addr);
+      },
+    }).open();
+  };
 
   const handlePurchase = async () => {
     try {
@@ -36,7 +77,7 @@ const Payment = () => {
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
-          buyer_addr: sessionStorage.getItem('userAddress'),
+          buyer_addr: `${shippingAddress} ${extraAddress}`,
           buyer_postcode: '123-456',
         },
         async (rsp) => {
@@ -54,7 +95,7 @@ const Payment = () => {
                 const orderData = {
                   userCode: userCode,
                   productCode: productCode,
-                  shippingAddress: sessionStorage.getItem('userAddress'),
+                  shippingAddress: `${shippingAddress} ${extraAddress}`,
                   productSize: selectedSize,
                   productColor: selectedColor,
                   request:
@@ -129,9 +170,24 @@ const Payment = () => {
             <p className="Delivery-title">배송지 정보</p>
             <div className="DeliveryAndButton">
               <div className="Delivery-info">
-                <p className="Delivery-address">
-                  {sessionStorage.getItem('userAddress')}
-                </p>
+                <input
+                  type="text"
+                  value={shippingAddress}
+                  readOnly={true}
+                  className="Delivery-address-input"
+                />
+                <input
+                  type="button"
+                  onClick={handlePostcode}
+                  value="우편번호 찾기"
+                />
+                <input
+                  type="text"
+                  placeholder="나머지 주소를 입력하세요"
+                  value={extraAddress}
+                  onChange={(e) => setExtraAddress(e.target.value)}
+                  className="Delivery-extra-address-input"
+                />
                 <select
                   id="Delivery-ListBox"
                   name="Delivery-ListBox"

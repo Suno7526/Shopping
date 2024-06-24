@@ -33,6 +33,10 @@ public class Question {
 	@JoinColumn(name = "userCode")
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = "orderCode")
+	private Orders order;
+	
 	
 	@Column
 	private String questionTitle; // 문의사항 제목

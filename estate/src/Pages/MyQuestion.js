@@ -11,6 +11,7 @@ const MyQuestion = () => {
     questionTitle: '',
     questionContent: '',
     questionType: '',
+    order: { orderCode: '' }, // 기본값 설정
   });
 
   const [replyText, setReplyText] = useState('');
@@ -115,6 +116,14 @@ const MyQuestion = () => {
               readOnly={!isEditing}
             />
           </div>
+
+          {question.order && question.order.orderCode && (
+            <div className="order-code">
+              <strong>주문번호:</strong> {question.order.orderCode} /
+              <strong>상품명:</strong> {question.order.product.productName}
+            </div>
+          )}
+
           <div className="questionContent">
             <label htmlFor="questionContent" className="label2">
               문의내용

@@ -54,15 +54,16 @@ const Cart = () => {
     };
   }, [userCode]);
 
-  const handleDeleteItem = async (cartCode) => {
+  const handleDeleteItem = async (productCode) => {
     try {
       await axios.delete(
-        `http://localhost:8000/deleteCartItem/${userCode}/${cartCode}`,
+        `http://localhost:8000/deleteCartItem/${userCode}/${productCode}`,
       );
-      const response = await axios.get(
-        `http://localhost:8000/cart/${userCode}`,
+      // 상품 삭제 후 직접 새로운 장바구니 아이템 목록을 구성
+      const updatedCartItems = cartItems.filter(
+        (item) => item.product.productCode !== productCode,
       );
-      setCartItems(response.data);
+      setCartItems(updatedCartItems);
       alert('상품을 삭제했습니다.');
     } catch (error) {
       if (error.response && error.response.status === 404) {
