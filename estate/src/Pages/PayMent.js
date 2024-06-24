@@ -10,6 +10,10 @@ const Payment = () => {
 
   const [deliveryMemo, setDeliveryMemo] = useState('');
   const [customMemo, setCustomMemo] = useState('');
+  const [shippingAddress, setShippingAddress] = useState(
+    sessionStorage.getItem('userAddress') || '',
+  );
+  const [extraAddress, setExtraAddress] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,6 +23,18 @@ const Payment = () => {
     iamport.src = 'http://cdn.iamport.kr/js/iamport.payment-1.1.7.js';
     document.head.appendChild(jquery);
     document.head.appendChild(iamport);
+
+    // Daum 우편번호 서비스 스크립트 로드
+    const daumPostcode = document.createElement('script');
+    daumPostcode.src =
+      '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+    document.head.appendChild(daumPostcode);
+
+    return () => {
+      document.head.removeChild(jquery);
+      document.head.removeChild(iamport);
+      document.head.removeChild(daumPostcode);
+    };
   }, []);
 
   const { totalPrice, orderName, total } = useMemo(() => {
@@ -34,7 +50,7 @@ const Payment = () => {
     });
 
     return {
-      totalPrice: total + 100, // add shipping fee
+      totalPrice: total + 100, // 배송비 추가
       orderName: name,
       total: total,
     };
@@ -51,11 +67,11 @@ const Payment = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: orderName,
-          amount: 100, //totalPrice,
+          amount: totalPrice,
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
-          buyer_addr: sessionStorage.getItem('userAddress'),
+          buyer_addr: `${shippingAddress} ${extraAddress}`,
           buyer_postcode: '123-456',
         },
         async (rsp) => {
@@ -74,7 +90,7 @@ const Payment = () => {
                   const orderData = {
                     userCode: userCode,
                     productCode: productCode,
-                    shippingAddress: sessionStorage.getItem('userAddress'),
+                    shippingAddress: `${shippingAddress} ${extraAddress}`,
                     productSize: cart.cartSize,
                     productColor: cart.cartColor,
                     request:
@@ -91,10 +107,7 @@ const Payment = () => {
               alert('결제 성공');
               navigate('/mypage'); // 결제 성공 시 마이페이지로 이동
             } catch (error) {
-              console.error(
-                'Error while verifying payment or creating order:',
-                error,
-              );
+              console.error('결제 검증 또는 주문 생성 중 오류 발생:', error);
               alert('결제 실패');
             }
           } else {
@@ -103,8 +116,33 @@ const Payment = () => {
         },
       );
     } catch (error) {
-      console.error('상품을 결제하는 중 오류 발생:', error);
+      console.error('상품 결제 중 오류 발생:', error);
     }
+  };
+
+  const handlePostcode = () => {
+    new window.daum.Postcode({
+      oncomplete: function (data) {
+        let addr = data.address;
+        let extraAddr = '';
+
+        if (data.userSelectedType === 'R') {
+          if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+            extraAddr += data.bname;
+          }
+          if (data.buildingName !== '' && data.apartment === 'Y') {
+            extraAddr +=
+              extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+          }
+          if (extraAddr !== '') {
+            extraAddr = ' (' + extraAddr + ')';
+          }
+          addr += extraAddr;
+        }
+
+        setShippingAddress(addr);
+      },
+    }).open();
   };
 
   return (
@@ -112,7 +150,7 @@ const Payment = () => {
       <h2 className="payment-title">결제하기</h2>
       <div className="payment-4">
         <div className="payment-3">
-          {/* 상품 정보를 출력하는 부분 */}
+          {/* 상품 정보 */}
           <div className="payment-info-container">
             <p className="payment-info-p">주문상품정보</p>
             {selectedProducts.map((cart) => (
@@ -130,13 +168,13 @@ const Payment = () => {
                     {cart.product.productName}
                   </div>{' '}
                   <div className="Payment-productSize">
-                    Size : {cart.cartSize}{' '}
+                    사이즈: {cart.cartSize}{' '}
                   </div>
                   <div className="Payment-productColor">
-                    Color : {cart.cartColor}
+                    색상: {cart.cartColor}
                   </div>
                   <div className="Payment-productQuantity">
-                    수량:{cart.quantity}
+                    수량: {cart.quantity}
                   </div>
                   <div className="Payment-productPrice">
                     가격: {cart.product.productPrice}원
@@ -167,9 +205,24 @@ const Payment = () => {
             <p className="Delivery-title">배송지 정보</p>
             <div className="DeliveryAndButton">
               <div className="Delivery-info">
-                <p className="Delivery-address">
-                  {sessionStorage.getItem('userAddress')}
-                </p>
+                <input
+                  type="text"
+                  value={shippingAddress}
+                  readOnly={true}
+                  className="Delivery-address-input"
+                />
+                <input
+                  type="button"
+                  onClick={handlePostcode}
+                  value="우편번호 찾기"
+                />
+                <input
+                  type="text"
+                  placeholder="나머지 주소를 입력하세요"
+                  value={extraAddress}
+                  onChange={(e) => setExtraAddress(e.target.value)}
+                  className="Delivery-extra-address-input"
+                />
                 <select
                   id="Delivery-ListBox"
                   name="Delivery-ListBox"
@@ -191,7 +244,7 @@ const Payment = () => {
                     type="text"
                     placeholder="기타 사항을 입력하세요"
                     value={customMemo}
-                    onChange={(e) => setCustomMemo(e.target.value)} //기타사항 텍스트 생성
+                    onChange={(e) => setCustomMemo(e.target.value)} // 기타사항 텍스트 생성
                   />
                 )}
               </div>
@@ -204,15 +257,14 @@ const Payment = () => {
           <div className="Final-paymentamountAndButton">
             <div className="Final-paymentamount-info">
               <div className="Final-paymentamount-price">
-                상품가격 {total}원
+                상품가격: {total}원
               </div>
               <div className="Final-paymentamount-delivery-fee">
-                배송비 = 2500원
+                배송비: 2500원
               </div>
               <div className="Final-payment-total-div">
-                <p className="Final-paymentamount-total">총 결제금액 </p>
+                <p className="Final-paymentamount-total">총 결제금액</p>
                 <p className="Final-paymentmount-total-won">{totalPrice}원</p>
-                <p className=""></p>
               </div>
               <button className="cart-checkout" onClick={handlePurchase}>
                 결제
