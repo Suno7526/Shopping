@@ -44,7 +44,7 @@ public class viewedProductController {
                 // 상품 조회 기록 저장
                 viewedProductService.saveViewedProduct(user, product);
                 // 상품 조회 수 증가
-                productService.incrementViewCount(request.getProductCode());
+                productService.incrementViewCount(product);
                 return ResponseEntity.ok("상품을 성공적으로 저장했습니다.");
             } else {
                 return ResponseEntity.badRequest().body("사용자 또는 상품을 찾을 수 없습니다.");
@@ -64,6 +64,4 @@ public class viewedProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
- 
-    
 }

@@ -34,7 +34,7 @@ const Payment = () => {
     });
 
     return {
-      totalPrice: total + 2500, // add shipping fee
+      totalPrice: total + 100, // add shipping fee
       orderName: name,
       total: total,
     };

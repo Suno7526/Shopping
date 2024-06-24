@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate, Link } from 'react-router-dom'; // 수정된 부분
+import { useParams, Link } from 'react-router-dom';
+import './Search.css'; // 외부 스타일 시트 불러오기
 
 const Search = () => {
   const { query } = useParams(); // URL에서 검색어 가져오기
@@ -12,7 +13,7 @@ const Search = () => {
         const response = await axios.get(
           `http://localhost:8000/searchProducts/${query}`,
         ); // 검색어를 서버로 전달
-        setProducts(response.data);
+        setProducts(response.data.sort((a, b) => b.viewCount - a.viewCount)); // 조회수 순으로 정렬
       } catch (error) {
         console.error('검색 결과를 불러오는 중 오류 발생:', error);
       }
@@ -34,18 +35,23 @@ const Search = () => {
     }
   };
 
+  if (!products) {
+    return <div>Loading...</div>; // 로딩 화면 표시
+  }
+
   return (
     <div>
-      <div id="recommended-properties">
-        <div className="best-item">Best Item</div>
-        <div className="sub-best-item">조회수가 높은 아이템 👍</div>
+      <div id="Category-recommended-properties">
+        <div className="Search-item">Search</div>
+        <div className="Secend-Category-item">Item</div>
+        <div className="Category-item-line"></div>
 
-        <div id="guides-properties">
-          <div className="guides-section">
-            {products ? (
+        <div id="Category-guides-properties">
+          <div className="Category-guides-section">
+            {products.length > 0 ? (
               products.map((product, index) => (
                 <div
-                  className="guides-card"
+                  className="Category-guides-card"
                   data-rank={index + 1}
                   key={product.productCode}
                 >
@@ -55,26 +61,30 @@ const Search = () => {
                       alt={`코디 ${product.productCode}`}
                       className="property-image"
                       style={{
-                        width: '12em',
-                        height: '12em',
+                        width: '15em',
+                        height: '20em',
                       }}
                       onClick={() => handleClickProduct(product.productCode)}
                     />
                   </Link>
 
-                  <div className="product-info">
-                    <p>
-                      <strong>회사명:</strong> {product.companyName}
-                    </p>
-                    <p>
-                      <strong>상품명:</strong> {product.productName}
-                    </p>
-                    <p>
-                      <strong>가격</strong> {product.productPrice}₩
-                    </p>
-                    <p>
-                      <strong>조회수:</strong> {product.viewCount}
-                    </p>
+                  <div className="Category-product-info">
+                    <div>{product.companyName}</div>
+                    <div className="Category-productName">
+                      {product.productName}
+                    </div>
+                    <div className="Category-productPrice">
+                      {product.productPrice}₩
+                    </div>
+
+                    <div className="Category-viewCount">
+                      <img
+                        src="https://i.postimg.cc/XNRxQKLY/download.png"
+                        className="views-icon"
+                        alt="조회수"
+                      />
+                      {product.viewCount}
+                    </div>
                   </div>
                 </div>
               ))

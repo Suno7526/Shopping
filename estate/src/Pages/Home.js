@@ -150,7 +150,7 @@ function Home() {
                   </div>
                 </a>
                 <h4 className="HomeGridH4">{product.productName}</h4>
-                <p className="HomeGridP">가격: {product.productPrice}</p>
+                <p className="HomeGridP">{product.productPrice}</p>
               </div>
             ))}
           </div>
