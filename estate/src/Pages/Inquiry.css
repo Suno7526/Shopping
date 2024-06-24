@@ -60,40 +60,43 @@
   margin: 12%;
 }
 
-.post {
+.Inquiry-post {
   display: flex;
   flex-direction: row;
   background-color: transparent;
   border-top: 1px solid #e0e0e0e0;
   justify-content: space-between;
-  padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
-.post-info-item {
+.Inquiry-post-info-item {
   flex: 1;
-  margin-left: 2%; /* Adjusted for uniform spacing */
-  padding: 2%; /* Adjusted for uniform spacing */
+  margin-left: 15%; /* Adjusted from 15px to 2% for uniform spacing */
+  padding: 1%; /* Adjusted from 10px to 2% for uniform spacing */
   font-size: 16px;
   font-style: Serif;
   text-align: center;
+  align-items: center;
+  color: black;
 }
 
-.post-title {
-  margin-left: 2%; /* Adjusted for uniform spacing */
+.Inquiry-post-title {
+  margin-left: 8%; /* Adjusted from 15px to 2% for uniform spacing */
   font-size: 16px;
   font-style: Serif;
-  padding: 2%; /* Adjusted for uniform spacing */
+  padding: 2%; /* Adjusted from 10px to 2% for uniform spacing */
   flex: 3;
+  color: black;
 }
 
-.post-username {
+.Inquiry-post-username {
   flex: 1;
   text-align: center;
-  margin: 2%; /* Adjusted for uniform spacing */
+  margin: 2%; /* Adjusted from 15px to 2% for uniform spacing */
   font-size: 16px;
   font-style: Serif;
-  margin-right: 2%; /* Adjusted for uniform spacing */
+  margin-right: 18%;
+  color: black;
 }
 
 .no-posts {

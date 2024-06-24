@@ -56,51 +56,47 @@
   font-style: Serif;
   font-size: 17px;
   flex: 1;
-  margin: 12%;
+  margin: 11%;
 }
 
 /*POST 부분*/
-.post {
+.MyInquiry-post {
   display: flex;
   flex-direction: row;
   background-color: transparent;
   border-top: 1px solid #e0e0e0e0;
   justify-content: space-between;
-  padding: 10px;
   border-bottom: 1px solid #ddd;
 }
 
-.post-info-item {
+.MyInquiry-post-info-item {
   flex: 1;
   margin-left: 15%; /* Adjusted from 15px to 2% for uniform spacing */
-  padding: 2%; /* Adjusted from 10px to 2% for uniform spacing */
+  padding: 1%; /* Adjusted from 10px to 2% for uniform spacing */
   font-size: 16px;
   font-style: Serif;
   text-align: center;
+  align-items: center;
+  color: black;
 }
 
-.post-title {
-  margin-left: 15.5%; /* Adjusted from 15px to 2% for uniform spacing */
+.MyInquiry-post-title {
+  margin-left: 8%; /* Adjusted from 15px to 2% for uniform spacing */
   font-size: 16px;
   font-style: Serif;
   padding: 2%; /* Adjusted from 10px to 2% for uniform spacing */
   flex: 3;
+  color: black;
 }
 
-.post-username {
+.MyInquiry-post-username {
   flex: 1;
   text-align: center;
   margin: 2%; /* Adjusted from 15px to 2% for uniform spacing */
   font-size: 16px;
   font-style: Serif;
   margin-right: 18%;
-}
-
-.no-posts {
-  text-align: center;
-  margin: 20px;
-  font-size: 18px;
-  color: #524a4a;
+  color: black;
 }
 
 /*문의 내역이 없습니다*/

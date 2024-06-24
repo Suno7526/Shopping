@@ -11,7 +11,7 @@ const Inquiry = () => {
     const fetchPosts = async () => {
       try {
         const response = await axios.get('http://localhost:8000/questions');
-        setPosts(response.data);
+        setPosts(response.data.reverse());
       } catch (error) {
         console.error('Error fetching posts:', error);
       }
@@ -40,10 +40,12 @@ const Inquiry = () => {
         ) : (
           posts.map((post, index) => (
             <Link to={`/MyQuestion/${post.questionCode}`} key={index}>
-              <div className="post">
-                <span className="post-info-item">{post.questionType}</span>
-                <h2 className="post-title">{post.questionTitle}</h2>
-                <p className="post-username">
+              <div className="Inquiry-post">
+                <span className="Inquiry-post-info-item">
+                  {post.questionType}
+                </span>
+                <h2 className="Inquiry-post-title">{post.questionTitle}</h2>
+                <p className="Inquiry-post-username">
                   {sessionStorage.getItem('userName')}
                 </p>
               </div>

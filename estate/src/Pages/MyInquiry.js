@@ -44,10 +44,14 @@ const MyInquiry = () => {
         ) : (
           posts.map((post, index) => (
             <Link to={`/MyQuestion/${post.questionCode}`} key={index}>
-              <div className="post" key={index}>
-                <span className="post-info-item">{post.questionType}</span>
-                <h2 className="post-title">{post.questionTitle}</h2>
-                <p className="post-username">{userName || 'Unknown'}</p>
+              <div className="MyInquiry-post" key={index}>
+                <span className="MyInquiry-post-info-item">
+                  {post.questionType}
+                </span>
+                <h2 className="MyInquiry-post-title">{post.questionTitle}</h2>
+                <p className="MyInquiry-post-username">
+                  {userName || 'Unknown'}
+                </p>
               </div>
             </Link>
           ))
