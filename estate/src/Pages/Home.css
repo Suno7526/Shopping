@@ -20,7 +20,6 @@
 }
 
 .product-wrapper {
-  display: block;
   width: 250px;
   float: left;
   margin-right: 2em;
@@ -50,19 +49,9 @@
   text-decoration: none;
   margin-top: 0.5em; /* 텍스트 요소들 사이에 여백 추가 */
 }
+
 .clearfix {
   clear: both;
-}
-
-.best-item {
-  color: #000000;
-  font-size: 3em;
-  font-weight: bold;
-  margin-top: 3.5em;
-  padding-top: 1em;
-  position: relative;
-  text-align: left;
-  margin-left: 2em;
 }
 
 .sub-best-item {

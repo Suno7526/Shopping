@@ -72,8 +72,8 @@ function Home() {
   return (
     <div>
       <div className="Home-MainImage"></div>
-      <div className="Home-text" id="best-item">
-        <h1>Best Item</h1>
+      <div className="Home-text">
+        <h1>Best Items</h1>
         <div className="product-list">
           {products.slice(0, 5).map((product) => (
             <div className="product-wrapper" key={product.productCode}>
@@ -91,12 +91,12 @@ function Home() {
               <div className="product-price">{product.productPrice}</div>
             </div>
           ))}
+          <div className="clearfix"></div>
         </div>
-        <div className="clearfix" />
       </div>
 
       <div className="recommend-item" id="recommend-item">
-        New Item
+        New Items
       </div>
       <div>
         <Slider
@@ -128,7 +128,7 @@ function Home() {
       <div id="recommended-properties">
         <div className="Home-MiddleImage"></div>
         <div className="container-fluid" id="popular-content">
-          <h1 className="good-text">Recommend Item</h1>
+          <h1 className="good-text">Product Items</h1>
           <br></br>
           <div className="masonry">
             {products.map((product) => (

@@ -18,7 +18,6 @@ const MyQuestion = () => {
   const [comments, setComments] = useState([]);
 
   const profileImages = [
-    'https://i.postimg.cc/ryGyqhKY/images.jpg',
     'https://i.postimg.cc/xdqqCLWN/images.jpg',
     // 나머지 프로필 이미지들...
   ];

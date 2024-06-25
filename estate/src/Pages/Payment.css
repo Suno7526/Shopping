@@ -104,13 +104,6 @@
   margin-left: 60%;
 }
 
-.Orderer-Edit-Btn {
-  padding: 5px 10px;
-  background-color: #fff;
-  color: #000000e0;
-  border: 1px solid #4f4f4fe0;
-}
-
 .OrdererAndButton {
   display: flex;
 }
@@ -132,13 +125,6 @@
 
 .Payment-Delivery-Button {
   margin-left: 20%;
-}
-
-.Delivery-Edit-Btn {
-  padding: 5px 10px;
-  background-color: #fff;
-  color: #000000e0;
-  border: 1px solid #4f4f4fe0;
 }
 
 .DeliveryAndButton {
@@ -224,4 +210,23 @@
 
 .cart-checkout:hover {
   background-color: #494;
+}
+
+.Delivery-address-input {
+  width: 90%; /* 너비를 %로 늘립니다 */
+}
+
+.Address-and-postcode {
+  display: flex;
+  align-items: center;
+}
+
+.Findpostalcode {
+  margin-left: auto; /* 오른쪽에 위치시킵니다 */
+}
+
+.Delivery-extra-address-input {
+  margin-top: 2%;
+  margin-bottom: 2%;
+  width: 70%;
 }

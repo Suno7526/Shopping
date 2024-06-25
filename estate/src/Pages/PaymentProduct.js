@@ -209,7 +209,7 @@ const Payment = () => {
                     type="text"
                     placeholder="기타 사항을 입력하세요"
                     value={customMemo}
-                    onChange={(e) => setCustomMemo(e.target.value)} //기타사항 텍스트 생성
+                    onChange={(e) => setCustomMemo(e.target.value)} // 기타사항 텍스트 생성
                   />
                 )}
               </div>
@@ -230,7 +230,7 @@ const Payment = () => {
               <div className="Final-payment-total-div">
                 <p className="Final-paymentamount-total">총 결제금액 </p>
                 <p className="Final-paymentmount-total-won">
-                  {product.productPrice + 100}원
+                  {product.productPrice + 2500}원
                 </p>
               </div>
               <button className="cart-checkout" onClick={handlePurchase}>
