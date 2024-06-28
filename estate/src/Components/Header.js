@@ -71,9 +71,9 @@ const Header = () => {
                   height="20"
                   fill="none"
                   stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
                   className="feather feather-search"
                   viewBox="0 0 24 24"
                 >
@@ -84,14 +84,24 @@ const Header = () => {
             </form>
           </li>
           {userRole === 'ADMIN' && (
-            <li className="header-li">
-              <Link to="/ProductJoin">상품등록</Link>
-              <img
-                src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
-                alt="Product Join"
-                className="hover-image"
-              />
-            </li>
+            <>
+              <li className="header-li">
+                <Link to="/ProductUpdate">상품수정</Link>
+                <img
+                  src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
+                  alt="Product Update"
+                  className="hover-image"
+                />
+              </li>
+              <li className="header-li">
+                <Link to="/ProductJoin">상품등록</Link>
+                <img
+                  src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
+                  alt="Product Join"
+                  className="hover-image"
+                />
+              </li>
+            </>
           )}
           <li className="header-li">
             <Link to="/Cart">장바구니</Link>
@@ -138,14 +148,16 @@ const Header = () => {
               </Link>
             )}
           </li>
-          <button className="sign-out-button" onClick={handleSignOut}>
-            Sign Out
-            <img
-              src="https://i.postimg.cc/ZRbmrSSn/download.png"
-              alt="Sign Out"
-              className="sign-out-icon"
-            />
-          </button>
+          {isLogin && (
+            <button className="sign-out-button" onClick={handleSignOut}>
+              Sign Out
+              <img
+                src="https://i.postimg.cc/ZRbmrSSn/download.png"
+                alt="Sign Out"
+                className="sign-out-icon"
+              />
+            </button>
+          )}
         </ul>
       </div>
 

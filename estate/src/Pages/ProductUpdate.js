@@ -130,6 +130,7 @@ const ProductUpdate = () => {
             <th>Product Name</th>
             <th>Product Stuck</th>
             <th>Product Price</th>
+            <th>Category</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -187,6 +188,19 @@ const ProductUpdate = () => {
                   />
                 ) : (
                   product.productPrice
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="text"
+                    name="category"
+                    value={editingProduct.category}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.category
                 )}
               </td>
               <td>
