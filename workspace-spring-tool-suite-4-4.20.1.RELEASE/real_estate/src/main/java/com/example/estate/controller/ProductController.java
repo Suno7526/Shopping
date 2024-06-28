@@ -112,10 +112,17 @@ public class ProductController {
 		}
 	}
 
-	@GetMapping("/searchProducts/{query}")
-	public List<Product> searchProducts(@PathVariable("query") String query) {
-		return productService.searchProducts(query);
-	}
+	@GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(
+            @RequestParam(value = "productCode", required = false) Long productCode,
+            @RequestParam(value = "productName", required = false) String productName,
+            @RequestParam(value = "companyName", required = false) String companyName,
+            @RequestParam(value = "productStock", required = false) Integer productStock,
+            @RequestParam(value = "productPrice", required = false) Integer productPrice,
+            @RequestParam(value = "category", required = false) String category) {
+        List<Product> products = productService.searchProducts(productCode, productName, companyName, productStock, productPrice, category);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
 
 	@GetMapping("/recommendProducts/{userCode}")
 	public ResponseEntity<List<Product>> recommendProducts(@PathVariable("userCode") Long userCode) {

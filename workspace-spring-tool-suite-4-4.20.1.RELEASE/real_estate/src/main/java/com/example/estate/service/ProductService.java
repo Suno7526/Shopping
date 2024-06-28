@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.jpa.domain.Specification;
+import org.springframework.*;
 
 import com.example.estate.entity.Orders;
 import com.example.estate.entity.Product;
@@ -16,6 +18,8 @@ import com.example.estate.entity.ViewedProduct;
 import com.example.estate.repository.OrdersRepository;
 import com.example.estate.repository.ProductRepository;
 import com.example.estate.repository.ViewedProductRepository;
+
+import Search.ProductSpecifications;
 
 @Service
 public class ProductService {
@@ -114,8 +118,29 @@ public class ProductService {
     
     
     @Transactional(readOnly = true)
-    public List<Product> searchProducts(String query) {
-        return productRepository.findByCategoryContainingIgnoreCaseOrProductNameContainingIgnoreCase(query, query);
+    public List<Product> searchProducts(Long productCode, String productName, String companyName, Integer productStock, Integer productPrice, String category) {
+        Specification<Product> spec = Specification.where(null);
+
+        if (productCode != null) {
+            spec = spec.and(ProductSpecifications.hasProductCode(productCode));
+        }
+        if (productName != null) {
+            spec = spec.and(ProductSpecifications.hasProductName(productName));
+        }
+        if (companyName != null) {
+            spec = spec.and(ProductSpecifications.hasCompanyName(companyName));
+        }
+        if (productStock != null) {
+            spec = spec.and(ProductSpecifications.hasProductStock(productStock));
+        }
+        if (productPrice != null) {
+            spec = spec.and(ProductSpecifications.hasProductPrice(productPrice));
+        }
+        if (category != null) {
+            spec = spec.and(ProductSpecifications.hasCategory(category));
+        }
+
+        return productRepository.findAll(spec);
     }
     
     @Transactional(readOnly = true)

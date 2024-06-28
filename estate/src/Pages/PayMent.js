@@ -50,7 +50,7 @@ const Payment = () => {
     });
 
     return {
-      totalPrice: total + 2500, // 배송비 추가
+      totalPrice: total + 100, // 배송비 추가
       orderName: name,
       total: total,
     };
@@ -204,22 +204,18 @@ const Payment = () => {
           <div className="Delivery-section">
             <p className="Delivery-title">배송지 정보</p>
             <div className="DeliveryAndButton">
-              <div className="Delivery-info">
-                <div className="Address-and-postcode">
-                  <input
-                    type="text"
-                    value={shippingAddress}
-                    readOnly={true}
-                    className="Delivery-address-input"
-                  />
-                  <input
-                    className="Findpostalcode"
-                    type="button"
-                    onClick={handlePostcode}
-                    value="우편번호 찾기"
-                  />
-                </div>
-                <p> - </p>
+              <div className="  ">
+                <input
+                  type="text"
+                  value={shippingAddress}
+                  readOnly={true}
+                  className="Delivery-address-input"
+                />
+                <input
+                  type="button"
+                  onClick={handlePostcode}
+                  value="우편번호 찾기"
+                />
                 <input
                   type="text"
                   placeholder="나머지 주소를 입력하세요"
@@ -248,7 +244,7 @@ const Payment = () => {
                     type="text"
                     placeholder="기타 사항을 입력하세요"
                     value={customMemo}
-                    onChange={(e) => setCustomMemo(e.target.value)} //기타사항 텍스트 생성
+                    onChange={(e) => setCustomMemo(e.target.value)} // 기타사항 텍스트 생성
                   />
                 )}
               </div>

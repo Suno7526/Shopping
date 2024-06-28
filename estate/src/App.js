@@ -109,7 +109,7 @@ function App() {
         <Route path="/QCancel" element={<QCancel />} />
         <Route path="/QExchange" element={<QExchange />} />
         <Route path="/Review/:orderCode" element={<Review />} />
-        <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
+        <Route path="/ProductUpdate" element={<ProductUpdate />} />
         <Route path="/MyInquiry" element={<MyInquiry />} />
         <Route path="/Search/:query" element={<Search />} />
         <Route path="/MyQuestion/:questionCode" element={<MyQuestion />} />
