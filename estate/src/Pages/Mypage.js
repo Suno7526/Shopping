@@ -95,11 +95,13 @@ const Mypage = () => {
                         style={{ width: '100px', height: '100px' }}
                       />
                     </Link>
+                    {order.product.companyName}
+                    <br />
                     {order.product.productName}
-                    <br></br>SIZE :{order.productSize}
-                    <br></br> Color : {order.productColor}
-                    {order.product.productOption}
-                    <div></div>
+                    <br />
+                    SIZE :{order.productSize}
+                    <br />
+                    Color : {order.productColor}
                   </td>
                   <td style={{ width: '150px' }}>
                     {formatRegisterDate(order.orderDate)}

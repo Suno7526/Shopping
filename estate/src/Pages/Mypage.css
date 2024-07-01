@@ -32,6 +32,7 @@
 }
 .OrderTable th,
 .OrderTable td {
+  margin: 10px 10px 10px 10px;
   border: none;
   padding: 8px;
   vertical-align: middle;
