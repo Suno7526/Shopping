@@ -1,4 +1,5 @@
 package Search;
+
 import org.springframework.data.jpa.domain.Specification;
 
 import com.example.estate.entity.Product;
@@ -27,5 +28,9 @@ public class ProductSpecifications {
 
     public static Specification<Product> hasCategory(String category) {
         return (product, cq, cb) -> cb.like(cb.lower(product.get("category")), "%" + category.toLowerCase() + "%");
+    }
+    
+    public static Specification<Product> hasDiscountRate(Integer discountRate) {
+        return (product, cq, cb) -> cb.equal(product.get("discountRate"), discountRate);
     }
 }

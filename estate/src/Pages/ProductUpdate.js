@@ -12,6 +12,7 @@ const ProductUpdate = () => {
     productStuck: '',
     productPrice: '',
     category: '',
+    discountRate: '',
   });
   const [editingProduct, setEditingProduct] = useState(null);
   const navigate = useNavigate();
@@ -72,7 +73,9 @@ const ProductUpdate = () => {
       (searchParams.productPrice === '' ||
         product.productPrice.toString().includes(searchParams.productPrice)) &&
       (searchParams.category === '' ||
-        product.category.includes(searchParams.category))
+        product.category.includes(searchParams.category)) &&
+      (searchParams.discountRate === '' ||
+        product.discountRate.toString().includes(searchParams.discountRate))
     );
   });
 
@@ -121,17 +124,25 @@ const ProductUpdate = () => {
           value={searchParams.category}
           onChange={handleSearchChange}
         />
+        <input
+          type="text"
+          name="discountRate"
+          placeholder="Search by Discount Rate"
+          value={searchParams.discountRate}
+          onChange={handleSearchChange}
+        />
       </div>
       <table className="product-table">
         <thead>
           <tr>
-            <th>Product Code</th>
-            <th>Company Name</th>
-            <th>Product Name</th>
-            <th>Product Stuck</th>
-            <th>Product Price</th>
-            <th>Category</th>
-            <th>Actions</th>
+            <th>상품 번호</th>
+            <th>회사명</th>
+            <th>상품명</th>
+            <th>재고 수</th>
+            <th>가격</th>
+            <th>카테고리</th>
+            <th>할인률</th>
+            <th>수정하기</th>
           </tr>
         </thead>
         <tbody>
@@ -201,6 +212,19 @@ const ProductUpdate = () => {
                   />
                 ) : (
                   product.category
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="number"
+                    name="discountRate"
+                    value={editingProduct.discountRate}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.discountRate
                 )}
               </td>
               <td>

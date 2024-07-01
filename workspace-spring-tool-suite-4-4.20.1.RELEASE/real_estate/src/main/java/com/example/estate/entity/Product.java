@@ -72,6 +72,10 @@ public class Product {
     
     @Column(nullable = false, columnDefinition = "float default 0")
     private float userPoint;
+    
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int discountRate;
+    
 
     @CreationTimestamp
     private Timestamp registerDate;

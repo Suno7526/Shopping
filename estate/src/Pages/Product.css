@@ -109,12 +109,10 @@ a {
 }
 
 .grid-item-productStuck {
-  padding-left: 20px;
   margin-bottom: 3em;
 }
 
 .grid-item-registerDate {
-  padding-left: 20px;
   margin-bottom: 3em;
 }
 
@@ -157,6 +155,7 @@ a {
 /*옷 사이즈*/
 
 #size-input {
+  margin-bottom: 10px;
   margin-left: 30px;
   width: 70%;
   padding: 3px;

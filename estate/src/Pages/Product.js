@@ -15,6 +15,8 @@ const Product = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [averageReviewPoint, setAverageReviewPoint] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(0); // 할인된 가격 상태 추가
+  const [DiscountedRate, setDiscountedRate] = useState(0); // 할인된 가격 상태 추가
   const navigate = useNavigate();
 
   const [imageUrls, setImageUrls] = useState([]);
@@ -40,6 +42,16 @@ const Product = () => {
 
     fetchProductImages();
   }, [productCode]);
+
+  useEffect(() => {
+    if (product) {
+      const discountRate = product.discountRate || 0;
+      setDiscountedRate(discountRate);
+      const calculatedDiscountedPrice =
+        (product.productPrice * (100 - discountRate)) / 100;
+      setDiscountedPrice(calculatedDiscountedPrice);
+    }
+  }, [product]);
 
   // Base64 문자열을 Blob URL로 변환하는 함수
   const convertToBlobUrl = (base64String) => {
@@ -263,16 +275,9 @@ const Product = () => {
           <div className="description-card">
             <div className="grid-item-productName">
               {product.companyName}
+              <br />
               <br></br>
               상품 명 : {product.productName}
-            </div>
-            <div className="grid-item-productPrice">
-              💲 판매가 : {product.productPrice}
-            </div>
-            <div className="cupon-wrap">
-              <div className="cupon-text">쿠폰 사용시 할인 되는 금액</div>
-              <div class="discount-rate">41%</div>
-              <div class="discount-price">17,280원</div>
             </div>
 
             <div className="grid-item-productStuck">
@@ -314,6 +319,18 @@ const Product = () => {
 
             <div className="grid-item-userPoint">
               별점 : {averageReviewPoint}
+            </div>
+
+            <div className="grid-item-productPrice">
+              💲 판매가 : {product.productPrice}
+            </div>
+
+            <div className="cupon-wrap">
+              <div className="cupon-text">쿠폰 사용시 할인 되는 금액</div>
+              <div className="discount-rate">{DiscountedRate}%</div>
+              <div className="discount-price">
+                {discountedPrice.toFixed(0)}원
+              </div>
             </div>
 
             {/* 버튼 추가 */}
