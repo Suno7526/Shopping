@@ -97,9 +97,11 @@ const Mypage = () => {
                     {order.product.productOption}
                     <div></div>
                   </td>
-                  <td>{formatRegisterDate(order.orderDate)}</td>
-                  <td>{order.orderCode}</td>
-                  <td>{order.orderStatus}</td>
+                  <td style={{ width: '150px' }}>
+                    {formatRegisterDate(order.orderDate)}
+                  </td>
+                  <td style={{ width: '100px' }}>{order.orderCode}</td>
+                  <td style={{ width: '100px' }}>{order.orderStatus}</td>
                   <td>{order.shippingAddress}</td>
                   <td>
                     {order.reviewCheck ? (
