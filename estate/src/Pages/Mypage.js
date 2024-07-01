@@ -84,7 +84,10 @@ const Mypage = () => {
             <tbody>
               {ordersItems.map((order) => (
                 <tr key={order.orderCode}>
-                  <td className="PProductInfo">
+                  <td
+                    className="PProductInfo"
+                    style={{ width: '300px', height: '100px' }}
+                  >
                     <Link to={`/product/${order.product.productCode}`}>
                       <img
                         src={`http://localhost:8000/getProductImage/${order.product.productCode}`}
@@ -92,8 +95,9 @@ const Mypage = () => {
                         style={{ width: '100px', height: '100px' }}
                       />
                     </Link>
-                    <strong>{order.product.productName}</strong> / SIZE :
-                    {order.productSize} / Color : {order.productColor}
+                    {order.product.productName}
+                    <br></br>SIZE :{order.productSize}
+                    <br></br> Color : {order.productColor}
                     {order.product.productOption}
                     <div></div>
                   </td>
@@ -137,9 +141,8 @@ const Mypage = () => {
                   alt={product.productName}
                 />
               </Link>
-              <div className="MypageRecommended-productname">
-                {product.productName}
-              </div>
+              <p>{product.companyName}</p>
+              <p>{product.productName}</p>
               <p className="MypageRecommended-P">{product.productPrice}원</p>
             </div>
           ))}

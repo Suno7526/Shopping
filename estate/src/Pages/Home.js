@@ -87,6 +87,7 @@ function Home() {
                   alt={product.productName}
                 />
               </Link>
+              <div>{product.companyName}</div>
               <div className="product-name">{product.productName}</div>
               <div className="product-price">{product.productPrice}</div>
             </div>
