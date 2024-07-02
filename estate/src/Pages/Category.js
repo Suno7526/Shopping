@@ -84,7 +84,6 @@ const Category = () => {
   return (
     <div>
       <div id="Category-recommended-properties">
-        <div className="JacketImage"></div>
         <div className="Category-item">{category}</div>
         <div className="Secend-Category-item"> Item</div>
         <div className="Category-item-line"></div>

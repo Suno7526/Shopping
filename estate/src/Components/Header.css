@@ -1,11 +1,10 @@
-/* Tab Menu */
-/* Container for tab menu */
 header {
-  position: sticky;
-  bottom: 0;
-  width: 100%;
-  z-index: 1000;
+  position: fixed;
   top: 0;
+  width: 100%;
+  background-color: transparent; /* 배경을 투명으로 설정 */
+  z-index: 1000;
+  padding: 10px 0; /* 패딩 추가로 내용 정렬 */
 }
 
 .headermenu {

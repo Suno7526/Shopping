@@ -1,6 +1,9 @@
 body {
+  padding-top: 200px;
   margin: 0;
   padding-bottom: 100px; /* footer의 높이만큼 여백을 주어서 footer가 페이지의 내용을 가리지 않도록 함 */
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 .page-content {

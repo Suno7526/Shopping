@@ -1,16 +1,13 @@
 .Inquiry-sidebar {
-  display: flex;
-  align-items: stretch; /* 자식 요소들이 사이드바 전체 너비를 차지하게 합니다 */
-  position: relative;
-  float: left;
+  position: fixed;
+  top: 300px;
+  left: 0;
   width: 200px;
-  height: 500px;
-  border: 1px solid gray;
-  align-items: center;
-  z-index: 700;
-  background-color: #f6f4ee;
-  margin-top: 9.9em;
-  margin-right: 5px;
+  height: 100%;
+  background-color: transparent; /* 배경을 투명으로 설정 */
+  color: white;
+  padding: 20px;
+  z-index: 999; /* z-index 설정으로 다른 요소들보다 위에 위치 */
 }
 
 .Inquiry-sidebar a {
@@ -56,26 +53,21 @@
 
 /*최근본상품*/
 .QuestionButton-div {
-  border-top: 1px solid #ccc; /* 위쪽 선 */
-  border-bottom: 1px solid #ccc; /* 아래쪽 선 */
   padding: 10px 0; /* 위아래 여백 추가 */
   width: 100%; /* 전체 너비 사용 */
 }
 
 .InquiryButton-div {
-  border-bottom: 1px solid #ccc; /* 아래쪽 선 */
   padding: 10px 0; /* 위아래 여백 추가 */
   width: 100%; /* 전체 너비 사용 */
 }
 
 .MyInquiryButton-div {
-  border-bottom: 1px solid #ccc; /* 아래쪽 선 */
   padding: 10px 0; /* 위아래 여백 추가 */
   width: 100%; /* 전체 너비 사용 */
 }
 
 .BestFAQButton-div {
-  border-bottom: 1px solid #ccc; /* 아래쪽 선 */
   padding: 10px 0; /* 위아래 여백 추가 */
   width: 100%; /* 전체 너비 사용 */
 }
