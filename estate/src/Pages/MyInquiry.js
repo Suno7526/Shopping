@@ -37,7 +37,7 @@ const MyInquiry = () => {
             <tr>
               <th>문의유형</th>
               <th>제목</th>
-              <th>내용</th>
+              <th>작성자</th>
               <th>등록일</th>
             </tr>
           </thead>
@@ -59,9 +59,7 @@ const MyInquiry = () => {
                       {post.questionTitle}
                     </Link>
                   </td>
-                  <td className="Inquiry-post-content">
-                    {post.questionContent}
-                  </td>
+                  <td className="Inquiry-post-content">{post.user.name}</td>
                   <td className="Inquiry-post-date">
                     {new Date(post.registerDate).toLocaleDateString()}
                   </td>
