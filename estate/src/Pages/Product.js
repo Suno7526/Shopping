@@ -239,7 +239,7 @@ const Product = () => {
       0,
     );
     const average = totalPoints / reviews.length;
-    setAverageReviewPoint(average.toFixed(2)); // 소수점 둘째 자리까지 표시
+    setAverageReviewPoint(average(2)); // 소수점 둘째 자리까지 표시
   };
 
   if (!product) {

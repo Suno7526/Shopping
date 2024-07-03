@@ -127,7 +127,6 @@ function Home() {
       </div>
 
       <div id="recommended-properties">
-        <div className="Home-MiddleImage"></div>
         <div className="container-fluid" id="popular-content">
           <h1 className="good-text">Product Items</h1>
           <br></br>
@@ -157,7 +156,6 @@ function Home() {
           </div>
         </div>
       </div>
-      <div className="Home-BottomImage" id="fashion-news"></div>
 
       <h1 className="FASHION-NEWS">FASHION NEWS</h1>
       <p className="FASHION-NEWS-sub-text" id="fashion-news-content"></p>
