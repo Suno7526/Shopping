@@ -1,3 +1,16 @@
+.Inquiry-page {
+  display: flex;
+}
+
+.Inquiry-article {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  flex-grow: 1;
+  margin-left: 220px; /* Aside의 넓이만큼 왼쪽 여백 추가 */
+}
+
 .InquiryMainImage {
   width: 100px;
   height: 100%;
@@ -7,102 +20,60 @@
   background-position: center center;
 }
 
-.Inquiry-article {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  flex-direction: column;
-  flex-grow: 1;
-  margin-left: 220px; /* Aside의 넓이만큼 왼쪽 여백 추가 */
+.Inquiry-Maintitle {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
 }
 
-.board-main {
-  margin-left: 1;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 20px;
-}
-
-.board-info {
-  padding: 10px;
+.Inquiry-table {
   width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-spacing: 0;
-  background-color: transparent;
-  margin-top: 1%;
-  margin-bottom: 1%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+.Inquiry-table a {
+  color: inherit; /* 기존 색상 유지 */
+  text-decoration: none; /* 밑줄 제거 */
+}
+.Inquiry-table a:hover {
+  text-decoration: underline; /* 마우스를 올렸을 때 밑줄 표시 */
+}
+
+.Inquiry-table th,
+.Inquiry-table td {
+  border: 1px solid #e0e0e0;
+  padding: 10px;
+  text-align: left; /* 텍스트를 왼쪽 정렬로 설정 */
+  font-size: 16px;
+  font-style: Serif;
+}
+
+.Inquiry-table th {
+  background-color: #f1f1f1;
   font-weight: bold;
 }
 
-/*문의하기 헤더들*/
-
-.board-info-item-type {
-  font-style: Serif;
-  font-size: 17px;
-  flex: 1;
-  margin: 12%;
-}
-
-.board-info-item-title {
-  font-style: Serif;
-  font-size: 17px;
-  flex: 1;
-  margin: 13%;
-}
-
-.board-info-item-name {
-  font-style: Serif;
-  font-size: 17px;
-  flex: 1;
-  margin: 12%;
-}
-
-.Inquiry-post {
-  display: flex;
-  flex-direction: row;
-  background-color: transparent;
-  border-top: 1px solid #e0e0e0e0;
-  justify-content: space-between;
-  border-bottom: 1px solid #ddd;
-}
-
 .Inquiry-post-info-item {
-  flex: 1;
-  margin-left: 15%; /* Adjusted from 15px to 2% for uniform spacing */
-  padding: 1%; /* Adjusted from 10px to 2% for uniform spacing */
-  font-size: 16px;
-  font-style: Serif;
-  text-align: center;
-  align-items: center;
-  color: black;
+  width: 140px;
 }
 
 .Inquiry-post-title {
-  margin-left: 8%; /* Adjusted from 15px to 2% for uniform spacing */
-  font-size: 16px;
-  font-style: Serif;
-  padding: 2%; /* Adjusted from 10px to 2% for uniform spacing */
-  flex: 3;
-  color: black;
+  width: 600px;
+  font-weight: bold;
 }
 
-.Inquiry-post-username {
-  flex: 1;
-  text-align: center;
-  margin: 2%; /* Adjusted from 15px to 2% for uniform spacing */
-  font-size: 16px;
-  font-style: Serif;
-  margin-right: 18%;
-  color: black;
+.Inquiry-post-content {
+  text-align: left; /* 텍스트를 왼쪽 정렬로 설정 */
+}
+
+.Inquiry-post-date {
+  color: #888;
+  font-size: 14px;
 }
 
 .no-posts {
   text-align: center;
-  margin: 20px;
+  padding: 20px;
   font-size: 18px;
   color: #524a4a;
 }

@@ -97,13 +97,15 @@
 
 /* Product entries */
 .cart-product {
-  margin-bottom: 150px;
+  padding-top: 10px;
+  border-top: 1px solid gray;
+  margin-bottom: 101px;
   padding-bottom: 10px;
   clear: both;
 }
 
 .cart-product-image {
-  text-align: center;
+  text-align: left;
 }
 
 .cart-product-image img {
@@ -141,6 +143,7 @@
 
 /* Totals section */
 .cart-totals {
+  border-top: 1px solid gray;
   margin-top: 20px;
 }
 

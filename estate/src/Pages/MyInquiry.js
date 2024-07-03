@@ -25,38 +25,52 @@ const MyInquiry = () => {
   }, []);
 
   return (
-    <div className="MyInquiry-page">
+    <div className="Inquiry-page">
       <InquiryAside />
-      <article className="MyInquiry-article">
+      <article className="Inquiry-article">
         <h2>
-          <div className="MyInquiry-Maintitle">나의 문의내역</div>
+          <div className="Inquiry-Maintitle">문의하기</div>
         </h2>
-        <div className="MyInquiryMainImage"></div>
+        <div className="InquiryMainImage"></div>
+        <table className="Inquiry-table">
+          <thead>
+            <tr>
+              <th>문의유형</th>
+              <th>제목</th>
+              <th>내용</th>
+              <th>등록일</th>
+            </tr>
+          </thead>
+          <tbody>
+            {posts.length === 0 ? (
+              <tr>
+                <td colSpan="4" className="no-posts">
+                  문의 내역이 없습니다.
+                </td>
+              </tr>
+            ) : (
+              posts.map((post, index) => (
+                <tr key={index}>
+                  <td className="Inquiry-post-info-item">
+                    {post.questionType}
+                  </td>
+                  <td className="Inquiry-post-title">
+                    <Link to={`/MyQuestion/${post.questionCode}`}>
+                      {post.questionTitle}
+                    </Link>
+                  </td>
+                  <td className="Inquiry-post-content">
+                    {post.questionContent}
+                  </td>
+                  <td className="Inquiry-post-date">
+                    {new Date(post.registerDate).toLocaleDateString()}
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
       </article>
-      <div className="MyInquiry-board-main">
-        <div className="MyInquiry-board-info">
-          <span className="MyInquiry-board-info-type">문의 종류</span>
-          <span className="MyInquiry-board-info-title">제목</span>
-          <span className="MyInquiry-board-info-name">사용자이름</span>
-        </div>
-        {posts.length === 0 ? (
-          <div className="no-posts">문의 내역이 없습니다.</div>
-        ) : (
-          posts.map((post, index) => (
-            <Link to={`/MyQuestion/${post.questionCode}`} key={index}>
-              <div className="MyInquiry-post" key={index}>
-                <span className="MyInquiry-post-info-item">
-                  {post.questionType}
-                </span>
-                <h2 className="MyInquiry-post-title">{post.questionTitle}</h2>
-                <p className="MyInquiry-post-username">
-                  {userName || 'Unknown'}
-                </p>
-              </div>
-            </Link>
-          ))
-        )}
-      </div>
     </div>
   );
 };

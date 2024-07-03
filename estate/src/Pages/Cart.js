@@ -181,21 +181,15 @@ const Cart = () => {
             <div className="cart-totals">
               <div className="cart-totals-item">
                 <label>총상품금액</label>
-                <div className="cart-totals-value" id="cart-subtotal">
-                  {totalProductsPrice}원
-                </div>
+                {totalProductsPrice}원
               </div>
               <div className="cart-totals-item">
                 <label>할인금액</label>
-                <div className="cart-totals-value" id="cart-tax">
-                  {discountAmount}원
-                </div>
+                {discountAmount}원
               </div>
               <div className="cart-totals-item cart-totals-item-total">
                 <label>총합계</label>
-                <div className="cart-totals-value" id="cart-total">
-                  {totalAmount}원
-                </div>
+                {totalAmount}원
               </div>
             </div>
             <button className="cart-checkout" onClick={handlePurchase}>

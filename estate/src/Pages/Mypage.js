@@ -58,7 +58,7 @@ const Mypage = () => {
   };
 
   return (
-    <div className="Mypage-page">
+    <div className="Mypage">
       <Aside />
       <article className="Mypage-article">
         <h2>

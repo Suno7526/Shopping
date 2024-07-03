@@ -34,8 +34,7 @@
 }
 
 .Inquiry-sidebar button:hover {
-  color: #080808; /* 호버 상태에서의 글자색 */
-  font-size: 20px;
+  color: #3e8084; /* 호버 상태에서의 글자색 */
 }
 
 .Inquiry-sidebar-header {
