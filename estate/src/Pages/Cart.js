@@ -59,7 +59,6 @@ const Cart = () => {
       await axios.delete(
         `http://localhost:8000/deleteCartItem/${userCode}/${productCode}`,
       );
-      // 상품 삭제 후 직접 새로운 장바구니 아이템 목록을 구성
       const updatedCartItems = cartItems.filter(
         (item) => item.product.productCode !== productCode,
       );
@@ -118,66 +117,74 @@ const Cart = () => {
           <div className="Cart-empty-message">장바구니가 비어있습니다.</div>
         ) : (
           <>
-            <div className="cart-column-labels">
-              <label className="cart-product-image-label">Image</label>
-              <label className="cart-product-details-label">Product</label>
-              <label className="cart-product-price-label">Price</label>
-              <label className="cart-product-quantity-label">Quantity</label>
-              <label className="cart-product-line-price-label">Total</label>
-            </div>
-            {cartItems.map((item) => (
-              <div className="cart-product" key={item.cartCode}>
-                <div className="cart-product-image">
-                  <Link to={`/product/${item.product.productCode}`}>
-                    <img
-                      src={`http://localhost:8000/getProductImage/${item.product.productCode}`}
-                      alt={item.product.productName}
-                    />
-                  </Link>
-                </div>
-                <div className="cart-product-details">
-                  <div className="cart-product-title">
-                    {item.product.productName} / 색상 : {item.cartColor} /
-                    사이즈 : {item.cartSize}
-                  </div>
-                </div>
-                <div className="cart-product-price">
-                  {item.product.productPrice}원
-                </div>
-                <div className="cart-product-quantity">
-                  <input
-                    type="number"
-                    value={item.quantity}
-                    min="1"
-                    onChange={(e) =>
-                      handleQuantityChange(
-                        item.cartCode,
-                        parseInt(e.target.value),
-                      )
-                    }
-                  />
-                </div>
-                <div className="cart-product-removal">
-                  <button
-                    className="cart-remove-product"
-                    onClick={() => handleDeleteItem(item.product.productCode)}
-                  >
-                    Remove
-                  </button>
-                </div>
-                <div className="cart-product-line-price">
-                  {item.product.productPrice * item.quantity}원
-                </div>
-                <div className="cart-product-checkbox">
-                  <input
-                    type="checkbox"
-                    checked={selectedProducts.includes(item)}
-                    onChange={() => handleCheckboxChange(item)}
-                    style={{ transform: 'scale(1.5)' }}
-                  />
-                </div>
-              </div>
-            ))}
+            <table className="cart-table">
+              <thead>
+                <tr>
+                  <th>Image</th>
+                  <th>Product</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th>Total</th>
+                  <th>Remove</th>
+                  <th>Select</th>
+                </tr>
+              </thead>
+              <tbody>
+                {cartItems.map((item) => (
+                  <tr key={item.cartCode}>
+                    <td className="cart-product-image">
+                      <Link to={`/product/${item.product.productCode}`}>
+                        <img
+                          src={`http://localhost:8000/getProductImage/${item.product.productCode}`}
+                          alt={item.product.productName}
+                        />
+                      </Link>
+                    </td>
+                    <td className="cart-product-details">
+                      {item.product.productName} / 색상 : {item.cartColor} /
+                      사이즈 : {item.cartSize}
+                    </td>
+                    <td className="cart-product-price">
+                      {item.product.productPrice}원
+                    </td>
+                    <td className="cart-product-quantity">
+                      <input
+                        type="number"
+                        value={item.quantity}
+                        min="1"
+                        onChange={(e) =>
+                          handleQuantityChange(
+                            item.cartCode,
+                            parseInt(e.target.value),
+                          )
+                        }
+                      />
+                    </td>
+                    <td className="cart-product-line-price">
+                      {item.product.productPrice * item.quantity}원
+                    </td>
+                    <td className="cart-product-removal">
+                      <button
+                        className="cart-remove-product"
+                        onClick={() =>
+                          handleDeleteItem(item.product.productCode)
+                        }
+                      >
+                        Remove
+                      </button>
+                    </td>
+                    <td className="cart-product-checkbox">
+                      <input
+                        type="checkbox"
+                        checked={selectedProducts.includes(item)}
+                        onChange={() => handleCheckboxChange(item)}
+                        style={{ transform: 'scale(1.5)' }}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
             <div className="cart-totals">
               <div className="cart-totals-item">
                 <label>총상품금액</label>
@@ -191,10 +198,10 @@ const Cart = () => {
                 <label>총합계</label>
                 {totalAmount}원
               </div>
+              <button className="purchase-button" onClick={handlePurchase}>
+                결제하기
+              </button>
             </div>
-            <button className="cart-checkout" onClick={handlePurchase}>
-              Checkout
-            </button>
           </>
         )}
       </div>

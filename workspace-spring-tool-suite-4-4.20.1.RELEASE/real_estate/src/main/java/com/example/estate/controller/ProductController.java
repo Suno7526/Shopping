@@ -38,7 +38,7 @@ public class ProductController {
                                               @RequestParam("companyName") String companyName,
                                               @RequestParam("productStuck") int productStuck,
                                               @RequestParam("category") String category,
-                                              @RequestParam("discountRate") int discountRate) {
+                                              @RequestParam(value = "discountRate", required = false, defaultValue = "0") Integer discountRate) {
         try {
             productService.saveProduct(productImages, productName, information, productPrice, companyName, productStuck, category, discountRate);
             return new ResponseEntity<>("상품 등록 성공", HttpStatus.OK);
@@ -47,6 +47,7 @@ public class ProductController {
             return new ResponseEntity<>("상품 등록에 실패했습니다 다시 시도해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
     @GetMapping("/getProductImage/{productCode}")
     public ResponseEntity<byte[]> getProductImage(@PathVariable("productCode") Long productCode) {
@@ -88,7 +89,7 @@ public class ProductController {
             return new ResponseEntity<>(product, HttpStatus.OK);
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        }	
     }
 
     @GetMapping("/category/{category}")

@@ -57,6 +57,17 @@ const Payment = () => {
   }, [selectedProducts]);
 
   const handlePurchase = async () => {
+    // 배송메모와 나머지 주소가 모두 입력되었는지 확인
+    if (
+      !deliveryMemo ||
+      (deliveryMemo === '기타사항' && !customMemo) ||
+      !shippingAddress ||
+      !extraAddress
+    ) {
+      alert('배송메모와 나머지 주소를 모두 입력해주세요.');
+      return;
+    }
+
     try {
       const { IMP } = window;
       IMP.init('imp33740768');
@@ -244,6 +255,7 @@ const Payment = () => {
                     type="text"
                     placeholder="기타 사항을 입력하세요"
                     value={customMemo}
+                    className="Delivery-ListBox-input-onother"
                     onChange={(e) => setCustomMemo(e.target.value)} // 기타사항 텍스트 생성
                   />
                 )}
@@ -266,7 +278,7 @@ const Payment = () => {
                 <p className="Final-paymentamount-total">총 결제금액</p>
                 <p className="Final-paymentmount-total-won">{totalPrice}원</p>
               </div>
-              <button className="cart-checkout" onClick={handlePurchase}>
+              <button className="Payment-button" onClick={handlePurchase}>
                 결제
               </button>
             </div>
