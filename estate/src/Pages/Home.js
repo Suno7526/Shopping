@@ -95,9 +95,8 @@ function Home() {
           <div className="clearfix"></div>
         </div>
       </div>
-
-      <div className="recommend-item" id="recommend-item">
-        New Items
+      <div className="Home-text">
+        <h1>New Items</h1>
       </div>
       <div>
         <Slider
@@ -139,14 +138,12 @@ function Home() {
                   onClick={() => handleClickProduct(product.productCode)}
                 >
                   <div className="image-container">
-                    <img
-                      src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                      alt={product.productName}
-                    />
-                  </div>
-                  <div className="buttons-container">
-                    <button className="cart-button">🛒</button>
-                    <button className="wishlist-button">❤️</button>
+                    <Link to={`/product/${product.productCode}`}>
+                      <img
+                        src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                        alt={product.productName}
+                      />
+                    </Link>
                   </div>
                 </a>
                 <h4 className="HomeGridH4">{product.productName}</h4>
