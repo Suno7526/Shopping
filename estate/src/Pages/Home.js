@@ -96,7 +96,7 @@ function Home() {
           centerMode={false}
           centerPadding="0px" // Adjust the padding between slides
         >
-          {newItems.map((product, index) => (
+          {newItems.slice(0, 10).map((product, index) => (
             <div key={product.productCode} className="Home-property-wrapper">
               <Link to={`/product/${product.productCode}`}>
                 <img
