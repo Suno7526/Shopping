@@ -88,7 +88,7 @@ function Home() {
         <Slider
           ref={sliderRef}
           className="Home-property-wrapper"
-          slidesToShow={5} // Display up to 5 items
+          slidesToShow={5}
           slidesToScroll={1}
           arrows={false}
           dots={true}

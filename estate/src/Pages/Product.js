@@ -119,21 +119,27 @@ const Product = () => {
     fetchReviews();
   }, [productCode]);
 
-  const checkLiked = async (product) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/getLikeProduct/${userCode}`,
-      );
-      const likedProducts = response.data;
-      const found = likedProducts.some(
-        (likedProduct) =>
-          likedProduct.product.productCode === product.productCode,
-      );
-      setIsLiked(found);
-    } catch (error) {
-      console.error('찜한 상품을 확인하는 중 오류 발생:', error);
+  useEffect(() => {
+    const fetchLikedStatus = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getLikeProduct/${userCode}`,
+        );
+        const likedProducts = response.data;
+        const found = likedProducts.some(
+          (likedProduct) =>
+            likedProduct.product.productCode === product.productCode,
+        );
+        setIsLiked(found);
+      } catch (error) {
+        console.error('찜한 상품을 확인하는 중 오류 발생:', error);
+      }
+    };
+
+    if (userCode) {
+      fetchLikedStatus();
     }
-  };
+  }, [userCode, product]);
 
   const handleLikeClick = async () => {
     try {
@@ -156,11 +162,6 @@ const Product = () => {
     } catch (error) {
       console.error('상품을 찜하는 중 오류 발생:', error);
     }
-  };
-
-  // 서브 이미지 클릭 처리 함수
-  const handleSubImageClick = (subImageUrl) => {
-    setMainImage(subImageUrl); // 클릭된 서브 이미지를 메인 이미지로 설정
   };
 
   const handleAddToCartClick = async () => {
@@ -239,7 +240,20 @@ const Product = () => {
       0,
     );
     const average = totalPoints / reviews.length;
-    setAverageReviewPoint(average(2)); // 소수점 둘째 자리까지 표시
+    setAverageReviewPoint(average.toFixed(1)); // 평균 별점 계산 및 설정
+  };
+
+  // Helper function to render star ratings
+  const renderStarRating = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<span key={i}>&#x2605;</span>);
+      } else {
+        stars.push(<span key={i}>&#9734;</span>);
+      }
+    }
+    return stars;
   };
 
   if (!product) {
@@ -318,7 +332,10 @@ const Product = () => {
             </div>
 
             <div className="grid-item-userPoint">
-              별점 : {averageReviewPoint}
+              별점
+              <div class="star-rating">
+                {renderStarRating(averageReviewPoint)}
+              </div>
             </div>
 
             <div className="grid-item-productPrice">
@@ -532,9 +549,11 @@ const Product = () => {
                       className="user-property-image"
                     />
                     <div className="comment-product">
-                      상품 정보: {review.product.productName}
+                      상품 정보: {review.product.productName} /
                     </div>
-                    <div> 별점 : {review.reviewPoint}</div>
+                    <div class="star-rating">
+                      {renderStarRating(review.reviewPoint)}
+                    </div>
                   </div>
                   <textarea
                     className="comment-textarea"
