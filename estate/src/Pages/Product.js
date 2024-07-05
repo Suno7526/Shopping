@@ -277,11 +277,11 @@ const Product = () => {
               {product.companyName}
               <br />
               <br></br>
-              상품 명 : {product.productName}
+              {product.productName}
             </div>
 
             <div className="grid-item-productStuck">
-              상품 재고 : {product.productStuck}
+              재고 : {product.productStuck}
             </div>
             <div className="grid-item-registerDate">
               등록 날짜 : {formatRegisterDate(product.registerDate)}
@@ -326,7 +326,7 @@ const Product = () => {
             </div>
 
             <div className="cupon-wrap">
-              <div className="cupon-text">쿠폰 사용시 할인 되는 금액</div>
+              <div className="cupon-text"> 할인 후 금액{}</div>
               <div className="discount-rate">{DiscountedRate}%</div>
               <div className="discount-price">
                 {discountedPrice.toFixed(0)}원
