@@ -72,9 +72,38 @@ function Home() {
 
   return (
     <div>
-      <div className="Home-MainImage"></div>
       <div className="Home-text">
-        <h1>Best Items</h1>
+        <h1>New Items</h1>
+      </div>
+      <div>
+        <Slider
+          ref={sliderRef}
+          className="Home-property-wrapper"
+          slidesToShow={5} // Display up to 5 items
+          slidesToScroll={1}
+          arrows={false}
+          dots={true}
+          autoplay={true}
+          centerMode={false}
+          centerPadding="0px" // Adjust the padding between slides
+        >
+          {products.map((product, index) => (
+            <div key={product.productCode} className="Home-property-wrapper">
+              <Link to={`/product/${product.productCode}`}>
+                <img
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  alt={`Product ${index}`}
+                  className="property-image"
+                  onClick={() => handleClickProduct(product.productCode)}
+                />
+              </Link>
+            </div>
+          ))}
+        </Slider>
+      </div>
+
+      <div className="Home-text">
+        <h1>Products</h1>
         <div className="product-list">
           {products.slice(0, 5).map((product) => (
             <div className="product-wrapper" key={product.productCode}>
@@ -96,66 +125,6 @@ function Home() {
           <div className="clearfix"></div>
         </div>
       </div>
-      <div className="Home-text">
-        <h1>New Items</h1>
-      </div>
-      <div>
-        <Slider
-          ref={sliderRef}
-          className="Home-property-wrapper"
-          slidesToShow={3}
-          slidesToScroll={1}
-          arrows={false}
-          dots={true}
-          autoplay={true}
-          centerMode={true}
-          centerPadding="10px"
-        >
-          {products.map((product, index) => (
-            <div key={product.productCode} className="Home-property-wrapper">
-              <Link to={`/product/${product.productCode}`}>
-                <img
-                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                  alt={`Product ${index}`}
-                  className="property-image"
-                  onClick={() => handleClickProduct(product.productCode)}
-                />
-              </Link>
-            </div>
-          ))}
-        </Slider>
-      </div>
-
-      <div id="recommended-properties">
-        <div className="container-fluid" id="popular-content">
-          <h1 className="good-text">Product Items</h1>
-          <br></br>
-          <div className="masonry">
-            {products.map((product) => (
-              <div className="HomeGriditem" key={product.productCode}>
-                <a
-                  href={`/product/${product.productCode}`}
-                  className="HomeGrud-product"
-                  onClick={() => handleClickProduct(product.productCode)}
-                >
-                  <div className="image-container">
-                    <Link to={`/product/${product.productCode}`}>
-                      <img
-                        src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                        alt={product.productName}
-                      />
-                    </Link>
-                  </div>
-                </a>
-                <h4 className="HomeGridH4">{product.productName}</h4>
-                <p className="HomeGridP">{product.productPrice}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      <News />
     </div>
   );
 }

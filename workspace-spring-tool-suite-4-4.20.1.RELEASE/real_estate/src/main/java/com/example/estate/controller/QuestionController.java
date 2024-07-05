@@ -26,26 +26,30 @@ public class QuestionController {
 	private QuestionService questionService;
 
 	@PostMapping("/questions")
-	public void ordersProduct(@RequestBody Map<String, Object> requestData) {
-		Long userCode = Long.valueOf((String) requestData.get("userCode"));
-		String questionTitle = (String) requestData.get("questionTitle");
-		String questionContent = (String) requestData.get("questionContent");
-		String questionType = (String) requestData.get("questionType");
-		Long orderCode = Long.valueOf((String) requestData.get("orderCode"));
+	public void saveQuestion(@RequestBody Map<String, Object> requestData) {
+	    Long userCode = Long.valueOf((String) requestData.get("userCode"));
+	    String questionTitle = (String) requestData.get("questionTitle");
+	    String questionContent = (String) requestData.get("questionContent");
+	    String questionType = (String) requestData.get("questionType");
 
-		Question que = new Question();
-		User user = new User();
-		user.setUserCode(userCode);
-		que.setUser(user);
-		que.setQuestionTitle(questionTitle);
-		que.setQuestionContent(questionContent);
-		que.setQuestionType(questionType);
+	    Question que = new Question();
+	    User user = new User();
+	    user.setUserCode(userCode);
+	    que.setUser(user);
+	    que.setQuestionTitle(questionTitle);
+	    que.setQuestionContent(questionContent);
+	    que.setQuestionType(questionType);
 
-		Orders order = new Orders();
-		order.setOrderCode(orderCode);
-		que.setOrder(order);
+	    if (requestData.containsKey("orderCode") && !((String) requestData.get("orderCode")).isEmpty()) {
+	        Long orderCode = Long.valueOf((String) requestData.get("orderCode"));
+	        Orders order = new Orders();
+	        order.setOrderCode(orderCode);
+	        que.setOrder(order);
+	    } else {
+	        que.setOrder(null); // Handle cases where orderCode is not provided or is empty
+	    }
 
-		questionService.addQuestion(que);
+	    questionService.addQuestion(que);
 	}
 
 	@GetMapping("/questions")

@@ -73,7 +73,7 @@ const Payment = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: product.productName,
-          amount: product.productPrice + 100, // 상품 가격에 배송비 추가
+          amount: 100, //product.productPrice ,
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
