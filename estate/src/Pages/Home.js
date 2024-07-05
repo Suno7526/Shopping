@@ -11,6 +11,7 @@ function Home() {
   const [products, setProducts] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleProducts, setVisibleProducts] = useState(8); // Initial visible products
   const wrapperRef = useRef(null);
   const sliderRef = useRef(null);
 
@@ -70,6 +71,14 @@ function Home() {
     }
   }, [products]);
 
+  // Function to load more products
+  const loadMoreProducts = () => {
+    setVisibleProducts((prevVisible) => prevVisible + 8);
+  };
+
+  // Reverse the order of products for "New Items"
+  const newItems = [...products].reverse();
+
   return (
     <div>
       <div className="Home-text">
@@ -87,7 +96,7 @@ function Home() {
           centerMode={false}
           centerPadding="0px" // Adjust the padding between slides
         >
-          {products.map((product, index) => (
+          {newItems.map((product, index) => (
             <div key={product.productCode} className="Home-property-wrapper">
               <Link to={`/product/${product.productCode}`}>
                 <img
@@ -105,7 +114,7 @@ function Home() {
       <div className="Home-text">
         <h1>Products</h1>
         <div className="product-list">
-          {products.slice(0, 5).map((product) => (
+          {products.slice(0, visibleProducts).map((product) => (
             <div className="product-wrapper" key={product.productCode}>
               <Link
                 to={`/product/${product.productCode}`}
@@ -122,6 +131,11 @@ function Home() {
               <div className="product-price">{product.productPrice}</div>
             </div>
           ))}
+          {products.length > visibleProducts && (
+            <button className="load-more-button" onClick={loadMoreProducts}>
+              Load More
+            </button>
+          )}
           <div className="clearfix"></div>
         </div>
       </div>

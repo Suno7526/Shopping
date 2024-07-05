@@ -106,7 +106,7 @@ const Question = () => {
   return (
     <div className="Question-page">
       <article className="Question-Mainpage">
-        <div className="Question-Maintitle">Contact Us</div>
+        <div className="Question-Maintitle">Question</div>
         <p className="Question-Maintitle-p">☎ 궁금한 내용을 문의해주세요! ☎</p>
       </article>
       <div className="Question-content">

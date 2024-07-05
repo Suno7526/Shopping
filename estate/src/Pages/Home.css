@@ -1,12 +1,11 @@
-/* Home.css */
-
 .Home-text {
   text-align: center;
-  margin: 20px 0;
+  margin: 40px 40px 40px 40px;
 }
 
 .Home-text h1 {
   font-size: 2.5rem;
+  margin-top: 60px;
   margin-bottom: 20px;
   color: #333;
 }
@@ -19,7 +18,7 @@
 }
 
 .product-wrapper {
-  flex: 1 1 calc(20% - 40px);
+  flex: 1 1 calc(25% - 40px);
   transition: transform 0.3s;
   text-align: center;
   background-color: #fff;
@@ -33,7 +32,7 @@
 
 .product img {
   width: 100%;
-  max-width: 200px; /* Adjust the maximum width */
+  max-width: 400px; /* Adjust the maximum width */
   height: auto;
   border-radius: 10px;
 }
@@ -81,4 +80,20 @@
   flex-wrap: wrap;
   gap: 20px;
   justify-content: center;
+}
+
+.load-more-button {
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.load-more-button:hover {
+  background-color: #0056b3;
 }

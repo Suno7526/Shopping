@@ -119,6 +119,8 @@ function App() {
         <Route path="/ProductImages" element={<ProductImages />} />
         <Route path="/Main" element={<Main />} />
       </Routes>
+
+      <Footer />
     </BrowserRouter>
   );
 }
