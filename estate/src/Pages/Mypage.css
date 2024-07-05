@@ -43,7 +43,7 @@
 }
 .OrderTable th {
   border-bottom: 1px solid #ddd;
-  text-align: center;
+  text-align: left;
 }
 .OrderTable tr:hover {
   box-shadow: inset 0 1px 0 #524a4a, inset 0 -1px 0 #524a4a,

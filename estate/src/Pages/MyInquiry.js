@@ -27,7 +27,7 @@ const MyInquiry = () => {
   return (
     <div className="Inquiry-page">
       <InquiryAside />
-      <article className="Inquiry-article">
+      <div className="Inquiry-article">
         <h2>
           <div className="Inquiry-Maintitle">문의하기</div>
         </h2>
@@ -68,7 +68,7 @@ const MyInquiry = () => {
             )}
           </tbody>
         </table>
-      </article>
+      </div>
     </div>
   );
 };
