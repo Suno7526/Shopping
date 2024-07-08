@@ -70,9 +70,6 @@ public class Product {
     @Column(nullable = false, columnDefinition = "LONGBLOB")
     private List<byte[]> productImages; // 이 부분을 배열로 설정
     
-    @Column(nullable = false, columnDefinition = "float default 0")
-    private float userPoint;
-    
     @Column(nullable = false, columnDefinition = "int default 0")
     private int discountRate;
     

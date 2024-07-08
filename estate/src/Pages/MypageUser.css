@@ -1,0 +1,76 @@
+.MypageUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.MypageUser .MypageUser-user-details {
+  max-width: 800px;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.MypageUser .MypageUser-user-info {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  align-items: left;
+}
+
+.MypageUser .MypageUser-user-info p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.MypageUser .MypageUser-user-info strong {
+  color: #555;
+}
+
+.MypageUser .MypageUser-user-coupons,
+.MypageUser .MypageUser-user-reviews {
+  padding: 20px;
+  border-top: 1px solid #eee;
+}
+
+.MypageUser .MypageUser-user-coupons h2,
+.MypageUser .MypageUser-user-reviews h2 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.MypageUser .MypageUser-user-coupons ul,
+.MypageUser .MypageUser-user-reviews ul {
+  list-style: none;
+  padding: 0;
+}
+
+.MypageUser .MypageUser-user-coupons li,
+.MypageUser .MypageUser-user-reviews li {
+  background-color: #fafafa;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.MypageUser .MypageUser-user-coupons li {
+  color: #5a9216;
+}
+
+.MypageUser .MypageUser-user-reviews li {
+  color: #5a5a5a;
+}
+
+.MypageUser .MypageUser-user-reviews p,
+.MypageUser .MypageUser-user-coupons p {
+  font-size: 14px;
+  color: #888;
+}

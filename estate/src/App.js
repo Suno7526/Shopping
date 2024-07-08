@@ -33,6 +33,7 @@ import Payment from './Pages/Payment';
 import PaymentProduct from './Pages/PaymentProduct';
 import ProductImages from './Pages/ProductImages';
 import Main from './Pages/Main';
+import MypageUser from './Pages/MypageUser';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -118,6 +119,7 @@ function App() {
         <Route path="/PaymentProduct" element={<PaymentProduct />} />
         <Route path="/ProductImages" element={<ProductImages />} />
         <Route path="/Main" element={<Main />} />
+        <Route path="/MypageUser" element={<MypageUser />} />
       </Routes>
 
       <Footer />
