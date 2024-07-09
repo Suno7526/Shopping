@@ -91,7 +91,9 @@ const MypageUser = () => {
             <p>No reviews available.</p>
           )}
         </div>
-        <Link to="/edit-profile">Edit Profile</Link>
+        <div className="MypageUser-user-reviews">
+          <Link to="/edit-profile">Edit Profile</Link>
+        </div>
       </div>
     </div>
   );
