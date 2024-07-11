@@ -82,3 +82,33 @@
   font-weight: bold;
   text-align: center;
 }
+.login-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.MypageUser-user-reviews ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.review-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.review-image {
+  width: 120px;
+  margin-right: 20px;
+}
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+}

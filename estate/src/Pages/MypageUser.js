@@ -9,6 +9,7 @@ const MypageUser = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const userCode = sessionStorage.getItem('userCode');
+  const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
     if (!userCode) {
@@ -29,6 +30,21 @@ const MypageUser = () => {
     };
 
     fetchUserData();
+  }, [userCode]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getReviewsUser/${userCode}`,
+        );
+        setReviews(response.data);
+      } catch (error) {
+        console.error('리뷰를 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchReviews();
   }, [userCode]);
 
   if (!userCode) {
@@ -88,12 +104,19 @@ const MypageUser = () => {
         </div>
         <div className="MypageUser-user-reviews">
           <h2>Reviews</h2>
-          {userData.reviews && userData.reviews.length > 0 ? (
+          {reviews && reviews.length > 0 ? (
             <ul>
-              {userData.reviews.map((review) => (
-                <li key={review.id}>
-                  {review.content} (Posted on:{' '}
-                  {new Date(review.createDate).toLocaleDateString()})
+              {reviews.map((review) => (
+                <li key={review.id} className="review-item">
+                  <img
+                    src={`http://localhost:8000/getProductImage/${review.product.productCode}`}
+                    alt={`Product`}
+                    className="review-image"
+                  />
+                  <div className="review-content">
+                    <p>{review.reviewContent}</p>
+                    <p>{new Date(review.registerDate).toLocaleDateString()} </p>
+                  </div>
                 </li>
               ))}
             </ul>

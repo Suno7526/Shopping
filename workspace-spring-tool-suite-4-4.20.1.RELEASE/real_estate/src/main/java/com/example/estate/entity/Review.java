@@ -2,6 +2,8 @@ package com.example.estate.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
@@ -14,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -44,4 +47,10 @@ public class Review {
     
     @Column
     private int reviewPoint;
+
+
+	@CreationTimestamp
+    private Timestamp registerDate;
+    
+    
 }

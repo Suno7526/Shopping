@@ -10,6 +10,8 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
 	
 	List<Review> findByProduct_ProductCode(Long productCode);
 	
+	List<Review> findByUser_UserCode(Long userCode);
+	
 	Review findFirstByProduct_ProductCode(Long reviewCode);
 	
 	
