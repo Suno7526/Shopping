@@ -11,6 +11,12 @@ const MypageUser = () => {
   const userCode = sessionStorage.getItem('userCode');
 
   useEffect(() => {
+    if (!userCode) {
+      alert('로그인을 해주세요.');
+      setLoading(false);
+      return;
+    }
+
     const fetchUserData = async () => {
       try {
         const response = await axios.get(`/getUser/${userCode}`);
@@ -24,6 +30,10 @@ const MypageUser = () => {
 
     fetchUserData();
   }, [userCode]);
+
+  if (!userCode) {
+    return <div className="login-prompt">로그인을 해주세요.</div>;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
