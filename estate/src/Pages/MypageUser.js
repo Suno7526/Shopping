@@ -6,12 +6,16 @@ import { Link } from 'react-router-dom';
 
 const MypageUser = () => {
   const [userData, setUserData] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const userCode = sessionStorage.getItem('userCode');
   const [reviews, setReviews] = useState(null);
+  const [coupons, setCoupons] = useState([]);
 
   useEffect(() => {
     if (!userCode) {
       alert('로그인을 해주세요.');
+      setLoading(false);
       return;
     }
 
@@ -19,7 +23,11 @@ const MypageUser = () => {
       try {
         const response = await axios.get(`/getUser/${userCode}`);
         setUserData(response.data);
-      } catch (error) {}
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+        setLoading(false);
+      }
     };
 
     fetchUserData();
@@ -40,8 +48,31 @@ const MypageUser = () => {
     fetchReviews();
   }, [userCode]);
 
+  useEffect(() => {
+    const fetchCoupons = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/CouponUser/${userCode}`,
+        );
+        setCoupons(response.data);
+      } catch (error) {
+        console.error('쿠폰을 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchCoupons();
+  }, [userCode]);
+
   if (!userCode) {
     return <div className="login-prompt">로그인을 해주세요.</div>;
+  }
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
   }
 
   return (
@@ -49,7 +80,7 @@ const MypageUser = () => {
       <Aside />
       <div className="MypageUser-user-details">
         <div className="MypageUser-user-info">
-          <h1>Infomation</h1>
+          <h1>My Page</h1>
           <p>
             <strong>Name:</strong> {userData.name}
           </p>
@@ -74,6 +105,22 @@ const MypageUser = () => {
         </div>
         <div className="MypageUser-user-coupons">
           <h2>Coupons</h2>
+          {coupons.length > 0 ? (
+            <ul>
+              {coupons.map((coupon) => (
+                <li key={coupon.couponCode}>
+                  <p>Serial Code: {coupon.serialCode}</p>
+                  <p>Discount Amount: {coupon.discountAmount}</p>
+                  <p>Issue Date: {coupon.issueDate}</p>
+                  <p>Expiry Date: {coupon.expiryDate}</p>
+                  <p>Min Purchase Amount: {coupon.minPurchaseAmount}</p>
+                  <p>Used: {coupon.used ? 'Yes' : 'No'}</p>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No coupons available.</p>
+          )}
         </div>
         <div className="MypageUser-user-reviews">
           <h2>Reviews</h2>
@@ -87,7 +134,6 @@ const MypageUser = () => {
                     className="review-image"
                   />
                   <div className="review-content">
-                    <p>{review.product.productName}</p>
                     <p>{review.reviewContent}</p>
                     <p>{new Date(review.registerDate).toLocaleDateString()} </p>
                   </div>
