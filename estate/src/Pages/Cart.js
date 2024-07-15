@@ -102,8 +102,18 @@ const Cart = () => {
     .filter((item) => selectedProducts.includes(item))
     .reduce((acc, item) => acc + item.product.productPrice * item.quantity, 0);
 
-  const discountAmount = 5000;
-  const totalAmount = totalProductsPrice - discountAmount;
+  const totalDiscount = cartItems
+    .filter((item) => selectedProducts.includes(item))
+    .reduce(
+      (acc, item) =>
+        acc +
+        item.product.productPrice *
+          item.quantity *
+          (item.product.discountRate / 100),
+      0,
+    );
+
+  const totalAmount = totalProductsPrice - totalDiscount;
 
   return (
     <div>
@@ -191,8 +201,7 @@ const Cart = () => {
                 {totalProductsPrice}원
               </div>
               <div className="cart-totals-item">
-                <label>할인금액</label>
-                {discountAmount}원
+                <label>할인금액</label>- {totalDiscount}원
               </div>
               <div className="cart-totals-item cart-totals-item-total">
                 <label>총합계</label>

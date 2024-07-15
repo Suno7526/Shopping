@@ -63,9 +63,11 @@ public class Product {
     @Column
     private String category;
     
+    
     @Column(nullable = false, columnDefinition = "int default 0")
     private int viewCount;
-
+    
+     
     @ElementCollection
     @Column(nullable = false, columnDefinition = "LONGBLOB")
     private List<byte[]> productImages; // 이 부분을 배열로 설정

@@ -6,15 +6,12 @@ import { Link } from 'react-router-dom';
 
 const MypageUser = () => {
   const [userData, setUserData] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
   const userCode = sessionStorage.getItem('userCode');
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
     if (!userCode) {
       alert('로그인을 해주세요.');
-      setLoading(false);
       return;
     }
 
@@ -22,11 +19,7 @@ const MypageUser = () => {
       try {
         const response = await axios.get(`/getUser/${userCode}`);
         setUserData(response.data);
-        setLoading(false);
-      } catch (error) {
-        setError(error);
-        setLoading(false);
-      }
+      } catch (error) {}
     };
 
     fetchUserData();
@@ -51,20 +44,12 @@ const MypageUser = () => {
     return <div className="login-prompt">로그인을 해주세요.</div>;
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-
   return (
     <div className="MypageUser">
       <Aside />
       <div className="MypageUser-user-details">
         <div className="MypageUser-user-info">
-          <h1>My Page</h1>
+          <h1>Infomation</h1>
           <p>
             <strong>Name:</strong> {userData.name}
           </p>
@@ -89,18 +74,6 @@ const MypageUser = () => {
         </div>
         <div className="MypageUser-user-coupons">
           <h2>Coupons</h2>
-          {userData.coupons && userData.coupons.length > 0 ? (
-            <ul>
-              {userData.coupons.map((coupon) => (
-                <li key={coupon.id}>
-                  {coupon.couponCode} - {coupon.discountAmount}% off (Expires:{' '}
-                  {new Date(coupon.expiryDate).toLocaleDateString()})
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No coupons available.</p>
-          )}
         </div>
         <div className="MypageUser-user-reviews">
           <h2>Reviews</h2>
@@ -114,6 +87,7 @@ const MypageUser = () => {
                     className="review-image"
                   />
                   <div className="review-content">
+                    <p>{review.product.productName}</p>
                     <p>{review.reviewContent}</p>
                     <p>{new Date(review.registerDate).toLocaleDateString()} </p>
                   </div>

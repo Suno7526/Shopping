@@ -38,7 +38,7 @@ const Header = () => {
       <header>
         <div className="Home-navi">
           <a id="logo" onClick={() => navigate('/Home')}>
-            PASS
+            SHOPPER
           </a>
           <ul id="menu">
             <li className="header-li">
@@ -116,7 +116,7 @@ const Header = () => {
             <li className="header-li userName-li">
               {isLogin ? (
                 <>
-                  <Link to="/MyPage">
+                  <Link to="/MypageUser">
                     {sessionStorage.getItem('userName')}님
                   </Link>
                   <img
