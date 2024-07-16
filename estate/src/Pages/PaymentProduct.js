@@ -108,7 +108,7 @@ const PaymentProduct = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: product.productName,
-          amount: product.productPrice + 2500, // 상품 가격 + 배송비
+          amount: 100, //product.productPrice + 2500, // 상품 가격 + 배송비
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
@@ -136,6 +136,7 @@ const PaymentProduct = () => {
                   request:
                     deliveryMemo === '기타사항' ? customMemo : deliveryMemo,
                   couponCode: selectedCoupon ? selectedCoupon.couponCode : null,
+                  impUid: rsp.imp_uid,
                 };
                 await axios.post('http://localhost:8000/orders/add', orderData);
                 alert('결제 성공');
@@ -245,50 +246,49 @@ const PaymentProduct = () => {
                     type="text"
                     placeholder="기타 배송 메모를 입력하세요"
                     value={customMemo}
+                    className="Delivery-ListBox-input-onother"
                     onChange={(e) => setCustomMemo(e.target.value)}
-                    className="Delivery-custom-memo-input"
                   />
                 )}
               </div>
             </div>
           </div>
 
-          <div className="Payment-section">
-            <p className="Payment-title">결제 정보</p>
-            <div className="PaymentAndButton">
-              <div className="Payment-info">
-                <select
-                  id="Coupon-ListBox"
-                  name="Coupon-ListBox"
-                  className="Coupon-ListBox-input"
-                  value={
-                    selectedCoupon ? selectedCoupon.couponCode.toString() : ''
-                  }
-                  onChange={handleCouponChange}
-                >
-                  <option value="">쿠폰을 선택하세요</option>
-                  {coupons.map((coupon) => (
-                    <option
-                      key={coupon.couponCode}
-                      value={coupon.couponCode.toString()}
-                    >
-                      {coupon.couponName}
-                    </option>
-                  ))}
-                </select>
-                <div className="Payment-total-price">
-                  총 결제 금액:{' '}
-                  {selectedCoupon
-                    ? product.productPrice - selectedCoupon.discountAmount
-                    : product.productPrice}
-                  원
+          <div className="Final-paymentamount-section">
+            <p className="Final-paymentamount-title">최종 결제금액</p>
+            <div className="Final-paymentamountAndButton">
+              <div className="Final-paymentamount-info">
+                <div className="Final-paymentamount-price">
+                  상품가격: {product.productPrice}원
                 </div>
-                <input
-                  type="button"
-                  onClick={handlePurchase}
-                  value="결제하기"
-                  className="Payment-purchase-button"
-                />
+                <div className="Final-paymentamount-delivery-fee">
+                  배송비: 2500원
+                </div>
+                <div className="Final-paymentamount-discount">
+                  <select
+                    onChange={handleCouponChange}
+                    value={selectedCoupon ? selectedCoupon.couponCode : ''}
+                  >
+                    <option value="">쿠폰 선택</option>
+                    {coupons.map((coupon) => (
+                      <option key={coupon.couponCode} value={coupon.couponCode}>
+                        - {coupon.discountAmount}원 할인
+                      </option>
+                    ))}
+                  </select>
+                  {selectedCoupon && (
+                    <p>선택된 쿠폰: - {selectedCoupon.discountAmount}원 할인</p>
+                  )}
+                </div>
+                <div className="Final-payment-total-div">
+                  <p className="Final-paymentamount-total">총 결제금액</p>
+                  <p className="Final-paymentmount-total-won">
+                    {product.productPrice + 2500}원
+                  </p>
+                </div>
+                <button className="Payment-button" onClick={handlePurchase}>
+                  결제
+                </button>
               </div>
             </div>
           </div>

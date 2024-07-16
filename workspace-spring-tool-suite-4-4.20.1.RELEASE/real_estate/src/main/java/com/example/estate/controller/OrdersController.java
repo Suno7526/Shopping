@@ -38,7 +38,8 @@ public class OrdersController {
         String productSize = (String) requestData.get("productSize");
         String productColor = (String) requestData.get("productColor");
         String request = (String) requestData.get("request");
-
+        String impUid = (String) requestData.get("impUid");
+        
         Orders orders = new Orders();
         User user = new User();
         user.setUserCode(userCode);
@@ -52,7 +53,8 @@ public class OrdersController {
         orders.setRefundReason("X");
         orders.setShippingAddress(shippingAddress);
         orders.setRequest(request);
-
+        orders.setImpUid(impUid);
+        
         ordersService.ordersProduct(orders);
     }
 

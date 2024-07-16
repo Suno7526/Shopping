@@ -58,6 +58,9 @@ public class Orders {
     
     @Column
     private boolean reviewCheck; // 리뷰 등록 여부
+    
+    @Column
+    private String impUid; // 색상
 
     @CreationTimestamp
     private Timestamp orderDate; // 등록일

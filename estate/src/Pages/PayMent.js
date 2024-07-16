@@ -121,7 +121,7 @@ const Payment = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: orderName,
-          amount: finalPrice,
+          amount: 100, //finalPrice,
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
@@ -152,6 +152,7 @@ const Payment = () => {
                     couponCode: selectedCoupon
                       ? selectedCoupon.couponCode
                       : null,
+                    impUid: rsp.imp_uid,
                   };
                   await axios.post(
                     'http://localhost:8000/orders/add',
