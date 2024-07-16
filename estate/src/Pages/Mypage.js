@@ -78,6 +78,7 @@ const Mypage = () => {
                 <th className="ProductNum">주문번호</th>
                 <th className="ProductMoney">배송현황</th>
                 <th className="ProductAD">배송주소</th>
+                <th className="OrderRefund">환불</th>
                 <th className="ReviewAction">리뷰등록</th>
               </tr>
             </thead>
@@ -109,6 +110,7 @@ const Mypage = () => {
                   <td style={{ width: '100px' }}>{order.orderCode}</td>
                   <td style={{ width: '100px' }}>{order.orderStatus}</td>
                   <td>{order.shippingAddress}</td>
+                  <td style={{ width: '100px' }}>환불신청</td>
                   <td>
                     {order.reviewCheck ? (
                       <span>이미 작성한 리뷰입니다.</span>

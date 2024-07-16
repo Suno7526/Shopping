@@ -153,6 +153,7 @@ const Payment = () => {
                       ? selectedCoupon.couponCode
                       : null,
                     impUid: rsp.imp_uid,
+                    orderPrice: finalPrice,
                   };
                   await axios.post(
                     'http://localhost:8000/orders/add',
