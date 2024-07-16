@@ -17,6 +17,7 @@ import com.example.estate.repository.CartRepository;
 import com.example.estate.repository.ProductRepository;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
+import com.siot.IamportRestClient.request.CancelData;
 import com.siot.IamportRestClient.response.IamportResponse;
 import com.siot.IamportRestClient.response.Payment;
 
@@ -68,5 +69,19 @@ public class PaymentController {
 
         return response;
     }
+
+    @PostMapping("/cancelIamport/{imp_uid}")
+    public IamportResponse<Payment> cancelPaymentByImpUid(
+        @PathVariable("imp_uid") String imp_uid
+    ) throws IamportResponseException, IOException {
+        IamportClient iamportClient = iamportClient(); // iamportClient 빈을 직접 사용
+        CancelData cancelData = new CancelData(imp_uid, true); // imp_uid를 이용한 전액 취소
+        IamportResponse<Payment> response = iamportClient.cancelPaymentByImpUid(cancelData);
+
+        if (response.getCode() == 0) {
+            // 결제 취소 성공 시 로직 추가 (예: 재고 복구, 주문 상태 업데이트 등)
+        }
+
+        return response;
+    }
 }
-	
