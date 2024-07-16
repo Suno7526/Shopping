@@ -35,7 +35,6 @@ import ProductImages from './Pages/ProductImages';
 import Main from './Pages/Main';
 import MypageUser from './Pages/MypageUser';
 import CouponCreate from './Pages/CouponCreate';
-
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
 

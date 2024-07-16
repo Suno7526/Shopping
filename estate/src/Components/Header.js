@@ -87,6 +87,14 @@ const Header = () => {
                     className="hover-image"
                   />
                 </li>
+                <li className="header-li">
+                  <Link to="/couponCreate">쿠폰등록</Link>
+                  <img
+                    src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
+                    alt="Product Update"
+                    className="hover-image"
+                  />
+                </li>
               </>
             )}
             <li className="header-li">

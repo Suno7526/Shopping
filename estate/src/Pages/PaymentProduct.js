@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-const Payment = () => {
+const PaymentProduct = () => {
   const userCode = parseInt(sessionStorage.getItem('userCode'), 10);
   const location = useLocation();
   const { product, selectedColor, selectedSize } = location.state;
@@ -14,6 +14,8 @@ const Payment = () => {
     sessionStorage.getItem('userAddress') || '',
   );
   const [extraAddress, setExtraAddress] = useState('');
+  const [coupons, setCoupons] = useState([]);
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +38,27 @@ const Payment = () => {
       document.head.removeChild(daumPostcode);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchCoupons = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/CouponUser/${userCode}`,
+        );
+        const currentDate = new Date();
+        const validCoupons = response.data.filter(
+          (coupon) =>
+            new Date(coupon.issueDate) <= currentDate &&
+            currentDate <= new Date(coupon.expiryDate),
+        );
+        setCoupons(validCoupons);
+      } catch (error) {
+        console.error('쿠폰을 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchCoupons();
+  }, [userCode]);
 
   const handlePostcode = () => {
     new window.daum.Postcode({
@@ -62,6 +85,18 @@ const Payment = () => {
     }).open();
   };
 
+  const handleCouponChange = (e) => {
+    const couponCode = e.target.value;
+    if (couponCode) {
+      const coupon = coupons.find(
+        (c) => c.couponCode.toString() === couponCode,
+      );
+      setSelectedCoupon(coupon);
+    } else {
+      setSelectedCoupon(null);
+    }
+  };
+
   const handlePurchase = async () => {
     try {
       const { IMP } = window;
@@ -73,7 +108,7 @@ const Payment = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: product.productName,
-          amount: 100, //product.productPrice ,
+          amount: product.productPrice + 2500, // 상품 가격 + 배송비
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
@@ -99,11 +134,12 @@ const Payment = () => {
                   productSize: selectedSize,
                   productColor: selectedColor,
                   request:
-                    deliveryMemo === '기타사항' ? customMemo : deliveryMemo, // 요청사항 필드 추가 가능
+                    deliveryMemo === '기타사항' ? customMemo : deliveryMemo,
+                  couponCode: selectedCoupon ? selectedCoupon.couponCode : null,
                 };
                 await axios.post('http://localhost:8000/orders/add', orderData);
                 alert('결제 성공');
-                navigate('/mypage'); // 결제 성공 시 마이페이지로 이동
+                navigate('/mypage');
               } else {
                 alert('결제 실패');
               }
@@ -207,35 +243,53 @@ const Payment = () => {
                 {deliveryMemo === '기타사항' && (
                   <input
                     type="text"
-                    placeholder="기타 사항을 입력하세요"
+                    placeholder="기타 배송 메모를 입력하세요"
                     value={customMemo}
-                    onChange={(e) => setCustomMemo(e.target.value)} // 기타사항 텍스트 생성
+                    onChange={(e) => setCustomMemo(e.target.value)}
+                    className="Delivery-custom-memo-input"
                   />
                 )}
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="Final-paymentamount-section">
-          <p className="Final-paymentamount-title">최종 결제금액</p>
-          <div className="Final-paymentamountAndButton">
-            <div className="Final-paymentamount-info">
-              <div className="Final-paymentamount-price">
-                상품가격 {product.productPrice}원
+          <div className="Payment-section">
+            <p className="Payment-title">결제 정보</p>
+            <div className="PaymentAndButton">
+              <div className="Payment-info">
+                <select
+                  id="Coupon-ListBox"
+                  name="Coupon-ListBox"
+                  className="Coupon-ListBox-input"
+                  value={
+                    selectedCoupon ? selectedCoupon.couponCode.toString() : ''
+                  }
+                  onChange={handleCouponChange}
+                >
+                  <option value="">쿠폰을 선택하세요</option>
+                  {coupons.map((coupon) => (
+                    <option
+                      key={coupon.couponCode}
+                      value={coupon.couponCode.toString()}
+                    >
+                      {coupon.couponName}
+                    </option>
+                  ))}
+                </select>
+                <div className="Payment-total-price">
+                  총 결제 금액:{' '}
+                  {selectedCoupon
+                    ? product.productPrice - selectedCoupon.discountAmount
+                    : product.productPrice}
+                  원
+                </div>
+                <input
+                  type="button"
+                  onClick={handlePurchase}
+                  value="결제하기"
+                  className="Payment-purchase-button"
+                />
               </div>
-              <div className="Final-paymentamount-delivery-fee">
-                배송비 = 2500원
-              </div>
-              <div className="Final-payment-total-div">
-                <p className="Final-paymentamount-total">총 결제금액 </p>
-                <p className="Final-paymentmount-total-won">
-                  {product.productPrice + 2500}원
-                </p>
-              </div>
-              <button className="cart-checkout" onClick={handlePurchase}>
-                결제
-              </button>
             </div>
           </div>
         </div>
@@ -244,4 +298,4 @@ const Payment = () => {
   );
 };
 
-export default Payment;
+export default PaymentProduct;
