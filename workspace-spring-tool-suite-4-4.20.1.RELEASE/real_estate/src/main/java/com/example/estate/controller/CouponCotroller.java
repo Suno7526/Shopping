@@ -9,11 +9,14 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.estate.entity.Coupon;
 import com.example.estate.service.CouponService;
+import java.time.LocalDate;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:3000")
@@ -38,5 +41,22 @@ public class CouponCotroller {
     public ResponseEntity<List<Coupon>> getCouponsByUser(@PathVariable("userCode") Long userCode) {
         List<Coupon> coupons = couponService.getCouponsByUser(userCode);
         return new ResponseEntity<>(coupons, HttpStatus.OK);
+    }
+    
+    @PutMapping("updateCoupon/{couponCode}")
+    public Coupon updateCoupon(@PathVariable Long couponCode, @RequestBody Coupon updatedCoupon) {
+        return couponService.updateCoupon(couponCode, updatedCoupon);
+    }
+
+    @GetMapping("/couponSearch")
+    public List<Coupon> searchCoupons(
+            @RequestParam(required = false) Long couponCode,
+            @RequestParam(required = false) String serialCode,
+            @RequestParam(required = false) Integer discountAmount,
+            @RequestParam(required = false) LocalDate issueDate,
+            @RequestParam(required = false) LocalDate expiryDate,
+            @RequestParam(required = false) Integer minPurchaseAmount,
+            @RequestParam(required = false) Boolean used) {
+        return couponService.searchCoupons(couponCode, serialCode, discountAmount, issueDate, expiryDate, minPurchaseAmount, used);
     }
 }
