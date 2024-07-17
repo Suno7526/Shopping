@@ -96,6 +96,14 @@ const Header = () => {
                   />
                 </li>
                 <li className="header-li">
+                  <Link to="/couponAccept">쿠폰수정</Link>
+                  <img
+                    src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
+                    alt="Product Update"
+                    className="hover-image"
+                  />
+                </li>
+                <li className="header-li">
                   <Link to="/refund">환불승인</Link>
                   <img
                     src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"

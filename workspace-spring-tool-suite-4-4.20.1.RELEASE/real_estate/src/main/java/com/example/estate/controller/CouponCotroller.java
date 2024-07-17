@@ -44,19 +44,19 @@ public class CouponCotroller {
     }
     
     @PutMapping("updateCoupon/{couponCode}")
-    public Coupon updateCoupon(@PathVariable Long couponCode, @RequestBody Coupon updatedCoupon) {
+    public Coupon updateCoupon(@PathVariable("couponCode") Long couponCode, @RequestBody Coupon updatedCoupon) {
         return couponService.updateCoupon(couponCode, updatedCoupon);
     }
 
     @GetMapping("/couponSearch")
     public List<Coupon> searchCoupons(
-            @RequestParam(required = false) Long couponCode,
-            @RequestParam(required = false) String serialCode,
-            @RequestParam(required = false) Integer discountAmount,
-            @RequestParam(required = false) LocalDate issueDate,
-            @RequestParam(required = false) LocalDate expiryDate,
-            @RequestParam(required = false) Integer minPurchaseAmount,
-            @RequestParam(required = false) Boolean used) {
+            @RequestParam(value = "couponCode",required = false) Long couponCode,
+            @RequestParam(value = "serialCode",required = false) String serialCode,
+            @RequestParam(value = "discountAmount",required = false) Integer discountAmount,
+            @RequestParam(value = "issueDate",required = false) LocalDate issueDate,
+            @RequestParam(value = "expiryDate",required = false) LocalDate expiryDate,
+            @RequestParam(value = "minPurchaseAmount",required = false) Integer minPurchaseAmount,
+            @RequestParam(value = "used",required = false) Boolean used) {
         return couponService.searchCoupons(couponCode, serialCode, discountAmount, issueDate, expiryDate, minPurchaseAmount, used);
     }
 }
