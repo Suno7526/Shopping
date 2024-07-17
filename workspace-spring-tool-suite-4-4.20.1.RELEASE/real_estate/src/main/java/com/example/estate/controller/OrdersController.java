@@ -88,19 +88,19 @@ public class OrdersController {
 
     @GetMapping("/orderSearch")
     public List<Orders> searchOrders(
-            @RequestParam(required = false) Long orderCode,
-            @RequestParam(required = false) Long userCode,
-            @RequestParam(required = false) Long productCode,
-            @RequestParam(required = false) String shippingAddress,
-            @RequestParam(required = false) String orderStatus,
-            @RequestParam(required = false) String refundReason,
-            @RequestParam(required = false) String request,
-            @RequestParam(required = false) String orderPrice,
-            @RequestParam(required = false) String refundState,
-            @RequestParam(required = false) String productSize,
-            @RequestParam(required = false) String productColor,
-            @RequestParam(required = false) Boolean reviewCheck,
-            @RequestParam(required = false) String impUid) {
+            @RequestParam(value = "orderCode",required = false) Long orderCode,
+            @RequestParam(value = "userCode",required = false) Long userCode,
+            @RequestParam(value = "productCode",required = false) Long productCode,
+            @RequestParam(value = "shippingAddress",required = false) String shippingAddress,
+            @RequestParam(value = "orderStatus",required = false) String orderStatus,
+            @RequestParam(value = "refundReason",required = false) String refundReason,
+            @RequestParam(value = "request",required = false) String request,
+            @RequestParam(value = "orderPrice",required = false) String orderPrice,
+            @RequestParam(value = "refundState",required = false) String refundState,
+            @RequestParam(value = "productSize",required = false) String productSize,
+            @RequestParam(value = "productColor",required = false) String productColor,
+            @RequestParam(value = "reviewCheck",required = false) Boolean reviewCheck,
+            @RequestParam(value = "impUid",required = false) String impUid) {
         return ordersService.searchOrders(orderCode, userCode, productCode, shippingAddress, orderStatus, refundReason, request, orderPrice, refundState, productSize, productColor, reviewCheck, impUid);
     }
     

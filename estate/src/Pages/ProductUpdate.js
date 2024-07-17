@@ -136,8 +136,8 @@ const ProductUpdate = () => {
         <thead>
           <tr>
             <th>상품 번호</th>
-            <th>회사명</th>
             <th>상품명</th>
+            <th>회사명</th>
             <th>재고 수</th>
             <th>가격</th>
             <th>카테고리</th>
@@ -149,19 +149,7 @@ const ProductUpdate = () => {
           {filteredProducts.map((product) => (
             <tr key={product.productCode}>
               <td>{product.productCode}</td>
-              <td>
-                {editingProduct &&
-                editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={editingProduct.companyName}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  product.companyName
-                )}
-              </td>
+
               <td>
                 {editingProduct &&
                 editingProduct.productCode === product.productCode ? (
@@ -173,6 +161,19 @@ const ProductUpdate = () => {
                   />
                 ) : (
                   product.productName
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="text"
+                    name="companyName"
+                    value={editingProduct.companyName}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.companyName
                 )}
               </td>
               <td>
