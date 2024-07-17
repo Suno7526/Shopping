@@ -36,6 +36,7 @@ import Main from './Pages/Main';
 import MypageUser from './Pages/MypageUser';
 import CouponCreate from './Pages/CouponCreate';
 import CouponAccept from './Pages/CouponAccept';
+import Refund from './Pages/Refund';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -124,6 +125,7 @@ function App() {
         <Route path="/MypageUser" element={<MypageUser />} />
         <Route path="/CouponCreate" element={<CouponCreate />} />
         <Route path="/CouponAccept" element={<CouponAccept />} />
+        <Route path="/Refund" element={<Refund />} />
       </Routes>
 
       <Footer />

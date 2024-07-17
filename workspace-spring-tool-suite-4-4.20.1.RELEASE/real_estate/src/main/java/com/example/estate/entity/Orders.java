@@ -48,19 +48,22 @@ public class Orders {
     private String request; // 요청 사항
     
     @Column
+    private String orderPrice; // 주문 총액
+
+    @Column
+    private String refundState; // 환불 진행상태
+    
+    @Column
     private String productSize; // 사이즈
     
     @Column
     private String productColor; // 색상
     
     @Column
-    private int orderCount; // 주문 수량
-    
-    @Column
     private boolean reviewCheck; // 리뷰 등록 여부
     
     @Column
-    private String impUid; // 색상
+    private String impUid; // 가맹점 번호
 
     @CreationTimestamp
     private Timestamp orderDate; // 등록일

@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.estate.entity.Orders;
@@ -73,4 +75,33 @@ public class OrdersController {
         return ordersService.getOrderDetails(orderCode);
     }
 
+    @GetMapping("/getNonInitialRefundOrders")
+    public ResponseEntity<List<Orders>> getNonInitialRefundOrders() {
+        List<Orders> orders = ordersService.getNonInitialRefundOrders();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateOrder/{orderCode}")
+    public Orders updateOrder(@PathVariable("orderCode") Long orderCode, @RequestBody Orders updatedOrder) {
+        return ordersService.updateOrder(orderCode, updatedOrder);
+    }
+
+    @GetMapping("/orderSearch")
+    public List<Orders> searchOrders(
+            @RequestParam(required = false) Long orderCode,
+            @RequestParam(required = false) Long userCode,
+            @RequestParam(required = false) Long productCode,
+            @RequestParam(required = false) String shippingAddress,
+            @RequestParam(required = false) String orderStatus,
+            @RequestParam(required = false) String refundReason,
+            @RequestParam(required = false) String request,
+            @RequestParam(required = false) String orderPrice,
+            @RequestParam(required = false) String refundState,
+            @RequestParam(required = false) String productSize,
+            @RequestParam(required = false) String productColor,
+            @RequestParam(required = false) Boolean reviewCheck,
+            @RequestParam(required = false) String impUid) {
+        return ordersService.searchOrders(orderCode, userCode, productCode, shippingAddress, orderStatus, refundReason, request, orderPrice, refundState, productSize, productColor, reviewCheck, impUid);
+    }
+    
 }
