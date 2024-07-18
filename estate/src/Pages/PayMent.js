@@ -14,6 +14,8 @@ const Payment = () => {
     sessionStorage.getItem('userAddress') || '',
   );
   const [extraAddress, setExtraAddress] = useState('');
+  const [coupons, setCoupons] = useState([]);
+  const [selectedCoupon, setSelectedCoupon] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +26,6 @@ const Payment = () => {
     document.head.appendChild(jquery);
     document.head.appendChild(iamport);
 
-    // Daum 우편번호 서비스 스크립트 로드
     const daumPostcode = document.createElement('script');
     daumPostcode.src =
       '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
@@ -36,6 +37,29 @@ const Payment = () => {
       document.head.removeChild(daumPostcode);
     };
   }, []);
+
+  useEffect(() => {
+    const fetchCoupons = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/CouponUser/${userCode}`,
+        );
+        const validCoupons = response.data.filter((coupon) => {
+          const currentDate = new Date();
+          return (
+            new Date(coupon.issueDate) <= currentDate &&
+            currentDate <= new Date(coupon.expiryDate) &&
+            total >= coupon.minPurchaseAmount
+          );
+        });
+        setCoupons(validCoupons);
+      } catch (error) {
+        console.error('쿠폰을 불러오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchCoupons();
+  }, [userCode]);
 
   const { totalPrice, orderName, total } = useMemo(() => {
     let total = 0;
@@ -56,7 +80,37 @@ const Payment = () => {
     };
   }, [selectedProducts]);
 
+  const finalPrice = useMemo(() => {
+    let price = totalPrice;
+    if (selectedCoupon) {
+      price -= selectedCoupon.discountAmount;
+    }
+    return Math.max(price, 0); // 최종 가격이 음수가 되지 않도록 함
+  }, [totalPrice, selectedCoupon]);
+
+  const handleCouponChange = (e) => {
+    const couponCode = e.target.value;
+    if (couponCode) {
+      const coupon = coupons.find(
+        (c) => c.couponCode.toString() === couponCode,
+      );
+      setSelectedCoupon(coupon);
+    } else {
+      setSelectedCoupon(null);
+    }
+  };
+
   const handlePurchase = async () => {
+    if (
+      !deliveryMemo ||
+      (deliveryMemo === '기타사항' && !customMemo) ||
+      !shippingAddress ||
+      !extraAddress
+    ) {
+      alert('배송메모와 나머지 주소를 모두 입력해주세요.');
+      return;
+    }
+
     try {
       const { IMP } = window;
       IMP.init('imp33740768');
@@ -67,7 +121,11 @@ const Payment = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: orderName,
+<<<<<<< HEAD
           amount: 100, //totalPrice,
+=======
+          amount: 100, //finalPrice,
+>>>>>>> 680f7853be686638a9f508837a345f5a6f9f0119
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
@@ -95,6 +153,11 @@ const Payment = () => {
                     productColor: cart.cartColor,
                     request:
                       deliveryMemo === '기타사항' ? customMemo : deliveryMemo,
+                    couponCode: selectedCoupon
+                      ? selectedCoupon.couponCode
+                      : null,
+                    impUid: rsp.imp_uid,
+                    orderPrice: finalPrice,
                   };
                   await axios.post(
                     'http://localhost:8000/orders/add',
@@ -105,7 +168,7 @@ const Payment = () => {
                 }
               }
               alert('결제 성공');
-              navigate('/mypage'); // 결제 성공 시 마이페이지로 이동
+              navigate('/mypage');
             } catch (error) {
               console.error('결제 검증 또는 주문 생성 중 오류 발생:', error);
               alert('결제 실패');
@@ -150,7 +213,6 @@ const Payment = () => {
       <h2 className="payment-title">결제하기</h2>
       <div className="payment-4">
         <div className="payment-3">
-          {/* 상품 정보 */}
           <div className="payment-info-container">
             <p className="payment-info-p">주문상품정보</p>
             {selectedProducts.map((cart) => (
@@ -166,9 +228,9 @@ const Payment = () => {
                 <div className="Payment-product-info">
                   <div className="Payment-productName">
                     {cart.product.productName}
-                  </div>{' '}
+                  </div>
                   <div className="Payment-productSize">
-                    사이즈: {cart.cartSize}{' '}
+                    사이즈: {cart.cartSize}
                   </div>
                   <div className="Payment-productColor">
                     색상: {cart.cartColor}
@@ -204,22 +266,18 @@ const Payment = () => {
           <div className="Delivery-section">
             <p className="Delivery-title">배송지 정보</p>
             <div className="DeliveryAndButton">
-              <div className="Delivery-info">
-                <div className="Address-and-postcode">
-                  <input
-                    type="text"
-                    value={shippingAddress}
-                    readOnly={true}
-                    className="Delivery-address-input"
-                  />
-                  <input
-                    className="Findpostalcode"
-                    type="button"
-                    onClick={handlePostcode}
-                    value="우편번호 찾기"
-                  />
-                </div>
-                <p> - </p>
+              <div className="  ">
+                <input
+                  type="text"
+                  value={shippingAddress}
+                  readOnly={true}
+                  className="Delivery-address-input"
+                />
+                <input
+                  type="button"
+                  onClick={handlePostcode}
+                  value="우편번호 찾기"
+                />
                 <input
                   type="text"
                   placeholder="나머지 주소를 입력하세요"
@@ -248,7 +306,8 @@ const Payment = () => {
                     type="text"
                     placeholder="기타 사항을 입력하세요"
                     value={customMemo}
-                    onChange={(e) => setCustomMemo(e.target.value)} //기타사항 텍스트 생성
+                    className="Delivery-ListBox-input-onother"
+                    onChange={(e) => setCustomMemo(e.target.value)}
                   />
                 )}
               </div>
@@ -266,11 +325,27 @@ const Payment = () => {
               <div className="Final-paymentamount-delivery-fee">
                 배송비: 2500원
               </div>
+              <div className="Final-paymentamount-discount">
+                <select
+                  onChange={handleCouponChange}
+                  value={selectedCoupon ? selectedCoupon.couponCode : ''}
+                >
+                  <option value="">쿠폰 선택</option>
+                  {coupons.map((coupon) => (
+                    <option key={coupon.couponCode} value={coupon.couponCode}>
+                      - {coupon.discountAmount}원 할인
+                    </option>
+                  ))}
+                </select>
+                {selectedCoupon && (
+                  <p>선택된 쿠폰: - {selectedCoupon.discountAmount}원 할인</p>
+                )}
+              </div>
               <div className="Final-payment-total-div">
                 <p className="Final-paymentamount-total">총 결제금액</p>
-                <p className="Final-paymentmount-total-won">{totalPrice}원</p>
+                <p className="Final-paymentmount-total-won">{finalPrice}원</p>
               </div>
-              <button className="cart-checkout" onClick={handlePurchase}>
+              <button className="Payment-button" onClick={handlePurchase}>
                 결제
               </button>
             </div>

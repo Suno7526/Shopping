@@ -15,6 +15,8 @@ const Product = () => {
   const [selectedColor, setSelectedColor] = useState(null);
   const [reviews, setReviews] = useState([]);
   const [averageReviewPoint, setAverageReviewPoint] = useState(0);
+  const [discountedPrice, setDiscountedPrice] = useState(0); // 할인된 가격 상태 추가
+  const [DiscountedRate, setDiscountedRate] = useState(0); // 할인된 가격 상태 추가
   const navigate = useNavigate();
 
   const [imageUrls, setImageUrls] = useState([]);
@@ -40,6 +42,16 @@ const Product = () => {
 
     fetchProductImages();
   }, [productCode]);
+
+  useEffect(() => {
+    if (product) {
+      const discountRate = product.discountRate || 0;
+      setDiscountedRate(discountRate);
+      const calculatedDiscountedPrice =
+        (product.productPrice * (100 - discountRate)) / 100;
+      setDiscountedPrice(calculatedDiscountedPrice);
+    }
+  }, [product]);
 
   // Base64 문자열을 Blob URL로 변환하는 함수
   const convertToBlobUrl = (base64String) => {
@@ -107,21 +119,27 @@ const Product = () => {
     fetchReviews();
   }, [productCode]);
 
-  const checkLiked = async (product) => {
-    try {
-      const response = await axios.get(
-        `http://localhost:8000/getLikeProduct/${userCode}`,
-      );
-      const likedProducts = response.data;
-      const found = likedProducts.some(
-        (likedProduct) =>
-          likedProduct.product.productCode === product.productCode,
-      );
-      setIsLiked(found);
-    } catch (error) {
-      console.error('찜한 상품을 확인하는 중 오류 발생:', error);
+  useEffect(() => {
+    const fetchLikedStatus = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getLikeProduct/${userCode}`,
+        );
+        const likedProducts = response.data;
+        const found = likedProducts.some(
+          (likedProduct) =>
+            likedProduct.product.productCode === product.productCode,
+        );
+        setIsLiked(found);
+      } catch (error) {
+        console.error('찜한 상품을 확인하는 중 오류 발생:', error);
+      }
+    };
+
+    if (userCode) {
+      fetchLikedStatus();
     }
-  };
+  }, [userCode, product]);
 
   const handleLikeClick = async () => {
     try {
@@ -144,11 +162,6 @@ const Product = () => {
     } catch (error) {
       console.error('상품을 찜하는 중 오류 발생:', error);
     }
-  };
-
-  // 서브 이미지 클릭 처리 함수
-  const handleSubImageClick = (subImageUrl) => {
-    setMainImage(subImageUrl); // 클릭된 서브 이미지를 메인 이미지로 설정
   };
 
   const handleAddToCartClick = async () => {
@@ -227,7 +240,20 @@ const Product = () => {
       0,
     );
     const average = totalPoints / reviews.length;
-    setAverageReviewPoint(average.toFixed(2)); // 소수점 둘째 자리까지 표시
+    setAverageReviewPoint(average.toFixed(1)); // 평균 별점 계산 및 설정
+  };
+
+  // Helper function to render star ratings
+  const renderStarRating = (rating) => {
+    const stars = [];
+    for (let i = 1; i <= 5; i++) {
+      if (i <= rating) {
+        stars.push(<span key={i}>&#x2605;</span>);
+      } else {
+        stars.push(<span key={i}>&#9734;</span>);
+      }
+    }
+    return stars;
   };
 
   if (!product) {
@@ -263,20 +289,13 @@ const Product = () => {
           <div className="description-card">
             <div className="grid-item-productName">
               {product.companyName}
+              <br />
               <br></br>
-              상품 명 : {product.productName}
-            </div>
-            <div className="grid-item-productPrice">
-              💲 판매가 : {product.productPrice}
-            </div>
-            <div className="cupon-wrap">
-              <div className="cupon-text">쿠폰 사용시 할인 되는 금액</div>
-              <div class="discount-rate">41%</div>
-              <div class="discount-price">17,280원</div>
+              {product.productName}
             </div>
 
             <div className="grid-item-productStuck">
-              상품 재고 : {product.productStuck}
+              재고 : {product.productStuck}
             </div>
             <div className="grid-item-registerDate">
               등록 날짜 : {formatRegisterDate(product.registerDate)}
@@ -313,7 +332,22 @@ const Product = () => {
             </div>
 
             <div className="grid-item-userPoint">
-              별점 : {averageReviewPoint}
+              별점
+              <div class="star-rating">
+                {renderStarRating(averageReviewPoint)}
+              </div>
+            </div>
+
+            <div className="grid-item-productPrice">
+              💲 판매가 : {product.productPrice}
+            </div>
+
+            <div className="cupon-wrap">
+              <div className="cupon-text"> 할인 후 금액{}</div>
+              <div className="discount-rate">{DiscountedRate}%</div>
+              <div className="discount-price">
+                {discountedPrice.toFixed(0)}원
+              </div>
             </div>
 
             {/* 버튼 추가 */}
@@ -515,9 +549,11 @@ const Product = () => {
                       className="user-property-image"
                     />
                     <div className="comment-product">
-                      상품 정보: {review.product.productName}
+                      상품 정보: {review.product.productName} /
                     </div>
-                    <div> 별점 : {review.reviewPoint}</div>
+                    <div class="star-rating">
+                      {renderStarRating(review.reviewPoint)}
+                    </div>
                   </div>
                   <textarea
                     className="comment-textarea"

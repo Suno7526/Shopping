@@ -17,6 +17,7 @@
 
 /* RecentItem.css */
 .recentProductsContainer {
+  margin-left: 200px;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;

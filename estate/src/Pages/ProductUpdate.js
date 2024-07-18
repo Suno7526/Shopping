@@ -1,135 +1,247 @@
-import './Product.css';
+import './ProductUpdate.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import ManageAside from '../Components/ManageAside';
 
 const ProductUpdate = () => {
-  const { productCode } = useParams(); // productCode를 useParams로 가져옵니다
-  const [product, setProduct] = useState({
+  const [products, setProducts] = useState([]);
+  const [searchParams, setSearchParams] = useState({
+    productCode: '',
     productName: '',
-    productPrice: '',
+    companyName: '',
     productStuck: '',
+    productPrice: '',
+    category: '',
+    discountRate: '',
   });
+  const [editingProduct, setEditingProduct] = useState(null);
   const navigate = useNavigate();
 
-  const userCode = sessionStorage.getItem('userCode');
-
   useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8000/getProduct/${productCode}`,
-        );
-        setProduct(response.data);
-      } catch (error) {
-        console.error('상품을 불러오는 중 오류 발생:', error);
-      }
-    };
+    fetchProducts();
+  }, []);
 
-    fetchProduct();
-  }, [productCode]); // productCode가 변경될 때마다 호출되도록 의존성 배열에 추가합니다
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct((prevProduct) => ({
-      ...prevProduct,
-      [name]: value,
-    }));
-  };
-
-  const handleUpdateClick = async () => {
+  const fetchProducts = async () => {
     try {
-      await axios.put(
-        `http://localhost:8000/updateProduct/${productCode}`,
-        product,
-      );
-      alert('상품이 수정되었습니다.');
-      navigate(`/Product/${productCode}`); // 수정 후 해당 상품 페이지로 이동
+      const response = await axios.get('http://localhost:8000/getProducts');
+      setProducts(response.data);
     } catch (error) {
-      console.error('상품을 수정하는 중 오류 발생:', error);
+      console.error('Error fetching products:', error);
     }
   };
 
-  const formatRegisterDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
+  const handleSearchChange = (e) => {
+    const { name, value } = e.target;
+    setSearchParams({
+      ...searchParams,
+      [name]: value,
+    });
   };
 
-  if (!product) {
-    return <div>Loading...</div>;
-  }
+  const handleEditClick = (product) => {
+    setEditingProduct(product);
+  };
+
+  const handleSaveClick = async () => {
+    try {
+      await axios.put(
+        `http://localhost:8000/updateProduct/${editingProduct.productCode}`,
+        editingProduct,
+      );
+      setEditingProduct(null);
+      fetchProducts();
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setEditingProduct({ ...editingProduct, [name]: value });
+  };
+
+  const filteredProducts = products.filter((product) => {
+    return (
+      (searchParams.productCode === '' ||
+        product.productCode.includes(searchParams.productCode)) &&
+      (searchParams.productName === '' ||
+        product.productName.includes(searchParams.productName)) &&
+      (searchParams.companyName === '' ||
+        product.companyName.includes(searchParams.companyName)) &&
+      (searchParams.productStuck === '' ||
+        product.productStuck.toString().includes(searchParams.productStuck)) &&
+      (searchParams.productPrice === '' ||
+        product.productPrice.toString().includes(searchParams.productPrice)) &&
+      (searchParams.category === '' ||
+        product.category.includes(searchParams.category)) &&
+      (searchParams.discountRate === '' ||
+        product.discountRate.toString().includes(searchParams.discountRate))
+    );
+  });
 
   return (
-    <div>
-      <div className="container">
-        <aside>
-          <div className="property-card">
-            <img
-              src={`http://localhost:8000/getProductImage/${parseInt(
-                product.productCode,
-              )}`}
-              alt={product.productName}
-              className="property-image"
-            />
-          </div>
-        </aside>
-
-        <section id="description-card">
-          <div className="description-card">
-            <div className="grid-item">
-              상품 명 :
-              <input
-                type="text"
-                name="productName"
-                value={product.productName}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="grid-item">
-              판매가 :
-              <input
-                type="text"
-                name="productPrice"
-                value={product.productPrice}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="grid-item">
-              상품 재고 :
-              <input
-                type="text"
-                name="productStuck"
-                value={product.productStuck}
-                onChange={handleChange}
-              />
-            </div>
-            <div className="buttons">
-              <button onClick={handleUpdateClick}>상품수정</button>
-            </div>
-            <br />
-          </div>
-        </section>
+    <div className="product-update-container">
+      <ManageAside />
+      <div className="search-filters">
+        <input
+          type="text"
+          name="productCode"
+          placeholder="Search by Product Code"
+          value={searchParams.productCode}
+          onChange={handleSearchChange}
+        />
+        <input
+          type="text"
+          name="productName"
+          placeholder="Search by Product Name"
+          value={searchParams.productName}
+          onChange={handleSearchChange}
+        />
+        <input
+          type="text"
+          name="companyName"
+          placeholder="Search by Company Name"
+          value={searchParams.companyName}
+          onChange={handleSearchChange}
+        />
+        <input
+          type="text"
+          name="productStuck"
+          placeholder="Search by Product Stuck"
+          value={searchParams.productStuck}
+          onChange={handleSearchChange}
+        />
+        <input
+          type="text"
+          name="productPrice"
+          placeholder="Search by Product Price"
+          value={searchParams.productPrice}
+          onChange={handleSearchChange}
+        />
+        <input
+          type="text"
+          name="category"
+          placeholder="Search by Category"
+          value={searchParams.category}
+          onChange={handleSearchChange}
+        />
+        <input
+          type="text"
+          name="discountRate"
+          placeholder="Search by Discount Rate"
+          value={searchParams.discountRate}
+          onChange={handleSearchChange}
+        />
       </div>
-      <hr />
+      <table className="product-table">
+        <thead>
+          <tr>
+            <th>상품 번호</th>
+            <th>상품명</th>
+            <th>회사명</th>
+            <th>재고 수</th>
+            <th>가격</th>
+            <th>카테고리</th>
+            <th>할인률</th>
+            <th>수정하기</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredProducts.map((product) => (
+            <tr key={product.productCode}>
+              <td>{product.productCode}</td>
 
-      <div className="product-container">
-        <section>
-          <div className="product-card">
-            <div className="grid-item">상품 설명</div>
-          </div>
-        </section>
-      </div>
-
-      <div className="review">
-        <section id="review">
-          <div className="review-card">
-            <div className="grid-item">상품 리뷰</div>
-          </div>
-        </section>
-      </div>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="text"
+                    name="productName"
+                    value={editingProduct.productName}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.productName
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="text"
+                    name="companyName"
+                    value={editingProduct.companyName}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.companyName
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="number"
+                    name="productStuck"
+                    value={editingProduct.productStuck}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.productStuck
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="number"
+                    name="productPrice"
+                    value={editingProduct.productPrice}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.productPrice
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="text"
+                    name="category"
+                    value={editingProduct.category}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.category
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <input
+                    type="number"
+                    name="discountRate"
+                    value={editingProduct.discountRate}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  product.discountRate
+                )}
+              </td>
+              <td>
+                {editingProduct &&
+                editingProduct.productCode === product.productCode ? (
+                  <button onClick={handleSaveClick}>Save</button>
+                ) : (
+                  <button onClick={() => handleEditClick(product)}>Edit</button>
+                )}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

@@ -90,7 +90,7 @@ const MyQuestion = () => {
   return (
     <div className="Question-page">
       <article className="Question-Mainpage">
-        <div className="Question-Maintitle">Contact Us</div>
+        <div className="Question-Maintitle">Question</div>
       </article>
       <div className="Question-content">
         <form className="question-form contact-form">

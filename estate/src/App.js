@@ -32,6 +32,12 @@ import MyQuestion from './Pages/MyQuestion';
 import Payment from './Pages/Payment';
 import PaymentProduct from './Pages/PaymentProduct';
 import ProductImages from './Pages/ProductImages';
+import Main from './Pages/Main';
+import MypageUser from './Pages/MypageUser';
+import CouponCreate from './Pages/CouponCreate';
+import CouponAccept from './Pages/CouponAccept';
+import Refund from './Pages/Refund';
+import Chat from './Pages/Chat';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
@@ -113,14 +119,22 @@ function App() {
         <Route path="/QCancel" element={<QCancel />} />
         <Route path="/QExchange" element={<QExchange />} />
         <Route path="/Review/:orderCode" element={<Review />} />
-        <Route path="/ProductUpdate/:productCode" element={<ProductUpdate />} />
+        <Route path="/ProductUpdate" element={<ProductUpdate />} />
         <Route path="/MyInquiry" element={<MyInquiry />} />
         <Route path="/Search/:query" element={<Search />} />
         <Route path="/MyQuestion/:questionCode" element={<MyQuestion />} />
         <Route path="/Payment" element={<Payment />} />
         <Route path="/PaymentProduct" element={<PaymentProduct />} />
         <Route path="/ProductImages" element={<ProductImages />} />
+        <Route path="/Main" element={<Main />} />
+        <Route path="/MypageUser" element={<MypageUser />} />
+        <Route path="/CouponCreate" element={<CouponCreate />} />
+        <Route path="/CouponAccept" element={<CouponAccept />} />
+        <Route path="/Refund" element={<Refund />} />
+        <Route path="/Chat" element={<Chat />} />
       </Routes>
+
+      <Footer />
     </BrowserRouter>
   );
 }

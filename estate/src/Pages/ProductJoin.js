@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './ProductJoin.css'; // 외부 스타일 시트 불러오기
+import ManageAside from '../Components/ManageAside';
 
 const ProductJoin = () => {
   const [productData, setProductData] = useState({
@@ -74,6 +75,7 @@ const ProductJoin = () => {
 
   return (
     <div className="App">
+      <ManageAside />
       <div id="propertyform">
         <h2>상품 등록</h2>
         <form onSubmit={handleSubmit}>

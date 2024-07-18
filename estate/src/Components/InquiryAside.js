@@ -6,7 +6,6 @@ const InquiryAside = () => {
   return (
     <div>
       <aside className="Inquiry-sidebar">
-        <div className="Inquiry-sidebar-header">PASS</div>
         <nav className="Inquiry-sidebar-Buttons">
           <Link to="/Question" className="QuestionButton-div">
             <button className="QuestionButton">✉️ 문의하기</button>

@@ -27,100 +27,114 @@ import com.example.estate.service.ProductService;
 @CrossOrigin(origins = "http://localhost:3000")
 public class ProductController {
 
-	@Autowired
-	private ProductService productService;
+    @Autowired
+    private ProductService productService;
 
-	@PostMapping("/saveProduct")
-	public ResponseEntity<String> saveProduct(@RequestParam("productImages") List<MultipartFile> productImages,
-			@RequestParam("productName") String productName, @RequestParam("information") String information,
-			@RequestParam("productPrice") int productPrice, @RequestParam("companyName") String companyName,
-			@RequestParam("productStuck") int productStuck, @RequestParam("category") String category) {
-		try {
-			productService.saveProduct(productImages, productName, information, productPrice, companyName, productStuck,
-					category);
-			return new ResponseEntity<>("상품 등록 성공", HttpStatus.OK);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("상품 등록에 실패했습니다 다시 시도해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
-	
-	@GetMapping("/getProductImage/{productCode}")
-	public ResponseEntity<byte[]> getProductImage(@PathVariable("productCode") Long productCode) {
-	    try {
-	        List<byte[]> imageBytes = productService.getProductImages(productCode);
-	        HttpHeaders headers = new HttpHeaders();
-	        headers.setContentType(MediaType.IMAGE_JPEG); // 또는 MediaType.IMAGE_PNG
-	        return new ResponseEntity<>(imageBytes.get(0), headers, HttpStatus.OK); // 첫 번째 이미지 바이트 배열을 반환하는 것으로 가정
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	}
-	
-	@GetMapping("/getProductImages/{productCode}")
-	public ResponseEntity<List<String>> getProductImages(@PathVariable("productCode") Long productCode) {
-	    try {
-	        List<byte[]> imageBytesList = productService.getProductImages(productCode);
-	        List<String> base64Images = imageBytesList.stream()
-	                .map(imageBytes -> Base64.getEncoder().encodeToString(imageBytes))
-	                .collect(Collectors.toList());
-	        return new ResponseEntity<>(base64Images, HttpStatus.OK);
-	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-	    }
-	}
+    @PostMapping("/saveProduct")
+    public ResponseEntity<String> saveProduct(@RequestParam("productImages") List<MultipartFile> productImages,
+                                              @RequestParam("productName") String productName,
+                                              @RequestParam("information") String information,
+                                              @RequestParam("productPrice") int productPrice,
+                                              @RequestParam("companyName") String companyName,
+                                              @RequestParam("productStuck") int productStuck,
+                                              @RequestParam("category") String category,
+                                              @RequestParam(value = "discountRate", required = false, defaultValue = "0") Integer discountRate) {
+        try {
+            productService.saveProduct(productImages, productName, information, productPrice, companyName, productStuck, category, discountRate);
+            return new ResponseEntity<>("상품 등록 성공", HttpStatus.OK);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("상품 등록에 실패했습니다 다시 시도해주세요.", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 
+    @GetMapping("/getProductImage/{productCode}")
+    public ResponseEntity<byte[]> getProductImage(@PathVariable("productCode") Long productCode) {
+        try {
+            List<byte[]> imageBytes = productService.getProductImages(productCode);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_JPEG); // 또는 MediaType.IMAGE_PNG
+            return new ResponseEntity<>(imageBytes.get(0), headers, HttpStatus.OK); // 첫 번째 이미지 바이트 배열을 반환하는 것으로 가정
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-	@GetMapping("/getProducts")
-	public ResponseEntity<List<Product>> getProducts() {
-		List<Product> productList = productService.getAllProducts();
-		return new ResponseEntity<>(productList, HttpStatus.OK);
-	}
+    @GetMapping("/getProductImages/{productCode}")
+    public ResponseEntity<List<String>> getProductImages(@PathVariable("productCode") Long productCode) {
+        try {
+            List<byte[]> imageBytesList = productService.getProductImages(productCode);
+            List<String> base64Images = imageBytesList.stream()
+                    .map(imageBytes -> Base64.getEncoder().encodeToString(imageBytes))
+                    .collect(Collectors.toList());
+            return new ResponseEntity<>(base64Images, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-	@GetMapping("/getProduct/{productCode}") // 새로운 엔드포인트 추가
-	public ResponseEntity<Product> getProduct(@PathVariable("productCode") Long productCode) {
-		Product product = productService.findByProductCode(productCode);
-		if (product != null) {
-			return new ResponseEntity<>(product, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}
+    @GetMapping("/getProducts")
+    public ResponseEntity<List<Product>> getProducts() {
+        List<Product> productList = productService.getAllProducts();
+        return new ResponseEntity<>(productList, HttpStatus.OK);
+    }
 
-	@GetMapping("/category/{category}")
-	public List<Product> getProductsByCategory(@PathVariable("category") String category) {
-		return productService.getProductsByCategory(category);
-	}
+    @GetMapping("/getProduct/{productCode}") // 새로운 엔드포인트 추가
+    public ResponseEntity<Product> getProduct(@PathVariable("productCode") Long productCode) {
+        Product product = productService.findByProductCode(productCode);
+        if (product != null) {
+            return new ResponseEntity<>(product, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }	
+    }
 
-	@PutMapping("/updateProduct/{productCode}")
-	public ResponseEntity<String> updateProduct(@PathVariable("productCode") Long productCode,
-			@RequestBody Product updatedProduct) {
+    @GetMapping("/category/{category}")
+    public List<Product> getProductsByCategory(@PathVariable("category") String category) {
+        return productService.getProductsByCategory(category);
+    }
 
-		try {
-			boolean isUpdated = productService.updateProduct(productCode, updatedProduct);
-			if (isUpdated) {
-				return new ResponseEntity<>("상품 수정 성공", HttpStatus.OK);
-			} else {
-				return new ResponseEntity<>("상품을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			return new ResponseEntity<>("상품 수정 실패", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-	}
+    @PutMapping("/updateProduct/{productCode}")
+    public ResponseEntity<String> updateProduct(@PathVariable("productCode") Long productCode,
+                                                @RequestBody Product updatedProduct) {
 
-	@GetMapping("/searchProducts/{query}")
-	public List<Product> searchProducts(@PathVariable("query") String query) {
-		return productService.searchProducts(query);
-	}
+        try {
+            boolean isUpdated = productService.updateProduct(productCode, updatedProduct);
+            if (isUpdated) {
+                return new ResponseEntity<>("상품 수정 성공", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("상품을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("상품 수정 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
-	@GetMapping("/recommendProducts/{userCode}")
-	public ResponseEntity<List<Product>> recommendProducts(@PathVariable("userCode") Long userCode) {
-		List<Product> recommendedProducts = productService.recommendProducts(userCode);
-		return new ResponseEntity<>(recommendedProducts, HttpStatus.OK);
-	}
+    @GetMapping("/searchProducts/{query}") // 메뉴바 검색
+    public List<Product> searchProducts(@PathVariable("query") String query) {
+        return productService.searchProducts1(query);
+    }
 
+    @GetMapping("/search") // productUpdate 페이지 검색
+    public ResponseEntity<List<Product>> searchProducts(
+            @RequestParam(value = "productCode", required = false) Long productCode,
+            @RequestParam(value = "productName", required = false) String productName,
+            @RequestParam(value = "companyName", required = false) String companyName,
+            @RequestParam(value = "productStock", required = false) Integer productStock,
+            @RequestParam(value = "productPrice", required = false) Integer productPrice,
+            @RequestParam(value = "category", required = false) String category,
+            @RequestParam(value = "discountRate", required = false) Integer discountRate) {
+        List<Product> products = productService.searchProducts2(productCode, productName, companyName, productStock, productPrice, category, discountRate);
+        return new ResponseEntity<>(products, HttpStatus.OK);
+    }
+
+    @GetMapping("/recommendProducts/{userCode}")
+    public ResponseEntity<List<Product>> recommendProducts(@PathVariable("userCode") Long userCode) {
+        List<Product> recommendedProducts = productService.recommendProducts(userCode);
+        return new ResponseEntity<>(recommendedProducts, HttpStatus.OK);
+    }
 }

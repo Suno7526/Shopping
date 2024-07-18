@@ -2,6 +2,11 @@
   margin: 0px;
   padding: 0px;
 }
+
+div {
+  color: #545454;
+  font-weight: bold;
+}
 .navbar-brand,
 .inform {
   color: #007bff; /* Blue color */

@@ -1,232 +1,164 @@
-/*payment h2 이름*/
-.payment-title {
+.payment-container {
   display: flex;
-  font-size: 2rem;
-  margin-top: 10%;
-  margin-bottom: 3%;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
+  margin-top: 50px;
 }
 
-/*3 /1 div 묶기*/
-.payment-4 {
-  display: flex;
-  margin-left: 20%;
+.payment-title {
+  font-size: 2.5rem;
+  margin-bottom: 30px;
+  color: #333;
 }
 
-.payment-3 {
-  width: 55%;
-}
-
-/**/
 .payment-info-container {
-  padding: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
 }
 
 .Payment-payment-info {
-  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
 }
 
-.payment-info-p {
-  margin-bottom: 7%;
-  color: #5f5449;
-  font-weight: bold;
-  font-size: 20px;
-}
-
-.user-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-.reviews-user-name {
-  font-size: 1.2rem;
-  font-weight: bold;
-}
-
-/*주문 상품 정보 안 텍스트들*/
 .Payment-ItemImage {
-  width: 200px;
-  height: 200px;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-right: 20px;
+}
+
+.Payment-product-info {
+  flex: 1;
 }
 
 .Payment-productName {
-  font-size: 20px;
-  font-weight: 550;
-  color: #3a3631;
-  margin-bottom: 5%;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
 }
 
-.Payment-productSize {
-  margin-bottom: 1.5%;
-}
-
-.Payment-productColor {
-  margin-bottom: 1.5%;
-}
-
-.Payment-productQuantity {
-  margin-bottom: 3%;
-}
-
+.Payment-productSize,
+.Payment-productColor,
+.Payment-productQuantity,
 .Payment-productPrice {
-  color: #ff0000;
-  font-weight: 500;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 3px;
 }
 
-/*주문자정보*/
-.Orderer-section {
-  padding: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 2%;
+.Orderer-section,
+.Delivery-section,
+.Final-paymentamount-section {
   background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
 }
 
-.Orderer-title {
-  margin-bottom: 7%;
-  color: #5f5449;
-  font-weight: 600;
-  font-size: 20px;
+.Orderer-title,
+.Delivery-title,
+.Final-paymentamount-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
 }
 
-.Orderer-Name {
-  font-weight: 400;
-  color: #5f5449;
-  font-size: 18px;
-  margin-bottom: 2%;
-}
-
-.Orderer-Button {
-  margin-left: 60%;
-}
-
-.OrdererAndButton {
+.Orderer-info,
+.DeliveryAndButton,
+.Final-paymentamount-info {
   display: flex;
+  flex-direction: column;
 }
 
-/*배송 정보*/
-.Delivery-section {
-  padding: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 2%;
-  background-color: #fff;
+.Orderer-Name,
+.Orderer-Phone,
+.Orderer-Email,
+.Delivery-address-input,
+.Delivery-extra-address-input,
+.Delivery-ListBox-input {
+  height: 40px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 0.9rem;
 }
 
-.Delivery-title {
-  margin-bottom: 7%;
-  color: #5f5449;
-  font-weight: 600;
-  font-size: 20px;
+.Delivery-address-input {
+  width: 100%;
 }
 
-.Payment-Delivery-Button {
-  margin-left: 20%;
-}
-
-.DeliveryAndButton {
-  display: flex;
+.Delivery-extra-address-input {
+  margin-top: 10px;
+  width: 100%;
 }
 
 .Delivery-ListBox-input {
   width: 100%;
 }
 
-.Delivery-Phone {
-  margin-bottom: 2%;
+.Findpostalcode {
+  margin-left: auto;
 }
 
-.Delivery-address {
-  margin-bottom: 5%;
+.Final-paymentamount-info {
+  text-align: center;
 }
 
-/*최종 결제 금액*/
-.Final-paymentamount-section {
-  padding: 40px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 20%;
-  margin-left: 2%;
-  height: 25%;
-  background-color: #fff;
-}
-
-.Final-paymentamount-title {
-  margin-bottom: 7%;
-  font-weight: 600;
-  font-size: 20px;
-}
-
-.Final-paymentamount-price {
-  font-weight: 400;
-  font-size: 18px;
-  margin-bottom: 2%;
-}
-
-.Final-paymentamount-Phone {
-  margin-bottom: 2%;
-}
-
-.Final-paymentamount-address {
-  margin-bottom: 5%;
-}
-
+.Final-paymentamount-price,
 .Final-paymentamount-delivery-fee {
-  margin-bottom: 25%;
-}
-
-.Final-paymentamount-delivery-fee::after {
-  content: '';
-  display: block;
-  width: 100%;
-  height: 1px;
-  background-color: #949494e0; /* 선의 색상 */
-  margin-top: 20px; /* 선 위 여백 조절 */
-}
-
-.Final-paymentamount-total {
-  font-size: 17px;
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #666;
 }
 
 .Final-paymentmount-total-won {
-  font-size: 30px;
+  font-size: 1.5rem;
+  font-weight: bold;
   color: #298aca;
-  font-weight: 600;
 }
 
-/*결제하기 버튼*/
-
-.cart-checkout {
-  border: 0;
-  margin-top: 40px;
-  padding: 6px 25px;
-  background-color: #6b6;
+.Payment-button {
+  margin-top: 30px;
+  padding: 12px 30px;
+  background-color: #298aca;
   color: #fff;
-  font-size: 25px;
-  border-radius: 3px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
 }
 
-.cart-checkout:hover {
-  background-color: #494;
+@media (max-width: 768px) {
+  .payment-container {
+    margin-top: 30px;
+  }
+
+  .payment-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .Orderer-info,
+  .DeliveryAndButton,
+  .Final-paymentamount-info {
+    padding: 15px;
+  }
 }
 
-.Delivery-address-input {
-  width: 90%; /* 너비를 %로 늘립니다 */
+.Delivery-ListBox-input-onother {
+  width: 100%;
 }
-
-.Address-and-postcode {
-  display: flex;
-  align-items: center;
-}
-
-.Findpostalcode {
-  margin-left: auto; /* 오른쪽에 위치시킵니다 */
-}
-
-.Delivery-extra-address-input {
-  margin-top: 2%;
-  margin-bottom: 2%;
-  width: 70%;
+.payment-4 {
+  width: 50%;
 }

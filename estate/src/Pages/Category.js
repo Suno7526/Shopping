@@ -84,7 +84,6 @@ const Category = () => {
   return (
     <div>
       <div id="Category-recommended-properties">
-        <div className="JacketImage"></div>
         <div className="Category-item">{category}</div>
         <div className="Secend-Category-item"> Item</div>
         <div className="Category-item-line"></div>
@@ -102,10 +101,6 @@ const Category = () => {
                     src={`http://localhost:8000/getProductImage/${product.productCode}`}
                     alt={`코디 ${product.productCode}`}
                     className="property-image"
-                    style={{
-                      width: '15em',
-                      height: '20em',
-                    }}
                     onClick={() => handleClickProduct(product.productCode)}
                   />
                 </Link>

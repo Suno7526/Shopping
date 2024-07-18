@@ -1,617 +1,98 @@
-.Home-MainImage {
-  height: 450px;
-  background-image: url(https://i.postimg.cc/fT8hKW76/hero-header.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-}
-.Home-text h1 {
-  font-size: 24px;
-  color: #545454;
-  font-weight: bold;
-  margin-top: 60px;
-  margin-bottom: 60px;
+.Home-text {
   text-align: center;
+  margin: 40px 40px 40px 40px;
 }
+
+.Home-text h1 {
+  font-size: 2.5rem;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
 .product-list {
-  width: 850px;
-  margin-left: auto;
-  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
 }
 
 .product-wrapper {
-  width: 250px;
-  float: left;
-  margin-right: 2em;
-  text-align: center; /* 텍스트 중앙 정렬 */
-  margin-bottom: 3em;
+  flex: 1 1 calc(25% - 40px);
+  transition: transform 0.3s;
+  text-align: center;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
 }
 
-.product {
-  display: block;
-  position: relative; /* 자식 요소의 절대 위치를 위한 상대 위치 설정 */
-  background-color: #f6f6f6;
-  width: 100%;
-  height: 225px; /* 높이를 추가하여 중앙 정렬할 공간 확보 */
+.product-wrapper:hover {
+  transform: translateY(-10px);
 }
 
 .product img {
-  position: absolute; /* 절대 위치 설정 */
-  width: 50%;
-  top: 20%; /* 부모의 세로 중앙으로 이동 */
-  left: 23%; /* 부모의 가로 중앙으로 이동 */
+  width: 100%;
+  max-width: 400px; /* Adjust the maximum width */
+  height: auto;
+  border-radius: 10px;
 }
 
-.product-name,
+.product-name {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #555;
+}
+
 .product-price {
-  color: #545454;
-  font-size: 16px;
-  text-decoration: none;
-  margin-top: 0.5em; /* 텍스트 요소들 사이에 여백 추가 */
+  font-size: 1.1rem;
 }
 
-.clearfix {
+.clearfix::after {
+  content: '';
+  display: table;
   clear: both;
 }
 
-.sub-best-item {
-  font-size: 12px;
-  padding-bottom: 5em;
-  text-align: left;
-  margin-left: 6.2em;
-  font-size: 1em;
-}
-
-#search-bar-container {
-  flex-grow: 1;
-  text-align: center;
-}
-
-#search-bar {
-  padding: 15px;
-  width: 400px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  box-sizing: border-box;
-  margin: 0 auto;
-}
-
-.property-section {
-  position: relative;
-  overflow: hidden;
-  height: 500px;
-  text-align: center;
-}
-
-.recommend-item {
-  font-size: 2em;
-  color: #545454;
-  font-weight: bold;
-  margin-top: 60px;
-  margin-bottom: 45px;
-  text-align: left;
-  margin-left: 6em;
-}
 .Home-property-wrapper {
-  width: 70%;
-  margin: 0 auto; /* 가운데 정렬 */
-  height: 300px;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.property-card {
-  width: calc(
-    100% / 3 - 20px
-  ); /* 슬라이드 항목의 너비를 조정하고 간격을 고려 */
-  height: 200px; /* 슬라이드 항목의 높이를 조정 */
-  margin: 0 10px; /* 좌우에 10px의 마진 추가 */
+  padding: 20px;
 }
 
 .property-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover; /* 이미지가 지정된 너비와 높이에 맞도록 */
+  max-width: 250px; /* Adjust the maximum width */
+  height: auto;
+  border-radius: 10px;
 }
 
-.button-group {
-  text-align: center;
-  margin-top: 10px;
-}
-
-.button-image-select {
-  margin: 0 5px;
-  padding: 5px 10px;
-  cursor: pointer;
-}
-
-.button-image-select.active {
-  font-weight: bold;
-  color: #e6a15c;
-}
-
-.guides-section {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.guides-card {
-  width: calc(19% - 40px);
-  height: 450px;
-  padding: 5px;
-  text-align: left;
-  cursor: pointer;
-  position: relative;
-  font-size: 14px;
-  border: none;
-  margin: 10px;
-}
-
-.guides-card img {
-  object-fit: cover;
-  border-radius: 5px;
-}
-
-.guides-card::before {
-  content: attr(data-rank);
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  font-weight: bold;
-  font-size: 1.2em;
-  background-color: white;
-  padding: 0.2em 0.4em;
-  border-radius: 5px;
-}
-
-.Home-companyname {
-  font-size: 21px;
-  font-style: sans-serif;
-}
-
-.Home-productName {
-  font-size: 16px;
-  margin-bottom: 8px;
-}
-
-.Home-price {
-  font-size: 19px;
-  color: #121e5f;
-  margin-bottom: 10px;
-}
-
-.Home-views {
-  font-size: 16px;
-  color: red;
+.container-fluid {
+  width: 100%;
+  padding: 0 50px;
 }
 
 .good-text {
-  color: #5f5449;
-  font-size: 2.3em;
-  font-weight: bold;
-  margin-top: 3.5em;
-  padding-top: 1em;
-  position: relative;
-  text-align: left;
-  margin-left: 1em;
-}
-
-.Home-MiddleImage {
-  width: 70%;
-  margin: 0 auto; /* 가운데 정렬 */
-  height: 200px;
-  background-image: url(https://i.postimg.cc/DZQC0Qjx/pexels-kaip-996329.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  margin-top: 21em;
-  margin-bottom: 15em;
+  font-size: 2rem;
+  margin-bottom: 20px;
 }
 
 .masonry {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
-  margin-left: 100px;
-}
-
-.HomeGriditem {
   display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  align-items: center;
-  height: 100%;
-  padding-bottom: 2%; /* padding을 % 단위로 변경 */
-  position: relative; /* 버튼을 절대 위치로 배치하기 위해 추가 */
-}
-
-.HomeGridH4,
-.HomeGridP {
-  font-weight: bold;
-  margin: 1% 0; /* margin을 % 단위로 변경 */
-  text-align: center;
-  color: #373737;
-  font-size: 1.1em;
-}
-
-.HomeGriditem img {
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-}
-
-a.product {
-  position: relative;
-  display: block;
-  transition: transform 0.3s ease;
-}
-
-a.product:hover {
-  transform: scale(1.1);
-}
-
-.buttons-container {
-  display: none;
-  position: absolute;
-  bottom: 10px; /* 버튼이 이미지 아래에 더 가까이 나타나도록 조정 */
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  text-align: center;
-}
-
-a.product:hover .buttons-container {
-  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
   justify-content: center;
-  gap: 10px; /* 버튼 사이의 간격 */
 }
 
-.cart-button,
-.wishlist-button {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 50%;
-  padding: 0.5em;
+.load-more-button {
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
 
-.cart-button:hover,
-.wishlist-button:hover {
-  background-color: #f0f0f0;
-}
-
-.good-sub-text {
-  margin-left: 2.6em;
-}
-
-.Home-BottomImage {
-  width: 70%;
-  margin: 0 auto; /* 가운데 정렬 */
-  height: 300px;
-  background-image: url(https://i.postimg.cc/Bb6PNvxB/pexels-padrinan-745365.jpg);
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  margin-top: 21em;
-  margin-bottom: 15em;
-}
-
-/* Icon set - http://ionicons.com */
-@import url('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css');
-@import url('https://fonts.googleapis.com/css?family=Raleway:400,500');
-
-.snip-div {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap; /* 요소가 부족한 공간에 맞게 줄 바꿈 */
-  margin-bottom: 15em;
-}
-
-.FASHION-NEWS {
-  color: #000000;
-  font-size: 2.3em;
-  font-weight: bold;
-  margin-top: 3.5em;
-  padding-top: 1em;
-  position: relative;
-  text-align: left;
-  margin-left: 3em;
-}
-
-.FASHION-NEWS-sub-text {
-  margin-left: 7em;
-}
-
-.snip1249 {
-  font-family: 'Raleway', Arial, sans-serif;
-  position: relative;
-  overflow: hidden;
-  margin: 10px;
-  min-width: 220px;
-  max-width: 310px;
-  width: 100%;
-  background: #1a1a1a;
-  color: #ffffff;
-  text-align: left;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
-  background-image: -webkit-linear-gradient(
-    top,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.3) 100%
-  );
-}
-
-.snip1249 * {
-  box-sizing: border-box;
-  transition: all 0.35s ease-in-out;
-}
-
-.snip1249 .image {
-  position: relative;
-}
-
-.snip1249 img {
-  width: 100%;
-  vertical-align: top;
-}
-
-.snip1249 i {
-  position: absolute;
-  top: 7px;
-  left: 12px;
-  font-size: 32px;
-  opacity: 0;
-  z-index: 2;
-  transition-delay: 0;
-}
-
-.snip1249 h3 {
-  margin: 0;
-  font-weight: 500;
-  text-transform: uppercase;
-}
-
-.snip1249:before,
-.snip1249:after {
-  width: 120px;
-  height: 120px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  content: '';
-  transition: all 0.35s ease;
-  z-index: 1;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-  background-image: -webkit-linear-gradient(
-    top,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
-  transition-delay: 0.2s;
-}
-
-.snip1249:before {
-  background-color: #20638f;
-  transform: skew(-45deg) translateX(-150%);
-  border-right: 1px solid #20638f;
-}
-
-.snip1249:after {
-  background-color: #962d22;
-  transform: skew(-45deg) translateX(-175%);
-  border-right: 1px solid #962d22;
-}
-
-.snip1249 figcaption {
-  padding: 25px 80px 25px 25px;
-  background-color: #ffffff;
-  color: #000000;
-  position: relative;
-  font-size: 0.9em;
-}
-
-.snip1249 figcaption p {
-  margin-bottom: 15px;
-}
-
-.snip1249 figcaption:before {
-  width: 150px;
-  height: 150px;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  content: '';
-  z-index: 1;
-  background-image: -webkit-linear-gradient(
-    top,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
-  background-image: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.35) 100%
-  );
-  background-color: #20638f;
-  transform: skew(-45deg) translateX(50%);
-  border-right: 1px solid #20638f;
-}
-
-.snip1249 .add-to-cart {
-  display: inline-block;
-  width: auto;
-  border: 2px solid #20638f;
-  padding: 0.4em 0.6em;
-  color: #20638f;
-  text-decoration: none;
-  font-weight: 800;
-  font-size: 0.9em;
-  text-transform: uppercase;
-}
-
-.snip1249 .add-to-cart:hover {
-  background-color: #20638f;
-  color: #ffffff;
-}
-
-.snip1249 .price {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  color: #ffffff;
-  z-index: 2;
-  text-transform: uppercase;
-  padding: 20px;
-  font-weight: 800;
-  font-size: 1.2em;
-  text-align: center;
-}
-
-.snip1249 .price s {
-  display: block;
-  font-size: 0.85em;
-  font-weight: 400;
-  opacity: 0.8;
-}
-
-.snip1249:hover i,
-.snip1249.hover i {
-  opacity: 0.7;
-  transition-delay: 0.3s;
-}
-
-.snip1249:hover h3,
-.snip1249.hover h3 {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.snip1249:hover:before,
-.snip1249.hover:before {
-  transition-delay: 0s;
-  transform: skew(-45deg) translateX(-50%);
-}
-
-.snip1249:hover:after,
-.snip1249.hover:after {
-  transition-delay: 0.1s;
-  transform: skew(-45deg) translateX(-75%);
-}
-
-/* Sidebar 스타일 */
-
-.btn_quick .btn_qucik_wrap > li > .hovertxt {
-  position: absolute;
-  top: 0px;
-  white-space: nowrap;
-  transform: translate(-106px, 12px);
-  display: block;
-  width: 100px;
-  text-align: right;
-  display: none;
-}
-
-.btn_quick {
-  position: fixed;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  opacity: 1;
-  z-index: 10001 !important;
-  width: 160px;
-  background-color: transparent;
-  border-radius: 0 25px 25px 0;
-}
-
-.btn_quick_wrap {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 20px; /* 일정한 간격 */
-}
-
-.sidebar-item {
-  height: 42px;
-  padding: 0;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
-.sidebar-item img {
-  margin-right: 10px;
-  object-fit: cover;
-}
-
-.hovertxt {
-  font-size: 16px;
-  font-family: 'Outfit', 'Noto Sans KR', Dotum, AppleGothic, Malgun Gothic,
-    sans-serif;
-}
-
-.sidebar-item .hovertxt {
-  display: none;
-}
-
-.sidebar-item:hover .hovertxt {
-  display: block;
-  background-color: #e5aaa3;
-  color: white;
-  padding: 3px 9px;
-  border-radius: 10px;
-}
-
-/*페이지 업*/
-.up {
-  margin-left: 8px;
-}
-
-/*베스트 아이템 버튼*/
-.Home-Best-Item > .quickbtnImg {
-  width: 30px;
-  height: 30px;
-  margin-left: 8px;
-}
-
-/*추천 아이템 버튼*/
-.Home-Recommend-Item > .quickbtnImg {
-  width: 30px;
-  height: 30px;
-  margin-left: 6px;
-}
-
-/*유명한 아이템 버튼*/
-.Home-Popular-Content > .quickbtnImg {
-  width: 30px;
-  height: 30px;
-  margin-left: 8px;
-}
-
-/*패션 뉴스 버튼*/
-.Home-Fashion-News > .quickbtnImg {
-  width: 30px;
-  height: 30px;
-  margin-left: 9px;
-}
-
-/*페이지 다운*/
-
-.down {
-  cursor: pointer;
-  transform: rotate(180deg) translateX(-2px);
+.load-more-button:hover {
+  background-color: #0056b3;
 }

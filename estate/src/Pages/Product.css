@@ -18,10 +18,6 @@ a {
   text-decoration: none;
 }
 
-* {
-  font-family: 'NanumBarunGothic';
-}
-
 .left-sidebar {
   border-left: 1px solid #333; /* 세로 선 스타일 설정 */
   height: 100%; /* 세로 선의 높이를 콘텐츠 영역의 높이로 설정 */
@@ -89,6 +85,7 @@ a {
 }
 
 .cupon-wrap {
+  width: 90%;
   padding: 20px;
   background-color: #f6f4ee;
   display: flex;
@@ -109,16 +106,12 @@ a {
 }
 
 .grid-item-productStuck {
-  padding-left: 20px;
   margin-bottom: 3em;
 }
 
 .grid-item-registerDate {
-  padding-left: 20px;
   margin-bottom: 3em;
 }
-
-/*옵션 버튼*/
 
 .option-title {
   margin-top: 30px;
@@ -149,32 +142,16 @@ a {
   border-color: gray; /* 마우스 오버 시 테두리 색상 변경 */
 }
 
-.clicked {
-  border-color: rgb(105, 218, 255); /* 클릭 시 테두리 색상 변경 */
-  border: 3px solid #000;
-}
-
-/*옷 사이즈*/
-
 #size-input {
+  margin-bottom: 10px;
   margin-left: 30px;
   width: 70%;
   padding: 3px;
 }
 
-.size-title {
-  color: #4a4a4a;
-  font-size: 18px;
-}
-
 .size-selector {
   display: flex;
   margin: 20px;
-}
-
-label {
-  margin-right: 10px;
-  font-size: 16px;
 }
 
 select {
@@ -200,7 +177,7 @@ select {
 
 /* 구매하기 버튼의 스타일 */
 .purchase-btn {
-  padding: 15px 120px; /*왼쪽이 높이 오른쪽이 길이 값임*/
+  padding: 15px 97px; /*왼쪽이 높이 오른쪽이 길이 값임*/
   font-size: 18px;
   border: none;
   background-color: #f5dad2;
@@ -253,7 +230,6 @@ select {
   margin-right: 10px;
 }
 
-/* 콘텐츠 목차 */
 .contentNav {
   list-style-type: none;
   margin: 0;
@@ -270,46 +246,10 @@ select {
   font-family: Arial, sans-serif; /* 폰트 패밀리 변경 */
 }
 
-.contentNav li p::after {
-  content: '';
-  position: absolute;
-  bottom: 60px;
-  left: 0;
-  width: 88%; /* 선의 길이를 조절 */
-  height: 0.8px; /* 선의 두께를 조절 */
-  background-color: #d3d2d2;
-}
-
-.contentNav li a {
-  text-decoration: none;
-  color: #333;
-}
-/*컨텐츠 목차 끝*/
-
 .Product-information-image {
-  margin-left: 10em;
-  margin-right: 10em;
+  text-align: center;
 }
 
-.Product-information-subImg2 {
-  justify-content: center;
-  list-style-type: none;
-  margin-left: 12em;
-  margin-bottom: 10em;
-}
-
-.Product-information-subImg2 li {
-  margin: 0 10px; /* 이미지 사이의 간격을 조절할 수 있습니다. */
-  margin-bottom: 10em;
-}
-
-.Product-information-subImg2 img {
-  width: 300px; /* 이미지의 너비를 조절할 수 있습니다. */
-  height: 300px; /* 높이를 자동으로 설정하여 이미지의 비율을 유지합니다. */
-}
-
-/*상품 정보 테이블*/
-/* 추가된 CSS 스타일링 */
 .size-info,
 .guide-info {
   margin-top: 3em;
@@ -321,7 +261,6 @@ select {
 .guide-table {
   width: 80%;
   border-collapse: collapse;
-  font-size: 0.8rem; /* 테이블 크기를 작게 */
   margin-bottom: 3em;
 }
 
@@ -378,38 +317,6 @@ select {
 
 /*서브 이미지*/
 
-.Product-information-image {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
-  padding-top: 100px;
-}
-
-.Product-information-subImg2 {
-  list-style: none;
-  padding: 0;
-  display: block;
-  gap: 10px;
-}
-
-.Product-information-subImg2 li {
-  display: inline-block;
-}
-
-.Product-information-subImg2 img {
-  margin-left: 80px;
-  width: 500px;
-  height: 500px;
-  cursor: pointer;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  padding: 5px;
-  transition: transform 0.2s ease;
-}
-
-/* 별.css */
-
 .reviews-section {
   background-color: transparent;
   border-bottom: 1px solid #5f5449;
@@ -419,85 +326,6 @@ select {
   align-items: flex-start; /* 유저 리뷰를 상단에 맞춤 */
   margin-left: 10em;
   height: 55vh;
-}
-
-.star-container {
-  background-image: url('https://www.toptal.com/designers/subtlepatterns/patterns/concrete-texture.png');
-  display: flex;
-  flex-wrap: wrap;
-  width: 70vh;
-  align-items: center;
-}
-
-.product-star-rating {
-  display: flex;
-  font-size: 14px;
-  align-items: center;
-  margin-right: 10px;
-}
-
-.rating {
-  display: flex;
-  width: 100%;
-  justify-content: center;
-  overflow: hidden;
-  flex-direction: row-reverse;
-  position: relative;
-  font-size: 14px;
-}
-
-.rating > input {
-  display: none;
-}
-
-.rating > label {
-  cursor: pointer;
-  width: 25px;
-  height: 25px;
-  margin-top: auto;
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23e3e3e3' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 76%;
-  transition: 0.3s;
-}
-
-.rating > input:checked ~ label,
-.rating > input:checked ~ label ~ label {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23fcd93a' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");
-}
-
-.rating > input:not(:checked) ~ label:hover,
-.rating > input:not(:checked) ~ label:hover ~ label {
-  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='126.729' height='126.73'%3e%3cpath fill='%23d8b11e' d='M121.215 44.212l-34.899-3.3c-2.2-.2-4.101-1.6-5-3.7l-12.5-30.3c-2-5-9.101-5-11.101 0l-12.4 30.3c-.8 2.1-2.8 3.5-5 3.7l-34.9 3.3c-5.2.5-7.3 7-3.4 10.5l26.3 23.1c1.7 1.5 2.4 3.7 1.9 5.9l-7.9 32.399c-1.2 5.101 4.3 9.3 8.9 6.601l29.1-17.101c1.9-1.1 4.2-1.1 6.1 0l29.101 17.101c4.6 2.699 10.1-1.4 8.899-6.601l-7.8-32.399c-.5-2.2.2-4.4 1.9-5.9l26.3-23.1c3.8-3.5 1.6-10-3.6-10.5z'/%3e%3c/svg%3e");
-}
-
-.emoji-wrapper {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  transition: transform 0.5s ease; /* 변환 애니메이션 추가 */
-}
-
-.emoji-wrapper input {
-  display: none;
-}
-
-.emoji-wrapper label {
-  cursor: pointer;
-}
-
-.emoji-wrapper input:checked + label {
-  transform: scale(1.2);
-}
-
-.emoji-display {
-  margin-top: 10px;
-  font-size: 20px;
-}
-
-.emoji {
-  font-size: 1em;
 }
 
 .feedback {
@@ -537,6 +365,7 @@ select {
 }
 
 .comment-product {
+  padding-top: 10px;
   color: #828282e0;
   font-style: italic;
   font-size: 14px; /* 상품 정보 텍스트 크기 설정 */
@@ -582,4 +411,24 @@ select {
 
 .starAndComment {
   flex-grow: 1; /* 나머지 공간을 차지하도록 설정 */
+}
+.star-rating {
+  unicode-bidi: bidi-override;
+  color: #f5d63d; /* Color for filled star */
+  font-size: 24px; /* Adjust size as needed */
+}
+
+.star-rating span {
+  display: inline-block;
+  position: relative;
+  width: 1em; /* Width of a single star */
+}
+
+.star-rating span:before {
+  content: '\2605'; /* Unicode character for a star */
+  position: absolute;
+}
+
+.star-rating-empty {
+  color: #ddd; /* Color for empty star (unfilled) */
 }

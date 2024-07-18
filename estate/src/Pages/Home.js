@@ -5,11 +5,13 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Home.css';
 import { Link } from 'react-router-dom';
+import News from '../Components/News';
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [visibleProducts, setVisibleProducts] = useState(8); // Initial visible products
   const wrapperRef = useRef(null);
   const sliderRef = useRef(null);
 
@@ -69,48 +71,32 @@ function Home() {
     }
   }, [products]);
 
+  // Function to load more products
+  const loadMoreProducts = () => {
+    setVisibleProducts((prevVisible) => prevVisible + 8);
+  };
+
+  // Reverse the order of products for "New Items"
+  const newItems = [...products].reverse();
+
   return (
     <div>
-      <div className="Home-MainImage"></div>
       <div className="Home-text">
-        <h1>Best Items</h1>
-        <div className="product-list">
-          {products.slice(0, 5).map((product) => (
-            <div className="product-wrapper" key={product.productCode}>
-              <Link
-                to={`/product/${product.productCode}`}
-                className="product"
-                onClick={() => handleClickProduct(product.productCode)}
-              >
-                <img
-                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                  alt={product.productName}
-                />
-              </Link>
-              <div className="product-name">{product.productName}</div>
-              <div className="product-price">{product.productPrice}</div>
-            </div>
-          ))}
-          <div className="clearfix"></div>
-        </div>
-      </div>
-
-      <div className="recommend-item" id="recommend-item">
-        New Items
+        <h1>New Items</h1>
       </div>
       <div>
         <Slider
           ref={sliderRef}
           className="Home-property-wrapper"
-          slidesToShow={3}
+          slidesToShow={5}
           slidesToScroll={1}
           arrows={false}
           dots={true}
           autoplay={true}
-          centerMode={true}
-          centerPadding="10px"
+          centerMode={false}
+          centerPadding="0px" // Adjust the padding between slides
         >
-          {products.map((product, index) => (
+          {newItems.slice(0, 10).map((product, index) => (
             <div key={product.productCode} className="Home-property-wrapper">
               <Link to={`/product/${product.productCode}`}>
                 <img
@@ -125,227 +111,33 @@ function Home() {
         </Slider>
       </div>
 
-      <div id="recommended-properties">
-        <div className="Home-MiddleImage"></div>
-        <div className="container-fluid" id="popular-content">
-          <h1 className="good-text">Product Items</h1>
-          <br></br>
-          <div className="masonry">
-            {products.map((product) => (
-              <div className="HomeGriditem" key={product.productCode}>
-                <a
-                  href={`/product/${product.productCode}`}
-                  className="HomeGrud-product"
-                  onClick={() => handleClickProduct(product.productCode)}
-                >
-                  <div className="image-container">
-                    <img
-                      src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                      alt={product.productName}
-                    />
-                  </div>
-                  <div className="buttons-container">
-                    <button className="cart-button">🛒</button>
-                    <button className="wishlist-button">❤️</button>
-                  </div>
-                </a>
-                <h4 className="HomeGridH4">{product.productName}</h4>
-                <p className="HomeGridP">{product.productPrice}</p>
-              </div>
-            ))}
-          </div>
+      <div className="Home-text">
+        <h1>Products</h1>
+        <div className="product-list">
+          {products.slice(0, visibleProducts).map((product) => (
+            <div className="product-wrapper" key={product.productCode}>
+              <Link
+                to={`/product/${product.productCode}`}
+                className="product"
+                onClick={() => handleClickProduct(product.productCode)}
+              >
+                <img
+                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  alt={product.productName}
+                />
+              </Link>
+              <div>{product.companyName}</div>
+              <div className="product-name">{product.productName}</div>
+              <div className="product-price">{product.productPrice}</div>
+            </div>
+          ))}
+          {products.length > visibleProducts && (
+            <button className="load-more-button" onClick={loadMoreProducts}>
+              Load More
+            </button>
+          )}
+          <div className="clearfix"></div>
         </div>
-      </div>
-      <div className="Home-BottomImage" id="fashion-news"></div>
-
-      <h1 className="FASHION-NEWS">FASHION NEWS</h1>
-      <p className="FASHION-NEWS-sub-text" id="fashion-news-content"></p>
-      <div className="snip-div">
-        <figure className="snip1249">
-          <div className="image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample90.jpg"
-              alt="sample90"
-            />
-            <i className="ion-ios-basketball-outline"></i>
-          </div>
-          <figcaption>
-            <h3>Sports Wear</h3>
-            <p>
-              How many boards would the Mongols hoard if the Mongol hordes got
-              bored?
-            </p>
-            <div className="price">
-              <s>$19.00</s>$14.00
-            </div>
-          </figcaption>
-        </figure>
-        <figure className="snip1249">
-          <div className="image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample85.jpg"
-              alt="sample85"
-            />
-            <i className="ion-ios-star-outline"></i>
-          </div>
-          <figcaption>
-            <h3>Time Piece</h3>
-            <p>
-              I'm killing time while I wait for life to shower me with meaning
-              and happiness.
-            </p>
-            <div className="price">
-              <s>$99.00</s>$84.00
-            </div>
-          </figcaption>
-        </figure>
-        <figure className="snip1249">
-          <div className="image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample71.jpg"
-              alt="sample71"
-            />
-            <i className="ion-ios-camera-outline"></i>
-          </div>
-          <figcaption>
-            <h3>Winter Hat</h3>
-            <p>
-              Weekends don't count unless spent doing something completely
-              pointless.
-            </p>
-            <div className="price">
-              <s>$98.00</s>$74.00
-            </div>
-          </figcaption>
-        </figure>
-        <figure className="snip1249">
-          <div className="image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample85.jpg"
-              alt="sample85"
-            />
-            <i className="ion-ios-star-outline"></i>
-          </div>
-          <figcaption>
-            <h3>Time Piece</h3>
-            <p>
-              I'm killing time while I wait for life to shower me with meaning
-              and happiness.
-            </p>
-            <div className="price">
-              <s>$99.00</s>$84.00
-            </div>
-          </figcaption>
-        </figure>
-        <figure className="snip1249">
-          <div className="image">
-            <img
-              src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample85.jpg"
-              alt="sample85"
-            />
-            <i className="ion-ios-star-outline"></i>
-          </div>
-          <figcaption>
-            <h3>Time Piece</h3>
-            <p>
-              I'm killing time while I wait for life to shower me with meaning
-              and happiness.
-            </p>
-            <div className="price">
-              <s>$99.00</s>$84.00
-            </div>
-          </figcaption>
-        </figure>
-      </div>
-
-      <div className="btn_quick">
-        <ul className="btn_quick_wrap">
-          <li className="sidebar-item">
-            <a
-              href="#"
-              className="up"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            >
-              <img
-                src="https://atimg.sonyunara.com/2023/renew/footer/quickup.png"
-                alt="Top"
-                className="quickbtnImg"
-              />
-            </a>
-            <div className="hovertxt">
-              <span>맨 위로</span>
-            </div>
-          </li>
-          <li className="sidebar-item">
-            <a href="#best-item" className="Home-Best-Item">
-              <img
-                src="https://i.postimg.cc/xTttQtVw/download-removebg-preview-2.png"
-                alt="Best Item"
-                className="quickbtnImg"
-              />
-            </a>
-            <div className="hovertxt">
-              <span>베스트 아이템</span>
-            </div>
-          </li>
-          <li className="sidebar-item">
-            <a href="#recommend-item" className="Home-Recommend-Item">
-              <img
-                src="https://i.postimg.cc/3NLpsf09/download-removebg-preview-3.png"
-                alt="Recommend Item"
-                className="quickbtnImg"
-              />
-            </a>
-            <div className="hovertxt">
-              <span>최신 아이템</span>
-            </div>
-          </li>
-          <li className="sidebar-item">
-            <a href="#popular-content" className="Home-Popular-Content">
-              <img
-                src="https://i.postimg.cc/7hp7PGXT/download-removebg-preview-4.png"
-                alt="Popular Content"
-                className="quickbtnImg"
-              />
-            </a>
-            <div className="hovertxt">
-              <span>인기있는 아이템</span>
-            </div>
-          </li>
-          <li className="sidebar-item">
-            <a href="#fashion-news-content" className="Home-Fashion-News">
-              <img
-                src="https://i.postimg.cc/wTmLf2T5/download-removebg-preview-5.png"
-                alt="Fashion News"
-                className="quickbtnImg"
-              />
-            </a>
-            <div className="hovertxt">
-              <span>패션 뉴스</span>
-            </div>
-          </li>
-          <li className="sidebar-item">
-            <a
-              href="#"
-              className="down"
-              onClick={() =>
-                window.scrollTo({
-                  top: document.body.scrollHeight,
-                  behavior: 'smooth',
-                })
-              }
-            >
-              <img
-                src="https://atimg.sonyunara.com/2023/renew/footer/quickup.png"
-                alt="Bottom"
-                className="quickbtnImg"
-              />
-            </a>
-            <div className="hovertxt">
-              <span>맨 아래로</span>
-            </div>
-          </li>
-        </ul>
       </div>
     </div>
   );

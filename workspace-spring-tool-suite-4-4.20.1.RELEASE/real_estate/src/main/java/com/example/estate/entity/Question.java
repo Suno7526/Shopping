@@ -34,9 +34,9 @@ public class Question {
 	private User user;
 	
 	@ManyToOne
-	@JoinColumn(name = "orderCode")
-	private Orders order;
-	
+    @JoinColumn(name = "orderCode", nullable = true) // Ensure this column can be null
+    private Orders order;
+    
 	
 	@Column
 	private String questionTitle; // 문의사항 제목

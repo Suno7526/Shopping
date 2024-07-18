@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.estate.entity.User;
 import com.example.estate.service.UserService;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.AllArgsConstructor;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -41,15 +44,12 @@ public class UserController {
         }
     }    
     
-    @PostMapping("/getUserCodeByEmail")
-    public ResponseEntity<Long> getUserCodeByEmail(@RequestBody Map<String, String> requestBody) {
-        String email = requestBody.get("email");
-        User user = userService.findByEmail(email);
-        if (user != null) {
-            return new ResponseEntity<>(user.getUserCode(), HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
-        }
+    @GetMapping("/getUser/{userCode}")
+    public ResponseEntity<User> getUserDetails(@PathVariable("userCode") Long userCode) {
+            User user = userService.findByUserCode(userCode);
+            return new ResponseEntity<>(user, HttpStatus.OK);
     }
+    
+    
     
 }

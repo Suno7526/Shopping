@@ -1,4 +1,5 @@
 .footer {
+  margin-top: 200px;
   position: relative; /* relative로 변경 */
 }
 
@@ -20,7 +21,6 @@
 }
 
 .bottom-line {
-  width: 74%; /* 페이지 가로 너비의 60% */
   height: 0.1px; /* 선의 높이 */
   background-color: rgb(217, 217, 217); /* 선의 색상 */
   margin: 0 auto; /* 수평 가운데 정렬 */
@@ -43,7 +43,7 @@
 .copyright3 {
   color: #232a3f; /* 글자 색상 */
   font-size: 12px; /* 글자 크기 */
-  margin-left: 97.5em;
+  text-align: right;
 }
 
 .HOME-btn {

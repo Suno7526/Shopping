@@ -60,10 +60,6 @@ const Search = () => {
                       src={`http://localhost:8000/getProductImage/${product.productCode}`}
                       alt={`코디 ${product.productCode}`}
                       className="property-image"
-                      style={{
-                        width: '15em',
-                        height: '20em',
-                      }}
                       onClick={() => handleClickProduct(product.productCode)}
                     />
                   </Link>
@@ -74,7 +70,7 @@ const Search = () => {
                       {product.productName}
                     </div>
                     <div className="Category-productPrice">
-                      {product.productPrice}₩
+                      {product.productPrice}
                     </div>
 
                     <div className="Category-viewCount">

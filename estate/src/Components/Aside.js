@@ -6,7 +6,6 @@ const Aside = () => {
   return (
     <div>
       <aside className="sidebar">
-        <div className="sidebar-header">PASS</div>
         <nav className="sidebar-Buttons">
           <Link to="/RecentItem" className="RecentItemButton-div">
             <button className="RecentItemButton">🕒 최근 본 상품</button>
