@@ -187,6 +187,13 @@ const Refund = () => {
           value={searchParams.productColor}
           onChange={handleSearchChange}
         />
+        <input
+          type="text"
+          name="impUid"
+          placeholder="Search by Imp Uid"
+          value={searchParams.impUid}
+          onChange={handleSearchChange}
+        />
         <select
           name="reviewCheck"
           value={searchParams.reviewCheck}
@@ -196,13 +203,6 @@ const Refund = () => {
           <option value="true">Reviewed</option>
           <option value="false">Not Reviewed</option>
         </select>
-        <input
-          type="text"
-          name="impUid"
-          placeholder="Search by Imp Uid"
-          value={searchParams.impUid}
-          onChange={handleSearchChange}
-        />
       </div>
       <table className="product-table">
         <thead>
