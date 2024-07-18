@@ -29,7 +29,7 @@ const Cart = () => {
             uniqueProducts.push({ ...item, quantity: 1 });
           }
         });
-        setCartItems(uniqueProducts);
+        setCartItems(uniqueProducts.reverse());
       } catch (error) {
         if (error.response && error.response.status === 404) {
           setCartItems([]);

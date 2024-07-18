@@ -15,7 +15,7 @@ const MyInquiry = () => {
         const response = await axios.get(
           `http://localhost:8000/questions/${userCode}`,
         );
-        setPosts(response.data);
+        setPosts(response.data.reverse());
       } catch (error) {
         console.error('Error fetching posts:', error);
       }

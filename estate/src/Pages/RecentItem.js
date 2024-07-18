@@ -79,13 +79,9 @@ const RecentItem = () => {
                     <br />
                     {product.product.productPrice}
                     <div className="RecentItem-button-container">
-                      <button className="RecentCartBtn">페이지로 이동</button>
-                      <button
-                        className="RecentLikeBtn"
-                        onClick={() => addToWishlist(product.product)}
-                      >
-                        이동
-                      </button>
+                      <Link to={`/product/${product.product.productCode}`}>
+                        <button className="RecentCartBtn">페이지로 이동</button>
+                      </Link>
                     </div>
                   </div>
                 </div>

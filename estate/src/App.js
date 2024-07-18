@@ -65,10 +65,14 @@ function App() {
 
       ChannelIO('boot', {
         "pluginKey": "49f16ab4-ee61-4945-90b6-055d91c92119",
-        "memberId": sessionStorage.getItem('userEmail') || '', // fill user's member id
+        "memberId": "${sessionStorage.getItem(
+          'userEmail',
+        )}" || '', // fill user's member id
         "profile": { // fill user's profile
-          "name": "USER_NAME", // fill user's name
-          "mobileNumber": "USER_MOBILE_NUMBER", // fill user's mobile number
+          "name": "${sessionStorage.getItem('userName')}", // fill user's name
+          "mobileNumber": "${sessionStorage.getItem(
+            'userPhone',
+          )}", // fill user's mobile number
           "landlineNumber": "USER_LANDLINE_NUMBER", // fill user's landline number  
           "CUSTOM_VALUE_1": "VALUE_1", // custom property
           "CUSTOM_VALUE_2": "VALUE_2" // custom property
