@@ -41,6 +41,7 @@ public class OrdersController {
         String productColor = (String) requestData.get("productColor");
         String request = (String) requestData.get("request");
         String impUid = (String) requestData.get("impUid");
+        int orderPrice = (int) requestData.get("orderPrice");
         
         Orders orders = new Orders();
         User user = new User();
@@ -56,6 +57,8 @@ public class OrdersController {
         orders.setShippingAddress(shippingAddress);
         orders.setRequest(request);
         orders.setImpUid(impUid);
+        orders.setOrderPrice(orderPrice);
+        orders.setRefundState("신청 전");
         
         ordersService.ordersProduct(orders);
     }

@@ -48,7 +48,7 @@ public class Orders {
     private String request; // 요청 사항
     
     @Column
-    private String orderPrice; // 주문 총액
+    private int orderPrice; // 주문 총액
 
     @Column
     private String refundState; // 환불 상태 ( 신청 전 , 승인 대기중 , 환급 진행중 , 환불 완료 )

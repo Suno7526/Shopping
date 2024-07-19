@@ -146,6 +146,7 @@
   display: flex;
   justify-content: center;
 }
+
 /* Add styles for the refund form */
 .RefundForm {
   background-color: #f9f9f9;
@@ -165,4 +166,11 @@
 .RefundForm button {
   margin-top: 10px;
   margin-right: 5px;
+}
+
+/* Style for the refund button to look like text */
+.RefundButton {
+  color: #0d6efd;
+  cursor: pointer;
+  text-decoration: none;
 }

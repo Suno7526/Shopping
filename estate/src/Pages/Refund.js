@@ -74,11 +74,25 @@ const Refund = () => {
 
   const handleApproveClick = async (order) => {
     try {
-      await axios.put(
-        `http://localhost:8000/updateOrder/${order.orderCode}`,
-        { ...order, refundState: '환급 진행중' }, // 승인 시 refundState를 '환급 진행중'으로 업데이트
+      // 아임포트 API를 통해 결제 취소 요청
+      const response = await axios.post(
+        `http://localhost:8000/cancelIamport/${order.impUid}`,
+        {
+          productCode: order.product.productCode,
+          orderCode: order.orderCode,
+        },
       );
-      fetchNonInitialRefundOrders();
+
+      // 결제 취소 성공 시 orderState를 업데이트
+      if (response.data.code === 0) {
+        await axios.put(
+          `http://localhost:8000/updateOrder/${order.orderCode}`,
+          { ...order, refundState: '환급 완료' },
+        );
+        fetchNonInitialRefundOrders();
+      } else {
+        console.error('Error cancelling payment:', response.data.message);
+      }
     } catch (error) {
       console.error('Error approving order:', error);
     }
@@ -329,26 +343,30 @@ const Refund = () => {
               </td>
               <td>
                 {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <select
+                  <input
+                    type="text"
                     name="reviewCheck"
-                    value={editingOrder.reviewCheck.toString()}
-                    onChange={(e) =>
-                      setEditingOrder({
-                        ...editingOrder,
-                        reviewCheck: e.target.value === 'true',
-                      })
-                    }
-                  >
-                    <option value="true">Reviewed</option>
-                    <option value="false">Not Reviewed</option>
-                  </select>
+                    value={editingOrder.reviewCheck}
+                    onChange={handleInputChange}
+                  />
                 ) : order.reviewCheck ? (
                   'Reviewed'
                 ) : (
                   'Not Reviewed'
                 )}
               </td>
-              <td>{order.impUid}</td>
+              <td>
+                {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                  <input
+                    type="text"
+                    name="impUid"
+                    value={editingOrder.impUid}
+                    onChange={handleInputChange}
+                  />
+                ) : (
+                  order.impUid
+                )}
+              </td>
               <td>
                 {editingOrder && editingOrder.orderCode === order.orderCode ? (
                   <button onClick={handleSaveClick}>Save</button>
@@ -357,10 +375,12 @@ const Refund = () => {
                 )}
               </td>
               <td>
-                <button onClick={() => handleApproveClick(order)}>승인</button>
+                <button onClick={() => handleApproveClick(order)}>
+                  Approve
+                </button>
               </td>
               <td>
-                <button onClick={() => handleRejectClick(order)}>거절</button>
+                <button onClick={() => handleRejectClick(order)}>Reject</button>
               </td>
             </tr>
           ))}

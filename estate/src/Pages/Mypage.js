@@ -145,9 +145,12 @@ const Mypage = () => {
                     <td>{order.shippingAddress}</td>
                     <td style={{ width: '120px' }}>
                       {order.refundState === '신청 전' ? (
-                        <button onClick={() => openRefundForm(order)}>
+                        <span
+                          className="RefundButton"
+                          onClick={() => openRefundForm(order)}
+                        >
                           환불 신청
-                        </button>
+                        </span>
                       ) : (
                         order.refundState
                       )}
