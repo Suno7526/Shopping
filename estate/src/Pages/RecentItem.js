@@ -73,11 +73,11 @@ const RecentItem = () => {
                     />
                   </Link>
                   <div className="recentproductInfo">
-                    <strong>
-                      [제조사] 상품 명 : {product.product.productName}
-                    </strong>
-                    <br />
-                    {product.product.productPrice}
+                    <div>
+                      {product.product.companyName} <br></br>상품 명 :{' '}
+                      {product.product.productName}
+                    </div>
+                    <div>판매가 : {product.product.productPrice}</div>
                     <div className="RecentItem-button-container">
                       <button className="RecentCartBtn">페이지로 이동</button>
                       <button
