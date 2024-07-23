@@ -109,12 +109,13 @@ const MypageUser = () => {
             <ul>
               {coupons.map((coupon) => (
                 <li key={coupon.couponCode}>
-                  <p>Serial Code: {coupon.serialCode}</p>
-                  <p>Discount Amount: {coupon.discountAmount}</p>
-                  <p>Issue Date: {coupon.issueDate}</p>
-                  <p>Expiry Date: {coupon.expiryDate}</p>
-                  <p>Min Purchase Amount: {coupon.minPurchaseAmount}</p>
-                  <p>Used: {coupon.used ? 'Yes' : 'No'}</p>
+                  <p>쿠폰번호: {coupon.serialCode}</p>
+                  <p>할인금액: {coupon.discountAmount}</p>
+                  <p>
+                    사용기간: {coupon.issueDate} ~{coupon.expiryDate}
+                  </p>
+                  <p>최소 구매 금액: {coupon.minPurchaseAmount}</p>
+                  <p>사용여부: {coupon.used ? 'Yes' : 'No'}</p>
                 </li>
               ))}
             </ul>
