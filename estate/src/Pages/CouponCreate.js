@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './CouponCreate.css';
+import ManageAside from '../Components/ManageAside';
 
 const CouponCreate = () => {
   const navigate = useNavigate();
@@ -36,6 +37,7 @@ const CouponCreate = () => {
 
   return (
     <div className="coupon-create-container">
+      <ManageAside />
       <h2>쿠폰 생성</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">

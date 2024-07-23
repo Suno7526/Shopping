@@ -2,6 +2,7 @@ import './ProductUpdate.css';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ManageAside from '../Components/ManageAside';
 
 const ProductUpdate = () => {
   const [products, setProducts] = useState([]);
@@ -81,6 +82,7 @@ const ProductUpdate = () => {
 
   return (
     <div className="product-update-container">
+      <ManageAside />
       <div className="search-filters">
         <input
           type="text"
