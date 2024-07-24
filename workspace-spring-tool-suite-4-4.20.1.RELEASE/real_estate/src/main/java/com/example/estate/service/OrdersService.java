@@ -35,20 +35,42 @@ public class OrdersService {
         return ordersRepository.findByRefundStateNot("신청 전");
     }
 
-    public Orders updateOrder(Long orderCode, Orders updatedOrder) {
-        Orders existingOrder = ordersRepository.findById(orderCode).orElseThrow(() -> new RuntimeException("Order not found"));
-        existingOrder.setShippingAddress(updatedOrder.getShippingAddress());
-        existingOrder.setOrderStatus(updatedOrder.getOrderStatus());
-        existingOrder.setRefundReason(updatedOrder.getRefundReason());
-        existingOrder.setRequest(updatedOrder.getRequest());
-        existingOrder.setOrderPrice(updatedOrder.getOrderPrice());
-        existingOrder.setRefundState(updatedOrder.getRefundState());
-        existingOrder.setProductSize(updatedOrder.getProductSize());
-        existingOrder.setProductColor(updatedOrder.getProductColor());
-        existingOrder.setReviewCheck(updatedOrder.isReviewCheck());
-        existingOrder.setImpUid(updatedOrder.getImpUid());
-        return ordersRepository.save(existingOrder);
-    }
+	public Orders updateOrder(Long orderCode, Orders updatedOrder) {
+	    Orders existingOrder = ordersRepository.findById(orderCode)
+	        .orElseThrow(() -> new RuntimeException("Order not found"));
+	    
+	    if (updatedOrder.getShippingAddress() != null) {
+	        existingOrder.setShippingAddress(updatedOrder.getShippingAddress());
+	    }
+	    if (updatedOrder.getOrderStatus() != null) {
+	        existingOrder.setOrderStatus(updatedOrder.getOrderStatus());
+	    }
+	    if (updatedOrder.getRefundReason() != null) {
+	        existingOrder.setRefundReason(updatedOrder.getRefundReason());
+	    }
+	    if (updatedOrder.getRequest() != null) {
+	        existingOrder.setRequest(updatedOrder.getRequest());
+	    }
+	    if (updatedOrder.getOrderPrice() != 0) {  // assuming orderPrice is a primitive type, check for non-default value
+	        existingOrder.setOrderPrice(updatedOrder.getOrderPrice());
+	    }
+	    if (updatedOrder.getRefundState() != null) {
+	        existingOrder.setRefundState(updatedOrder.getRefundState());
+	    }
+	    if (updatedOrder.getProductSize() != null) {
+	        existingOrder.setProductSize(updatedOrder.getProductSize());
+	    }
+	    if (updatedOrder.getProductColor() != null) {
+	        existingOrder.setProductColor(updatedOrder.getProductColor());
+	    }
+	    existingOrder.setReviewCheck(updatedOrder.isReviewCheck());
+	    if (updatedOrder.getImpUid() != null) {
+	        existingOrder.setImpUid(updatedOrder.getImpUid());
+	    }
+
+	    return ordersRepository.save(existingOrder);
+	}
+
 
     @Transactional(readOnly = true)
     public List<Orders> searchOrders(Long orderCode, Long userCode, Long productCode, String shippingAddress, String orderStatus, String refundReason, String request, String orderPrice, String refundState, String productSize, String productColor, Boolean reviewCheck, String impUid) {

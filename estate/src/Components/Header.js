@@ -72,39 +72,7 @@ const Header = () => {
             {userRole === 'ADMIN' && (
               <>
                 <li className="header-li">
-                  <Link to="/ProductUpdate">상품수정</Link>
-                  <img
-                    src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
-                    alt="Product Update"
-                    className="hover-image"
-                  />
-                </li>
-                <li className="header-li">
-                  <Link to="/ProductJoin">상품등록</Link>
-                  <img
-                    src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
-                    alt="Product Join"
-                    className="hover-image"
-                  />
-                </li>
-                <li className="header-li">
-                  <Link to="/couponCreate">쿠폰등록</Link>
-                  <img
-                    src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
-                    alt="Product Update"
-                    className="hover-image"
-                  />
-                </li>
-                <li className="header-li">
-                  <Link to="/couponAccept">쿠폰수정</Link>
-                  <img
-                    src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
-                    alt="Product Update"
-                    className="hover-image"
-                  />
-                </li>
-                <li className="header-li">
-                  <Link to="/refund">환불승인</Link>
+                  <Link to="/ProductUpdate">관리자페이지</Link>
                   <img
                     src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
                     alt="Product Update"

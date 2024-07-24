@@ -13,11 +13,11 @@ const ManageAside = () => {
           <Link to="/ProductJoin" className="LikeItemButton-div">
             <button className="LikeItemButton">🖤 상품등록</button>
           </Link>{' '}
-          <Link to="/CouponCreate" className="MypageItemButton-div">
-            <button className="MypageButton">🧾 쿠폰등록</button>
-          </Link>{' '}
           <Link to="/CouponAccept" className="MypageItemButton-div">
             <button className="MypageButton">🧾 쿠폰수정</button>
+          </Link>{' '}
+          <Link to="/CouponCreate" className="MypageItemButton-div">
+            <button className="MypageButton">🧾 쿠폰등록</button>
           </Link>{' '}
           <Link to="/Refund" className="MypageItemButton-div">
             <button className="MypageButton">🧾 환불승인</button>

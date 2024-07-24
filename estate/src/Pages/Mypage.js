@@ -74,6 +74,7 @@ const Mypage = () => {
     try {
       const updatedOrder = {
         refundReason: detailedReason,
+        refundState: '승인 대기중',
       };
 
       await axios.put(

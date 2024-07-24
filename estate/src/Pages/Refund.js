@@ -223,19 +223,19 @@ const Refund = () => {
       <table className="product-table">
         <thead>
           <tr>
-            <th>주문 코드</th>
-            <th>유저 코드</th>
-            <th>제품 코드</th>
-            <th>배송 주소</th>
-            <th>주문 상태</th>
-            <th>환불 사유</th>
-            <th>요청 사항</th>
-            <th>주문 총액</th>
-            <th>환불 상태</th>
+            <th>주문코드</th>
+            <th>유저코드</th>
+            <th>제품코드</th>
+            <th>배송주소</th>
+            <th>주문상태</th>
+            <th style={{ width: '90px' }}>환불사유</th>
+            <th>요청사항</th>
+            <th style={{ width: '90px' }}>주문총액</th>
+            <th>환불상태</th>
             <th>사이즈</th>
             <th>색상</th>
-            <th>리뷰 여부</th>
-            <th>가맹점 번호</th>
+            <th>리뷰여부</th>
+            <th>가맹점번호</th>
             <th>수정하기</th>
             <th>승인</th>
             <th>거절</th>
@@ -352,9 +352,9 @@ const Refund = () => {
                     onChange={handleInputChange}
                   />
                 ) : order.reviewCheck ? (
-                  'Reviewed'
+                  'Y'
                 ) : (
-                  'Not Reviewed'
+                  'N'
                 )}
               </td>
               <td>
