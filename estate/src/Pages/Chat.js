@@ -8,26 +8,37 @@ const Chat = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
-    const socketFactory = () => new SockJS('http://localhost:8000/ws');
     const client = new Client({
-      webSocketFactory: socketFactory,
+      webSocketFactory: () => new SockJS('http://localhost:8000/ws'),
+      connectHeaders: {
+        login: 'user',
+        passcode: 'password',
+      },
+      debug: function (str) {
+        console.log(str);
+      },
       reconnectDelay: 5000,
-      onConnect: (frame) => {
-        console.log('Connected: ' + frame);
-
-        client.subscribe('/topic/messages', (msg) => {
-          if (msg.body) {
-            setMessages((prevMessages) => [...prevMessages, msg.body]);
-          }
-        });
-      },
-      onStompError: (frame) => {
-        console.error('Broker reported error: ' + frame.headers['message']);
-        console.error('Additional details: ' + frame.body);
-      },
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
     });
 
+    client.onConnect = (frame) => {
+      console.log('Connected: ' + frame);
+
+      client.subscribe('/topic/messages', (msg) => {
+        if (msg.body) {
+          setMessages((prevMessages) => [...prevMessages, msg.body]);
+        }
+      });
+    };
+
+    client.onStompError = (frame) => {
+      console.error('Broker reported error: ' + frame.headers['message']);
+      console.error('Additional details: ' + frame.body);
+    };
+
     client.activate();
+
     setStompClient(client);
 
     return () => {
@@ -39,7 +50,10 @@ const Chat = () => {
 
   const sendMessage = () => {
     if (stompClient && stompClient.connected) {
-      stompClient.publish({ destination: '/app/message', body: message });
+      stompClient.publish({
+        destination: '/app/message',
+        body: message,
+      });
       setMessage('');
     } else {
       console.error('There is no underlying STOMP connection');
