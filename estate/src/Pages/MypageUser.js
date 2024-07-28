@@ -109,7 +109,12 @@ const MypageUser = () => {
             <ul>
               {coupons.map((coupon) => (
                 <li key={coupon.couponCode}>
+                  <p>
+                    쿠폰: {coupon.minPurchaseAmount}원 이상 구매시{' '}
+                    {coupon.discountAmount}원 할인
+                  </p>
                   <p>쿠폰번호: {coupon.serialCode}</p>
+
                   <p>할인금액: {coupon.discountAmount}</p>
                   <p>
                     사용기간: {coupon.issueDate} ~{coupon.expiryDate}
