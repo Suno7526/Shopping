@@ -134,11 +134,13 @@ const MypageUser = () => {
             <ul>
               {reviews.map((review) => (
                 <li key={review.id} className="review-item">
-                  <img
-                    src={`http://localhost:8000/getProductImage/${review.product.productCode}`}
-                    alt={`Product`}
-                    className="review-image"
-                  />
+                  <Link to={`/product/${review.product.productCode}`}>
+                    <img
+                      src={`http://localhost:8000/getProductImage/${review.product.productCode}`}
+                      alt={`Product`}
+                      className="review-image"
+                    />
+                  </Link>
                   <div className="review-content">
                     <p>{review.reviewContent}</p>
                     <p>{new Date(review.registerDate).toLocaleDateString()} </p>
