@@ -42,7 +42,7 @@
 .Inquiry-table th,
 .Inquiry-table td {
   border: 1px solid #e0e0e0;
-  padding: 10px;
+  padding: 12px;
   text-align: left; /* 텍스트를 왼쪽 정렬로 설정 */
   font-size: 16px;
   font-style: Serif;
