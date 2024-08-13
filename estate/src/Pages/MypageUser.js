@@ -153,7 +153,7 @@ const MypageUser = () => {
           )}
         </div>
         <div className="MypageUser-user-reviews">
-          <Link to="/edit-profile">Edit Profile</Link>
+          <Link to="/edit-profile">수정하기</Link>
         </div>
       </div>
     </div>
