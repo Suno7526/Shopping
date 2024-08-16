@@ -149,7 +149,7 @@ const MypageUser = () => {
               ))}
             </ul>
           ) : (
-            <p>No reviews available.</p>
+            <p>작성하신 리뷰가 없습니다.</p>
           )}
         </div>
         <div className="MypageUser-user-reviews">
