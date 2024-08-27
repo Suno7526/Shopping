@@ -121,11 +121,7 @@ const Payment = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: orderName,
-<<<<<<< HEAD
-          amount: 100, //totalPrice,
-=======
           amount: 100, //finalPrice,
->>>>>>> 680f7853be686638a9f508837a345f5a6f9f0119
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),

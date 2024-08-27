@@ -117,11 +117,7 @@ const PaymentProduct = () => {
           pay_method: 'card',
           merchant_uid: new Date().getTime().toString(),
           name: product.productName,
-<<<<<<< HEAD
-          amount: 100, // product.productPrice + 100, // 상품 가격에 배송비 추가
-=======
           amount: 100, //finalPrice,
->>>>>>> 680f7853be686638a9f508837a345f5a6f9f0119
           buyer_email: sessionStorage.getItem('userEmail'),
           buyer_name: sessionStorage.getItem('userName'),
           buyer_tel: sessionStorage.getItem('userPhone'),
@@ -263,12 +259,8 @@ const PaymentProduct = () => {
                     type="text"
                     placeholder="기타 배송 메모를 입력하세요"
                     value={customMemo}
-<<<<<<< HEAD
-                    onChange={(e) => setCustomMemo(e.target.value)} //기타사항 텍스트 생성
-=======
                     className="Delivery-ListBox-input-onother"
                     onChange={(e) => setCustomMemo(e.target.value)}
->>>>>>> 680f7853be686638a9f508837a345f5a6f9f0119
                   />
                 )}
               </div>

@@ -44,7 +44,7 @@ public class User {
     @Column(nullable = false, columnDefinition = "int default 0")
     private int userPoint;
     
-    @Column(nullable = false, length = 50, columnDefinition = "String default BRONZE")
+    @Column(length = 50, columnDefinition = "String default BRONZE")
     private String userGrade;
     
     @Enumerated(EnumType.STRING)
