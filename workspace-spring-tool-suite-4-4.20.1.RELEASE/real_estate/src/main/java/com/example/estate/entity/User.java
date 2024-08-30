@@ -1,6 +1,7 @@
 package com.example.estate.entity;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -11,6 +12,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -39,10 +41,17 @@ public class User {
     @Column(nullable = false, length = 50)
     private String birth;
     
+    @Column(nullable = false, columnDefinition = "int default 0")
+    private int userPoint;
+    
+    @Column(length = 50, columnDefinition = "String default BRONZE")
+    private String userGrade;
+    
     @Enumerated(EnumType.STRING)
-	private RoleType role;
+    private RoleType role = RoleType.USER; // 기본 값을 USER로 설정
 
     @CreationTimestamp
     private Timestamp createDate;
+    
 }
 

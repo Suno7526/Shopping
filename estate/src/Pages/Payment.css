@@ -139,10 +139,6 @@
   transition: background-color 0.3s;
 }
 
-button:hover {
-  background-color: #1e70bf;
-}
-
 @media (max-width: 768px) {
   .payment-container {
     margin-top: 30px;

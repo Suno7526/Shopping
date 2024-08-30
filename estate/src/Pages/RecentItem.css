@@ -65,17 +65,6 @@
   color: #fff; /* 호버 시 흰색 글자색 */
 }
 
-/* 장바구니 아이콘 스타일 */
-.RecentCartBtn::before {
-  content: '\1F6D2'; /* 장바구니 아이콘 */
-  margin-right: 10px; /* 장바구니 아이콘과 버튼 텍스트 사이 간격 설정 */
-  position: absolute; /* 아이콘 위치 설정 */
-  left: 0; /* 왼쪽 여백 설정 */
-  top: 50%; /* 상단 여백 설정 */
-  transform: translateY(-50%); /* 수직 가운데 정렬 */
-  transition: left 0.5s; /* 위치 변경 시 부드러운 전환 효과 */
-}
-
 .RecentCartBtn:hover::before {
   left: -22px; /* 호버 시 왼쪽으로 이동 */
 }

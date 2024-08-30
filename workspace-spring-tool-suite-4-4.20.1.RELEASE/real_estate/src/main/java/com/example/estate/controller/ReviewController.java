@@ -47,6 +47,17 @@ public class ReviewController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+	
+	@GetMapping("/getReviewsUser/{userCode}")
+	public ResponseEntity<List<Review>> getReviewsUser(@PathVariable("userCode") Long userCode) {
+		try {
+			List<Review> reviews = reviewService.getReviewsByUserCode(userCode);
+			return new ResponseEntity<>(reviews, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 
 	@GetMapping("/getReviewImages/{reviewCode}")
 	public ResponseEntity<List<String>> getProductImages(@PathVariable("reviewCode") Long reviewCode) {

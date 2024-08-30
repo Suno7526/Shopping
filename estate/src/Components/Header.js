@@ -38,7 +38,7 @@ const Header = () => {
       <header>
         <div className="Home-navi">
           <a id="logo" onClick={() => navigate('/Home')}>
-            PASS
+            SHOPPER
           </a>
           <ul id="menu">
             <li className="header-li">
@@ -72,18 +72,10 @@ const Header = () => {
             {userRole === 'ADMIN' && (
               <>
                 <li className="header-li">
-                  <Link to="/ProductUpdate">상품수정</Link>
+                  <Link to="/ProductUpdate">관리자페이지</Link>
                   <img
                     src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
                     alt="Product Update"
-                    className="hover-image"
-                  />
-                </li>
-                <li className="header-li">
-                  <Link to="/ProductJoin">상품등록</Link>
-                  <img
-                    src="https://i.postimg.cc/mkVJ4yB8/Clothes.gif"
-                    alt="Product Join"
                     className="hover-image"
                   />
                 </li>
@@ -116,7 +108,7 @@ const Header = () => {
             <li className="header-li userName-li">
               {isLogin ? (
                 <>
-                  <Link to="/MyPage">
+                  <Link to="/MypageUser">
                     {sessionStorage.getItem('userName')}님
                   </Link>
                   <img

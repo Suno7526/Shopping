@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@stomp/stompjs": "^7.0.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -21,9 +22,10 @@
     "react-slick": "^0.30.2",
     "redux": "^5.0.1",
     "slick-carousel": "^1.8.1",
+    "sockjs-client": "^1.6.1",
     "styled-components": "^6.1.8",
-    "web-vitals": "^2.1.4",
-    "swiper": "^7.2.0"
+    "swiper": "^7.2.0",
+    "web-vitals": "^2.1.4"
   },
   "proxy": "http://localhost:8000",
   "scripts": {

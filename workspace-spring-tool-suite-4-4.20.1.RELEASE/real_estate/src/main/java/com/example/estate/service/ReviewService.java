@@ -80,6 +80,15 @@ public class ReviewService {
         }
     }
     
+    public List<Review> getReviewsByUserCode(Long userCode) {
+        try {
+            return reviewRepository.findByUser_UserCode(userCode);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("상품에 대한 리뷰를 가져오는 중 오류 발생");
+        }
+    }
+    
     @Transactional(readOnly = true)
     public List<byte[]> getReviewImage(Long reviewCode) {
             Review review = reviewRepository.findById(reviewCode).orElse(null);

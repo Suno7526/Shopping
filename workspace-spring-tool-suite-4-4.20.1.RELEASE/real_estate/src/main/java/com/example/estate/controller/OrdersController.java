@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.estate.entity.Orders;
@@ -38,7 +40,9 @@ public class OrdersController {
         String productSize = (String) requestData.get("productSize");
         String productColor = (String) requestData.get("productColor");
         String request = (String) requestData.get("request");
-
+        String impUid = (String) requestData.get("impUid");
+        int orderPrice = (int) requestData.get("orderPrice");
+        
         Orders orders = new Orders();
         User user = new User();
         user.setUserCode(userCode);
@@ -52,7 +56,10 @@ public class OrdersController {
         orders.setRefundReason("X");
         orders.setShippingAddress(shippingAddress);
         orders.setRequest(request);
-
+        orders.setImpUid(impUid);
+        orders.setOrderPrice(orderPrice);
+        orders.setRefundState("신청 전");
+        
         ordersService.ordersProduct(orders);
     }
 
@@ -71,4 +78,33 @@ public class OrdersController {
         return ordersService.getOrderDetails(orderCode);
     }
 
+    @GetMapping("/getNonInitialRefundOrders")
+    public ResponseEntity<List<Orders>> getNonInitialRefundOrders() {
+        List<Orders> orders = ordersService.getNonInitialRefundOrders();
+        return new ResponseEntity<>(orders, HttpStatus.OK);
+    }
+
+    @PutMapping("/updateOrder/{orderCode}")
+    public Orders updateOrder(@PathVariable("orderCode") Long orderCode, @RequestBody Orders updatedOrder) {
+        return ordersService.updateOrder(orderCode, updatedOrder);
+    }
+
+    @GetMapping("/orderSearch")
+    public List<Orders> searchOrders(
+            @RequestParam(value = "orderCode",required = false) Long orderCode,
+            @RequestParam(value = "userCode",required = false) Long userCode,
+            @RequestParam(value = "productCode",required = false) Long productCode,
+            @RequestParam(value = "shippingAddress",required = false) String shippingAddress,
+            @RequestParam(value = "orderStatus",required = false) String orderStatus,
+            @RequestParam(value = "refundReason",required = false) String refundReason,
+            @RequestParam(value = "request",required = false) String request,
+            @RequestParam(value = "orderPrice",required = false) String orderPrice,
+            @RequestParam(value = "refundState",required = false) String refundState,
+            @RequestParam(value = "productSize",required = false) String productSize,
+            @RequestParam(value = "productColor",required = false) String productColor,
+            @RequestParam(value = "reviewCheck",required = false) Boolean reviewCheck,
+            @RequestParam(value = "impUid",required = false) String impUid) {
+        return ordersService.searchOrders(orderCode, userCode, productCode, shippingAddress, orderStatus, refundReason, request, orderPrice, refundState, productSize, productColor, reviewCheck, impUid);
+    }
+    
 }
