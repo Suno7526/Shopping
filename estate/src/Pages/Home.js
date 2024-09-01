@@ -126,9 +126,18 @@ function Home() {
                   alt={product.productName}
                 />
               </Link>
+
               <div>{product.companyName}</div>
               <div className="product-name">{product.productName}</div>
               <div className="product-price">{product.productPrice}</div>
+              <div className="Category-viewCount">
+                <img
+                  src="https://i.postimg.cc/XNRxQKLY/download.png"
+                  className="views-icon"
+                  alt="조회수"
+                />
+                {product.viewCount}
+              </div>
             </div>
           ))}
           {products.length > visibleProducts && (
