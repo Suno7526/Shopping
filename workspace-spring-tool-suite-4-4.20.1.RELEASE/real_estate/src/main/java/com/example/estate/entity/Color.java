@@ -29,4 +29,9 @@ public class Color {
 	
 	@Column
 	private String colorName;
+	
 }
+
+
+
+

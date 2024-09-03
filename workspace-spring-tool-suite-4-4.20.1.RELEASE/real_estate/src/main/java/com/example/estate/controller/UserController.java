@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,6 +51,29 @@ public class UserController {
             return new ResponseEntity<>(user, HttpStatus.OK);
     }
     
-    
+    @PutMapping("/updateUser/{userCode}")
+    public ResponseEntity<String> updateUser(@PathVariable("userCode") Long userCode, @RequestBody Map<String, String> updates) {
+        User user = userService.findByUserCode(userCode);
+        if (user == null) {
+            return new ResponseEntity<>("사용자를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+        }
+
+        if (updates.containsKey("email")) {
+            user.setEmail(updates.get("email"));
+        }
+        if (updates.containsKey("password")) {
+            user.setPassword(updates.get("password"));
+        }
+        if (updates.containsKey("phoneNumber")) {
+            user.setPhoneNumber(updates.get("phoneNumber"));
+        }
+        if (updates.containsKey("address")) {
+            user.setAddress(updates.get("address"));
+        }
+
+        userService.saveUser(user);
+        return new ResponseEntity<>("사용자 정보가 업데이트되었습니다.", HttpStatus.OK);
+    }
+
     
 }
