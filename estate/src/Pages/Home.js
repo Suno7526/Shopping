@@ -5,13 +5,13 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Home.css';
 import { Link } from 'react-router-dom';
-import News from '../Components/News';
 
 function Home() {
   const [products, setProducts] = useState([]);
   const [isLogin, setIsLogin] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [visibleProducts, setVisibleProducts] = useState(8); // Initial visible products
+  const [visibleProducts, setVisibleProducts] = useState(8); // 초기 표시 제품 수
+  const [sortOption, setSortOption] = useState('viewCount'); // 초기 정렬 옵션을 조회수순으로 설정
   const wrapperRef = useRef(null);
   const sliderRef = useRef(null);
 
@@ -19,10 +19,7 @@ function Home() {
     const fetchProducts = async () => {
       try {
         const response = await axios.get('http://localhost:8000/getProducts');
-        const sortedProducts = response.data.sort(
-          (a, b) => b.viewCount - a.viewCount,
-        );
-        setProducts(sortedProducts);
+        setProducts(response.data);
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
       }
@@ -71,13 +68,28 @@ function Home() {
     }
   }, [products]);
 
-  // Function to load more products
   const loadMoreProducts = () => {
     setVisibleProducts((prevVisible) => prevVisible + 8);
   };
 
-  // Reverse the order of products for "New Items"
-  const newItems = [...products].reverse();
+  // 제품을 정렬하는 함수
+  const sortProducts = (option) => {
+    let sortedProducts = [...products];
+    switch (option) {
+      case 'viewCount':
+        sortedProducts.sort((a, b) => b.viewCount - a.viewCount); // 조회수순으로 정렬
+        break;
+      case 'lowPrice':
+        sortedProducts.sort((a, b) => a.productPrice - b.productPrice); // 낮은 가격순으로 정렬
+        break;
+      case 'highPrice':
+        sortedProducts.sort((a, b) => b.productPrice - a.productPrice); // 높은 가격순으로 정렬
+        break;
+      default:
+        break;
+    }
+    return sortedProducts;
+  };
 
   return (
     <div>
@@ -94,9 +106,9 @@ function Home() {
           dots={true}
           autoplay={true}
           centerMode={false}
-          centerPadding="0px" // Adjust the padding between slides
+          centerPadding="0px"
         >
-          {newItems.slice(0, 10).map((product, index) => (
+          {products.slice(0, 10).map((product, index) => (
             <div key={product.productCode} className="Home-property-wrapper">
               <Link to={`/product/${product.productCode}`}>
                 <img
@@ -112,34 +124,34 @@ function Home() {
       </div>
 
       <div className="Home-text">
-        <h1>Products</h1>
+        <h1 className="Home-text-Products">Products</h1>
+        <div className="sort-options">
+          <button onClick={() => setSortOption('viewCount')}>조회수순</button>
+          <button onClick={() => setSortOption('lowPrice')}>낮은 가격순</button>
+          <button onClick={() => setSortOption('highPrice')}>
+            높은 가격순
+          </button>
+        </div>
         <div className="product-list">
-          {products.slice(0, visibleProducts).map((product) => (
-            <div className="product-wrapper" key={product.productCode}>
-              <Link
-                to={`/product/${product.productCode}`}
-                className="product"
-                onClick={() => handleClickProduct(product.productCode)}
-              >
-                <img
-                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                  alt={product.productName}
-                />
-              </Link>
-
-              <div>{product.companyName}</div>
-              <div className="product-name">{product.productName}</div>
-              <div className="product-price">{product.productPrice}</div>
-              <div className="Category-viewCount">
-                <img
-                  src="https://i.postimg.cc/XNRxQKLY/download.png"
-                  className="views-icon"
-                  alt="조회수"
-                />
-                {product.viewCount}
+          {sortProducts(sortOption)
+            .slice(0, visibleProducts)
+            .map((product) => (
+              <div className="product-wrapper" key={product.productCode}>
+                <Link
+                  to={`/product/${product.productCode}`}
+                  className="product"
+                  onClick={() => handleClickProduct(product.productCode)}
+                >
+                  <img
+                    src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                    alt={product.productName}
+                  />
+                </Link>
+                <div>{product.companyName}</div>
+                <div className="product-name">{product.productName}</div>
+                <div className="product-price">{product.productPrice}</div>
               </div>
-            </div>
-          ))}
+            ))}
           {products.length > visibleProducts && (
             <button className="load-more-button" onClick={loadMoreProducts}>
               Load More

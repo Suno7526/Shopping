@@ -117,7 +117,7 @@ const MypageUser = () => {
 
                   <p>할인금액: {coupon.discountAmount}</p>
                   <p>
-                    사용기간: {coupon.issueDate} ~{coupon.expiryDate}
+                    사용기간: {coupon.issueDate} ~ {coupon.expiryDate}
                   </p>
                   <p>최소 구매 금액: {coupon.minPurchaseAmount}</p>
                   <p>사용여부: {coupon.used ? 'Yes' : 'No'}</p>
