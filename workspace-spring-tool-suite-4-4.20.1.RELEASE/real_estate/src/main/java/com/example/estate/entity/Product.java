@@ -38,9 +38,6 @@ public class Product {
 
     @Column
     private int productPrice;
-    
-    @Column
-    private String deliveryStatus;
 
     @Column(nullable = false)
     private String information;

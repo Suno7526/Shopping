@@ -16,13 +16,11 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="com.example.estate.entity.Reply"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.GetMapping"/>
     <fullyQualifiedTypeName name="com.example.estate.repository.UserRepository"/>
     <fullyQualifiedTypeName name="com.example.estate.repository.QuestionRepository"/>
     <fullyQualifiedTypeName name="org.aspectj.weaver.patterns.TypePatternQuestions.Question"/>
     <fullyQualifiedTypeName name="org.apache.catalina.User"/>
-    <fullyQualifiedTypeName name="com.example.estate.entity.User"/>
     <fullyQualifiedTypeName name="com.example.estate.entity.Question"/>
     <fullyQualifiedTypeName name="com.example.estate.entity.Review"/>
     <fullyQualifiedTypeName name="com.example.estate.service.ReviewService"/>
@@ -52,7 +50,6 @@
     <fullyQualifiedTypeName name="java.util.Base64"/>
     <fullyQualifiedTypeName name="java.util.stream.Collectors"/>
     <fullyQualifiedTypeName name="org.springframework.transaction.annotation.Transactional"/>
-    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PutMapping"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestParam"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.domain.Specification"/>
     <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaSpecificationExecutor"/>
@@ -60,4 +57,7 @@
     <fullyQualifiedTypeName name="com.example.estate.repository.OrdersRepository"/>
     <fullyQualifiedTypeName name="com.example.estate.repository.CartRepository"/>
     <fullyQualifiedTypeName name="com.example.estate.dto.ChatMessage"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PutMapping"/>
+    <fullyQualifiedTypeName name="org.springframework.http.HttpStatus"/>
+    <fullyQualifiedTypeName name="com.example.estate.entity.User"/>
 </qualifiedTypeNameHistroy>

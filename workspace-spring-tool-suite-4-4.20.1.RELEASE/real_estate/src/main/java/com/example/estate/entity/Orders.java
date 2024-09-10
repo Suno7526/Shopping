@@ -39,7 +39,7 @@ public class Orders {
     private String shippingAddress; // 배송 주소
 
     @Column
-    private String orderStatus; // 주문 상태 ( 상품 준비중, 배달지 도착, 배송 중, 배송 완료 )
+    private String orderStatus; // 주문 상태 (결제완료, 상품준비중, 배송시작, 배송중, 배송완료)
 
     @Column
     private String refundReason; // 환불 사유

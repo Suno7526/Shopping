@@ -103,6 +103,32 @@ const MypageUser = () => {
             <strong>Birth Date:</strong> {userData.birth}
           </p>
         </div>
+
+        <div className="MypageUser-user-reviews">
+          <h2>Reviews</h2>
+          {reviews && reviews.length > 0 ? (
+            <ul>
+              {reviews.map((review) => (
+                <li key={review.id} className="review-item">
+                  <Link to={`/product/${review.product.productCode}`}>
+                    <img
+                      src={`http://localhost:8000/getProductImage/${review.product.productCode}`}
+                      alt={`Product`}
+                      className="review-image"
+                    />
+                  </Link>
+                  <div className="review-content">
+                    <p>{review.reviewContent}</p>
+                    <p>{new Date(review.registerDate).toLocaleDateString()} </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>작성하신 리뷰가 없습니다.</p>
+          )}
+        </div>
+
         <div className="MypageUser-user-coupons">
           <h2>Coupons</h2>
           {coupons.length > 0 ? (

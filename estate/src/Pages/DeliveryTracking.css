@@ -1,0 +1,142 @@
+.delivery-main {
+  display: flex;
+  justify-content: center;
+}
+
+.delivery-progress {
+  text-align: left;
+  justify-content: center;
+  width: 70%;
+  margin-top: 5em;
+}
+
+.delivery-title {
+  font-size: 45px;
+  margin-bottom: 50px;
+  color: #333;
+}
+
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background-color: #ffffff;
+  border: solid 1px #e0e0e0;
+}
+
+.delivery-item,
+.delivery-truck,
+.delivery-complete {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  flex: 1;
+}
+
+.icon img,
+.order-complete img {
+  width: 300px;
+  height: auto;
+}
+
+.order-complete p,
+.icon p {
+  margin-top: 10px;
+  font-size: 20px;
+  color: #333;
+  text-align: center;
+  margin-bottom: 5em;
+}
+
+.delivery-line {
+  width: 100px;
+  height: 5px;
+  background-color: #565555;
+  position: relative;
+  top: -50px; /* 선을 가운데 위치시키기 위한 조정 */
+}
+
+.delivery-info-box {
+  background-color: #f0f0f0;
+  padding: 20px;
+  font-size: 45px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.delivery-table {
+  margin-top: 30px;
+  width: 100%;
+  background-color: #d3d3d3;
+  overflow: hidden;
+}
+
+.delivery-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.delivery-table th,
+.delivery-table td {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid #cccccc;
+  font-size: 18px;
+}
+
+.delivery-table th {
+  background-color: #b0b0b0;
+  font-weight: bold;
+}
+
+.delivery-table td {
+  background-color: #e0e0e0;
+}
+
+.delivery-detail-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+}
+
+.invoice-box,
+.delivery-person-info-box {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 20px;
+  flex: 1;
+  margin: 0 10px;
+}
+
+.invoice-box {
+  text-align: center;
+}
+
+.invoice-box-img {
+  width: 200px;
+}
+
+.delivery-person-info-box {
+  text-align: left;
+}
+
+/* 교환, 반품 신청 버튼 */
+.delivery-exchange-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: right;
+}
+
+.exchange-return {
+  padding: 15px 50px;
+  font-size: 18px;
+  background-color: #ffffff; /* 버튼 배경색 */
+  color: rgb(0, 0, 0);
+  border: solid 1px #000;
+  border-radius: 5px;
+  cursor: pointer;
+}
