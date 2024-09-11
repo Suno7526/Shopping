@@ -52,7 +52,7 @@ public class OrdersController {
         orders.setProductSize(productSize);
         orders.setProductColor(productColor);
         orders.setProduct(product);
-        orders.setOrderStatus("준비중");
+        orders.setOrderStatus("결제완료");
         orders.setRefundReason("X");
         orders.setShippingAddress(shippingAddress);
         orders.setRequest(request);

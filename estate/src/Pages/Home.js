@@ -125,13 +125,6 @@ function Home() {
 
       <div className="Home-text">
         <h1 className="Home-text-Products">Products</h1>
-        <div className="sort-options">
-          <button onClick={() => setSortOption('viewCount')}>조회수순</button>
-          <button onClick={() => setSortOption('lowPrice')}>낮은 가격순</button>
-          <button onClick={() => setSortOption('highPrice')}>
-            높은 가격순
-          </button>
-        </div>
         <div className="product-list">
           {sortProducts(sortOption)
             .slice(0, visibleProducts)
