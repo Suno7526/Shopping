@@ -75,7 +75,6 @@ const Refund = () => {
 
   const handleApproveClick = async (order) => {
     try {
-      // 아임포트 API를 통해 결제 취소 요청
       const response = await axios.post(
         `http://localhost:8000/cancelIamport/${order.impUid}`,
         {
@@ -84,7 +83,6 @@ const Refund = () => {
         },
       );
 
-      // 결제 취소 성공 시 orderState를 업데이트
       if (response.data.code === 0) {
         await axios.put(
           `http://localhost:8000/updateOrder/${order.orderCode}`,
@@ -101,10 +99,10 @@ const Refund = () => {
 
   const handleRejectClick = async (order) => {
     try {
-      await axios.put(
-        `http://localhost:8000/updateOrder/${order.orderCode}`,
-        { ...order, refundState: '승인 거절' }, // 거절 시 refundState를 '승인 거절'로 업데이트
-      );
+      await axios.put(`http://localhost:8000/updateOrder/${order.orderCode}`, {
+        ...order,
+        refundState: '승인 거절',
+      });
       fetchNonInitialRefundOrders();
     } catch (error) {
       console.error('Error rejecting order:', error);
@@ -119,6 +117,42 @@ const Refund = () => {
       setOrders(response.data);
     } catch (error) {
       console.error('Error searching orders:', error);
+    }
+  };
+
+  const updateOrderStatus = async (order) => {
+    const nextStatus = getNextStatus(order.orderStatus);
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/updateOrder/${order.orderCode}`,
+        {
+          ...order,
+          orderStatus: nextStatus,
+        },
+      );
+      setOrders(
+        orders.map((o) =>
+          o.orderCode === order.orderCode ? response.data : o,
+        ),
+      );
+    } catch (error) {
+      console.error('Error updating order status:', error);
+    }
+  };
+
+  const getNextStatus = (currentStatus) => {
+    switch (currentStatus) {
+      case '결제완료':
+        return '상품준비중';
+      case '상품준비중':
+        return '배송시작';
+      case '배송시작':
+        return '배송중';
+      case '배송중':
+        return '배송완료';
+      default:
+        return currentStatus;
     }
   };
 
@@ -239,6 +273,7 @@ const Refund = () => {
             <th>수정하기</th>
             <th>승인</th>
             <th>거절</th>
+            <th>상태 업데이트</th> {/* 새로운 열 추가 */}
           </tr>
         </thead>
         <tbody>
@@ -383,6 +418,12 @@ const Refund = () => {
               </td>
               <td>
                 <button onClick={() => handleRejectClick(order)}>Reject</button>
+              </td>
+              <td>
+                <button onClick={() => updateOrderStatus(order)}>
+                  Update Status
+                </button>{' '}
+                {/* 상태 업데이트 버튼 추가 */}
               </td>
             </tr>
           ))}
