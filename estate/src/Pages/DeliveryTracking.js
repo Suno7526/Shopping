@@ -1,16 +1,42 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './DeliveryTracking.css';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 
 const DeliveryTracking = () => {
+  const { orderCode } = useParams();
+  const [order, setOrder] = useState(null);
+
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8000/getOrder/${orderCode}`,
+        );
+        setOrder(response.data); // response.data로 변경하여 실제 데이터 설정
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchOrder();
+  }, [orderCode]); // 의존성 배열에 orderCode 추가
+
+  // 로딩 상태 처리 및 데이터가 없을 때 대비
+  if (!order) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="delivery-main">
       <div className="delivery-progress">
         <div className="delivery-title">배송조회</div>
         <div className="row">
           <div className="delivery-info-box">
-            9/1(일) 도착 완료
+            {order.orderDate} 도착 예정
             <br />
-            고객님이 주문하신 상품이 배송완료 되었습니다.
+            {order.deliveryStatus === '배송완료'
+              ? '고객님이 주문하신 상품이 배송완료 되었습니다.'
+              : '고객님이 주문하신 상품이 배송 중입니다.'}
           </div>
           <div className="delivery-item">
             <div className="order-complete">
@@ -18,27 +44,27 @@ const DeliveryTracking = () => {
                 src="https://i.postimg.cc/NjYD95TV/Order-Complete.gif"
                 alt="Icon 1"
               />
-              <p>주문 완료</p> {/* Icon 1 설명 추가 */}
+              <p>주문 완료</p>
             </div>
           </div>
-          <div className="delivery-line"></div> {/* 선을 추가할 공간 */}
+          <div className="delivery-line"></div>
           <div className="delivery-truck">
             <div className="icon">
               <img
                 src="https://i.postimg.cc/X76cmp2J/Delivery-truck.gif"
                 alt="Icon 2"
               />
-              <p>배송 중</p> {/* Icon 2 설명 추가 */}
+              <p>배송 중</p>
             </div>
           </div>
-          <div className="delivery-line"></div> {/* 선을 추가할 공간 */}
+          <div className="delivery-line"></div>
           <div className="delivery-complete">
             <div className="icon">
               <img
                 src="https://i.postimg.cc/fRBcV5Mt/delivery-completed.gif"
                 alt="Icon 3"
               />
-              <p>배송 완료</p> {/* Icon 3 설명 추가 */}
+              <p>배송 완료</p>
             </div>
           </div>
         </div>
@@ -49,14 +75,14 @@ const DeliveryTracking = () => {
               src="https://i.postimg.cc/KYm8gj6p/8f9184626fb468c12cbd3a54f43cae95-t.jpg"
               alt="Icon 4"
             />
-            <p>송장번호:</p> 1234-5678-9101
+            <p>송장번호:</p> {order.orderDate}
           </div>
           <div className="delivery-person-info-box">
-            <p>받는 사람:</p> 홍길동 <p>받는 주소:</p> 서울시 강남구 역삼동
-            123-45
+            <p>받는 사람:</p> {order.user.name}
+            <p>받는 주소:</p> {order.shippingAddress}
             <br />
-            <p>배송 요청 사항:</p> 문 앞에 놓아주세요 <p>상품 수령 방법:</p>{' '}
-            직접 수령
+            <p>배송 요청 사항:</p> {order.request}
+            <p>상품 수령 방법:</p> 직접수령
           </div>
         </div>
         <div className="delivery-table">

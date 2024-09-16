@@ -135,7 +135,10 @@ function App() {
         <Route path="/Refund" element={<Refund />} />
         <Route path="/Chat" element={<Chat />} />
         <Route path="/UserUpdate" element={<UserUpdate />} />
-        <Route path="/DeliveryTracking" element={<DeliveryTracking />} />
+        <Route
+          path="/DeliveryTracking/:orderCode"
+          element={<DeliveryTracking />}
+        />
       </Routes>
 
       <Footer />

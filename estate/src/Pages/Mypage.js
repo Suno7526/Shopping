@@ -142,7 +142,13 @@ const Mypage = () => {
                       {formatRegisterDate(order.orderDate)}
                     </td>
                     <td style={{ width: '100px' }}>{order.orderCode}</td>
-                    <td style={{ width: '100px' }}>{order.orderStatus}</td>
+                    <td style={{ width: '100px' }}>
+                      {order.orderStatus}
+                      <tr></tr>
+                      <Link to={`/DeliveryTracking/${order.orderCode}`}>
+                        배송조회
+                      </Link>
+                    </td>
                     <td>{order.shippingAddress}</td>
                     <td style={{ width: '120px' }}>
                       {order.refundState === '신청 전' ? (
