@@ -18,7 +18,7 @@ function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/getProducts');
+        const response = await axios.get(process.env.REACT_APP_DB_HOST +'/getProducts');
         setProducts(response.data);
       } catch (error) {
         console.error('상품을 불러오는 중 오류 발생:', error);
@@ -40,7 +40,7 @@ function Home() {
 
   const saveViewedProduct = async (userCode, productCode) => {
     try {
-      await axios.post('http://localhost:8000/saveViewedProduct', {
+      await axios.post(process.env.REACT_APP_DB_HOST +'/saveViewedProduct', {
         userCode,
         productCode,
       });
@@ -112,7 +112,7 @@ function Home() {
             <div key={product.productCode} className="Home-property-wrapper">
               <Link to={`/product/${product.productCode}`}>
                 <img
-                  src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                  src={process.env.REACT_APP_DB_HOST +`/getProductImage/${product.productCode}`}
                   alt={`Product ${index}`}
                   className="property-image"
                   onClick={() => handleClickProduct(product.productCode)}
@@ -143,7 +143,7 @@ function Home() {
                   onClick={() => handleClickProduct(product.productCode)}
                 >
                   <img
-                    src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                    src={process.env.REACT_APP_DB_HOST +`/getProductImage/${product.productCode}`}
                     alt={product.productName}
                   />
                 </Link>
