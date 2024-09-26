@@ -30,5 +30,5 @@ upload:
 iamport:
   key: 8606838252710088
   secret: SpDLcDc8JqDyj1rvJ7CWIbpR0aZztfWNGgSlDCujHL1YFfTVZt64RZCF6cMLUot70kZ6BCompq1BpPPd
-
-      
+java:
+  runtime: version=17

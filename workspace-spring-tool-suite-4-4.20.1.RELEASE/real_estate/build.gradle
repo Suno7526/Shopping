@@ -31,7 +31,6 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-security'
     
     implementation 'com.github.iamport:iamport-rest-client-java:0.2.21'
-
     // lombok
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
@@ -93,3 +92,4 @@ task copyReactBuildFiles(type: Copy) {
     from "$frontendDir/build"
     into "$buildDir/resources/main/static"
 }
+
