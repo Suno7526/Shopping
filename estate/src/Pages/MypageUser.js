@@ -78,12 +78,14 @@ const MypageUser = () => {
   return (
     <div className="MypageUser">
       <Aside />
+
+      <div className="My-page-header">마이페이지</div>
       <div className="MypageUser-user-details">
         <div className="MypageUser-user-info">
-          <h1>My Page</h1>
-          <p>
-            <strong>Name:</strong> {userData.name}
-          </p>
+          <div className="name-container">
+            <h1 className="name-title">Name:</h1>
+            <p className="user-name">{userData.name}</p>
+          </div>
           <p>
             <strong>Email:</strong> {userData.email}
           </p>
@@ -102,6 +104,9 @@ const MypageUser = () => {
           <p>
             <strong>Birth Date:</strong> {userData.birth}
           </p>
+          <div className="MypageUser-user-reviews-btn">
+            <Link to="/userUpdate">수정하기</Link>
+          </div>
         </div>
 
         <div className="MypageUser-user-reviews">
@@ -177,9 +182,6 @@ const MypageUser = () => {
           ) : (
             <p>작성하신 리뷰가 없습니다.</p>
           )}
-        </div>
-        <div className="MypageUser-user-reviews">
-          <Link to="/userUpdate">수정하기</Link>
         </div>
       </div>
     </div>

@@ -1,7 +1,8 @@
 import './Product.css';
 import React, { useState, useEffect } from 'react';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
-import Modal from './Modal.js'; // Modal 컴포넌트 import
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 const Product = () => {
@@ -17,6 +18,8 @@ const Product = () => {
   const [averageReviewPoint, setAverageReviewPoint] = useState(0);
   const [discountedPrice, setDiscountedPrice] = useState(0); // 할인된 가격 상태 추가
   const [DiscountedRate, setDiscountedRate] = useState(0); // 할인된 가격 상태 추가
+  const [editorContent, setEditorContent] = useState(''); //summernote 함수
+  const [isEditing, setIsEditing] = useState(false); // summernote 함수 수정 모드 상태
   const navigate = useNavigate();
 
   const [imageUrls, setImageUrls] = useState([]);
@@ -260,6 +263,22 @@ const Product = () => {
     return <div>Loading...</div>;
   }
 
+  // 수정 버튼 클릭 시 수정 모드 토글
+  const handleInfoModifyClick = () => {
+    setIsEditing(!isEditing);
+  };
+
+  // 에디터 내용이 변경될 때마다 상태 업데이트
+  const handleEditorChange = (content) => {
+    setEditorContent(content);
+  };
+
+  // 저장 버튼 클릭 시 처리
+  const handleSaveContent = () => {
+    alert('수정된 내용을 저장합니다: ' + editorContent);
+    setIsEditing(false); // 수정 모드 종료
+  };
+
   return (
     <div>
       {/* 메인 이미지 칸 */}
@@ -496,12 +515,62 @@ const Product = () => {
       </div>
 
       {/* 하단의 탭부분 시작 */}
-      <div className="viewBody">
-        <ul className="contentNav">
-          <li className="active">
-            <p>Info 정보</p>
-          </li>
-        </ul>
+      <div>
+        <div className="viewBody">
+          <ul className="contentNav">
+            <li className="active">
+              <p>
+                Info 정보
+                <button className="Info-modify" onClick={handleInfoModifyClick}>
+                  관리자 수정
+                </button>
+              </p>
+            </li>
+          </ul>
+
+          {/* 수정 모드일 때 Quill 에디터 표시 */}
+          {isEditing ? (
+            <div className="quill-editor-container">
+              <ReactQuill
+                value={editorContent}
+                onChange={handleEditorChange}
+                modules={{
+                  toolbar: [
+                    [{ header: '1' }, { header: '2' }, { font: [] }],
+                    [{ size: [] }],
+                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+                    [{ list: 'ordered' }, { list: 'bullet' }],
+                    ['link', 'image'],
+                    ['clean'],
+                  ],
+                }}
+                formats={[
+                  'header',
+                  'font',
+                  'size',
+                  'bold',
+                  'italic',
+                  'underline',
+                  'strike',
+                  'blockquote',
+                  'list',
+                  'bullet',
+                  'link',
+                  'image',
+                ]}
+                theme="snow"
+              />
+              <button className="Quill-save-button" onClick={handleSaveContent}>
+                저장하기
+              </button>
+            </div>
+          ) : (
+            <div className="Product-information-image">
+              <p>여기에 상품 정보가 표시됩니다.</p>
+            </div>
+          )}
+        </div>
+
         {/* 탭부분 끝 */}
         {/* 상품정보 */}
         <div className="Product-information-image">
