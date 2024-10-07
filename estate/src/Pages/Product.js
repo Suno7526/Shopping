@@ -605,24 +605,26 @@ const Product = () => {
                     alt="User"
                     className="user-image"
                   />
-                  <div className="reviews-user-name">{review.user.name}</div>
+                  <div className="UserNameStarRating">
+                    <div className="reviews-user-name">{review.user.name}</div>
+                    <div class="star-rating">
+                      {renderStarRating(review.reviewPoint)}
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="starAndComment">
                 <div className="reviews-comment">
                   <div className="comment-header"></div>
+                  <div className="comment-product">
+                    상품 정보: {review.product.productName} /
+                  </div>
                   <div className="comment-user">
                     <img
                       src={`http://localhost:8000/getProductImage/${review.product.productCode}`}
                       alt="Product"
                       className="user-property-image"
                     />
-                    <div className="comment-product">
-                      상품 정보: {review.product.productName} /
-                    </div>
-                    <div class="star-rating">
-                      {renderStarRating(review.reviewPoint)}
-                    </div>
                   </div>
                   <textarea
                     className="comment-textarea"
