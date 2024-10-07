@@ -220,10 +220,6 @@ const Product = () => {
     });
   };
 
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   const formatRegisterDate = (dateString) => {
     const date = new Date(dateString);
     const year = date.getFullYear();
@@ -268,15 +264,35 @@ const Product = () => {
     setIsEditing(!isEditing);
   };
 
-  // 에디터 내용이 변경될 때마다 상태 업데이트
   const handleEditorChange = (content) => {
-    setEditorContent(content);
+    const cleanedContent = content
+      .replace(/^(<p>|<br>)/, '')
+      .replace(/(<\/p>|<br>){1}$/, '');
+    setEditorContent(cleanedContent);
   };
 
   // 저장 버튼 클릭 시 처리
-  const handleSaveContent = () => {
+  const handleSaveContent = async () => {
     alert('수정된 내용을 저장합니다: ' + editorContent);
-    setIsEditing(false); // 수정 모드 종료
+    try {
+      const response = await axios.put(
+        `http://localhost:8000/updateContent/${productCode}`, // URL에서 editorContent 제거
+        editorContent, // 요청 본문에 editorContent 추가
+        {
+          headers: {
+            'Content-Type': 'text/plain', // 요청 본문의 콘텐츠 유형 설정
+          },
+        },
+      );
+      setIsEditing(false); // 수정 모드 종료
+      // 성공적으로 저장된 경우 추가 처리
+      if (response.status === 200) {
+        alert('수정이 완료되었습니다.');
+      }
+    } catch (error) {
+      console.error('Content 저장 오류', error);
+      alert('수정 내용 저장에 실패했습니다.');
+    }
   };
 
   return (
@@ -544,20 +560,7 @@ const Product = () => {
                     ['clean'],
                   ],
                 }}
-                formats={[
-                  'header',
-                  'font',
-                  'size',
-                  'bold',
-                  'italic',
-                  'underline',
-                  'strike',
-                  'blockquote',
-                  'list',
-                  'bullet',
-                  'link',
-                  'image',
-                ]}
+                style={{ height: '400px' }}
                 theme="snow"
               />
               <button className="Quill-save-button" onClick={handleSaveContent}>
@@ -574,6 +577,7 @@ const Product = () => {
         {/* 탭부분 끝 */}
         {/* 상품정보 */}
         <div className="Product-information-image">
+          <div dangerouslySetInnerHTML={{ __html: product.productContent }} />
           <ul className="Product-information-subImg2">
             {imageUrls.map((imageUrl, index) => (
               <li key={index}>

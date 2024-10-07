@@ -171,4 +171,18 @@ public class ProductService {
         // 중복 제거
         return recommendedProducts.stream().distinct().collect(Collectors.toList());
     }
+    
+    @Transactional
+    public boolean updateProductContent(Long productCode, String productContent) {
+        Product existingProduct = productRepository.findByProductCode(productCode);
+        if (existingProduct != null) {
+            existingProduct.setProductContent(productContent); // 정보 필드 업데이트
+            productRepository.save(existingProduct);
+            return true;
+        }
+        return false;
+    }
+
+    
+    
 }

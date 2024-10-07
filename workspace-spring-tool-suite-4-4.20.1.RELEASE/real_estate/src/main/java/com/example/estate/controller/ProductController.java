@@ -137,4 +137,23 @@ public class ProductController {
         List<Product> recommendedProducts = productService.recommendProducts(userCode);
         return new ResponseEntity<>(recommendedProducts, HttpStatus.OK);
     }
-}
+    
+    @PutMapping("/updateContent/{productCode}")
+    public ResponseEntity<String> updateContent(@PathVariable("productCode") Long productCode, @RequestBody String productContent) {
+        try {
+            boolean isUpdated = productService.updateProductContent(productCode, productContent);
+            if (isUpdated) {
+                return new ResponseEntity<>("상품 내용 수정 성공", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("상품을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("상품 내용 수정 실패", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    
+    }
+
+    

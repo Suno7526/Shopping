@@ -1,6 +1,8 @@
 server:
   port: 8000
-    
+  tomcat:
+    max-http-header-size: 65536 # 요청 헤더 크기 증가
+
 spring:
   servlet:
     multipart:
@@ -11,7 +13,7 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/estate?serverTimezone=Asia/Seoul
     username: root
-    password: 123456
+    password: 1234
     
   jpa:
     open-in-view: true
@@ -26,9 +28,6 @@ spring:
 upload:
   path: C:\FinalProject\estate\Image
   
-
 iamport:
   key: 8606838252710088
   secret: SpDLcDc8JqDyj1rvJ7CWIbpR0aZztfWNGgSlDCujHL1YFfTVZt64RZCF6cMLUot70kZ6BCompq1BpPPd
-
-      

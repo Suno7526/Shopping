@@ -54,26 +54,26 @@ public class Product {
     @Column
     private String productSize;
     
+    // productContent의 타입을 TEXT로 변경하여 긴 문자열 저장 가능
+    @Column(columnDefinition = "TEXT")
+    private String productContent;
+    
     @Column(nullable = false, columnDefinition = "boolean default false")
     private boolean soldout;
 
     @Column
     private String category;
     
-    
     @Column(nullable = false, columnDefinition = "int default 0")
     private int viewCount;
     
-     
     @ElementCollection
     @Column(nullable = false, columnDefinition = "LONGBLOB")
-    private List<byte[]> productImages; // 이 부분을 배열로 설정
+    private List<byte[]> productImages; // 이미지 배열
     
     @Column(nullable = false, columnDefinition = "int default 0")
     private int discountRate;
     
-
     @CreationTimestamp
     private Timestamp registerDate;
-
 }

@@ -266,8 +266,7 @@ select {
 
 /* summernote CSS 꾸미기*/
 .quill-editor-container {
-  position: relative;
-  width: 800px;
+  width: 80%;
 }
 
 .Quill-save-button {
