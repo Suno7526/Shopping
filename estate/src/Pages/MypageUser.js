@@ -79,7 +79,7 @@ const MypageUser = () => {
     <div className="MypageUser">
       <Aside />
 
-      <div className="My-page-header">마이페이지</div>
+      <div className="My-page-header">마이페이지111</div>
       <div className="MypageUser-user-details">
         <div className="MypageUser-user-info">
           <div className="name-container">
