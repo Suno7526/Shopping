@@ -3,8 +3,6 @@ import axios from 'axios';
 import './MypageUser.css';
 import Aside from '../Components/Aside';
 import { Link } from 'react-router-dom';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
 
 const MypageUser = () => {
   const [userData, setUserData] = useState(null);
@@ -88,7 +86,7 @@ const MypageUser = () => {
             <h1 className="name-title">Name:</h1>
             <p className="user-name">{userData.name}</p>
           </div>
-          <ReactQuill />
+
           <p>
             <strong>Email:</strong> {userData.email}
           </p>
