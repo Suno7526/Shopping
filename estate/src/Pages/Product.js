@@ -556,10 +556,7 @@ const Product = () => {
                     ['bold', 'underline'],
                   ],
                 }}
-<<<<<<< HEAD
-=======
                 style={{ height: '300px', width: '850px' }}
->>>>>>> 4740b3d0b99680a478ad143f0878fbc6c53a196f
                 theme="snow"
               />
               <button className="Quill-save-button" onClick={handleSaveContent}>
