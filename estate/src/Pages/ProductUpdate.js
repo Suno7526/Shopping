@@ -136,110 +136,110 @@ const ProductUpdate = () => {
       </div>
       <table className="product-table">
         <thead>
-          <tr>
-            <th>상품 번호</th>
-            <th>상품명</th>
-            <th>회사명</th>
-            <th>재고 수</th>
-            <th>가격</th>
-            <th>카테고리</th>
-            <th>할인률</th>
-            <th>수정하기</th>
-          </tr>
+        <tr>
+          <th style={{width: '12%'}}>상품 번호</th>
+          <th style={{width: '12%'}}>상품명</th>
+          <th style={{width: '12%'}}>회사명</th>
+          <th style={{width: '12%'}}>재고 수</th>
+          <th style={{width: '12%'}}>가격</th>
+          <th style={{width: '12%'}}>카테고리</th>
+          <th style={{width: '12%'}}>할인률</th>
+          <th style={{width: '12%'}}>수정하기</th>
+        </tr>
         </thead>
         <tbody>
-          {filteredProducts.map((product) => (
+        {filteredProducts.map((product) => (
             <tr key={product.productCode}>
               <td>{product.productCode}</td>
 
               <td>
                 {editingProduct &&
                 editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="text"
-                    name="productName"
-                    value={editingProduct.productName}
-                    onChange={handleInputChange}
-                  />
+                    <input
+                        type="text"
+                        name="productName"
+                        value={editingProduct.productName}
+                        onChange={handleInputChange}
+                    />
                 ) : (
-                  product.productName
+                    product.productName
                 )}
               </td>
               <td>
                 {editingProduct &&
                 editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={editingProduct.companyName}
-                    onChange={handleInputChange}
-                  />
+                    <input
+                        type="text"
+                        name="companyName"
+                        value={editingProduct.companyName}
+                        onChange={handleInputChange}
+                    />
                 ) : (
-                  product.companyName
+                    product.companyName
                 )}
               </td>
               <td>
                 {editingProduct &&
                 editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="number"
-                    name="productStuck"
-                    value={editingProduct.productStuck}
-                    onChange={handleInputChange}
-                  />
+                    <input
+                        type="number"
+                        name="productStuck"
+                        value={editingProduct.productStuck}
+                        onChange={handleInputChange}
+                    />
                 ) : (
-                  product.productStuck
+                    product.productStuck
                 )}
               </td>
               <td>
                 {editingProduct &&
                 editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="number"
-                    name="productPrice"
-                    value={editingProduct.productPrice}
-                    onChange={handleInputChange}
-                  />
+                    <input
+                        type="number"
+                        name="productPrice"
+                        value={editingProduct.productPrice}
+                        onChange={handleInputChange}
+                    />
                 ) : (
-                  product.productPrice
+                    product.productPrice
                 )}
               </td>
               <td>
                 {editingProduct &&
                 editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="text"
-                    name="category"
-                    value={editingProduct.category}
-                    onChange={handleInputChange}
-                  />
+                    <input
+                        type="text"
+                        name="category"
+                        value={editingProduct.category}
+                        onChange={handleInputChange}
+                    />
                 ) : (
-                  product.category
+                    product.category
                 )}
               </td>
               <td>
                 {editingProduct &&
                 editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="number"
-                    name="discountRate"
-                    value={editingProduct.discountRate}
-                    onChange={handleInputChange}
-                  />
+                    <input
+                        type="number"
+                        name="discountRate"
+                        value={editingProduct.discountRate}
+                        onChange={handleInputChange}
+                    />
                 ) : (
-                  product.discountRate
+                    product.discountRate
                 )}
               </td>
               <td>
                 {editingProduct &&
                 editingProduct.productCode === product.productCode ? (
-                  <button onClick={handleSaveClick}>Save</button>
+                    <button onClick={handleSaveClick}>Save</button>
                 ) : (
-                  <button onClick={() => handleEditClick(product)}>Edit</button>
+                    <button onClick={() => handleEditClick(product)}>Edit</button>
                 )}
               </td>
             </tr>
-          ))}
+        ))}
         </tbody>
       </table>
     </div>
