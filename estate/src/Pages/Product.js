@@ -551,14 +551,15 @@ const Product = () => {
                 onChange={handleEditorChange}
                 modules={{
                   toolbar: [
-                    [{ header: '1' }, { header: '2' }, { font: [] }],
-                    [{ size: [] }],
-                    ['bold', 'italic', 'underline', 'strike', 'blockquote'],
-                    [{ list: 'ordered' }, { list: 'bullet' }],
-                    ['link', 'image'],
-                    ['clean'],
+                    ['image'],
+                    [{ header: [1, 2, 3, 4, 5, false] }],
+                    ['bold', 'underline'],
                   ],
                 }}
+<<<<<<< HEAD
+=======
+                style={{ height: '300px', width: '850px' }}
+>>>>>>> 4740b3d0b99680a478ad143f0878fbc6c53a196f
                 theme="snow"
               />
               <button className="Quill-save-button" onClick={handleSaveContent}>
@@ -576,7 +577,7 @@ const Product = () => {
         {/* 상품정보 */}
         <div className="Product-information-image">
           <div dangerouslySetInnerHTML={{ __html: product.productContent }} />
-          <ul className="Product-information-subImg2">
+          {/* <ul className="Product-information-subImg2">
             {imageUrls.map((imageUrl, index) => (
               <li key={index}>
                 <img
@@ -586,7 +587,7 @@ const Product = () => {
                 />
               </li>
             ))}
-          </ul>
+          </ul> */}
         </div>
       </div>
 
