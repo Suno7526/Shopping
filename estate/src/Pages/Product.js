@@ -548,7 +548,6 @@ const Product = () => {
           {isEditing ? (
             <div className="quill-editor-container">
               <ReactQuill
-                value={editorContent}
                 onChange={handleEditorChange}
                 modules={{
                   toolbar: [
@@ -560,7 +559,6 @@ const Product = () => {
                     ['clean'],
                   ],
                 }}
-                style={{ height: '400px' }}
                 theme="snow"
               />
               <button className="Quill-save-button" onClick={handleSaveContent}>

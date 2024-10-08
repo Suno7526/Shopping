@@ -41,7 +41,7 @@ public class Review {
     @Column(nullable = false, columnDefinition = "LONGBLOB")
     private List<byte[]> productImages; // 이 부분을 배열로 설정
     
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String reviewContent;
     
     
