@@ -1,4 +1,5 @@
 import './Product.css';
+import ImageModal from "../Modal/ImageModal";
 import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -8,7 +9,6 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 const Product = () => {
   const { productCode } = useParams();
   const [product, setProduct] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const [isLiked, setIsLiked] = useState(false);
   const [mainImage, setMainImage] = useState(null); // 현재 메인 이미지 소스
   const [selectedOption, setSelectedOption] = useState(null);
@@ -24,6 +24,13 @@ const Product = () => {
 
   const [reviewImageUrls, setReviewImageUrls] = useState([]);
 
+  const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
+  const [selectedImageUrl, setSelectedImageUrl] = useState(''); // State to hold the selected image URL
+
+  const handleImageClick = (imageUrl) => {
+    setSelectedImageUrl(imageUrl); // Set the selected image URL
+    setIsModalOpen(true); // Open the modal
+  };
 
   const [imageUrls, setImageUrls] = useState([]);
   useEffect(() => {
@@ -332,6 +339,7 @@ const Product = () => {
                   src={mainImage}
                   alt={product.productName}
                   className="product-property-image"
+                  onClick={() => handleImageClick(mainImage)} // Click to view main image
               />
               <ul className="subImg">
                 {imageUrls.map((imageUrl, index) => (
@@ -339,7 +347,7 @@ const Product = () => {
                       <img
                           src={convertToBlobUrl(imageUrl)}
                           alt={`서브 이미지 ${index}`}
-                          onClick={() => handleClick(index, imageUrl)}
+                          onClick={() => handleImageClick(convertToBlobUrl(imageUrl))} // Click to view sub image
                       />
                     </li>
                 ))}
@@ -654,7 +662,7 @@ const Product = () => {
                                 <img
                                     src={convertToBlobUrl(imageUrl)}
                                     alt={`서브 이미지 ${index}`}
-                                    onClick={() => handleClick(index, imageUrl)}
+                                    onClick={() => handleImageClick(convertToBlobUrl(imageUrl))}
                                 />
                               </li>
                           ))}
@@ -671,7 +679,11 @@ const Product = () => {
               </li>
           ))}
         </ul>
-
+        <ImageModal
+            isOpen={isModalOpen}
+            onClose={() => setIsModalOpen(false)} // Close the modal
+            imageUrl={selectedImageUrl} // Pass the selected image URL to the modal
+        />
       </div>
   );
 };
