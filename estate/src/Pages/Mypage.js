@@ -105,15 +105,15 @@ const Mypage = () => {
         ) : (
           <table className="OrderTable">
             <thead>
-              <tr>
-                <th className="ProductName">상품정보</th>
-                <th className="ProductDate">주문일자</th>
-                <th className="ProductNum">주문번호</th>
-                <th className="ProductMoney">배송현황</th>
-                <th className="ProductAD">배송주소</th>
-                <th className="OrderRefund">환불상태</th>
-                <th className="ReviewAction">리뷰등록</th>
-              </tr>
+            <tr>
+              <th className="ProductName">상품정보</th>
+              <th className="ProductDate">주문일자</th>
+              <th className="ProductNum">주문번호</th>
+              <th className="ProductMoney">배송현황</th>
+              <th className="ProductAD">배송주소</th>
+              <th className="OrderRefund">환불상태</th>
+              <th className="ReviewAction">리뷰등록</th>
+            </tr>
             </thead>
             <tbody>
               {ordersItems.map((order) => (
@@ -138,7 +138,7 @@ const Mypage = () => {
                       <br />
                       Color : {order.productColor}
                     </td>
-                    <td style={{ width: '150px' }}>
+                    <td style={{ width: '200px' }}>
                       {formatRegisterDate(order.orderDate)}
                     </td>
                     <td style={{ width: '100px' }}>{order.orderCode}</td>
@@ -149,7 +149,7 @@ const Mypage = () => {
                         배송조회
                       </Link>
                     </td>
-                    <td>{order.shippingAddress}</td>
+                    <td style={{ width: '500px' }}>{order.shippingAddress}</td>
                     <td style={{ width: '120px' }}>
                       {order.refundState === '신청 전' ? (
                         <span

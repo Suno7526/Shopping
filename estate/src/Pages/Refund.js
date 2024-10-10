@@ -270,10 +270,10 @@ const Refund = () => {
             <th>색상</th>
             <th>리뷰여부</th>
             <th>가맹점번호</th>
-            <th>수정하기</th>
+            <th>수정</th>
             <th>승인</th>
             <th>거절</th>
-            <th>상태 업데이트</th> {/* 새로운 열 추가 */}
+            <th>주문상태</th> {/* 새로운 열 추가 */}
           </tr>
         </thead>
         <tbody>
@@ -408,20 +408,20 @@ const Refund = () => {
                 {editingOrder && editingOrder.orderCode === order.orderCode ? (
                   <button onClick={handleSaveClick}>Save</button>
                 ) : (
-                  <button onClick={() => handleEditClick(order)}>Edit</button>
+                  <button onClick={() => handleEditClick(order)}>수정하기</button>
                 )}
               </td>
               <td>
                 <button onClick={() => handleApproveClick(order)}>
-                  Approve
+                  승인하기
                 </button>
               </td>
               <td>
-                <button onClick={() => handleRejectClick(order)}>Reject</button>
+                <button onClick={() => handleRejectClick(order)}>거절하기</button>
               </td>
               <td>
                 <button onClick={() => updateOrderStatus(order)}>
-                  Update Status
+                  주문상태 변경
                 </button>{' '}
                 {/* 상태 업데이트 버튼 추가 */}
               </td>
