@@ -1,6 +1,12 @@
 package com.example.estate.webSocket;
 
+import com.example.estate.entity.ChatMessage;
+import com.example.estate.entity.ChatRoom;
+import com.example.estate.repository.ChatMessageRepository;
+import com.example.estate.repository.ChatRoomRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
@@ -12,22 +18,43 @@ import java.util.List;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:3000")
 public class ChatController {
-
     private final SimpMessageSendingOperations template;
+    private final ChatMessageRepository chatMessageRepository;
+    private final ChatRoomRepository chatRoomRepository;
 
-    // 채팅 리스트 반환
+    // 특정 채팅방의 메시지를 가져옴
     @GetMapping("/chat/{id}")
-    public ResponseEntity<List<ChatMessage>> getChatMessages(@PathVariable Long id){
-        //임시로 리스트 형식으로 구현, 실제론 DB 접근 필요
-        ChatMessage test = new ChatMessage(1L, "test", "test");
-        return ResponseEntity.ok().body(List.of(test));
+    public ResponseEntity<List<ChatMessage>> getChatMessages(@PathVariable Long id) {
+        ChatRoom chatRoom = chatRoomRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Chat room not found"));
+
+        List<ChatMessage> messages = chatMessageRepository.findByChatRoom(chatRoom);
+        return ResponseEntity.ok().body(messages);
     }
 
-    //메시지 송신 및 수신, /pub가 생략된 모습. 클라이언트 단에선 /pub/message로 요청
+    // 메시지 수신 및 처리
     @MessageMapping("/message")
-    public ResponseEntity<Void> receiveMessage(@RequestBody ChatMessage chat) {
-        // 메시지를 해당 채팅방 구독자들에게 전송
-        template.convertAndSend("/sub/chatroom/1", chat);
+    public ResponseEntity<Void> receiveMessage(@RequestBody ChatMessageDto chatDto) {
+        ChatRoom chatRoom = chatRoomRepository.findById(chatDto.getRoomId())
+                .orElseThrow(() -> new RuntimeException("Chat room not found"));
+
+        ChatMessage chatMessage = new ChatMessage(chatRoom, chatDto.getSender(), chatDto.getMessage());
+        chatMessageRepository.save(chatMessage);
+        template.convertAndSend("/sub/chatroom/" + chatDto.getRoomId(), chatMessage);
         return ResponseEntity.ok().build();
+    }
+
+    // 새로운 채팅방 생성
+    @PostMapping("/chatrooms")
+    public ResponseEntity<ChatRoom> createChatRoom(@RequestBody ChatRoom chatRoom) {
+        ChatRoom savedRoom = chatRoomRepository.save(chatRoom);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedRoom);
+    }
+
+    // 모든 채팅방 목록 반환
+    @GetMapping("/chatrooms")
+    public ResponseEntity<List<ChatRoom>> getChatRooms() {
+        List<ChatRoom> rooms = chatRoomRepository.findAll();
+        return ResponseEntity.ok(rooms);
     }
 }
