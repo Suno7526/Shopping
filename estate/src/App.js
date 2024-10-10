@@ -37,9 +37,9 @@ import MypageUser from './Pages/MypageUser';
 import CouponCreate from './Pages/CouponCreate';
 import CouponAccept from './Pages/CouponAccept';
 import Refund from './Pages/Refund';
-import Chat from './Pages/Chat';
 import UserUpdate from './Pages/UserUpdate';
 import DeliveryTracking from './Pages/DeliveryTracking';
+import Chat from './Components/Chat';
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
