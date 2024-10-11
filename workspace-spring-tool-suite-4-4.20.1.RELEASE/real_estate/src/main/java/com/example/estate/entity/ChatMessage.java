@@ -19,8 +19,9 @@ public class ChatMessage {
     @JoinColumn(name = "roomId")
     private ChatRoom chatRoom;
 
-    @Column
-    private String sender;
+    @ManyToOne
+    @JoinColumn(name = "userCode") // User 엔티티의 primary key와 연결
+    private User user;
 
     @Column
     private String message;
@@ -28,9 +29,9 @@ public class ChatMessage {
     @CreationTimestamp
     private Timestamp timestamp;
 
-    public ChatMessage(ChatRoom chatRoom, String sender, String message) {
+    public ChatMessage(ChatRoom chatRoom, User user, String message) {
         this.chatRoom = chatRoom;
-        this.sender = sender;
+        this.user = user; // User 객체로 변경
         this.message = message;
     }
 }

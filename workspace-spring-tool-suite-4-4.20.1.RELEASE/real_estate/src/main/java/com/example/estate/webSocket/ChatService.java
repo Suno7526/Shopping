@@ -2,8 +2,10 @@ package com.example.estate.webSocket;
 
 import com.example.estate.entity.ChatMessage;
 import com.example.estate.entity.ChatRoom;
+import com.example.estate.entity.User;
 import com.example.estate.repository.ChatMessageRepository;
 import com.example.estate.repository.ChatRoomRepository;
+import com.example.estate.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ import java.util.List;
 public class ChatService {
     private final ChatMessageRepository chatMessageRepository;
     private final ChatRoomRepository chatRoomRepository;
+    private final UserRepository userRepository; // UserRepository 추가
 
     // 특정 채팅방의 메시지를 가져옴
     public List<ChatMessage> getChatMessages(Long roomId) {
@@ -43,5 +46,7 @@ public class ChatService {
         return chatRoomRepository.findById(roomId)
                 .orElseThrow(() -> new RuntimeException("Chat room not found"));
     }
-
+    public User getUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }

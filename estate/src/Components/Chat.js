@@ -8,6 +8,7 @@ function Chat() {
     const [inputValue, setInputValue] = useState('');
     const [chatRooms, setChatRooms] = useState([]);
     const [roomId, setRoomId] = useState(1); // 기본적으로 첫 번째 채팅방 ID 설정
+    const [userEmail, setUserEmail] = useState(sessionStorage.getItem('userEmail')); // 사용자 이메일
 
     const handleInputChange = (event) => {
         setInputValue(event.target.value);
@@ -56,7 +57,7 @@ function Chat() {
         if (stompClient.current && inputValue) {
             const body = {
                 roomId: roomId,
-                sender: "테스트1",
+                senderEmail: userEmail, // 이메일로 사용자 식별
                 message: inputValue
             };
             stompClient.current.send(`/pub/message`, {}, JSON.stringify(body));
@@ -75,6 +76,13 @@ function Chat() {
         setRoomId(event.target.value);
     };
 
+    const formatSenderName = (sender) => {
+        if (sender.length > 1) {
+            return sender.charAt(0) + '**'; // 이름의 첫 글자와 두 번째 글자를 '*'로 변경
+        }
+        return sender; // 이름이 1글자인 경우 그대로 반환
+    };
+
     return (
         <div className="chat-container">
             <h3>채팅방 선택</h3>
@@ -90,7 +98,9 @@ function Chat() {
             <div className="message-area">
                 <ul>
                     {messages.map((item, index) => (
-                        <li key={index} className="message">{item.message}</li>
+                        <li key={index} className="message">
+                            {formatSenderName(item.user.name)}: {item.message} {/* 사용자 이름 포맷팅 */}
+                        </li>
                     ))}
                 </ul>
             </div>
@@ -104,7 +114,6 @@ function Chat() {
                 />
                 <button onClick={sendMessage}>입력</button>
             </div>
-
         </div>
     );
 }

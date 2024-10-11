@@ -2,6 +2,7 @@ package com.example.estate.webSocket;
 
 import com.example.estate.entity.ChatMessage;
 import com.example.estate.entity.ChatRoom;
+import com.example.estate.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,8 @@ public class ChatController {
     @MessageMapping("/message")
     public ResponseEntity<Void> receiveMessage(@RequestBody ChatMessageDto chatDto) {
         ChatRoom chatRoom = chatService.getChatRoom(chatDto.getRoomId());
-        ChatMessage chatMessage = new ChatMessage(chatRoom, chatDto.getSender(), chatDto.getMessage());
+        User user = chatService.getUserByEmail(chatDto.getSenderEmail()); // 이메일로 User 객체 조회
+        ChatMessage chatMessage = new ChatMessage(chatRoom, user, chatDto.getMessage());
         chatService.saveMessage(chatMessage);
         template.convertAndSend("/sub/chatroom/" + chatDto.getRoomId(), chatMessage);
         return ResponseEntity.ok().build();
