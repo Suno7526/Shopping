@@ -39,7 +39,7 @@ const DeliveryTracking = () => {
             <div className="delivery-info-box">
               {formatDate(order.orderDate)} 도착 예정
               <br />
-              {order.deliveryStatus === '배송완료'
+              {order.orderStatus === '배송완료'
                   ? '고객님이 주문하신 상품이 배송완료 되었습니다.'
                   : '고객님이 주문하신 상품이 배송 중입니다.'}
             </div>
