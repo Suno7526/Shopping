@@ -1,6 +1,6 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import UserLogin from './Pages/UserLogin';
 import Join from './Pages/Join';
 import Home from './Pages/Home';
@@ -39,10 +39,11 @@ import CouponAccept from './Pages/CouponAccept';
 import Refund from './Pages/Refund';
 import UserUpdate from './Pages/UserUpdate';
 import DeliveryTracking from './Pages/DeliveryTracking';
-import Chat from './Components/Chat';
+import Chat from './Components/Chat'; // Chat 컴포넌트 임포트
 
 function App() {
   const [isLogin, setIsLogin] = useState(false); // 로그인 여부 관리
+  const [isChatVisible, setIsChatVisible] = useState(false); // 채팅 창 토글 상태
 
   useEffect(() => {
     setIsLogin(sessionStorage.getItem('userEmail') !== null);
@@ -74,13 +75,13 @@ function App() {
       ChannelIO('boot', {
         "pluginKey": "49f16ab4-ee61-4945-90b6-055d91c92119",
         "memberId": "${sessionStorage.getItem(
-          'userEmail',
-        )}" || '', // fill user's member id
+        'userEmail',
+    )}" || '', // fill user's member id
         "profile": { // fill user's profile
           "name": "${sessionStorage.getItem('userName')}", // fill user's name
           "mobileNumber": "${sessionStorage.getItem(
-            'userPhone',
-          )}", // fill user's mobile number
+        'userPhone',
+    )}", // fill user's mobile number
           "landlineNumber": "USER_LANDLINE_NUMBER", // fill user's landline number  
           "CUSTOM_VALUE_1": "VALUE_1", // custom property
           "CUSTOM_VALUE_2": "VALUE_2" // custom property
@@ -94,55 +95,97 @@ function App() {
     };
   }, []);
 
+  // Chat 창 토글 함수
+  const toggleChat = () => {
+    setIsChatVisible((prevState) => !prevState);
+  };
+
   return (
-    <BrowserRouter>
-      <Header />
+      <BrowserRouter>
+        <Header />
 
-      <Body />
+        <Body />
 
-      <Routes>
-        <Route path="/Like" element={<Like />} />
-        <Route path="/RecentItem" element={<RecentItem />} />
-        <Route path="/UserLogin" element={<UserLogin />} />
-        <Route path="/Join" element={<Join />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/ProductJoin" element={<ProductJoin />} />
-        <Route path="/product/:productCode" element={<Product />} />
-        <Route path="/Category/:category" element={<Category />} />
-        <Route path="/Cart" element={<Cart />} />
-        <Route path="/Mypage" element={<Mypage />} />
-        <Route path="/Question" element={<Question />} />
-        <Route path="/Inquiry" element={<Inquiry />} />
-        <Route path="/BestFAQ" element={<BestFAQ />} />
-        <Route path="/WithdrawETC" element={<WithdrawETC />} />
-        <Route path="/QLoginInfo" element={<QLoginInfo />} />
-        <Route path="/QProduct" element={<QProduct />} />
-        <Route path="/QDelivery" element={<QDelivery />} />
-        <Route path="/QCancel" element={<QCancel />} />
-        <Route path="/QExchange" element={<QExchange />} />
-        <Route path="/Review/:orderCode" element={<Review />} />
-        <Route path="/ProductUpdate" element={<ProductUpdate />} />
-        <Route path="/MyInquiry" element={<MyInquiry />} />
-        <Route path="/Search/:query" element={<Search />} />
-        <Route path="/MyQuestion/:questionCode" element={<MyQuestion />} />
-        <Route path="/Payment" element={<Payment />} />
-        <Route path="/PaymentProduct" element={<PaymentProduct />} />
-        <Route path="/ProductImages" element={<ProductImages />} />
-        <Route path="/Main" element={<Main />} />
-        <Route path="/MypageUser" element={<MypageUser />} />
-        <Route path="/CouponCreate" element={<CouponCreate />} />
-        <Route path="/CouponAccept" element={<CouponAccept />} />
-        <Route path="/Refund" element={<Refund />} />
-        <Route path="/Chat" element={<Chat />} />
-        <Route path="/UserUpdate" element={<UserUpdate />} />
-        <Route
-          path="/DeliveryTracking/:orderCode"
-          element={<DeliveryTracking />}
-        />
-      </Routes>
+        <button
+            style={{
+              position: 'fixed',
+              bottom: '20px',
+              right: '100px',
+              padding: '10px 20px',
+              backgroundColor: 'blue',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer',
+            }}
+            onClick={toggleChat}
+        >
+          {isChatVisible ? '채팅 닫기' : '채팅 열기'}
+        </button>
 
-      <Footer />
-    </BrowserRouter>
+        {isChatVisible && (
+            <div
+                style={{
+                  padding: '10px',
+                  position: 'fixed',
+                  bottom: '80px',
+                  right: '20px',
+                  width: '300px',
+                  height: '1000px',
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                  borderRadius: '5px',
+                  overflow: 'hidden',
+                  zIndex: '1000',
+                }}
+            >
+              <Chat />
+            </div>
+        )}
+
+        <Routes>
+          <Route path="/Like" element={<Like />} />
+          <Route path="/RecentItem" element={<RecentItem />} />
+          <Route path="/UserLogin" element={<UserLogin />} />
+          <Route path="/Join" element={<Join />} />
+          <Route path="/Home" element={<Home />} />
+          <Route path="/ProductJoin" element={<ProductJoin />} />
+          <Route path="/product/:productCode" element={<Product />} />
+          <Route path="/Category/:category" element={<Category />} />
+          <Route path="/Cart" element={<Cart />} />
+          <Route path="/Mypage" element={<Mypage />} />
+          <Route path="/Question" element={<Question />} />
+          <Route path="/Inquiry" element={<Inquiry />} />
+          <Route path="/BestFAQ" element={<BestFAQ />} />
+          <Route path="/WithdrawETC" element={<WithdrawETC />} />
+          <Route path="/QLoginInfo" element={<QLoginInfo />} />
+          <Route path="/QProduct" element={<QProduct />} />
+          <Route path="/QDelivery" element={<QDelivery />} />
+          <Route path="/QCancel" element={<QCancel />} />
+          <Route path="/QExchange" element={<QExchange />} />
+          <Route path="/Review/:orderCode" element={<Review />} />
+          <Route path="/ProductUpdate" element={<ProductUpdate />} />
+          <Route path="/MyInquiry" element={<MyInquiry />} />
+          <Route path="/Search/:query" element={<Search />} />
+          <Route path="/MyQuestion/:questionCode" element={<MyQuestion />} />
+          <Route path="/Payment" element={<Payment />} />
+          <Route path="/PaymentProduct" element={<PaymentProduct />} />
+          <Route path="/ProductImages" element={<ProductImages />} />
+          <Route path="/Main" element={<Main />} />
+          <Route path="/MypageUser" element={<MypageUser />} />
+          <Route path="/CouponCreate" element={<CouponCreate />} />
+          <Route path="/CouponAccept" element={<CouponAccept />} />
+          <Route path="/Refund" element={<Refund />} />
+          <Route path="/Chat" element={<Chat />} />
+          <Route path="/UserUpdate" element={<UserUpdate />} />
+          <Route
+              path="/DeliveryTracking/:orderCode"
+              element={<DeliveryTracking />}
+          />
+        </Routes>
+
+        <Footer />
+      </BrowserRouter>
   );
 }
 
