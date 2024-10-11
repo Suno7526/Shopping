@@ -12,35 +12,29 @@
     font-family: Arial, sans-serif;
 }
 
-/* 채팅방 목록 스타일 */
-.chat-room-list {
-    background-color: #f1f1f1;
+/* 채팅방 선택 드롭다운 스타일 */
+.chat-room-select {
+    width: 100%;
     padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-
-.chat-room-list h3 {
-    margin: 0;
-    font-size: 18px;
-}
-
-/* 채팅방 목록 항목 */
-.chat-room-item {
-    padding: 8px;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.chat-room-item:hover {
-    background-color: #e0e0e0;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    font-size: 16px;
 }
 
 /* 메시지 출력 영역 스타일 */
 .message-area {
     flex-grow: 1;
     padding: 10px;
-    overflow-y: auto;
     background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    overflow-y: auto; /* 스크롤 활성화 */
+    height: 300px; /* 스크롤 바가 나타나도록 고정 높이 설정 */
+    max-height: 300px; /* 스크롤 영역 최대 높이 */
+    box-sizing: border-box; /* 패딩 포함한 박스 크기 계산 */
 }
 
 /* 메시지 스타일 */

@@ -103,40 +103,42 @@ function App() {
   return (
       <BrowserRouter>
         <Header />
-
         <Body />
 
+        {/* 채팅 열기/닫기 버튼 */}
         <button
             style={{
-              position: 'fixed',
-              bottom: '20px',
-              right: '100px',
+              position: 'fixed',  // 화면에 고정
+              bottom: '20px',     // 화면 하단으로부터 20px 위에 위치
+              right: '100px',     // 화면 오른쪽으로부터 100px 왼쪽에 위치
               padding: '10px 20px',
               backgroundColor: 'blue',
               color: 'white',
               border: 'none',
               borderRadius: '5px',
               cursor: 'pointer',
+              zIndex: '1000',      // 다른 요소들 위에 표시되도록 설정
             }}
             onClick={toggleChat}
         >
           {isChatVisible ? '채팅 닫기' : '채팅 열기'}
         </button>
 
+        {/* 채팅 창 - 페이지 스크롤에도 고정 */}
         {isChatVisible && (
             <div
                 style={{
                   padding: '10px',
-                  position: 'fixed',
-                  bottom: '80px',
-                  right: '20px',
+                  position: 'fixed',  // 화면에 고정
+                  bottom: '80px',     // 화면 하단으로부터 80px 위에 위치
+                  right: '20px',      // 화면 오른쪽으로부터 20px 왼쪽에 위치
                   width: '300px',
                   height: '1000px',
                   backgroundColor: 'white',
                   border: '1px solid #ccc',
                   borderRadius: '5px',
-                  overflow: 'hidden',
-                  zIndex: '1000',
+                  overflowY: 'auto',   // 채팅 내용이 넘치면 스크롤
+                  zIndex: '1000',      // 다른 요소들 위에 표시되도록 설정
                 }}
             >
               <Chat />
