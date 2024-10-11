@@ -1,5 +1,5 @@
 import './Product.css';
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import axios from 'axios';
@@ -541,29 +541,32 @@ const Product = () => {
                   관리자 수정
                 </button>
               </p>
+              {/* 수정 모드일 때 Quill 에디터 표시 */}
+              {isEditing && (
+                <div className="quill-editor-container">
+                  <ReactQuill
+                    onChange={handleEditorChange}
+                    modules={{
+                      toolbar: [
+                        ['image'],
+                        [{ header: [1, 2, 3, 4, 5, false] }],
+                        ['bold', 'underline'],
+                      ],
+                    }}
+                    theme="snow"
+                  />
+                  <button
+                    className="Quill-save-button"
+                    onClick={handleSaveContent}
+                  >
+                    저장하기
+                  </button>
+                </div>
+              )}
             </li>
           </ul>
 
-          {/* 수정 모드일 때 Quill 에디터 표시 */}
-          {isEditing ? (
-            <div className="quill-editor-container">
-              <ReactQuill
-                onChange={handleEditorChange}
-                modules={{
-                  toolbar: [
-                    ['image'],
-                    [{ header: [1, 2, 3, 4, 5, false] }],
-                    ['bold', 'underline'],
-                  ],
-                }}
-                style={{ height: '300px', width: '850px' }}
-                theme="snow"
-              />
-              <button className="Quill-save-button" onClick={handleSaveContent}>
-                저장하기
-              </button>
-            </div>
-          ) : (
+          {!isEditing && (
             <div className="Product-information-image">
               <p>여기에 상품 정보가 표시됩니다.</p>
             </div>
@@ -613,25 +616,24 @@ const Product = () => {
                   </div>
                 </div>
               </div>
-              <div className="starAndComment">
-                <div className="reviews-comment">
-                  <div className="comment-header"></div>
-                  <div className="comment-product">
-                    상품 정보: {review.product.productName} /
-                  </div>
-                  <div className="comment-user">
-                    <img
-                      src={`http://localhost:8000/getProductImage/${review.product.productCode}`}
-                      alt="Product"
-                      className="user-property-image"
-                    />
-                  </div>
-                  <textarea
-                    className="comment-textarea"
-                    value={review.reviewContent}
-                    placeholder="..."
-                  ></textarea>
+
+              <div className="reviews-comment">
+                <div className="comment-product">
+                  상품 정보: {review.product.productName} /
                 </div>
+                <div className="comment-user">
+                  <img
+                    src={`http://localhost:8000/getProductImage/${review.product.productCode}`}
+                    alt="Product"
+                    className="user-property-image"
+                  />
+                </div>
+                <textarea
+                  className="comment-textarea"
+                  value={review.reviewContent}
+                  readOnly // 클릭과 수정 비활성화
+                  style={{ pointerEvents: 'none' }} // 클릭 비활성화 (CSS 방식)
+                ></textarea>
               </div>
             </div>
           </li>

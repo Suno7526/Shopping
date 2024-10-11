@@ -23,7 +23,7 @@
 .Question-Maintitle {
   position: absolute;
   width: 500px;
-  top: 22%;
+  top: 15%;
   left: 41%;
   margin-left: -100px;
   background: transparent;
@@ -33,10 +33,6 @@
   color: #555;
   font-size: 3.5em;
   font-weight: bold;
-}
-
-.Question-Maintitle-p {
-  margin-top: 5em;
 }
 
 /*문의유형*/
