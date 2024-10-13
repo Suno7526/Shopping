@@ -130,6 +130,9 @@
 .review-content {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .name-container {

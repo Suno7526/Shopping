@@ -54,6 +54,9 @@
   align-items: center;
   justify-content: flex-start;
   text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .PProductInfo img {
   margin-right: 10px;
