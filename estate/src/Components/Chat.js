@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState, useRef } from 'react';
 import { Stomp } from '@stomp/stompjs';
+import './Chat.css'; // 스타일 파일 import
 
 function Chat() {
   const stompClient = useRef(null);
@@ -92,42 +93,62 @@ function Chat() {
 
   return (
     <div className="chat-container">
-      <h3>채팅방 선택</h3>
-      <select
-        className="chat-room-select"
-        onChange={handleChatRoomChange}
-        value={roomId}
-      >
-        {chatRooms.map((room) => (
-          <option key={room.id} value={room.id}>
-            {room.name}
-          </option>
-        ))}
-      </select>
-
-      <h3>메시지 리스트</h3>
-      <div className="message-area">
-        <ul>
-          {messages.map((item, index) => (
-            <li key={index} className="message">
-              {formatSenderName(item.user.name)}: {item.message}{' '}
-              {/* 사용자 이름 포맷팅 */}
-            </li>
-          ))}
-        </ul>
+      <div className="chat-theme">
+        <p className="theme-shopper">SHOPPER Message</p>
       </div>
+      <div className="chat-main">
+        <div className="chatroom-choice">
+          <select
+            className="chat-room-select"
+            onChange={handleChatRoomChange}
+            value={roomId}
+          >
+            {chatRooms.map((room) => (
+              <option key={room.id} value={room.id}>
+                {room.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-      <div className="input-area">
-        <input
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="메시지를 입력하세요..."
-        />
-        <button onClick={sendMessage}>입력</button>
+        <div className="message-area">
+          <ul>
+            {messages.map((item, index) => (
+              <li
+                key={index}
+                className={`message ${
+                  item.user.isSender ? 'sender' : 'receiver'
+                }`}
+              >
+                <div className="usernameDiv">
+                  <div className="username">
+                    {formatSenderName(item.user.name)}
+                  </div>
+                </div>
 
-        <h3>채팅방 생성</h3>
-        <button onClick={createChatRoom}>새 채팅방 생성</button>
+                <div className="text">{item.message}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="input-area">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            placeholder="메시지를 입력하세요..."
+          />
+          <button onClick={sendMessage} className="MessageEnter">
+            입력
+          </button>
+        </div>
+        <div className="create-chatroom">
+          <p>채팅방 생성</p>
+          <button onClick={createChatRoom} className="new-chatroomCreate">
+            새 채팅방 생성
+          </button>
+        </div>
       </div>
     </div>
   );
