@@ -1,5 +1,5 @@
 import './Product.css';
-import ImageModal from "../Modal/ImageModal";
+import ImageModal from '../Modal/ImageModal';
 import React, { useState, useEffect } from 'react';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
@@ -137,8 +137,8 @@ const Product = () => {
       const fetchReviewImages = async () => {
         try {
           const response = await axios.get(
-              `http://localhost:8000/getReviewImages/${review.reviewCode}`,
-              { responseType: 'json' }
+            `http://localhost:8000/getReviewImages/${review.reviewCode}`,
+            { responseType: 'json' },
           );
           // Map each review to its images
           setReviewImageUrls((prev) => {
@@ -153,8 +153,6 @@ const Product = () => {
       fetchReviewImages();
     });
   }, [reviews]);
-
-
 
   useEffect(() => {
     const fetchLikedStatus = async () => {
@@ -330,119 +328,119 @@ const Product = () => {
   };
 
   return (
-      <div>
-        {/* 메인 이미지 칸 */}
-        <div className="Product-container">
-          <aside className="Product-aside">
-            <div className="Product-property-card">
-              <img
-                  src={mainImage}
-                  alt={product.productName}
-                  className="product-property-image"
-                  onClick={() => handleImageClick(mainImage)} // Click to view main image
-              />
-              <ul className="subImg">
-                {imageUrls.map((imageUrl, index) => (
-                    <li key={index}>
-                      <img
-                          src={convertToBlobUrl(imageUrl)}
-                          alt={`서브 이미지 ${index}`}
-                          onClick={() => handleImageClick(convertToBlobUrl(imageUrl))} // Click to view sub image
-                      />
-                    </li>
-                ))}
-              </ul>
+    <div>
+      {/* 메인 이미지 칸 */}
+      <div className="Product-container">
+        <aside className="Product-aside">
+          <div className="Product-property-card">
+            <img
+              src={mainImage}
+              alt={product.productName}
+              className="product-property-image"
+              onClick={() => handleImageClick(mainImage)} // Click to view main image
+            />
+            <ul className="subImg">
+              {imageUrls.map((imageUrl, index) => (
+                <li key={index}>
+                  <img
+                    src={convertToBlobUrl(imageUrl)}
+                    alt={`서브 이미지 ${index}`}
+                    onClick={() => handleImageClick(convertToBlobUrl(imageUrl))} // Click to view sub image
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </aside>
+
+        <section id="description-card-section">
+          <div className="description-card">
+            <div className="grid-item-productName">
+              {product.companyName}
+              <br />
+              <br></br>
+              {product.productName}
             </div>
-          </aside>
 
-          <section id="description-card-section">
-            <div className="description-card">
-              <div className="grid-item-productName">
-                {product.companyName}
-                <br/>
-                <br></br>
-                {product.productName}
-              </div>
+            <div className="grid-item-productStuck">
+              재고 : {product.productStuck}
+            </div>
+            <div className="grid-item-registerDate">
+              등록 날짜 : {formatRegisterDate(product.registerDate)}
+            </div>
+            <div className="option-title">색상을 선택해주세요</div>
+            <div className="grid-item-option">
+              {['red', 'orange', 'yellow', 'green'].map((color, index) => (
+                <div
+                  key={index}
+                  className={`option-button ${
+                    selectedOption === index ? 'clicked' : ''
+                  }`}
+                  style={{ backgroundColor: color }}
+                  onClick={() => colorChange(index, color)} // 색상 정보 전달
+                />
+              ))}
+            </div>
+            <div className="size-selector">
+              <label className="size-title">사이즈 선택: </label>
+              <select
+                id="size-input"
+                value={selectedSize}
+                onChange={sizeChange}
+              >
+                {[...Array(9)].map((_, index) => {
+                  const size = 80 + index * 5;
+                  return (
+                    <option key={size} value={size}>
+                      {size}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
 
-              <div className="grid-item-productStuck">
-                재고 : {product.productStuck}
-              </div>
-              <div className="grid-item-registerDate">
-                등록 날짜 : {formatRegisterDate(product.registerDate)}
-              </div>
-              <div className="option-title">색상을 선택해주세요</div>
-              <div className="grid-item-option">
-                {['red', 'orange', 'yellow', 'green'].map((color, index) => (
-                    <div
-                        key={index}
-                        className={`option-button ${
-                            selectedOption === index ? 'clicked' : ''
-                        }`}
-                        style={{backgroundColor: color}}
-                        onClick={() => colorChange(index, color)} // 색상 정보 전달
-                    />
-                ))}
-              </div>
-              <div className="size-selector">
-                <label className="size-title">사이즈 선택: </label>
-                <select
-                    id="size-input"
-                    value={selectedSize}
-                    onChange={sizeChange}
-                >
-                  {[...Array(9)].map((_, index) => {
-                    const size = 80 + index * 5;
-                    return (
-                        <option key={size} value={size}>
-                          {size}
-                        </option>
-                    );
-                  })}
-                </select>
-              </div>
-
-              <div className="grid-item-userPoint">
-                별점
-                <div class="star-rating">
-                  {renderStarRating(averageReviewPoint)}
-                </div>
-              </div>
-
-              <div className="grid-item-productPrice">
-                💲 판매가 : {product.productPrice}
-              </div>
-
-              <div className="cupon-wrap">
-                <div className="cupon-text"> 할인 후 금액{}</div>
-                <div className="discount-rate">{DiscountedRate}%</div>
-                <div className="discount-price">
-                  {discountedPrice.toFixed(0)}원
-                </div>
-              </div>
-
-              {/* 버튼 추가 */}
-              <div className="buttons">
-                <button
-                    className={`like-btn ${isLiked ? 'active' : ''}`}
-                    onClick={handleLikeClick}
-                ></button>
-                <button className="cart-btn" onClick={handleAddToCartClick}>
-                  장바구니 담기
-                </button>
-                <button className="purchase-btn" onClick={handlePurchaseClick}>
-                  구매하기
-                </button>
+            <div className="grid-item-userPoint">
+              별점
+              <div class="star-rating">
+                {renderStarRating(averageReviewPoint)}
               </div>
             </div>
-          </section>
-        </div>
-        <hr></hr>
 
-        {/* 사이즈 정보 */}
-        <div className="size-info">
-          <h2>Size Info</h2>
-          <table className="size-table">
-            <thead>
+            <div className="grid-item-productPrice">
+              💲 판매가 : {product.productPrice}
+            </div>
+
+            <div className="cupon-wrap">
+              <div className="cupon-text"> 할인 후 금액{}</div>
+              <div className="discount-rate">{DiscountedRate}%</div>
+              <div className="discount-price">
+                {discountedPrice.toFixed(0)}원
+              </div>
+            </div>
+
+            {/* 버튼 추가 */}
+            <div className="buttons">
+              <button
+                className={`like-btn ${isLiked ? 'active' : ''}`}
+                onClick={handleLikeClick}
+              ></button>
+              <button className="cart-btn" onClick={handleAddToCartClick}>
+                장바구니 담기
+              </button>
+              <button className="purchase-btn" onClick={handlePurchaseClick}>
+                구매하기
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+      <hr></hr>
+
+      {/* 사이즈 정보 */}
+      <div className="size-info">
+        <h2>Size Info</h2>
+        <table className="size-table">
+          <thead>
             <tr>
               <th>cm</th>
               <th>총장</th>
@@ -450,8 +448,8 @@ const Product = () => {
               <th>가슴단면</th>
               <th>소매길이</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             <tr>
               <td>MY</td>
               <td colSpan="4">가지고 계신 제품의 실측을 입력해 보세요~!</td>
@@ -477,25 +475,25 @@ const Product = () => {
               <td>60</td>
               <td>25</td>
             </tr>
-            </tbody>
-          </table>
-          <div className="sizeInfo-P">
-            <p>
-              위 사이즈표는 무신사스토어 측정방식을 기준으로 작성되었습니다.
-              기존에 가지고 계신 옷 실측을 입력하시면 정확한 비교가 가능합니다.
-              하단의 상품 상세 설명란의 사이즈표는 업체 기준 측정입니다. 상품
-              이미지는 모니터 해상도, 색상 설정에 따라 이미지가 왜곡되거나 실제
-              색상과 차이가 있을 수 있습니다. 사이즈 실측은 상품의 특성 및
-              측정방식에 따라 오차가 발생할 수 있습니다.
-            </p>
-          </div>
+          </tbody>
+        </table>
+        <div className="sizeInfo-P">
+          <p>
+            위 사이즈표는 무신사스토어 측정방식을 기준으로 작성되었습니다.
+            기존에 가지고 계신 옷 실측을 입력하시면 정확한 비교가 가능합니다.
+            하단의 상품 상세 설명란의 사이즈표는 업체 기준 측정입니다. 상품
+            이미지는 모니터 해상도, 색상 설정에 따라 이미지가 왜곡되거나 실제
+            색상과 차이가 있을 수 있습니다. 사이즈 실측은 상품의 특성 및
+            측정방식에 따라 오차가 발생할 수 있습니다.
+          </p>
         </div>
+      </div>
 
-        {/* 가이드 */}
-        <div className="guide-info">
-          <h2>Guide</h2>
-          <table className="guide-table">
-            <thead>
+      {/* 가이드 */}
+      <div className="guide-info">
+        <h2>Guide</h2>
+        <table className="guide-table">
+          <thead>
             <tr>
               <th>핏</th>
               <th>스키니</th>
@@ -504,8 +502,8 @@ const Product = () => {
               <th>루즈</th>
               <th>오버 사이즈</th>
             </tr>
-            </thead>
-            <tbody>
+          </thead>
+          <tbody>
             <tr>
               <th>촉감</th>
               <td>부드러움</td>
@@ -545,71 +543,71 @@ const Product = () => {
               <td>가을</td>
               <td>겨울</td>
             </tr>
-            </tbody>
-          </table>
+          </tbody>
+        </table>
+      </div>
+
+      <div className="Danger">
+        <div className="Danger-Emo">🚫</div>
+        <div className="Danger-SizeInfo">
+          <ul>
+            <li>
+              상품 이미지는 모니터 해상도, 색상 설정에 따라 이미지가 왜곡되거나
+              실제 색상과 차이가 있을 수 있습니다.
+            </li>
+            <li>
+              사이즈 실측은 상품의 특성 및 측정방식에 따라 오차가 발생할 수
+              있습니다.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      {/* 하단의 탭부분 시작 */}
+      <div>
+        <div className="viewBody">
+          <ul className="contentNav">
+            <li className="active">
+              <p>
+                Info 정보
+                <button className="Info-modify" onClick={handleInfoModifyClick}>
+                  관리자 수정
+                </button>
+              </p>
+            </li>
+          </ul>
+
+          {/* 수정 모드일 때 Quill 에디터 표시 */}
+          {isEditing ? (
+            <div className="quill-editor-container">
+              <ReactQuill
+                onChange={handleEditorChange}
+                modules={{
+                  toolbar: [
+                    ['image'],
+                    [{ header: [1, 2, 3, 4, 5, false] }],
+                    ['bold', 'underline'],
+                  ],
+                }}
+                style={{ height: '300px', width: '850px' }}
+                theme="snow"
+              />
+              <button className="Quill-save-button" onClick={handleSaveContent}>
+                저장하기
+              </button>
+            </div>
+          ) : (
+            <div className="Product-information-image">
+              <p>여기에 상품 정보가 표시됩니다.</p>
+            </div>
+          )}
         </div>
 
-        <div className="Danger">
-          <div className="Danger-Emo">🚫</div>
-          <div className="Danger-SizeInfo">
-            <ul>
-              <li>
-                상품 이미지는 모니터 해상도, 색상 설정에 따라 이미지가 왜곡되거나
-                실제 색상과 차이가 있을 수 있습니다.
-              </li>
-              <li>
-                사이즈 실측은 상품의 특성 및 측정방식에 따라 오차가 발생할 수
-                있습니다.
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        {/* 하단의 탭부분 시작 */}
-        <div>
-          <div className="viewBody">
-            <ul className="contentNav">
-              <li className="active">
-                <p>
-                  Info 정보
-                  <button className="Info-modify" onClick={handleInfoModifyClick}>
-                    관리자 수정
-                  </button>
-                </p>
-              </li>
-            </ul>
-
-            {/* 수정 모드일 때 Quill 에디터 표시 */}
-            {isEditing ? (
-                <div className="quill-editor-container">
-                  <ReactQuill
-                      onChange={handleEditorChange}
-                      modules={{
-                        toolbar: [
-                          ['image'],
-                          [{header: [1, 2, 3, 4, 5, false]}],
-                          ['bold', 'underline'],
-                        ],
-                      }}
-                      style={{height: '300px', width: '850px'}}
-                      theme="snow"
-                  />
-                  <button className="Quill-save-button" onClick={handleSaveContent}>
-                    저장하기
-                  </button>
-                </div>
-            ) : (
-                <div className="Product-information-image">
-                  <p>여기에 상품 정보가 표시됩니다.</p>
-                </div>
-            )}
-          </div>
-
-          {/* 탭부분 끝 */}
-          {/* 상품정보 */}
-          <div className="Product-information-image">
-            <div dangerouslySetInnerHTML={{__html: product.productContent}}/>
-            {/* <ul className="Product-information-subImg2">
+        {/* 탭부분 끝 */}
+        {/* 상품정보 */}
+        <div className="Product-information-image">
+          <div dangerouslySetInnerHTML={{ __html: product.productContent }} />
+          {/* <ul className="Product-information-subImg2">
             {imageUrls.map((imageUrl, index) => (
               <li key={index}>
                 <img
@@ -620,71 +618,76 @@ const Product = () => {
               </li>
             ))}
           </ul> */}
-          </div>
         </div>
+      </div>
 
-        <ul className="contentNav">
-          <li className="active">
-            <p>구매 후기</p>
-          </li>
-        </ul>
+      <ul className="contentNav">
+        <li className="active">
+          <p>구매 후기</p>
+        </li>
+      </ul>
 
-        <ul>
-          {reviews.map((review) => (
-              <li key={review.reviewCode}>
-                <div className="reviews-section">
-                  <div className="Userreviews">
-                    <div className="user-info">
-                      <img
-                          src="https://i.postimg.cc/59mNLwVZ/download.png"
-                          alt="User"
-                          className="user-image"
-                      />
-                      <div className="UserNameStarRating">
-                        <div className="reviews-user-name">{review.user.name}</div>
-                        <div className="star-rating">
-                          {renderStarRating(review.reviewPoint)}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="starAndComment">
-                    <div className="reviews-comment">
-                      <div className="comment-header"></div>
-                      <div className="comment-product">
-                        상품 정보: {review.product.productName} /
-                      </div>
-                      <div className="comment-user">
-                        <ul className="subImg">
-                          {/* Access images using reviewCode */}
-                          {reviewImageUrls[review.reviewCode]?.map((imageUrl, index) => (
-                              <li key={index}>
-                                <img
-                                    src={convertToBlobUrl(imageUrl)}
-                                    alt={`서브 이미지 ${index}`}
-                                    onClick={() => handleImageClick(convertToBlobUrl(imageUrl))}
-                                />
-                              </li>
-                          ))}
-                        </ul>
-                      </div>
-                      <textarea
-                          className="comment-textarea"
-                          value={review.reviewContent}
-                          placeholder="..."
-                      ></textarea>
+      <ul>
+        {reviews.map((review) => (
+          <li key={review.reviewCode}>
+            <div className="reviews-section">
+              <div className="Userreviews">
+                <div className="user-info">
+                  <img
+                    src="https://i.postimg.cc/59mNLwVZ/download.png"
+                    alt="User"
+                    className="user-image"
+                  />
+                  <div className="UserNameStarRating">
+                    <div className="reviews-user-name">{review.user.name}</div>
+                    <div className="star-rating">
+                      {renderStarRating(review.reviewPoint)}
                     </div>
                   </div>
                 </div>
-              </li>
-          ))}
-        </ul>
-        <ImageModal
-            isOpen={isModalOpen}
-            onClose={() => setIsModalOpen(false)} // Close the modal
-            imageUrl={selectedImageUrl} // Pass the selected image URL to the modal
-        />
-      </div>
+              </div>
+              <div className="starAndComment">
+                <div className="reviews-comment">
+                  <div className="comment-header"></div>
+                  <div className="comment-product">
+                    상품 정보: {review.product.productName} /
+                  </div>
+                  <div className="comment-user">
+                    <ul className="subImg">
+                      {/* Access images using reviewCode */}
+                      {reviewImageUrls[review.reviewCode]?.map(
+                        (imageUrl, index) => (
+                          <li key={index}>
+                            <img
+                              src={convertToBlobUrl(imageUrl)}
+                              alt={`서브 이미지 ${index}`}
+                              onClick={() =>
+                                handleImageClick(convertToBlobUrl(imageUrl))
+                              }
+                            />
+                          </li>
+                        ),
+                      )}
+                    </ul>
+                  </div>
+                  <textarea
+                    className="comment-textarea"
+                    value={review.reviewContent}
+                    placeholder="..."
+                    readOnly
+                  ></textarea>
+                </div>
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <ImageModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)} // Close the modal
+        imageUrl={selectedImageUrl} // Pass the selected image URL to the modal
+      />
+    </div>
   );
 };
 

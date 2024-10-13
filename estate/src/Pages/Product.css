@@ -424,7 +424,6 @@ select {
 
 .reviews-comment {
   display: flex;
-  border: 1px solid #ddd;
   flex-direction: column;
   justify-content: center;
   height: 50vh;
@@ -457,6 +456,8 @@ select {
   margin-bottom: 10px;
   border: none;
   font-size: 20px;
+  overflow: hidden;
+  pointer-events: none; /* tetarea를 클릭못하게 만듬 */
 }
 
 .attached-image {
