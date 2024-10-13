@@ -21,7 +21,7 @@ public class ChatController {
 
     // 특정 채팅방의 메시지를 가져옴
     @GetMapping("/chat/{id}")
-    public ResponseEntity<List<ChatMessage>> getChatMessages(@PathVariable Long id) {
+    public ResponseEntity<List<ChatMessage>> getChatMessages(@PathVariable("id") Long id) {
         List<ChatMessage> messages = chatService.getChatMessages(id);
         return ResponseEntity.ok().body(messages);
     }
