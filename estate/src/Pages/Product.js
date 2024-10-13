@@ -589,7 +589,6 @@ const Product = () => {
                     ['bold', 'underline'],
                   ],
                 }}
-                style={{ height: '300px', width: '850px' }}
                 theme="snow"
               />
               <button className="Quill-save-button" onClick={handleSaveContent}>
