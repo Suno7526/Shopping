@@ -135,7 +135,6 @@ function App() {
             width: '850px',
             height: '650px',
             borderRadius: '5px',
-            overflowY: 'auto', // 채팅 내용이 넘치면 스크롤
             zIndex: '1000', // 다른 요소들 위에 표시되도록 설정
           }}
         >
