@@ -144,7 +144,6 @@ function Chat() {
           </button>
         </div>
         <div className="create-chatroom">
-          <p>채팅방 생성</p>
           <button onClick={createChatRoom} className="new-chatroomCreate">
             새 채팅방 생성
           </button>

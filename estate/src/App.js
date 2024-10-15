@@ -112,12 +112,24 @@ function App() {
           bottom: '20px', // 화면 하단으로부터 20px 위에 위치
           right: '100px', // 화면 오른쪽으로부터 100px 왼쪽에 위치
           padding: '10px 20px',
-          backgroundColor: 'blue',
-          color: 'white',
-          border: 'none',
+
+          color: 'black',
+          fontWeight: 'bold',
+          border: '1px solid black', // 회색 2px 두께의 테두리 추가
           borderRadius: '5px',
           cursor: 'pointer',
           zIndex: '1000', // 다른 요소들 위에 표시되도록 설정
+
+          // 추가된 스타일
+          animation:
+            '400ms cubic-bezier(0.36, 0, 0, 1) 0s 1 normal both running jBcSpD',
+          background:
+            'linear-gradient(rgb(250, 196, 132) 0%, rgb(250, 216, 132) 100%)',
+          boxShadow: `
+      rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+      rgba(0, 0, 0, 0.1) 0px 4px 6px,
+      rgba(0, 0, 0, 0.15) 0px 8px 30px
+    `,
         }}
         onClick={toggleChat}
       >
@@ -132,7 +144,7 @@ function App() {
             position: 'fixed', // 화면에 고정
             bottom: '80px', // 화면 하단으로부터 80px 위에 위치
             right: '20px', // 화면 오른쪽으로부터 20px 왼쪽에 위치
-            width: '850px',
+            width: '450px',
             height: '650px',
             borderRadius: '5px',
             overflowY: 'auto', // 채팅 내용이 넘치면 스크롤

@@ -4,16 +4,15 @@
   flex-direction: column;
   width: 100%;
   margin: auto;
-  border: 1px solid #000000;
-  border-radius: 0 0 8px 8px;
+  border-radius: 0 0 10px 10px;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
   padding: 20px;
-  background-color: #3a4052;
+  background-color: #f9f9f9;
 }
 
 .chat-main p {
-  color: #fff;
+  color: #000000;
   margin-bottom: 5px;
   font-size: 16px;
 }
@@ -23,28 +22,36 @@
   flex-direction: column;
   width: 100%;
   margin: auto;
-  border: 1px solid #000000;
-  border-radius: 8px 8px 0 0;
+  border-radius: 10px 10px 0 0;
+  border: 1px soild #f9f9f9;
   font-family: Arial, sans-serif;
   padding: 20px;
-  background-color: #232a3f;
+  animation: 400ms cubic-bezier(0.36, 0, 0, 1) 0s 1 normal both running jBcSpD;
+  background: linear-gradient(rgb(250, 196, 132) 0%, rgb(250, 216, 132) 100%);
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+    rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
 }
 
 .theme-shopper {
-  color: #fff;
+  color: #000000;
   font-size: 18px;
+  font-weight: bold;
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
 /* 채팅방 선택 드롭다운 스타일 */
 .chat-room-select {
-  width: 15%;
+  width: 100%;
   padding: 10px;
   margin: 10px 0;
   border: 1px solid #2f2f2f;
   border-radius: 20px;
-  background-color: #f9f9f9;
+  animation: 400ms cubic-bezier(0.36, 0, 0, 1) 0s 1 normal both running jBcSpD;
+  background: linear-gradient(rgb(255, 239, 213) 0%, rgb(255, 239, 213) 100%);
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+    rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
   font-size: 16px;
+  font-weight: bold;
 }
 
 /* 메시지 출력 영역 스타일 */
@@ -64,7 +71,7 @@
 .message-area {
   flex-grow: 1;
   padding: 10px;
-  background-color: #3a4052;
+  background-color: #f9f9f9;
   border-radius: 5px;
   margin-bottom: 10px;
   overflow-y: auto; /* 스크롤 활성화 */
@@ -86,6 +93,7 @@
   margin: 10px 0;
   padding: 10px;
   border-radius: 5px;
+  border: 1px soild #000;
   max-width: 70%;
   word-wrap: break-word; /* 긴 텍스트 줄바꿈 처리 */
   display: flex;
@@ -94,32 +102,31 @@
 
 /* 보내는 사람의 메시지 스타일 */
 .message.sender {
-  background-color: #3a4052; /* 보낸 메시지 배경 색 */
+  background-color: #fff; /* 보낸 메시지 배경 색 */
   align-self: flex-end; /* 오른쪽 정렬 */
 }
 
 /* 받는 사람의 메시지 스타일 */
 .message.receiver {
-  background-color: #3a4052; /* 받은 메시지 배경 색 */
+  background-color: #fff; /* 받은 메시지 배경 색 */
   align-self: flex-start; /* 왼쪽 정렬 */
+  border: 1px solid #000;
 }
 
 /* 사용자 이름 스타일 */
 .message .username {
   font-weight: bold;
-  margin-bottom: 12px; /* 사용자 이름과 메시지 간격 */
-  color: #fff;
+  color: #000000;
 }
 
 .usernameDiv {
   font-size: 17px;
-  width: 7%;
+  border: 1px soild #000;
 }
 
 /* 메시지 내용 스타일 */
 .message .text {
-  display: block; /* 메시지를 블록 요소로 설정 */
-  color: #fff;
+  color: #000000;
   font-size: 20px;
 }
 
@@ -127,6 +134,7 @@
 .input-area {
   display: flex;
   align-items: center;
+  border: 1px soild #000;
 }
 
 .input-area input {
@@ -139,9 +147,12 @@
 
 .MessageEnter {
   padding: 8px;
-  background-color: #1668ff;
+  animation: 400ms cubic-bezier(0.36, 0, 0, 1) 0s 1 normal both running jBcSpD;
+  background: linear-gradient(rgb(255, 239, 213) 0%, rgb(255, 239, 213) 100%);
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+    rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
   cursor: pointer;
-  color: #fff;
+  color: #000000;
   border-radius: 8px;
 }
 
@@ -155,7 +166,10 @@
 
 .new-chatroomCreate {
   padding: 10px;
-  background-color: #1668ff;
+  animation: 400ms cubic-bezier(0.36, 0, 0, 1) 0s 1 normal both running jBcSpD;
+  background: linear-gradient(rgb(255, 239, 213) 0%, rgb(255, 239, 213) 100%);
+  box-shadow: rgba(255, 255, 255, 0.2) 0px 0px 0px 1px inset,
+    rgba(0, 0, 0, 0.1) 0px 4px 6px, rgba(0, 0, 0, 0.15) 0px 8px 30px;
   cursor: pointer;
-  color: #fff;
+  color: #000000;
 }
