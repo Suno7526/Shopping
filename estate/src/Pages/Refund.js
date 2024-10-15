@@ -144,8 +144,8 @@ const Refund = () => {
   const getNextStatus = (currentStatus) => {
     switch (currentStatus) {
       case '결제완료':
-        return '상품준비중';
-      case '상품준비중':
+        return '준비중';
+      case '준비중':
         return '배송시작';
       case '배송시작':
         return '배송중';
@@ -408,7 +408,9 @@ const Refund = () => {
                 {editingOrder && editingOrder.orderCode === order.orderCode ? (
                   <button onClick={handleSaveClick}>Save</button>
                 ) : (
-                  <button onClick={() => handleEditClick(order)}>수정하기</button>
+                  <button onClick={() => handleEditClick(order)}>
+                    수정하기
+                  </button>
                 )}
               </td>
               <td>
@@ -417,7 +419,9 @@ const Refund = () => {
                 </button>
               </td>
               <td>
-                <button onClick={() => handleRejectClick(order)}>거절하기</button>
+                <button onClick={() => handleRejectClick(order)}>
+                  거절하기
+                </button>
               </td>
               <td>
                 <button onClick={() => updateOrderStatus(order)}>
