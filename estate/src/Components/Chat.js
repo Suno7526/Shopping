@@ -5,6 +5,7 @@ import './Chat.css'; // 스타일 파일 import
 
 function Chat() {
   const stompClient = useRef(null);
+  const messageAreaRef = useRef(null); // 메시지 영역의 ref 생성
   const [messages, setMessages] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [chatRooms, setChatRooms] = useState([]);
@@ -17,10 +18,17 @@ function Chat() {
     setInputValue(event.target.value);
   };
 
+  const handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      sendMessage(); // 엔터키가 눌렸을 때 메시지 전송
+    }
+  };
+
   const connect = () => {
     const socket = new WebSocket('ws://localhost:8000/ws');
     stompClient.current = Stomp.over(socket);
     stompClient.current.connect({}, () => {
+      // 메시지 수신 구독
       stompClient.current.subscribe(`/sub/chatroom/${roomId}`, (message) => {
         const newMessage = JSON.parse(message.body);
         setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -69,19 +77,30 @@ function Chat() {
         message: inputValue,
       };
       stompClient.current.send(`/pub/message`, {}, JSON.stringify(body));
-      setInputValue('');
+      setInputValue(''); // 입력 필드 초기화
+    }
+  };
+
+  // 새로운 메시지가 추가될 때마다 스크롤을 아래로 이동시키는 함수
+  const scrollToBottom = () => {
+    if (messageAreaRef.current) {
+      messageAreaRef.current.scrollTop = messageAreaRef.current.scrollHeight;
     }
   };
 
   useEffect(() => {
     fetchChatRooms();
-    connect();
-    fetchMessages();
-    return () => disconnect();
+    connect(); // 채팅방 연결
+    fetchMessages(); // 초기 메시지 가져오기
+    return () => disconnect(); // 컴포넌트 언마운트 시 연결 해제
   }, [roomId]);
 
+  useEffect(() => {
+    scrollToBottom(); // 메시지가 업데이트될 때마다 스크롤을 아래로 이동
+  }, [messages]);
+
   const handleChatRoomChange = (event) => {
-    setRoomId(event.target.value);
+    setRoomId(event.target.value); // 채팅방 변경
   };
 
   const formatSenderName = (sender) => {
@@ -111,7 +130,7 @@ function Chat() {
           </select>
         </div>
 
-        <div className="message-area">
+        <div className="message-area" ref={messageAreaRef}>
           <ul>
             {messages.map((item, index) => (
               <li
@@ -137,6 +156,7 @@ function Chat() {
             type="text"
             value={inputValue}
             onChange={handleInputChange}
+            onKeyPress={handleKeyPress} // 엔터키 입력 감지
             placeholder="메시지를 입력하세요..."
           />
           <button onClick={sendMessage} className="MessageEnter">
