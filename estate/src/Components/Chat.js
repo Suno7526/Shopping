@@ -11,7 +11,7 @@ function Chat() {
   const [chatRooms, setChatRooms] = useState([]);
   const [roomId, setRoomId] = useState(1); // 기본적으로 첫 번째 채팅방 ID 설정
   const [userEmail, setUserEmail] = useState(
-      sessionStorage.getItem('userEmail'),
+    sessionStorage.getItem('userEmail'),
   ); // 사용자 이메일
 
   const handleInputChange = (event) => {
@@ -66,7 +66,10 @@ function Chat() {
   const createChatRoom = async () => {
     const room = { name: '새 채팅방' };
     try {
-      const response = await axios.post('http://localhost:8000/chatrooms', room);
+      const response = await axios.post(
+        'http://localhost:8000/chatrooms',
+        room,
+      );
       console.log('채팅방 생성 성공:', response.data);
       await fetchChatRooms();
     } catch (error) {
@@ -116,46 +119,37 @@ function Chat() {
   };
 
   return (
-      <div className="chat-container">
-        <div className="chat-theme">
-          <p className="theme-shopper">SHOPPER Message</p>
+    <div className="chat-container">
+      <div className="chat-theme"></div>
+      <div className="chat-main">
+        <div className="chatroom-choice">
+          <select
+            className="chat-room-select"
+            onChange={handleChatRoomChange}
+            value={roomId}
+          >
+            {chatRooms.map((room) => (
+              <option key={room.id} value={room.id}>
+                {room.name}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className="chat-main">
-          <div className="chatroom-choice">
-            <select
-                className="chat-room-select"
-                onChange={handleChatRoomChange}
-                value={roomId}
-            >
-              {chatRooms.map((room) => (
-                  <option key={room.id} value={room.id}>
-                    {room.name}
-                  </option>
-              ))}
-            </select>
-          </div>
 
-          <div className="message-area" ref={messageAreaRef}>
-            <ul>
-              {messages.map((item, index) => (
-                  <li
-                      key={index}
-                      className={`message ${
-                          item.user.isSender ? 'sender' : 'receiver'
-                      }`}
-                  >
-                    <div className="usernameDiv">
-                      <div className="username">
-                        {formatSenderName(item.user.name)}
-                      </div>
-                    </div>
-                    <div className="text">{item.message}</div>
-                  </li>
-              ))}
-            </ul>
-          </div>
-
-<<<<<<< HEAD
+        <div className="message-area" ref={messageAreaRef}>
+          <ul>
+            {messages.map((item, index) => (
+              <li
+                key={index}
+                className={`message ${
+                  item.user.isSender ? 'sender' : 'receiver'
+                }`}
+              >
+                <div className="usernameDiv">
+                  <div className="username">
+                    {formatSenderName(item.user.name)}
+                  </div>
+                </div>
                 <div className="text">{item.message}</div>
               </li>
             ))}
@@ -167,38 +161,15 @@ function Chat() {
             type="text"
             value={inputValue}
             onChange={handleInputChange}
+            onKeyPress={handleKeyPress} // 엔터키 입력 감지
             placeholder="메시지를 입력하세요..."
           />
           <button onClick={sendMessage} className="MessageEnter">
             입력
           </button>
         </div>
-        <div className="create-chatroom">
-          <button onClick={createChatRoom} className="new-chatroomCreate">
-            새 채팅방 생성
-          </button>
-=======
-          <div className="input-area">
-            <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress} // 엔터키 입력 감지
-                placeholder="메시지를 입력하세요..."
-            />
-            <button onClick={sendMessage} className="MessageEnter">
-              입력
-            </button>
-          </div>
-          <div className="create-chatroom">
-            <p>채팅방 생성</p>
-            <button onClick={createChatRoom} className="new-chatroomCreate">
-              새 채팅방 생성
-            </button>
-          </div>
->>>>>>> 65f5a01597c83dc5433815e13f0ac0a9b1fc05f1
-        </div>
       </div>
+    </div>
   );
 }
 

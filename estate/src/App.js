@@ -142,7 +142,7 @@ function App() {
           style={{
             padding: '10px',
             position: 'fixed', // 화면에 고정
-            bottom: '80px', // 화면 하단으로부터 80px 위에 위치
+            bottom: '180px', // 화면 하단으로부터 80px 위에 위치
             right: '20px', // 화면 오른쪽으로부터 20px 왼쪽에 위치
             width: '450px',
             height: '650px',
