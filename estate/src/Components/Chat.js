@@ -10,8 +10,9 @@ function Chat() {
   const [inputValue, setInputValue] = useState('');
   const [chatRooms, setChatRooms] = useState([]);
   const [roomId, setRoomId] = useState(1); // 기본적으로 첫 번째 채팅방 ID 설정
-  const [userEmail, setUserEmail] = useState(sessionStorage.getItem('userEmail')); // 사용자 이메일
-  const [newRoomName, setNewRoomName] = useState(''); // 새 채팅방 이름 상태
+  const [userEmail, setUserEmail] = useState(
+    sessionStorage.getItem('userEmail'),
+  ); // 사용자 이메일
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -63,17 +64,14 @@ function Chat() {
 
   // 채팅방 생성 메소드 변환
   const createChatRoom = async () => {
-    if (!newRoomName.trim()) {
-      alert('채팅방 이름을 입력하세요.');
-      return;
-    }
-
-    const room = { name: newRoomName };
+    const room = { name: '새 채팅방' };
     try {
-      const response = await axios.post('http://localhost:8000/chatrooms', room);
+      const response = await axios.post(
+        'http://localhost:8000/chatrooms',
+        room,
+      );
       console.log('채팅방 생성 성공:', response.data);
-      setNewRoomName(''); // 입력 필드 초기화
-      await fetchChatRooms(); // 채팅방 목록 갱신
+      await fetchChatRooms();
     } catch (error) {
       console.error('채팅방 생성 실패:', error);
     }
@@ -121,61 +119,57 @@ function Chat() {
   };
 
   return (
-      <div className="chat-container">
-        <div className="chat-theme">
-          <p className="theme-shopper">SHOPPER Message</p>
+    <div className="chat-container">
+      <div className="chat-theme"></div>
+      <div className="chat-main">
+        <div className="chatroom-choice">
+          <select
+            className="chat-room-select"
+            onChange={handleChatRoomChange}
+            value={roomId}
+          >
+            {chatRooms.map((room) => (
+              <option key={room.id} value={room.id}>
+                {room.name}
+              </option>
+            ))}
+          </select>
         </div>
-        <div className="chat-main">
-          <div className="chatroom-choice">
-            <select
-                className="chat-room-select"
-                onChange={handleChatRoomChange}
-                value={roomId}
-            >
-              {chatRooms.map((room) => (
-                  <option key={room.id} value={room.id}>
-                    {room.name}
-                  </option>
-              ))}
-            </select>
-          </div>
 
-          <div className="message-area" ref={messageAreaRef}>
-            <ul>
-              {messages.map((item, index) => (
-                  <li
-                      key={index}
-                      className={`message ${
-                          item.user.isSender ? 'sender' : 'receiver'
-                      }`}
-                  >
-                    <div className="usernameDiv">
-                      <div className="username">
-                        {formatSenderName(item.user.name)}
-                      </div>
-                    </div>
-                    <div className="text">{item.message}</div>
-                  </li>
-              ))}
-            </ul>
-          </div>
+        <div className="message-area" ref={messageAreaRef}>
+          <ul>
+            {messages.map((item, index) => (
+              <li
+                key={index}
+                className={`message ${
+                  item.user.isSender ? 'sender' : 'receiver'
+                }`}
+              >
+                <div className="usernameDiv">
+                  <div className="username">
+                    {formatSenderName(item.user.name)}
+                  </div>
+                </div>
+                <div className="text">{item.message}</div>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-          <div className="input-area">
-            <input
-                type="text"
-                value={inputValue}
-                onChange={handleInputChange}
-                onKeyPress={handleKeyPress} // 엔터키 입력 감지
-                placeholder="메시지를 입력하세요..."
-            />
-            <button onClick={sendMessage} className="MessageEnter">
-              입력
-            </button>
-          </div>
-
-
+        <div className="input-area">
+          <input
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyPress={handleKeyPress} // 엔터키 입력 감지
+            placeholder="메시지를 입력하세요..."
+          />
+          <button onClick={sendMessage} className="MessageEnter">
+            입력
+          </button>
         </div>
       </div>
+    </div>
   );
 }
 

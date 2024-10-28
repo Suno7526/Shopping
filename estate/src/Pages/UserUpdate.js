@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './UserUpdate.css'; // CSS 파일 import
 
@@ -13,6 +14,7 @@ const UserUpdate = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const userCode = sessionStorage.getItem('userCode');
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -42,6 +44,7 @@ const UserUpdate = () => {
     try {
       await axios.put(`/updateUser/${userCode}`, user);
       alert('사용자 정보가 업데이트되었습니다.');
+      navigate('/MypageUser');
     } catch (error) {
       alert('업데이트 중 오류가 발생했습니다.');
     }
