@@ -175,3 +175,13 @@
 .new-chatroomCreate:hover {
   background-color: #29b6f6;
 }
+.chat-container{
+  padding: 10px;
+  position: fixed;
+  bottom: 200px;
+  right: 20px;
+  width: 600px;
+  height: 650px;
+  border-radius: 5px;
+  z-index: 1000;
+}

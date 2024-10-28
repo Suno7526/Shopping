@@ -10,9 +10,8 @@ function Chat() {
   const [inputValue, setInputValue] = useState('');
   const [chatRooms, setChatRooms] = useState([]);
   const [roomId, setRoomId] = useState(1); // 기본적으로 첫 번째 채팅방 ID 설정
-  const [userEmail, setUserEmail] = useState(
-      sessionStorage.getItem('userEmail'),
-  ); // 사용자 이메일
+  const [userEmail, setUserEmail] = useState(sessionStorage.getItem('userEmail')); // 사용자 이메일
+  const [newRoomName, setNewRoomName] = useState(''); // 새 채팅방 이름 상태
 
   const handleInputChange = (event) => {
     setInputValue(event.target.value);
@@ -64,11 +63,17 @@ function Chat() {
 
   // 채팅방 생성 메소드 변환
   const createChatRoom = async () => {
-    const room = { name: '새 채팅방' };
+    if (!newRoomName.trim()) {
+      alert('채팅방 이름을 입력하세요.');
+      return;
+    }
+
+    const room = { name: newRoomName };
     try {
       const response = await axios.post('http://localhost:8000/chatrooms', room);
       console.log('채팅방 생성 성공:', response.data);
-      await fetchChatRooms();
+      setNewRoomName(''); // 입력 필드 초기화
+      await fetchChatRooms(); // 채팅방 목록 갱신
     } catch (error) {
       console.error('채팅방 생성 실패:', error);
     }
@@ -167,12 +172,8 @@ function Chat() {
               입력
             </button>
           </div>
-          <div className="create-chatroom">
-            <p>채팅방 생성</p>
-            <button onClick={createChatRoom} className="new-chatroomCreate">
-              새 채팅방 생성
-            </button>
-          </div>
+
+
         </div>
       </div>
   );
