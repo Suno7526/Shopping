@@ -257,23 +257,23 @@ const Refund = () => {
       <table className="product-table">
         <thead>
           <tr>
-            <th>주문코드</th>
-            <th>유저코드</th>
-            <th>제품코드</th>
-            <th>배송주소</th>
-            <th>주문상태</th>
-            <th style={{ width: '90px' }}>환불사유</th>
-            <th>요청사항</th>
-            <th style={{ width: '90px' }}>주문총액</th>
-            <th>환불상태</th>
-            <th>사이즈</th>
-            <th>색상</th>
-            <th>리뷰여부</th>
-            <th>가맹점번호</th>
-            <th>수정</th>
-            <th>승인</th>
-            <th>거절</th>
-            <th>주문상태</th> {/* 새로운 열 추가 */}
+            <th style={{ width: '4.9%' }}>주문코드</th>
+            <th style={{ width: '4.9%' }}>유저코드</th>
+            <th style={{ width: '3.9%' }}>제품명</th>
+            <th style={{ width: '4.9%' }}>배송주소</th>
+            <th style={{ width: '4.9%' }}>주문상태</th>
+            <th style={{ width: '4.9%' }}>환불사유</th>
+            <th style={{ width: '4.9%' }}>요청사항</th>
+            <th style={{ width: '4.9%' }}>주문총액</th>
+            <th style={{ width: '4.9%' }}>환불상태</th>
+            <th style={{ width: '3.9%' }}>사이즈</th>
+            <th style={{ width: '3.9%' }}>색상</th>
+            <th style={{ width: '4.9%' }}>리뷰여부</th>
+            <th style={{ width: '3.9%' }}>회사명</th>
+            <th style={{ width: '3.9%' }}>수정</th>
+            <th style={{ width: '3.9%' }}>승인</th>
+            <th style={{ width: '3.9%' }}>거절</th>
+            <th style={{ width: '4.9%' }}>주문상태</th> {/* 새로운 열 추가 */}
           </tr>
         </thead>
         <tbody>
@@ -408,25 +408,17 @@ const Refund = () => {
                 {editingOrder && editingOrder.orderCode === order.orderCode ? (
                   <button onClick={handleSaveClick}>Save</button>
                 ) : (
-                  <button onClick={() => handleEditClick(order)}>
-                    수정하기
-                  </button>
+                  <button onClick={() => handleEditClick(order)}>수정</button>
                 )}
               </td>
               <td>
-                <button onClick={() => handleApproveClick(order)}>
-                  승인하기
-                </button>
+                <button onClick={() => handleApproveClick(order)}>승인</button>
               </td>
               <td>
-                <button onClick={() => handleRejectClick(order)}>
-                  거절하기
-                </button>
+                <button onClick={() => handleRejectClick(order)}>거절</button>
               </td>
               <td>
-                <button onClick={() => updateOrderStatus(order)}>
-                  주문상태 변경
-                </button>{' '}
+                <button onClick={() => updateOrderStatus(order)}>변경</button>{' '}
                 {/* 상태 업데이트 버튼 추가 */}
               </td>
             </tr>

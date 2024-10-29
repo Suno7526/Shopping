@@ -120,9 +120,7 @@ function Chat() {
 
   return (
     <div className="chat-container">
-      <div className="chat-theme">
-        <p className="theme-shopper">SHOPPER Message</p>
-      </div>
+      <div className="chat-theme"></div>
       <div className="chat-main">
         <div className="chatroom-choice">
           <select
@@ -168,12 +166,6 @@ function Chat() {
           />
           <button onClick={sendMessage} className="MessageEnter">
             입력
-          </button>
-        </div>
-        <div className="create-chatroom">
-          <p>채팅방 생성</p>
-          <button onClick={createChatRoom} className="new-chatroomCreate">
-            새 채팅방 생성
           </button>
         </div>
       </div>
