@@ -136,26 +136,34 @@ function Home() {
           {sortProducts(sortOption)
             .slice(0, visibleProducts)
             .map((product) => (
-              <div className="product-wrapper" key={product.productCode}>
-                <Link
-                  to={`/product/${product.productCode}`}
-                  className="product"
-                  onClick={() => handleClickProduct(product.productCode)}
-                >
-                  <img
-                    src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                    alt={product.productName}
-                  />
-                </Link>
-                <div>{product.companyName}</div>
-                <div className="product-name">{product.productName}</div>
-                <div className="product-price">{product.productPrice}</div>
-              </div>
+                <div className="product-wrapper" key={product.productCode}>
+                  <Link
+                      to={`/product/${product.productCode}`}
+                      className="product"
+                      onClick={() => handleClickProduct(product.productCode)}
+                  >
+                    <img
+                        src={`http://localhost:8000/getProductImage/${product.productCode}`}
+                        alt={product.productName}
+                    />
+                  </Link>
+                  <div>{product.companyName}</div>
+                  <div className="product-name">{product.productName}</div>
+                  <div className="product-price">{product.productPrice}</div>
+                  <div className="Category-viewCount">
+                    <img
+                        src="https://i.postimg.cc/XNRxQKLY/download.png"
+                        className="views-icon"
+                        alt="조회수"
+                    />
+                    {product.viewCount}
+                  </div>
+                </div>
             ))}
           {products.length > visibleProducts && (
-            <button className="load-more-button" onClick={loadMoreProducts}>
-              Load More
-            </button>
+              <button className="load-more-button" onClick={loadMoreProducts}>
+                Load More
+              </button>
           )}
           <div className="clearfix"></div>
         </div>
