@@ -1,0 +1,74 @@
+.Inquiry-sidebar {
+  position: fixed;
+  top: 300px;
+  left: 0;
+  width: 200px;
+  height: 100%;
+  background-color: transparent; /* 배경을 투명으로 설정 */
+  color: white;
+  padding: 20px;
+  z-index: 999; /* z-index 설정으로 다른 요소들보다 위에 위치 */
+}
+
+.Inquiry-sidebar a {
+  text-decoration: none; /* 링크에 대한 밑줄 제거 */
+  color: inherit; /* 부모 요소로부터 상속된 글자 색상 사용 */
+}
+
+.Inquiry-sidebar-Buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 버튼 간격 추가 */
+}
+
+.Inquiry-sidebar button {
+  font-size: 16px;
+  font-style: sans-serif;
+  display: block;
+  margin-bottom: 10px;
+  color: #2e2828; /* 글자색 설정 */
+  border: none;
+  cursor: pointer;
+  margin-left: 15px;
+  background-color: transparent;
+}
+
+.Inquiry-sidebar button:hover {
+  color: #000000; /* 호버 상태에서의 글자색 */
+  background-color: transparent;
+  font-size: 17px;
+}
+
+.Inquiry-sidebar-header {
+  width: 100%;
+  background-color: #f6f4ee;
+  color: #5f5449; /* 글자색 변경 */
+  padding: 10px;
+  text-align: center;
+  position: absolute;
+  top: 0;
+  font-size: 20px; /* 글자 폰트 크기 변경 */
+  font-weight: bold; /* 글자 굵게 설정 */
+  font-style: sans-serif;
+}
+
+/*최근본상품*/
+.QuestionButton-div {
+  padding: 10px 0; /* 위아래 여백 추가 */
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.InquiryButton-div {
+  padding: 10px 0; /* 위아래 여백 추가 */
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.MyInquiryButton-div {
+  padding: 10px 0; /* 위아래 여백 추가 */
+  width: 100%; /* 전체 너비 사용 */
+}
+
+.BestFAQButton-div {
+  padding: 10px 0; /* 위아래 여백 추가 */
+  width: 100%; /* 전체 너비 사용 */
+}

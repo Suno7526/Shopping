@@ -1,0 +1,101 @@
+/* 로그인 컨테이너 스타일 설정 */
+.login-container {
+  margin: 60px auto; /* 가운데 정렬을 위해 마진 설정 */
+  padding: 20px;
+  border-top: 30px solid #524a4a;
+  box-shadow: 0 0 3px rgba(#524a4a, 1);
+  border-radius: 10px; /* 테두리를 10px로 둥글게 설정 */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 400px; /* 최대 너비 설정 */
+  width: 100%;
+}
+
+/* 로그인 버튼 스타일 설정 */
+.login-button {
+  text-decoration: none;
+  padding: 10px 40px; /* 버튼 크기 조절 */
+  background-color: transparent;
+  color: #524a4a; /* 버튼의 텍스트 색상 */
+  border: 2px solid #524a4a; /* 버튼의 테두리 스타일 및 색상 */
+  border-radius: 10px; /* 버튼의 둥근 모서리 설정 */
+  font-weight: bold;
+}
+
+.login-button:hover {
+  background-color: #524a4a; /* hover 상태일 때 배경색 */
+  color: #e6a15c; /* hover 상태일 때 글자색 */
+}
+
+/*로그인 로고*/
+.Login-logo {
+  display: flex;
+  justify-content: center;
+  font-size: 35px;
+  color: #524a4a;
+  font-weight: bold;
+  margin-bottom: 2em;
+}
+
+/* 회원가입 버튼*/
+.join-link {
+  text-decoration: none;
+  margin-left: 5.2em;
+  padding: 10px 40px; /* 버튼 크기 조절 */
+  background-color: transparent;
+  color: #524a4a; /* 버튼의 텍스트 색상 */
+  border: 2px solid #524a4a; /* 버튼의 테두리 스타일 및 색상 */
+  border-radius: 10px; /* 버튼의 둥근 모서리 설정 */
+  font-weight: bold;
+}
+
+.join-link:hover {
+  background-color: #524a4a; /* hover 상태일 때 배경색 */
+  color: #e6a15c; /* hover 상태일 때 글자색 */
+}
+
+/* 입력 필드 스타일 설정 */
+.input-box {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+.input-box input {
+  padding: 10px 0;
+  color: #524a4a;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid #e6a15c;
+  outline: none;
+  background: transparent;
+}
+
+.input-box label {
+  position: absolute;
+  padding: 10px 0;
+  font-size: 20px;
+  color: #524a4a;
+  pointer-events: none;
+  transition: 0.5s;
+  margin-bottom: 3px;
+}
+
+/* 포커스가 상태인 경우 레이블의 글자 크기를 크게 함 */
+.input-box input:focus ~ label {
+  top: -30px;
+  font-size: 20px; /* 포커스 상태에서 레이블의 글자 크기를 더 크게 조정 */
+}
+
+/* 입력 상자에 텍스트가 있는 경우 레이블 숨김을 유지 */
+.input-box input:not(:focus):not(:placeholder-shown) ~ label {
+  top: -50px;
+  font-size: 15px;
+}
+.login-input,
+select {
+  width: 100%;
+  padding: 10px;
+  margin-right: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  display: inline-block;
+}

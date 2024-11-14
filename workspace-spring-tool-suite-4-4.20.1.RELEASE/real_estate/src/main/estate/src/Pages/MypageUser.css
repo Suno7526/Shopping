@@ -1,0 +1,164 @@
+.MypageUser {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.MypageUser .MypageUser-user-details {
+  width: 40%;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.MypageUser .MypageUser-user-info {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  align-items: left;
+}
+
+.MypageUser .MypageUser-user-info p {
+  margin: 10px 0;
+  color: #333;
+}
+
+.MypageUser .MypageUser-user-info strong {
+  color: #555;
+}
+
+.MypageUser .MypageUser-user-coupons,
+.MypageUser .MypageUser-user-reviews {
+  padding: 20px;
+  border-top: 1px solid #eee;
+}
+
+.MypageUser .MypageUser-user-coupons h2,
+.MypageUser .MypageUser-user-reviews h2 {
+  margin-top: 0;
+  font-size: 20px;
+  color: #333;
+}
+
+.MypageUser .MypageUser-user-coupons ul,
+.MypageUser .MypageUser-user-reviews ul {
+  list-style: none;
+  padding: 0;
+}
+
+.MypageUser .MypageUser-user-coupons li,
+.MypageUser .MypageUser-user-reviews li {
+  background-color: #fafafa;
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.MypageUser .MypageUser-user-coupons li {
+  color: #5a9216;
+}
+
+.MypageUser .MypageUser-user-reviews li {
+  color: #5a5a5a;
+}
+
+.MypageUser .MypageUser-user-reviews p,
+.MypageUser .MypageUser-user-coupons p {
+  font-size: 14px;
+  color: #888;
+}
+
+.My-page-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 3em;
+  color: #333;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.login-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+.login-prompt {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+.MypageUser-user-reviews ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+/*수정하기 버튼*/
+.MypageUser-user-reviews-btn {
+  text-align: right; /*div에 속한 값들은 text-align center로 잡혀있어서 float이 아닌 text-align- righrt로 바꿔 위치 이동시킴*/
+  padding: 5px 10px; /* 버튼 안의 여백을 줄여서 크기를 작게 조정 */
+  border-radius: 5px; /* 모서리를 둥글게 설정 */
+  font-size: 0.9em; /* 글자 크기를 약간 작게 조정 (필요 시) */
+}
+
+.review-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.review-image {
+  width: 120px;
+  margin-right: 20px;
+}
+
+.review-content {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.name-container {
+  display: flex;
+  align-items: center; /* 수직 가운데 정렬 */
+}
+
+.name-title {
+  background-color: black; /* 검정색 배경 */
+  color: white; /* 흰색 글씨 */
+  border-radius: 50% 5%; /* 동그라미 모양 */
+  padding: 10px; /* 동그라미의 크기를 조절하기 위한 패딩 */
+  margin-right: 20px; /* Name과 {userData.name} 사이의 간격 */
+  font-size: 1.5em; /* 글씨 크기를 키움 */
+  text-align: center;
+  width: 80px; /* 동그라미의 너비 */
+  height: 80px; /* 동그라미의 높이 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-name {
+  font-size: 2em; /* 글씨 크기를 키움 */
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

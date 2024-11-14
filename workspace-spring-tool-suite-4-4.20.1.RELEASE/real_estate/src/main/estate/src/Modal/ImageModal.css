@@ -1,0 +1,41 @@
+/* ImageModal.css */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto; /* Allow scrolling if the modal content exceeds the viewport height */
+}
+
+.modal-content {
+    position: absolute; /* Change to absolute */
+    top: 50%; /* Position from the top */
+    left: 50%; /* Position from the left */
+    transform: translate(-50%, -50%); /* Center the modal content */
+    max-width: 80%; /* Set maximum width */
+    max-height: 80%; /* Set maximum height */
+    background: white; /* Add a background to the modal */
+    padding: 20px; /* Add some padding */
+    border-radius: 8px; /* Add rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Add shadow for depth */
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 30px;
+    color: black;
+    cursor: pointer;
+}
+
+.enlarged-image {
+    max-width: 100%;
+    max-height: 100%;
+}

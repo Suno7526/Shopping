@@ -1,0 +1,132 @@
+.Home-text {
+  text-align: center;
+  margin: 40px 40px 40px 40px;
+}
+
+.Home-text h1 {
+  font-size: 2.5rem;
+  margin-top: 60px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.product-list {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.product-wrapper {
+  flex: 1 1 calc(25% - 40px);
+  transition: transform 0.3s;
+  text-align: center;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.product-wrapper:hover {
+  transform: translateY(-10px);
+}
+
+.product img {
+  width: 100%;
+  max-width: 400px; /* Adjust the maximum width */
+  height: auto;
+  border-radius: 10px;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  margin: 10px 0;
+  color: #555;
+}
+
+.product-price {
+  font-size: 1.1rem;
+}
+
+.clearfix::after {
+  content: '';
+  display: table;
+  clear: both;
+}
+
+.Home-property-wrapper {
+  padding: 20px;
+}
+
+.property-image {
+  width: 100%;
+  max-width: 250px; /* Adjust the maximum width */
+  height: auto;
+  border-radius: 10px;
+}
+
+.container-fluid {
+  width: 100%;
+  padding: 0 50px;
+}
+
+.good-text {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.masonry {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.load-more-button {
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 1rem;
+  background-color: #fff;
+  border-color: #000000;
+  color: #000000;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.load-more-button:hover {
+  border-color: #6c6c6c;
+  background-color: #fff;
+  color: #6c6c6c;
+}
+
+/*sort-options 랭킹순 카테고리*/
+.sort-options {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+}
+
+.sort-options button {
+  margin: 7px;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #333;
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.sort-options button:hover {
+  background-color: #ddd;
+}
+
+.sort-options button.active {
+  background-color: #000;
+  color: #fff;
+}
+
+.sort-options button:not(.active):hover {
+  background-color: #ddd;
+}

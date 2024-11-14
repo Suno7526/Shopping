@@ -1,0 +1,131 @@
+* {
+  margin: 0px;
+  padding: 0px;
+}
+
+div {
+  color: #545454;
+  font-weight: bold;
+}
+.navbar-brand,
+.inform {
+  color: #007bff; /* Blue color */
+  font-weight: bold;
+  font-size: 24px; /* Adjust font size as needed */
+}
+div p {
+  margin-bottom: 0px;
+}
+
+input[type='text'],
+input[type='date'] {
+  margin-right: 10px;
+}
+
+input[type='radio'] {
+  margin-right: 5px;
+}
+
+textarea {
+  width: 100%;
+  height: 200px;
+  padding: 10px;
+}
+
+.custom-list {
+  font-size: 12px;
+}
+.custom-list li {
+  text-align: left;
+}
+
+.box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  height: 180px;
+}
+
+div.boxed {
+  padding: 0px;
+}
+
+.center-box {
+  border: 1px solid #ddd;
+  padding: 10px;
+  height: 60px;
+}
+
+.left,
+.right {
+  margin: 0;
+}
+
+input {
+  height: 40px;
+  margin: 5px;
+}
+.row {
+  margin: 0px;
+  width: 100%;
+  margin-top: 0;
+  margin-right: 0;
+  margin-left: 0;
+}
+.BigContainer {
+  margin-bottom: 100px;
+}
+.container p {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+p {
+  height: 24px;
+  margin-bottom: 0px;
+}
+
+h1 {
+  margin: 0;
+}
+
+.navigation {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.nav-button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.nav-button:hover {
+  background-color: #0056b3;
+}
+
+.nav-button:focus {
+  outline: none;
+}
+
+/*프로젝트 명*/
+#Company {
+  color: #e6a15c;
+  font-size: 50px;
+  position: absolute;
+  padding: 30px;
+  font-weight: bold;
+}
+
+#text {
+  text-decoration: none;
+  font-size: 30px;
+  font-weight: bold;
+  color: #545454;
+  display: inline;
+}
