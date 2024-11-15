@@ -24,7 +24,8 @@ import com.example.estate.entity.Product;
 import com.example.estate.service.ProductService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://3.36.217.173:3000"})
+
 public class ProductController {
 
     @Autowired
