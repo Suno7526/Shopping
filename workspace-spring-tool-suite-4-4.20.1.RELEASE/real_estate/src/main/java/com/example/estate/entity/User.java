@@ -3,16 +3,9 @@ package com.example.estate.entity;
 import java.sql.Timestamp;
 import java.util.List;
 
+import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
@@ -40,18 +33,24 @@ public class User {
 
     @Column(nullable = false, length = 50)
     private String birth;
-    
+
     @Column(nullable = false, columnDefinition = "int default 0")
     private int userPoint;
 
-    @Column(length = 50, columnDefinition = "VARCHAR(50) default 'BRONZE'")
-    private String userGrade;
-    
+    @Column(length = 50)
+    private String userGrade = "BRONZE"; // Java에서 기본값 설정
+
     @Enumerated(EnumType.STRING)
-    private RoleType role = RoleType.USER; // 기본 값을 USER로 설정
+    private RoleType role = RoleType.USER;
 
     @CreationTimestamp
     private Timestamp createDate;
-    
-}
 
+    // 기본값을 설정하는 생성자나 메서드 추가
+    @PrePersist
+    public void prePersist() {
+        if (this.userGrade == null) {
+            this.userGrade = "BRONZE";
+        }
+    }
+}
