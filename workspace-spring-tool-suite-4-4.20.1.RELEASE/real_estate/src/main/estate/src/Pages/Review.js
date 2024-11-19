@@ -13,19 +13,19 @@ const Review = () => {
   const [productImages, setProductImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
 
+  const API_URL = process.env.REACT_APP_API_URL; // Define API_URL here
+
   useEffect(() => {
     const fetchOrderData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/getOrder/${orderCode}`,
-        );
+        const response = await axios.get(`${API_URL}/getOrder/${orderCode}`);
         setOrderData(response.data);
       } catch (error) {
         console.error('Error fetching order data:', error);
       }
     };
     fetchOrderData();
-  }, [orderCode]);
+  }, [orderCode, API_URL]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -64,10 +64,7 @@ const Review = () => {
         formData.append('productImages', image);
       });
 
-      const response = await axios.post(
-        'http://localhost:8000/saveReview',
-        formData,
-      );
+      const response = await axios.post(`${API_URL}/saveReview`, formData);
 
       console.log(response.data);
       alert('리뷰 등록 성공');
@@ -82,79 +79,79 @@ const Review = () => {
   }
 
   return (
-    <div className="App">
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>리뷰 등록</title>
+      <div className="App">
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>리뷰 등록</title>
 
-      <div id="reviewform">
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-          <label htmlFor="productName" className="review-label">
-            상품명 : {orderData.product.productName}
-          </label>
-
-          <label htmlFor="reviewContent" className="review-label">
-            리뷰 내용
-          </label>
-          <textarea
-            id="reviewContent"
-            name="reviewContent"
-            value={reviewData.reviewContent}
-            onChange={handleInputChange}
-            className="review-input"
-          ></textarea>
-          <div id="property-details">
-            <label htmlFor="productImages" className="review-label">
-              사진 업로드
+        <div id="reviewform">
+          <form onSubmit={handleSubmit} encType="multipart/form-data">
+            <label htmlFor="productName" className="review-label">
+              상품명 : {orderData.product.productName}
             </label>
-            <input
-              type="file"
-              id="productImages"
-              name="productImages"
-              accept="image/*"
-              multiple
-              onChange={handleFileChange}
-              className="review-input"
-            />
-            {previewImages.length > 0 && (
-              <div className="image-preview">
-                {previewImages.map((src, index) => (
-                  <img
-                    key={index}
-                    src={src}
-                    alt={`preview ${index}`}
-                    style={{
-                      width: '200px',
-                      height: '200px',
-                      marginTop: '10px',
-                    }}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-          <label htmlFor="reviewPoint" className="review-label">
-            별점
-          </label>
-          <div className="star-rating">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <span
-                key={star}
-                className={`star ${
-                  reviewData.reviewPoint >= star ? 'selected' : ''
-                }`}
-                onClick={() => handleStarClick(star)}
-              >
+
+            <label htmlFor="reviewContent" className="review-label">
+              리뷰 내용
+            </label>
+            <textarea
+                id="reviewContent"
+                name="reviewContent"
+                value={reviewData.reviewContent}
+                onChange={handleInputChange}
+                className="review-input"
+            ></textarea>
+            <div id="property-details">
+              <label htmlFor="productImages" className="review-label">
+                사진 업로드
+              </label>
+              <input
+                  type="file"
+                  id="productImages"
+                  name="productImages"
+                  accept="image/*"
+                  multiple
+                  onChange={handleFileChange}
+                  className="review-input"
+              />
+              {previewImages.length > 0 && (
+                  <div className="image-preview">
+                    {previewImages.map((src, index) => (
+                        <img
+                            key={index}
+                            src={src}
+                            alt={`preview ${index}`}
+                            style={{
+                              width: '200px',
+                              height: '200px',
+                              marginTop: '10px',
+                            }}
+                        />
+                    ))}
+                  </div>
+              )}
+            </div>
+            <label htmlFor="reviewPoint" className="review-label">
+              별점
+            </label>
+            <div className="star-rating">
+              {[1, 2, 3, 4, 5].map((star) => (
+                  <span
+                      key={star}
+                      className={`star ${
+                          reviewData.reviewPoint >= star ? 'selected' : ''
+                      }`}
+                      onClick={() => handleStarClick(star)}
+                  >
                 ★
               </span>
-            ))}
-          </div>
-          <button type="submit" className="review-button">
-            리뷰 등록
-          </button>
-        </form>
+              ))}
+            </div>
+            <button type="submit" className="review-button">
+              리뷰 등록
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
   );
 };
 

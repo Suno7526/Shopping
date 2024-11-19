@@ -16,6 +16,8 @@ const ProductJoin = () => {
   const [productImages, setProductImages] = useState([]);
   const [previewImages, setPreviewImages] = useState([]);
 
+  const API_URL = process.env.REACT_APP_API_URL; // API URL from environment variables
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setProductData({ ...productData, [name]: value });
@@ -36,16 +38,16 @@ const ProductJoin = () => {
     e.preventDefault();
     try {
       if (
-        !productData.productName ||
-        !productData.information ||
-        !productData.productPrice ||
-        !productData.companyName ||
-        !productData.productStuck ||
-        !productData.category ||
-        productImages.length === 0
+          !productData.productName ||
+          !productData.information ||
+          !productData.productPrice ||
+          !productData.companyName ||
+          !productData.productStuck ||
+          !productData.category ||
+          productImages.length === 0
       ) {
         alert(
-          '상품명, 설명, 가격, 회사명, 재고, 상품 카테고리, 그리고 이미지를 모두 입력해주세요.',
+            '상품명, 설명, 가격, 회사명, 재고, 상품 카테고리, 그리고 이미지를 모두 입력해주세요.',
         );
         return;
       }
@@ -62,7 +64,8 @@ const ProductJoin = () => {
         formData.append('productImages', image);
       });
 
-      await axios.post('http://localhost:8000/saveProduct', formData, {
+      // Use API_URL from environment variables
+      await axios.post(`${API_URL}/saveProduct`, formData, {
         headers: { 'Content-Type': 'multipart/form-data' },
       });
 
@@ -74,144 +77,144 @@ const ProductJoin = () => {
   };
 
   return (
-    <div className="App">
-      <ManageAside />
-      <div id="propertyform">
-        <h2>상품 등록</h2>
-        <form onSubmit={handleSubmit}>
-          <label htmlFor="productName" className="productJoin-label">
-            상품명:
-          </label>
-          <input
-            type="text"
-            id="productName"
-            name="productName"
-            value={productData.productName}
-            onChange={handleInputChange}
-            className="productJoin-input"
-            required
-          />
-          <br />
+      <div className="App">
+        <ManageAside />
+        <div id="propertyform">
+          <h2>상품 등록</h2>
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="productName" className="productJoin-label">
+              상품명:
+            </label>
+            <input
+                type="text"
+                id="productName"
+                name="productName"
+                value={productData.productName}
+                onChange={handleInputChange}
+                className="productJoin-input"
+                required
+            />
+            <br />
 
-          <label htmlFor="information">설명:</label>
-          <textarea
-            id="information"
-            name="information"
-            value={productData.information}
-            onChange={handleInputChange}
-            className="productJoin-input"
-            required
-          />
-          <br />
+            <label htmlFor="information">설명:</label>
+            <textarea
+                id="information"
+                name="information"
+                value={productData.information}
+                onChange={handleInputChange}
+                className="productJoin-input"
+                required
+            />
+            <br />
 
-          <label htmlFor="productPrice">가격:</label>
-          <input
-            type="number"
-            id="productPrice"
-            name="productPrice"
-            value={productData.productPrice}
-            onChange={handleInputChange}
-            className="productJoin-input"
-            required
-          />
-          <br />
+            <label htmlFor="productPrice">가격:</label>
+            <input
+                type="number"
+                id="productPrice"
+                name="productPrice"
+                value={productData.productPrice}
+                onChange={handleInputChange}
+                className="productJoin-input"
+                required
+            />
+            <br />
 
-          <label htmlFor="companyName">회사명:</label>
-          <input
-            type="text"
-            id="companyName"
-            name="companyName"
-            value={productData.companyName}
-            onChange={handleInputChange}
-            className="productJoin-input"
-            required
-          />
-          <br />
+            <label htmlFor="companyName">회사명:</label>
+            <input
+                type="text"
+                id="companyName"
+                name="companyName"
+                value={productData.companyName}
+                onChange={handleInputChange}
+                className="productJoin-input"
+                required
+            />
+            <br />
 
-          <label htmlFor="productStuck">재고:</label>
-          <input
-            type="number"
-            id="productStuck"
-            name="productStuck"
-            value={productData.productStuck}
-            onChange={handleInputChange}
-            className="productJoin-input"
-            required
-          />
-          <br />
+            <label htmlFor="productStuck">재고:</label>
+            <input
+                type="number"
+                id="productStuck"
+                name="productStuck"
+                value={productData.productStuck}
+                onChange={handleInputChange}
+                className="productJoin-input"
+                required
+            />
+            <br />
 
-          <label htmlFor="category">카테고리:</label>
-          <select
-            id="category"
-            name="category"
-            value={productData.category}
-            onChange={handleInputChange}
-            className="productJoin-input"
-            required
-          >
-            <option value="">카테고리 선택</option>
-            <optgroup label="아우터">
-              <option value="재킷">재킷</option>
-              <option value="집업">집업</option>
-              <option value="점퍼">점퍼</option>
-              <option value="코트">코트</option>
-              <option value="패딩/파카">패딩/파카</option>
-              <option value="모피/머스탱">모피/머스탱</option>
-            </optgroup>
-            <optgroup label="상의">
-              <option value="민소매">민소매</option>
-              <option value="조끼">조끼</option>
-              <option value="반팔티">반팔티</option>
-              <option value="긴팔티">긴팔티</option>
-              <option value="셔츠">셔츠</option>
-              <option value="크루넥">크루 넥</option>
-              <option value="니트">니트</option>
-              <option value="후드">후드</option>
-            </optgroup>
-            <optgroup label="하의">
-              <option value="반바지">반바지</option>
-              <option value="츄리닝">츄리닝</option>
-              <option value="긴바지">긴바지</option>
-              <option value="치마">치마</option>
-            </optgroup>
-            <optgroup label="모자">
-              <option value="캡">캡</option>
-              <option value="버킷햇">버킷햇</option>
-              <option value="스냅백">스냅백</option>
-              <option value="비니">비니</option>
-              <option value="기타">기타</option>
-            </optgroup>
-          </select>
-          <br />
+            <label htmlFor="category">카테고리:</label>
+            <select
+                id="category"
+                name="category"
+                value={productData.category}
+                onChange={handleInputChange}
+                className="productJoin-input"
+                required
+            >
+              <option value="">카테고리 선택</option>
+              <optgroup label="아우터">
+                <option value="재킷">재킷</option>
+                <option value="집업">집업</option>
+                <option value="점퍼">점퍼</option>
+                <option value="코트">코트</option>
+                <option value="패딩/파카">패딩/파카</option>
+                <option value="모피/머스탱">모피/머스탱</option>
+              </optgroup>
+              <optgroup label="상의">
+                <option value="민소매">민소매</option>
+                <option value="조끼">조끼</option>
+                <option value="반팔티">반팔티</option>
+                <option value="긴팔티">긴팔티</option>
+                <option value="셔츠">셔츠</option>
+                <option value="크루넥">크루 넥</option>
+                <option value="니트">니트</option>
+                <option value="후드">후드</option>
+              </optgroup>
+              <optgroup label="하의">
+                <option value="반바지">반바지</option>
+                <option value="츄리닝">츄리닝</option>
+                <option value="긴바지">긴바지</option>
+                <option value="치마">치마</option>
+              </optgroup>
+              <optgroup label="모자">
+                <option value="캡">캡</option>
+                <option value="버킷햇">버킷햇</option>
+                <option value="스냅백">스냅백</option>
+                <option value="비니">비니</option>
+                <option value="기타">기타</option>
+              </optgroup>
+            </select>
+            <br />
 
-          <label htmlFor="productImages">상품 이미지:</label>
-          <input
-            type="file"
-            id="productImages"
-            name="productImages"
-            multiple
-            onChange={handleFileChange}
-            required
-          />
-          <br />
+            <label htmlFor="productImages">상품 이미지:</label>
+            <input
+                type="file"
+                id="productImages"
+                name="productImages"
+                multiple
+                onChange={handleFileChange}
+                required
+            />
+            <br />
 
-          {previewImages.length > 0 && (
-            <div className="image-preview">
-              {previewImages.map((src, index) => (
-                <img
-                  key={index}
-                  src={src}
-                  alt={`preview ${index}`}
-                  style={{ width: '200px', height: '200px', marginTop: '10px' }}
-                />
-              ))}
-            </div>
-          )}
+            {previewImages.length > 0 && (
+                <div className="image-preview">
+                  {previewImages.map((src, index) => (
+                      <img
+                          key={index}
+                          src={src}
+                          alt={`preview ${index}`}
+                          style={{ width: '200px', height: '200px', marginTop: '10px' }}
+                      />
+                  ))}
+                </div>
+            )}
 
-          <button type="submit">상품 등록</button>
-        </form>
+            <button type="submit">상품 등록</button>
+          </form>
+        </div>
       </div>
-    </div>
   );
 };
 

@@ -23,6 +23,7 @@ const Refund = () => {
   });
   const [editingOrder, setEditingOrder] = useState(null);
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL;  // Get API URL from environment variable
 
   useEffect(() => {
     fetchNonInitialRefundOrders();
@@ -34,9 +35,7 @@ const Refund = () => {
 
   const fetchNonInitialRefundOrders = async () => {
     try {
-      const response = await axios.get(
-        'http://localhost:8000/getNonInitialRefundOrders',
-      );
+      const response = await axios.get(`${API_URL}/getNonInitialRefundOrders`);
       setOrders(response.data);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -58,8 +57,8 @@ const Refund = () => {
   const handleSaveClick = async () => {
     try {
       await axios.put(
-        `http://localhost:8000/updateOrder/${editingOrder.orderCode}`,
-        editingOrder,
+          `${API_URL}/updateOrder/${editingOrder.orderCode}`,
+          editingOrder,
       );
       setEditingOrder(null);
       fetchNonInitialRefundOrders();
@@ -76,17 +75,17 @@ const Refund = () => {
   const handleApproveClick = async (order) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/cancelIamport/${order.impUid}`,
-        {
-          productCode: order.product.productCode,
-          orderCode: order.orderCode,
-        },
+          `${API_URL}/cancelIamport/${order.impUid}`,
+          {
+            productCode: order.product.productCode,
+            orderCode: order.orderCode,
+          },
       );
 
       if (response.data.code === 0) {
         await axios.put(
-          `http://localhost:8000/updateOrder/${order.orderCode}`,
-          { ...order, refundState: '환급 완료' },
+            `${API_URL}/updateOrder/${order.orderCode}`,
+            { ...order, refundState: '환급 완료' },
         );
         fetchNonInitialRefundOrders();
       } else {
@@ -99,7 +98,7 @@ const Refund = () => {
 
   const handleRejectClick = async (order) => {
     try {
-      await axios.put(`http://localhost:8000/updateOrder/${order.orderCode}`, {
+      await axios.put(`${API_URL}/updateOrder/${order.orderCode}`, {
         ...order,
         refundState: '승인 거절',
       });
@@ -111,7 +110,7 @@ const Refund = () => {
 
   const searchOrders = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/orderSearch', {
+      const response = await axios.get(`${API_URL}/orderSearch`, {
         params: searchParams,
       });
       setOrders(response.data);
@@ -125,16 +124,16 @@ const Refund = () => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8000/updateOrder/${order.orderCode}`,
-        {
-          ...order,
-          orderStatus: nextStatus,
-        },
+          `${API_URL}/updateOrder/${order.orderCode}`,
+          {
+            ...order,
+            orderStatus: nextStatus,
+          },
       );
       setOrders(
-        orders.map((o) =>
-          o.orderCode === order.orderCode ? response.data : o,
-        ),
+          orders.map((o) =>
+              o.orderCode === order.orderCode ? response.data : o,
+          ),
       );
     } catch (error) {
       console.error('Error updating order status:', error);
@@ -157,105 +156,105 @@ const Refund = () => {
   };
 
   return (
-    <div className="product-update-container">
-      <ManageAside />
-      <div className="search-filters">
-        <input
-          type="text"
-          name="orderCode"
-          placeholder="Search by Order Code"
-          value={searchParams.orderCode}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="userCode"
-          placeholder="Search by User Code"
-          value={searchParams.userCode}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="productCode"
-          placeholder="Search by Product Code"
-          value={searchParams.productCode}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="shippingAddress"
-          placeholder="Search by Shipping Address"
-          value={searchParams.shippingAddress}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="orderStatus"
-          placeholder="Search by Order Status"
-          value={searchParams.orderStatus}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="refundReason"
-          placeholder="Search by Refund Reason"
-          value={searchParams.refundReason}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="request"
-          placeholder="Search by Request"
-          value={searchParams.request}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="orderPrice"
-          placeholder="Search by Order Price"
-          value={searchParams.orderPrice}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="refundState"
-          placeholder="Search by Refund State"
-          value={searchParams.refundState}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="productSize"
-          placeholder="Search by Product Size"
-          value={searchParams.productSize}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="productColor"
-          placeholder="Search by Product Color"
-          value={searchParams.productColor}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="impUid"
-          placeholder="Search by Imp Uid"
-          value={searchParams.impUid}
-          onChange={handleSearchChange}
-        />
-        <select
-          name="reviewCheck"
-          value={searchParams.reviewCheck}
-          onChange={handleSearchChange}
-        >
-          <option value="">All</option>
-          <option value="true">Reviewed</option>
-          <option value="false">Not Reviewed</option>
-        </select>
-      </div>
-      <table className="product-table">
-        <thead>
+      <div className="product-update-container">
+        <ManageAside />
+        <div className="search-filters">
+          <input
+              type="text"
+              name="orderCode"
+              placeholder="Search by Order Code"
+              value={searchParams.orderCode}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="userCode"
+              placeholder="Search by User Code"
+              value={searchParams.userCode}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="productCode"
+              placeholder="Search by Product Code"
+              value={searchParams.productCode}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="shippingAddress"
+              placeholder="Search by Shipping Address"
+              value={searchParams.shippingAddress}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="orderStatus"
+              placeholder="Search by Order Status"
+              value={searchParams.orderStatus}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="refundReason"
+              placeholder="Search by Refund Reason"
+              value={searchParams.refundReason}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="request"
+              placeholder="Search by Request"
+              value={searchParams.request}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="orderPrice"
+              placeholder="Search by Order Price"
+              value={searchParams.orderPrice}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="refundState"
+              placeholder="Search by Refund State"
+              value={searchParams.refundState}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="productSize"
+              placeholder="Search by Product Size"
+              value={searchParams.productSize}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="productColor"
+              placeholder="Search by Product Color"
+              value={searchParams.productColor}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="impUid"
+              placeholder="Search by Imp Uid"
+              value={searchParams.impUid}
+              onChange={handleSearchChange}
+          />
+          <select
+              name="reviewCheck"
+              value={searchParams.reviewCheck}
+              onChange={handleSearchChange}
+          >
+            <option value="">All</option>
+            <option value="true">Reviewed</option>
+            <option value="false">Not Reviewed</option>
+          </select>
+        </div>
+        <table className="product-table">
+          <thead>
           <tr>
             <th style={{ width: '4.9%' }}>주문코드</th>
             <th style={{ width: '4.9%' }}>유저코드</th>
@@ -275,157 +274,65 @@ const Refund = () => {
             <th style={{ width: '3.9%' }}>거절</th>
             <th style={{ width: '4.9%' }}>주문상태</th> {/* 새로운 열 추가 */}
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {orders.map((order) => (
-            <tr key={order.orderCode}>
-              <td>{order.orderCode}</td>
-              <td>{order.user.userCode}</td>
-              <td>{order.product.productCode}</td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="shippingAddress"
-                    value={editingOrder.shippingAddress}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.shippingAddress
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="orderStatus"
-                    value={editingOrder.orderStatus}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.orderStatus
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="refundReason"
-                    value={editingOrder.refundReason}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.refundReason
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="request"
-                    value={editingOrder.request}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.request
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="orderPrice"
-                    value={editingOrder.orderPrice}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.orderPrice
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="refundState"
-                    value={editingOrder.refundState}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.refundState
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="productSize"
-                    value={editingOrder.productSize}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.productSize
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="productColor"
-                    value={editingOrder.productColor}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.productColor
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="reviewCheck"
-                    value={editingOrder.reviewCheck}
-                    onChange={handleInputChange}
-                  />
-                ) : order.reviewCheck ? (
-                  'Y'
-                ) : (
-                  'N'
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <input
-                    type="text"
-                    name="impUid"
-                    value={editingOrder.impUid}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  order.impUid
-                )}
-              </td>
-              <td>
-                {editingOrder && editingOrder.orderCode === order.orderCode ? (
-                  <button onClick={handleSaveClick}>Save</button>
-                ) : (
+              <tr key={order.orderCode}>
+                <td>{order.orderCode}</td>
+                <td>{order.user.userCode}</td>
+                <td>{order.product.productName}</td>
+                <td>{order.shippingAddress}</td>
+                <td>{order.orderStatus}</td>
+                <td>{order.refundReason}</td>
+                <td>{order.request}</td>
+                <td>{order.orderPrice}</td>
+                <td>{order.refundState}</td>
+                <td>{order.productSize}</td>
+                <td>{order.productColor}</td>
+                <td>{order.reviewCheck ? '리뷰 완료' : '리뷰 미완료'}</td>
+                <td>{order.product.manufacturer}</td>
+                <td>
                   <button onClick={() => handleEditClick(order)}>수정</button>
-                )}
-              </td>
-              <td>
-                <button onClick={() => handleApproveClick(order)}>승인</button>
-              </td>
-              <td>
-                <button onClick={() => handleRejectClick(order)}>거절</button>
-              </td>
-              <td>
-                <button onClick={() => updateOrderStatus(order)}>변경</button>{' '}
-                {/* 상태 업데이트 버튼 추가 */}
-              </td>
-            </tr>
+                </td>
+                <td>
+                  <button onClick={() => handleApproveClick(order)}>승인</button>
+                </td>
+                <td>
+                  <button onClick={() => handleRejectClick(order)}>거절</button>
+                </td>
+                <td>
+                  <button onClick={() => updateOrderStatus(order)}>주문상태 변경</button>
+                </td>
+              </tr>
           ))}
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+
+        {editingOrder && (
+            <div className="order-editor">
+              <h2>Edit Order</h2>
+              <input
+                  type="text"
+                  name="orderCode"
+                  value={editingOrder.orderCode}
+                  onChange={handleInputChange}
+              />
+              <input
+                  type="text"
+                  name="orderStatus"
+                  value={editingOrder.orderStatus}
+                  onChange={handleInputChange}
+              />
+              <input
+                  type="text"
+                  name="refundState"
+                  value={editingOrder.refundState}
+                  onChange={handleInputChange}
+              />
+              <button onClick={handleSaveClick}>Save</button>
+            </div>
+        )}
+      </div>
   );
 };
 

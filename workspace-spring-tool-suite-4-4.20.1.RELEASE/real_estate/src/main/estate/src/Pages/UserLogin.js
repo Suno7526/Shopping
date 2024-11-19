@@ -17,9 +17,11 @@ const UserLogin = () => {
   const location = useLocation();
   const previousPath = location.state?.from?.pathname || '/Home';
 
+  const API_URL = process.env.REACT_APP_API_URL; // Define API_URL here
+
   const handleLogin = async () => {
     try {
-      const response = await axios.post('http://localhost:8000/login', {
+      const response = await axios.post(`${API_URL}/login`, {
         email: email,
         password: password,
       });
@@ -54,48 +56,48 @@ const UserLogin = () => {
   };
 
   return (
-    <div>
-      <meta charSet="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>로그인 페이지</title>
+      <div>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>로그인 페이지</title>
 
-      <div className="login-container">
-        <div className="Login-logo">Login</div>
-        <br />
-        {/* 이메일 입력란 */}
-        <div className="input-box">
-          <input
-            className="login-input"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <label htmlFor="text">E-Mail</label>
+        <div className="login-container">
+          <div className="Login-logo">Login</div>
+          <br />
+          {/* 이메일 입력란 */}
+          <div className="input-box">
+            <input
+                className="login-input"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <label htmlFor="text">E-Mail</label>
+          </div>
+          {/* 비밀번호 입력란 */}
+          <div className="input-box">
+            <input
+                className="login-input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <label htmlFor="password">PassWord</label>
+          </div>
+          <br />
+          {/* 로그인 버튼 */}
+          <button onClick={handleLogin} className="login-button">
+            Login
+          </button>
+          {/* 회원가입 버튼 */}
+          <Link to="/Join" className="join-link">
+            회원가입
+          </Link>
+          <Routes>
+            <Route path="/Join" element={<Join />} />
+          </Routes>
         </div>
-        {/* 비밀번호 입력란 */}
-        <div className="input-box">
-          <input
-            className="login-input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <label htmlFor="password">PassWord</label>
-        </div>
-        <br />
-        {/* 로그인 버튼 */}
-        <button onClick={handleLogin} className="login-button">
-          Login
-        </button>
-        {/* 회원가입 버튼 */}
-        <Link to="/Join" className="join-link">
-          회원가입
-        </Link>
-        <Routes>
-          <Route path="/Join" element={<Join />} />
-        </Routes>
       </div>
-    </div>
   );
 };
 

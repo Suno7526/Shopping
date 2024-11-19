@@ -16,6 +16,9 @@ const CouponCreate = () => {
     userCode: userCode,
   });
 
+  // 환경 변수에서 API URL 가져오기
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -24,7 +27,7 @@ const CouponCreate = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000/saveCoupon', {
+      const response = await axios.post(`${API_URL}/saveCoupon`, {
         ...formData,
         user: { userCode: userCode },
       });
@@ -36,57 +39,57 @@ const CouponCreate = () => {
   };
 
   return (
-    <div className="coupon-create-container">
-      <ManageAside />
-      <h2>쿠폰 생성</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
-          <label>할인 금액</label>
-          <input
-            type="number"
-            name="discountAmount"
-            value={formData.discountAmount}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>발행 날짜</label>
-          <input
-            type="date"
-            name="issueDate"
-            value={formData.issueDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>만료 날짜</label>
-          <input
-            type="date"
-            name="expiryDate"
-            value={formData.expiryDate}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>최소 구매 금액</label>
-          <input
-            type="number"
-            name="minPurchaseAmount"
-            value={formData.minPurchaseAmount}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <div className="form-group">
-          <label>사용자 코드</label>
-          <input type="text" value={userCode} readOnly />
-        </div>
-        <button type="submit">쿠폰 생성</button>
-      </form>
-    </div>
+      <div className="coupon-create-container">
+        <ManageAside />
+        <h2>쿠폰 생성</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-group">
+            <label>할인 금액</label>
+            <input
+                type="number"
+                name="discountAmount"
+                value={formData.discountAmount}
+                onChange={handleChange}
+                required
+            />
+          </div>
+          <div className="form-group">
+            <label>발행 날짜</label>
+            <input
+                type="date"
+                name="issueDate"
+                value={formData.issueDate}
+                onChange={handleChange}
+                required
+            />
+          </div>
+          <div className="form-group">
+            <label>만료 날짜</label>
+            <input
+                type="date"
+                name="expiryDate"
+                value={formData.expiryDate}
+                onChange={handleChange}
+                required
+            />
+          </div>
+          <div className="form-group">
+            <label>최소 구매 금액</label>
+            <input
+                type="number"
+                name="minPurchaseAmount"
+                value={formData.minPurchaseAmount}
+                onChange={handleChange}
+                required
+            />
+          </div>
+          <div className="form-group">
+            <label>사용자 코드</label>
+            <input type="text" value={userCode} readOnly />
+          </div>
+          <button type="submit">쿠폰 생성</button>
+        </form>
+      </div>
   );
 };
 

@@ -11,12 +11,15 @@ const Payment = () => {
   const [deliveryMemo, setDeliveryMemo] = useState('');
   const [customMemo, setCustomMemo] = useState('');
   const [shippingAddress, setShippingAddress] = useState(
-    sessionStorage.getItem('userAddress') || '',
+      sessionStorage.getItem('userAddress') || '',
   );
   const [extraAddress, setExtraAddress] = useState('');
   const [coupons, setCoupons] = useState([]);
   const [selectedCoupon, setSelectedCoupon] = useState(null);
   const navigate = useNavigate();
+
+  // API_URL 환경 변수를 사용
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const jquery = document.createElement('script');
@@ -28,7 +31,7 @@ const Payment = () => {
 
     const daumPostcode = document.createElement('script');
     daumPostcode.src =
-      '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+        '//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
     document.head.appendChild(daumPostcode);
 
     return () => {
@@ -42,14 +45,14 @@ const Payment = () => {
     const fetchCoupons = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/CouponUser/${userCode}`,
+            `${API_URL}/CouponUser/${userCode}`,
         );
         const validCoupons = response.data.filter((coupon) => {
           const currentDate = new Date();
           return (
-            new Date(coupon.issueDate) <= currentDate &&
-            currentDate <= new Date(coupon.expiryDate) &&
-            total >= coupon.minPurchaseAmount
+              new Date(coupon.issueDate) <= currentDate &&
+              currentDate <= new Date(coupon.expiryDate) &&
+              total >= coupon.minPurchaseAmount
           );
         });
         setCoupons(validCoupons);
@@ -92,7 +95,7 @@ const Payment = () => {
     const couponCode = e.target.value;
     if (couponCode) {
       const coupon = coupons.find(
-        (c) => c.couponCode.toString() === couponCode,
+          (c) => c.couponCode.toString() === couponCode,
       );
       setSelectedCoupon(coupon);
     } else {
@@ -102,10 +105,10 @@ const Payment = () => {
 
   const handlePurchase = async () => {
     if (
-      !deliveryMemo ||
-      (deliveryMemo === '기타사항' && !customMemo) ||
-      !shippingAddress ||
-      !extraAddress
+        !deliveryMemo ||
+        (deliveryMemo === '기타사항' && !customMemo) ||
+        !shippingAddress ||
+        !extraAddress
     ) {
       alert('배송메모와 나머지 주소를 모두 입력해주세요.');
       return;
@@ -116,63 +119,63 @@ const Payment = () => {
       IMP.init('imp33740768');
 
       IMP.request_pay(
-        {
-          pg: 'html5_inicis',
-          pay_method: 'card',
-          merchant_uid: new Date().getTime().toString(),
-          name: orderName,
-          amount: 100, //finalPrice,
-          buyer_email: sessionStorage.getItem('userEmail'),
-          buyer_name: sessionStorage.getItem('userName'),
-          buyer_tel: sessionStorage.getItem('userPhone'),
-          buyer_addr: `${shippingAddress} ${extraAddress}`,
-          buyer_postcode: '123-456',
-        },
-        async (rsp) => {
-          if (rsp.success) {
-            try {
-              for (const cart of selectedProducts) {
-                const productCode = parseInt(cart.product.productCode, 10);
-                const { data } = await axios.post(
-                  'http://localhost:8000/verifyIamport/' + rsp.imp_uid,
-                  {
-                    productCode: productCode,
-                    userCode: userCode,
-                  },
-                );
-                if (rsp.paid_amount === data.response.amount) {
-                  const orderData = {
-                    userCode: userCode,
-                    productCode: productCode,
-                    shippingAddress: `${shippingAddress} ${extraAddress}`,
-                    productSize: cart.cartSize,
-                    productColor: cart.cartColor,
-                    request:
-                      deliveryMemo === '기타사항' ? customMemo : deliveryMemo,
-                    couponCode: selectedCoupon
-                      ? selectedCoupon.couponCode
-                      : null,
-                    impUid: rsp.imp_uid,
-                    orderPrice: finalPrice,
-                  };
-                  await axios.post(
-                    'http://localhost:8000/orders/add',
-                    orderData,
+          {
+            pg: 'html5_inicis',
+            pay_method: 'card',
+            merchant_uid: new Date().getTime().toString(),
+            name: orderName,
+            amount: 100, //finalPrice,
+            buyer_email: sessionStorage.getItem('userEmail'),
+            buyer_name: sessionStorage.getItem('userName'),
+            buyer_tel: sessionStorage.getItem('userPhone'),
+            buyer_addr: `${shippingAddress} ${extraAddress}`,
+            buyer_postcode: '123-456',
+          },
+          async (rsp) => {
+            if (rsp.success) {
+              try {
+                for (const cart of selectedProducts) {
+                  const productCode = parseInt(cart.product.productCode, 10);
+                  const { data } = await axios.post(
+                      `${API_URL}/verifyIamport/` + rsp.imp_uid,
+                      {
+                        productCode: productCode,
+                        userCode: userCode,
+                      },
                   );
-                } else {
-                  alert('결제 실패');
+                  if (rsp.paid_amount === data.response.amount) {
+                    const orderData = {
+                      userCode: userCode,
+                      productCode: productCode,
+                      shippingAddress: `${shippingAddress} ${extraAddress}`,
+                      productSize: cart.cartSize,
+                      productColor: cart.cartColor,
+                      request:
+                          deliveryMemo === '기타사항' ? customMemo : deliveryMemo,
+                      couponCode: selectedCoupon
+                          ? selectedCoupon.couponCode
+                          : null,
+                      impUid: rsp.imp_uid,
+                      orderPrice: finalPrice,
+                    };
+                    await axios.post(
+                        `${API_URL}/orders/add`,
+                        orderData,
+                    );
+                  } else {
+                    alert('결제 실패');
+                  }
                 }
+                alert('결제 성공');
+                navigate('/mypage');
+              } catch (error) {
+                console.error('결제 검증 또는 주문 생성 중 오류 발생:', error);
+                alert('결제 실패');
               }
-              alert('결제 성공');
-              navigate('/mypage');
-            } catch (error) {
-              console.error('결제 검증 또는 주문 생성 중 오류 발생:', error);
+            } else {
               alert('결제 실패');
             }
-          } else {
-            alert('결제 실패');
-          }
-        },
+          },
       );
     } catch (error) {
       console.error('상품 결제 중 오류 발생:', error);
@@ -191,7 +194,7 @@ const Payment = () => {
           }
           if (data.buildingName !== '' && data.apartment === 'Y') {
             extraAddr +=
-              extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
+                extraAddr !== '' ? ', ' + data.buildingName : data.buildingName;
           }
           if (extraAddr !== '') {
             extraAddr = ' (' + extraAddr + ')';
@@ -205,150 +208,101 @@ const Payment = () => {
   };
 
   return (
-    <div className="payment-container">
-      <h2 className="payment-title">결제하기</h2>
-      <div className="payment-4">
-        <div className="payment-3">
-          <div className="payment-info-container">
-            <p className="payment-info-p">주문상품정보</p>
-            {selectedProducts.map((cart) => (
-              <div
-                className="Payment-payment-info"
-                key={cart.product.productCode}
-              >
-                <img
-                  src={`http://localhost:8000/getProductImage/${cart.product.productCode}`}
-                  alt={cart.product.productName}
-                  className="Payment-ItemImage"
-                />
-                <div className="Payment-product-info">
-                  <div className="Payment-productName">
-                    {cart.product.productName}
+      <div className="payment-container">
+        <h2 className="payment-title">결제하기</h2>
+        <div className="payment-4">
+          <div className="payment-3">
+            <div className="payment-info-container">
+              <p className="payment-info-p">주문상품정보</p>
+              {selectedProducts.map((cart) => (
+                  <div
+                      className="Payment-payment-info"
+                      key={cart.product.productCode}
+                  >
+                    <img
+                        src={`${API_URL}/getProductImage/${cart.product.productCode}`}
+                        alt={cart.product.productName}
+                        className="Payment-ItemImage"
+                    />
+                    <div className="Payment-product-info">
+                      <div className="Payment-productName">
+                        {cart.product.productName}
+                      </div>
+                      <div className="Payment-productSize">
+                        사이즈: {cart.cartSize}
+                      </div>
+                      <div className="Payment-productColor">
+                        색상: {cart.cartColor}
+                      </div>
+                      <div className="Payment-productQuantity">
+                        수량: {cart.quantity}
+                      </div>
+                      <div className="Payment-productPrice">
+                        가격: {cart.product.productPrice}원
+                      </div>
+                    </div>
                   </div>
-                  <div className="Payment-productSize">
-                    사이즈: {cart.cartSize}
-                  </div>
-                  <div className="Payment-productColor">
-                    색상: {cart.cartColor}
-                  </div>
-                  <div className="Payment-productQuantity">
-                    수량: {cart.quantity}
-                  </div>
-                  <div className="Payment-productPrice">
-                    가격: {cart.product.productPrice}원
-                  </div>
+              ))}
+            </div>
+
+            <div className="Orderer-section">
+              <p className="Orderer-title">주문자정보</p>
+              <div className="OrdererAndButton">
+                <div className="Orderer-info">
+                  <p className="Orderer-Name">
+                    {sessionStorage.getItem('userName')}
+                  </p>
+                  <p className="Orderer-Phone">
+                    {sessionStorage.getItem('userPhone')}
+                  </p>
+                  <p className="Orderer-Email">
+                    {sessionStorage.getItem('userEmail')}
+                  </p>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <div className="Orderer-section">
-            <p className="Orderer-title">주문자정보</p>
-            <div className="OrdererAndButton">
-              <div className="Orderer-info">
-                <p className="Orderer-Name">
-                  {sessionStorage.getItem('userName')}
-                </p>
-                <p className="Orderer-Phone">
-                  {sessionStorage.getItem('userPhone')}
-                </p>
-                <p className="Orderer-Email">
-                  {sessionStorage.getItem('userEmail')}
-                </p>
+                <button className="Orderer-address" onClick={handlePostcode}>
+                  주소입력
+                </button>
               </div>
             </div>
-          </div>
-
-          <div className="Delivery-section">
-            <p className="Delivery-title">배송지 정보</p>
-            <div className="DeliveryAndButton">
-              <div className="  ">
-                <input
-                  type="text"
-                  value={shippingAddress}
-                  readOnly={true}
-                  className="Delivery-address-input"
-                />
-                <input
-                  type="button"
-                  onClick={handlePostcode}
-                  value="우편번호 찾기"
-                />
-                <input
-                  type="text"
-                  placeholder="나머지 주소를 입력하세요"
-                  value={extraAddress}
-                  onChange={(e) => setExtraAddress(e.target.value)}
-                  className="Delivery-extra-address-input"
-                />
-                <select
-                  id="Delivery-ListBox"
-                  name="Delivery-ListBox"
-                  className="Delivery-ListBox-input"
-                  value={deliveryMemo}
-                  onChange={(e) => setDeliveryMemo(e.target.value)}
-                >
-                  <option value="">배송메모를 선택하세요</option>
-                  <option value="문 앞">문 앞</option>
-                  <option value="직접 받고 부재 시 문 앞">
-                    직접 받고 부재 시 문 앞
-                  </option>
-                  <option value="경비실">경비실</option>
-                  <option value="택배함">택배함</option>
-                  <option value="기타사항">기타사항</option>
-                </select>
-                {deliveryMemo === '기타사항' && (
-                  <input
-                    type="text"
-                    placeholder="기타 사항을 입력하세요"
-                    value={customMemo}
-                    className="Delivery-ListBox-input-onother"
-                    onChange={(e) => setCustomMemo(e.target.value)}
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="Final-paymentamount-section">
-          <p className="Final-paymentamount-title">최종 결제금액</p>
-          <div className="Final-paymentamountAndButton">
-            <div className="Final-paymentamount-info">
-              <div className="Final-paymentamount-price">
-                상품가격: {total}원
-              </div>
-              <div className="Final-paymentamount-delivery-fee">
-                배송비: 2500원
-              </div>
-              <div className="Final-paymentamount-discount">
-                <select
+            <div className="Payment-discount-section">
+              <label htmlFor="couponSelect">사용할 쿠폰:</label>
+              <select
+                  id="couponSelect"
                   onChange={handleCouponChange}
                   value={selectedCoupon ? selectedCoupon.couponCode : ''}
-                >
-                  <option value="">쿠폰 선택</option>
-                  {coupons.map((coupon) => (
+              >
+                <option value="">쿠폰 선택</option>
+                {coupons.map((coupon) => (
                     <option key={coupon.couponCode} value={coupon.couponCode}>
-                      - {coupon.discountAmount}원 할인
+                      {coupon.couponName} ({coupon.discountAmount}원 할인)
                     </option>
-                  ))}
-                </select>
-                {selectedCoupon && (
-                  <p>선택된 쿠폰: - {selectedCoupon.discountAmount}원 할인</p>
-                )}
+                ))}
+              </select>
+            </div>
+            <div className="Payment-summary">
+              <div className="Payment-summary-row">
+                <span>총 상품 가격</span>
+                <span>{totalPrice}원</span>
               </div>
-              <div className="Final-payment-total-div">
-                <p className="Final-paymentamount-total">총 결제금액</p>
-                <p className="Final-paymentmount-total-won">{finalPrice}원</p>
+              {selectedCoupon && (
+                  <div className="Payment-summary-row">
+                    <span>쿠폰 할인</span>
+                    <span>-{selectedCoupon.discountAmount}원</span>
+                  </div>
+              )}
+              <div className="Payment-summary-row">
+                <span>최종 결제 금액</span>
+                <span>{finalPrice}원</span>
               </div>
-              <button className="Payment-button" onClick={handlePurchase}>
-                결제
-              </button>
+              <div className="Payment-summary-row">
+                <button className="payment-submit-button" onClick={handlePurchase}>
+                  결제하기
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

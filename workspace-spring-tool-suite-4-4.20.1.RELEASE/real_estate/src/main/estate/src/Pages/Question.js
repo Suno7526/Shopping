@@ -6,6 +6,7 @@ const Question = () => {
   const [activeButton, setActiveButton] = useState('');
   const userCode = sessionStorage.getItem('userCode') || '';
   const [questionType, setQuestionType] = useState('');
+  const API_URL = process.env.REACT_APP_API_URL;
 
   const [question, setQuestion] = useState({
     questionTitle: '',
@@ -22,7 +23,7 @@ const Question = () => {
       try {
         const userCode = sessionStorage.getItem('userCode');
         const response = await axios.get(
-          `http://localhost:8000/getOrdersProduct/${userCode}`,
+            `${API_URL}/getOrdersProduct/${userCode}`,
         );
         const orders = response.data.reverse();
         setOrdersItems(orders);
@@ -32,7 +33,7 @@ const Question = () => {
     };
 
     fetchOrders();
-  }, []);
+  }, [API_URL]);
 
   const handleButtonClick = (buttonName) => {
     setActiveButton(buttonName);
@@ -58,7 +59,7 @@ const Question = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/questions', {
+      const response = await axios.post(`${API_URL}/questions`, {
         questionTitle: question.questionTitle,
         questionContent: question.questionContent,
         questionType: questionType,
@@ -104,119 +105,119 @@ const Question = () => {
   }, []);
 
   return (
-    <div className="Question-page">
-      <article className="Question-Mainpage">
-        <div className="Question-Maintitle">Question</div>
-        <p className="Question-Maintitle-p">☎ 궁금한 내용을 문의해주세요! ☎</p>
-      </article>
-      <div className="Question-content">
-        <form className="question-form contact-form">
-          <div className="Question-type">문의유형</div>
-          <div className="additional-buttons">
-            <button
-              type="button"
-              onClick={() => handleButtonClick('배송')}
-              className={activeButton === '배송' ? 'active' : ''}
-            >
-              배송
-            </button>
-            <button
-              type="button"
-              onClick={() => handleButtonClick('주문/결제')}
-              className={activeButton === '주문/결제' ? 'active' : ''}
-            >
-              주문/결제
-            </button>
-            <button
-              type="button"
-              onClick={() => handleButtonClick('취소/교환/환불')}
-              className={activeButton === '취소/교환/환불' ? 'active' : ''}
-            >
-              취소/교환/환불
-            </button>
-            <button
-              type="button"
-              onClick={() => handleButtonClick('회원정보')}
-              className={activeButton === '회원정보' ? 'active' : ''}
-            >
-              회원정보
-            </button>
-            <button
-              type="button"
-              onClick={() => handleButtonClick('상품확인')}
-              className={activeButton === '상품확인' ? 'active' : ''}
-            >
-              상품확인
-            </button>
-            <button
-              type="button"
-              onClick={() => handleButtonClick('서비스')}
-              className={activeButton === '서비스' ? 'active' : ''}
-            >
-              서비스
-            </button>
-          </div>
-
-          <div className="form-field">
-            <input
-              type="text"
-              id="questionTitle"
-              name="questionTitle"
-              value={question.questionTitle}
-              onChange={handleTitleChange}
-              className="form-field-input-text"
-              required
-            />
-            <label htmlFor="questionTitle" className="label">
-              제목
-            </label>
-          </div>
-
-          <div className="form-field">
-            <label htmlFor="product" className="question-label">
-              어떤 상품에 대한 문의인가요?
-            </label>
-            <select
-              id="product"
-              name="product"
-              value={question.orderCode}
-              onChange={handleOrderChange}
-              className="form-field-input-select-question"
-              required
-            >
-              <option value="" className="question-option">
-                해당사항 없음
-              </option>
-              {ordersItems.map((order) => (
-                <option key={order.product.productCode} value={order.orderCode}>
-                  {order.orderCode}/{order.product.productName}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="questionContent">
-            <div className="form-field">
-              <label htmlFor="questionContent2" className="label2">
-                문의내용
-              </label>
-              <textarea
-                className="form-field-input-textarea"
-                id="questionContent"
-                name="questionContent"
-                rows="4"
-                value={question.questionContent}
-                onChange={handleContentChange}
-                required
-              ></textarea>
+      <div className="Question-page">
+        <article className="Question-Mainpage">
+          <div className="Question-Maintitle">Question</div>
+          <p className="Question-Maintitle-p">☎ 궁금한 내용을 문의해주세요! ☎</p>
+        </article>
+        <div className="Question-content">
+          <form className="question-form contact-form">
+            <div className="Question-type">문의유형</div>
+            <div className="additional-buttons">
+              <button
+                  type="button"
+                  onClick={() => handleButtonClick('배송')}
+                  className={activeButton === '배송' ? 'active' : ''}
+              >
+                배송
+              </button>
+              <button
+                  type="button"
+                  onClick={() => handleButtonClick('주문/결제')}
+                  className={activeButton === '주문/결제' ? 'active' : ''}
+              >
+                주문/결제
+              </button>
+              <button
+                  type="button"
+                  onClick={() => handleButtonClick('취소/교환/환불')}
+                  className={activeButton === '취소/교환/환불' ? 'active' : ''}
+              >
+                취소/교환/환불
+              </button>
+              <button
+                  type="button"
+                  onClick={() => handleButtonClick('회원정보')}
+                  className={activeButton === '회원정보' ? 'active' : ''}
+              >
+                회원정보
+              </button>
+              <button
+                  type="button"
+                  onClick={() => handleButtonClick('상품확인')}
+                  className={activeButton === '상품확인' ? 'active' : ''}
+              >
+                상품확인
+              </button>
+              <button
+                  type="button"
+                  onClick={() => handleButtonClick('서비스')}
+                  className={activeButton === '서비스' ? 'active' : ''}
+              >
+                서비스
+              </button>
             </div>
-          </div>
-          <button type="button" className="submit-btn" onClick={handleSubmit}>
-            문의하기
-          </button>
-        </form>
+
+            <div className="form-field">
+              <input
+                  type="text"
+                  id="questionTitle"
+                  name="questionTitle"
+                  value={question.questionTitle}
+                  onChange={handleTitleChange}
+                  className="form-field-input-text"
+                  required
+              />
+              <label htmlFor="questionTitle" className="label">
+                제목
+              </label>
+            </div>
+
+            <div className="form-field">
+              <label htmlFor="product" className="question-label">
+                어떤 상품에 대한 문의인가요?
+              </label>
+              <select
+                  id="product"
+                  name="product"
+                  value={question.orderCode}
+                  onChange={handleOrderChange}
+                  className="form-field-input-select-question"
+                  required
+              >
+                <option value="" className="question-option">
+                  해당사항 없음
+                </option>
+                {ordersItems.map((order) => (
+                    <option key={order.product.productCode} value={order.orderCode}>
+                      {order.orderCode}/{order.product.productName}
+                    </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="questionContent">
+              <div className="form-field">
+                <label htmlFor="questionContent2" className="label2">
+                  문의내용
+                </label>
+                <textarea
+                    className="form-field-input-textarea"
+                    id="questionContent"
+                    name="questionContent"
+                    rows="4"
+                    value={question.questionContent}
+                    onChange={handleContentChange}
+                    required
+                ></textarea>
+              </div>
+            </div>
+            <button type="button" className="submit-btn" onClick={handleSubmit}>
+              문의하기
+            </button>
+          </form>
+        </div>
       </div>
-    </div>
   );
 };
 

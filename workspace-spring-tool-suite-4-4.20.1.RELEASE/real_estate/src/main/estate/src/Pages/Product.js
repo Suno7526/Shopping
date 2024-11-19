@@ -27,6 +27,8 @@ const Product = () => {
   const [isModalOpen, setIsModalOpen] = useState(false); // State to manage modal visibility
   const [selectedImageUrl, setSelectedImageUrl] = useState(''); // State to hold the selected image URL
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
   const handleImageClick = (imageUrl) => {
     setSelectedImageUrl(imageUrl); // Set the selected image URL
     setIsModalOpen(true); // Open the modal
@@ -37,7 +39,7 @@ const Product = () => {
     const fetchProductImages = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getProductImages/${productCode}`,
+          `${API_URL}/getProductImages/${productCode}`,
           {
             responseType: 'json', // JSON 형태로 받아옵니다.
           },
@@ -107,7 +109,7 @@ const Product = () => {
     const fetchProduct = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getProduct/${productCode}`,
+          `${API_URL}/getProduct/${productCode}`,
         );
         setProduct(response.data);
         // checkLiked(response.data);
@@ -119,7 +121,7 @@ const Product = () => {
     const fetchReviews = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getReviews/${productCode}`,
+          `${API_URL}/getReviews/${productCode}`,
         );
         setReviews(response.data);
         calculateAverageReviewPoint(response.data);
@@ -137,7 +139,7 @@ const Product = () => {
       const fetchReviewImages = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:8000/getReviewImages/${review.reviewCode}`,
+            `${API_URL}/getReviewImages/${review.reviewCode}`,
             { responseType: 'json' },
           );
           // Map each review to its images
@@ -158,7 +160,7 @@ const Product = () => {
     const fetchLikedStatus = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/getLikeProduct/${userCode}`,
+          `${API_URL}/getLikeProduct/${userCode}`,
         );
         const likedProducts = response.data;
         const found = likedProducts.some(
@@ -188,7 +190,7 @@ const Product = () => {
         return;
       }
 
-      await axios.post('http://localhost:8000/like', {
+      await axios.post(`${API_URL}/like`, {
         userCode: userCode,
         productCode: productCode,
       });
@@ -216,7 +218,7 @@ const Product = () => {
         return;
       }
 
-      await axios.post('http://localhost:8000/addToCart', {
+      await axios.post(`${API_URL}/addToCart`, {
         userCode: userCode,
         productCode: productCode,
         cartSize: selectedSize,
@@ -308,7 +310,7 @@ const Product = () => {
     alert('수정된 내용을 저장합니다: ' + editorContent);
     try {
       const response = await axios.put(
-        `http://localhost:8000/updateContent/${productCode}`, // URL에서 editorContent 제거
+        `${API_URL}/updateContent/${productCode}`, // URL에서 editorContent 제거
         editorContent, // 요청 본문에 editorContent 추가
         {
           headers: {

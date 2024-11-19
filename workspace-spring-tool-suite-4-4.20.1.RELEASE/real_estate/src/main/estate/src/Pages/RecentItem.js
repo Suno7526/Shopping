@@ -7,6 +7,7 @@ import { Link, useNavigate } from 'react-router-dom';
 const RecentItem = () => {
   const [recentProducts, setRecentProducts] = useState([]);
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchRecentProducts = async () => {
@@ -14,15 +15,15 @@ const RecentItem = () => {
         const userCode = sessionStorage.getItem('userCode');
         if (userCode) {
           const response = await axios.get(
-            `http://localhost:8000/getViewedProduct/${userCode}`,
+              `${API_URL}/getViewedProduct/${userCode}`,
           );
           // 중복된 상품을 제거하고 가장 최근에 본 상품만 남기기
           const uniqueProducts = response.data.reduce((acc, product) => {
             if (
-              !acc.find(
-                (item) =>
-                  item.product.productCode === product.product.productCode,
-              )
+                !acc.find(
+                    (item) =>
+                        item.product.productCode === product.product.productCode,
+                )
             ) {
               acc.push(product);
             }
@@ -40,7 +41,7 @@ const RecentItem = () => {
     };
 
     fetchRecentProducts();
-  }, []);
+  }, [API_URL]);
 
   const addToCart = (product) => {
     navigate(`/product/${product.productCode}`);
@@ -51,52 +52,52 @@ const RecentItem = () => {
   };
 
   return (
-    <div className="RecentItem-page">
-      <Aside />
-      <article>
-        <h2>
-          <div className="RecentProduct">최근 본 상품</div>
-        </h2>
-        <div className="RecentProcutMainImage"></div>
-      </article>
-      <section className="Recentsection">
-        <div className="recentProductsContainer">
-          {recentProducts.length > 0 ? (
-            recentProducts.map((product) =>
-              product && product.product ? (
-                <div className="recentProductCard" key={product.viewCode}>
-                  <Link to={`/product/${product.product.productCode}`}>
-                    <img
-                      src={`http://localhost:8000/getProductImage/${product.product.productCode}`}
-                      alt={product.product.productName}
-                      className="recentproductImage"
-                    />
-                  </Link>
-                  <div className="recentproductInfo">
-                    <div>
-                      {product.product.companyName} <br></br>상품 명 :{' '}
-                      {product.product.productName}
-                    </div>
-                    <div>판매가 : {product.product.productPrice}</div>
-                    <div className="RecentItem-button-container">
-                      <Link to={`/product/${product.product.productCode}`}>
-                        <button className="RecentCartBtn">페이지로 이동</button>
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div key={product.viewCode} className="recentProductCard">
-                  상품 정보가 없습니다.
-                </div>
-              ),
-            )
-          ) : (
-            <div className="no-RecentItem">최근 본 상품이 없습니다.</div>
-          )}
-        </div>
-      </section>
-    </div>
+      <div className="RecentItem-page">
+        <Aside />
+        <article>
+          <h2>
+            <div className="RecentProduct">최근 본 상품</div>
+          </h2>
+          <div className="RecentProcutMainImage"></div>
+        </article>
+        <section className="Recentsection">
+          <div className="recentProductsContainer">
+            {recentProducts.length > 0 ? (
+                recentProducts.map((product) =>
+                    product && product.product ? (
+                        <div className="recentProductCard" key={product.viewCode}>
+                          <Link to={`/product/${product.product.productCode}`}>
+                            <img
+                                src={`${API_URL}/getProductImage/${product.product.productCode}`}
+                                alt={product.product.productName}
+                                className="recentproductImage"
+                            />
+                          </Link>
+                          <div className="recentproductInfo">
+                            <div>
+                              {product.product.companyName} <br></br>상품 명 :{' '}
+                              {product.product.productName}
+                            </div>
+                            <div>판매가 : {product.product.productPrice}</div>
+                            <div className="RecentItem-button-container">
+                              <Link to={`/product/${product.product.productCode}`}>
+                                <button className="RecentCartBtn">페이지로 이동</button>
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                    ) : (
+                        <div key={product.viewCode} className="recentProductCard">
+                          상품 정보가 없습니다.
+                        </div>
+                    ),
+                )
+            ) : (
+                <div className="no-RecentItem">최근 본 상품이 없습니다.</div>
+            )}
+          </div>
+        </section>
+      </div>
   );
 };
 

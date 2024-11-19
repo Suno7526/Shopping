@@ -17,6 +17,7 @@ const ProductUpdate = () => {
   });
   const [editingProduct, setEditingProduct] = useState(null);
   const navigate = useNavigate();
+  const API_URL = process.env.REACT_APP_API_URL; // Access the API URL from environment variable
 
   useEffect(() => {
     fetchProducts();
@@ -24,7 +25,7 @@ const ProductUpdate = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/getProducts');
+      const response = await axios.get(`${API_URL}/getProducts`); // Use API_URL here
       setProducts(response.data);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -46,8 +47,8 @@ const ProductUpdate = () => {
   const handleSaveClick = async () => {
     try {
       await axios.put(
-        `http://localhost:8000/updateProduct/${editingProduct.productCode}`,
-        editingProduct,
+          `${API_URL}/updateProduct/${editingProduct.productCode}`, // Use API_URL here
+          editingProduct,
       );
       setEditingProduct(null);
       fetchProducts();
@@ -63,79 +64,79 @@ const ProductUpdate = () => {
 
   const filteredProducts = products.filter((product) => {
     return (
-      (searchParams.productCode === '' ||
-        product.productCode.includes(searchParams.productCode)) &&
-      (searchParams.productName === '' ||
-        product.productName.includes(searchParams.productName)) &&
-      (searchParams.companyName === '' ||
-        product.companyName.includes(searchParams.companyName)) &&
-      (searchParams.productStuck === '' ||
-        product.productStuck.toString().includes(searchParams.productStuck)) &&
-      (searchParams.productPrice === '' ||
-        product.productPrice.toString().includes(searchParams.productPrice)) &&
-      (searchParams.category === '' ||
-        product.category.includes(searchParams.category)) &&
-      (searchParams.discountRate === '' ||
-        product.discountRate.toString().includes(searchParams.discountRate))
+        (searchParams.productCode === '' ||
+            product.productCode.includes(searchParams.productCode)) &&
+        (searchParams.productName === '' ||
+            product.productName.includes(searchParams.productName)) &&
+        (searchParams.companyName === '' ||
+            product.companyName.includes(searchParams.companyName)) &&
+        (searchParams.productStuck === '' ||
+            product.productStuck.toString().includes(searchParams.productStuck)) &&
+        (searchParams.productPrice === '' ||
+            product.productPrice.toString().includes(searchParams.productPrice)) &&
+        (searchParams.category === '' ||
+            product.category.includes(searchParams.category)) &&
+        (searchParams.discountRate === '' ||
+            product.discountRate.toString().includes(searchParams.discountRate))
     );
   });
 
   return (
-    <div className="product-update-container">
-      <ManageAside />
-      <div className="search-filters">
-        <input
-          type="text"
-          name="productCode"
-          placeholder="Search by Product Code"
-          value={searchParams.productCode}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="productName"
-          placeholder="Search by Product Name"
-          value={searchParams.productName}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="companyName"
-          placeholder="Search by Company Name"
-          value={searchParams.companyName}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="productStuck"
-          placeholder="Search by Product Stuck"
-          value={searchParams.productStuck}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="productPrice"
-          placeholder="Search by Product Price"
-          value={searchParams.productPrice}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Search by Category"
-          value={searchParams.category}
-          onChange={handleSearchChange}
-        />
-        <input
-          type="text"
-          name="discountRate"
-          placeholder="Search by Discount Rate"
-          value={searchParams.discountRate}
-          onChange={handleSearchChange}
-        />
-      </div>
-      <table className="product-table">
-        <thead>
+      <div className="product-update-container">
+        <ManageAside />
+        <div className="search-filters">
+          <input
+              type="text"
+              name="productCode"
+              placeholder="Search by Product Code"
+              value={searchParams.productCode}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="productName"
+              placeholder="Search by Product Name"
+              value={searchParams.productName}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="companyName"
+              placeholder="Search by Company Name"
+              value={searchParams.companyName}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="productStuck"
+              placeholder="Search by Product Stuck"
+              value={searchParams.productStuck}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="productPrice"
+              placeholder="Search by Product Price"
+              value={searchParams.productPrice}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="category"
+              placeholder="Search by Category"
+              value={searchParams.category}
+              onChange={handleSearchChange}
+          />
+          <input
+              type="text"
+              name="discountRate"
+              placeholder="Search by Discount Rate"
+              value={searchParams.discountRate}
+              onChange={handleSearchChange}
+          />
+        </div>
+        <table className="product-table">
+          <thead>
           <tr>
             <th style={{ width: '12%' }}>상품 번호</th>
             <th style={{ width: '12%' }}>상품명</th>
@@ -146,103 +147,103 @@ const ProductUpdate = () => {
             <th style={{ width: '12%' }}>할인률</th>
             <th style={{ width: '12%' }}>수정하기</th>
           </tr>
-        </thead>
-        <tbody>
+          </thead>
+          <tbody>
           {filteredProducts.map((product) => (
-            <tr key={product.productCode}>
-              <td>{product.productCode}</td>
+              <tr key={product.productCode}>
+                <td>{product.productCode}</td>
 
-              <td>
-                {editingProduct &&
-                editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="text"
-                    name="productName"
-                    value={editingProduct.productName}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  product.productName
-                )}
-              </td>
-              <td>
-                {editingProduct &&
-                editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="text"
-                    name="companyName"
-                    value={editingProduct.companyName}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  product.companyName
-                )}
-              </td>
-              <td>
-                {editingProduct &&
-                editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="number"
-                    name="productStuck"
-                    value={editingProduct.productStuck}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  product.productStuck
-                )}
-              </td>
-              <td>
-                {editingProduct &&
-                editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="number"
-                    name="productPrice"
-                    value={editingProduct.productPrice}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  product.productPrice
-                )}
-              </td>
-              <td>
-                {editingProduct &&
-                editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="text"
-                    name="category"
-                    value={editingProduct.category}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  product.category
-                )}
-              </td>
-              <td>
-                {editingProduct &&
-                editingProduct.productCode === product.productCode ? (
-                  <input
-                    type="number"
-                    name="discountRate"
-                    value={editingProduct.discountRate}
-                    onChange={handleInputChange}
-                  />
-                ) : (
-                  product.discountRate
-                )}
-              </td>
-              <td>
-                {editingProduct &&
-                editingProduct.productCode === product.productCode ? (
-                  <button onClick={handleSaveClick}>Save</button>
-                ) : (
-                  <button onClick={() => handleEditClick(product)}>Edit</button>
-                )}
-              </td>
-            </tr>
+                <td>
+                  {editingProduct &&
+                  editingProduct.productCode === product.productCode ? (
+                      <input
+                          type="text"
+                          name="productName"
+                          value={editingProduct.productName}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      product.productName
+                  )}
+                </td>
+                <td>
+                  {editingProduct &&
+                  editingProduct.productCode === product.productCode ? (
+                      <input
+                          type="text"
+                          name="companyName"
+                          value={editingProduct.companyName}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      product.companyName
+                  )}
+                </td>
+                <td>
+                  {editingProduct &&
+                  editingProduct.productCode === product.productCode ? (
+                      <input
+                          type="number"
+                          name="productStuck"
+                          value={editingProduct.productStuck}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      product.productStuck
+                  )}
+                </td>
+                <td>
+                  {editingProduct &&
+                  editingProduct.productCode === product.productCode ? (
+                      <input
+                          type="number"
+                          name="productPrice"
+                          value={editingProduct.productPrice}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      product.productPrice
+                  )}
+                </td>
+                <td>
+                  {editingProduct &&
+                  editingProduct.productCode === product.productCode ? (
+                      <input
+                          type="text"
+                          name="category"
+                          value={editingProduct.category}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      product.category
+                  )}
+                </td>
+                <td>
+                  {editingProduct &&
+                  editingProduct.productCode === product.productCode ? (
+                      <input
+                          type="number"
+                          name="discountRate"
+                          value={editingProduct.discountRate}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      product.discountRate
+                  )}
+                </td>
+                <td>
+                  {editingProduct &&
+                  editingProduct.productCode === product.productCode ? (
+                      <button onClick={handleSaveClick}>Save</button>
+                  ) : (
+                      <button onClick={() => handleEditClick(product)}>Edit</button>
+                  )}
+                </td>
+              </tr>
           ))}
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
   );
 };
 

@@ -9,19 +9,20 @@ const Cart = () => {
   const navigate = useNavigate();
   const userCode = sessionStorage.getItem('userCode');
 
+  // 환경 변수에서 API URL 가져오기
+  const API_URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchCartItems = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:8000/cart/${userCode}`,
-        );
+        const response = await axios.get(`${API_URL}/cart/${userCode}`);
         const uniqueProducts = [];
         response.data.forEach((item) => {
           const existingProductIndex = uniqueProducts.findIndex(
-            (product) =>
-              product.product.productCode === item.product.productCode &&
-              product.cartColor === item.cartColor &&
-              product.cartSize === item.cartSize,
+              (product) =>
+                  product.product.productCode === item.product.productCode &&
+                  product.cartColor === item.cartColor &&
+                  product.cartSize === item.cartSize,
           );
           if (existingProductIndex !== -1) {
             uniqueProducts[existingProductIndex].quantity += 1;
@@ -52,15 +53,13 @@ const Cart = () => {
       document.head.removeChild(jquery);
       document.head.removeChild(iamport);
     };
-  }, [userCode]);
+  }, [API_URL, userCode]);
 
   const handleDeleteItem = async (productCode) => {
     try {
-      await axios.delete(
-        `http://localhost:8000/deleteCartItem/${userCode}/${productCode}`,
-      );
+      await axios.delete(`${API_URL}/deleteCartItem/${userCode}/${productCode}`);
       const updatedCartItems = cartItems.filter(
-        (item) => item.product.productCode !== productCode,
+          (item) => item.product.productCode !== productCode,
       );
       setCartItems(updatedCartItems);
       alert('상품을 삭제했습니다.');
@@ -76,17 +75,17 @@ const Cart = () => {
 
   const handleCheckboxChange = (product) => {
     setSelectedProducts((prevSelected) =>
-      prevSelected.includes(product)
-        ? prevSelected.filter((item) => item !== product)
-        : [...prevSelected, product],
+        prevSelected.includes(product)
+            ? prevSelected.filter((item) => item !== product)
+            : [...prevSelected, product],
     );
   };
 
   const handleQuantityChange = (cartCode, newQuantity) => {
     setCartItems((prevItems) =>
-      prevItems.map((item) =>
-        item.cartCode === cartCode ? { ...item, quantity: newQuantity } : item,
-      ),
+        prevItems.map((item) =>
+            item.cartCode === cartCode ? { ...item, quantity: newQuantity } : item,
+        ),
     );
   };
 
@@ -99,122 +98,122 @@ const Cart = () => {
   };
 
   const totalProductsPrice = cartItems
-    .filter((item) => selectedProducts.includes(item))
-    .reduce((acc, item) => acc + item.product.productPrice * item.quantity, 0);
+      .filter((item) => selectedProducts.includes(item))
+      .reduce((acc, item) => acc + item.product.productPrice * item.quantity, 0);
 
   const totalDiscount = cartItems
-    .filter((item) => selectedProducts.includes(item))
-    .reduce(
-      (acc, item) =>
-        acc +
-        item.product.productPrice *
-          item.quantity *
-          (item.product.discountRate / 100),
-      0,
-    );
+      .filter((item) => selectedProducts.includes(item))
+      .reduce(
+          (acc, item) =>
+              acc +
+              item.product.productPrice *
+              item.quantity *
+              (item.product.discountRate / 100),
+          0,
+      );
 
   const totalAmount = totalProductsPrice - totalDiscount;
 
   return (
-    <div>
-      <div
-        className="Cart-div"
-        style={{ marginLeft: '50px', marginRight: '50px' }}
-      >
-        <div className="Cart-Maintitle">장바구니</div>
-        <div className="Cart-MainImage"></div>
-        {cartItems.length === 0 ? (
-          <div className="Cart-empty-message">장바구니가 비어있습니다.</div>
-        ) : (
-          <>
-            <table className="cart-table">
-              <thead>
-                <tr>
-                  <th>Image</th>
-                  <th>Product</th>
-                  <th>Price</th>
-                  <th>Quantity</th>
-                  <th>Total</th>
-                  <th>Remove</th>
-                  <th>Select</th>
-                </tr>
-              </thead>
-              <tbody>
-                {cartItems.map((item) => (
-                  <tr key={item.cartCode}>
-                    <td className="cart-product-image">
-                      <Link to={`/product/${item.product.productCode}`}>
-                        <img
-                          src={`http://localhost:8000/getProductImage/${item.product.productCode}`}
-                          alt={item.product.productName}
-                        />
-                      </Link>
-                    </td>
-                    <td className="cart-product-details">
-                      {item.product.productName} / 색상 : {item.cartColor} /
-                      사이즈 : {item.cartSize}
-                    </td>
-                    <td className="cart-product-price">
-                      {item.product.productPrice}원
-                    </td>
-                    <td className="cart-product-quantity">
-                      <input
-                        type="number"
-                        value={item.quantity}
-                        min="1"
-                        onChange={(e) =>
-                          handleQuantityChange(
-                            item.cartCode,
-                            parseInt(e.target.value),
-                          )
-                        }
-                      />
-                    </td>
-                    <td className="cart-product-line-price">
-                      {item.product.productPrice * item.quantity}원
-                    </td>
-                    <td className="cart-product-removal">
-                      <button
-                        className="cart-remove-product"
-                        onClick={() =>
-                          handleDeleteItem(item.product.productCode)
-                        }
-                      >
-                        Remove
-                      </button>
-                    </td>
-                    <td className="cart-product-checkbox">
-                      <input
-                        type="checkbox"
-                        checked={selectedProducts.includes(item)}
-                        onChange={() => handleCheckboxChange(item)}
-                        style={{ transform: 'scale(1.5)' }}
-                      />
-                    </td>
+      <div>
+        <div
+            className="Cart-div"
+            style={{ marginLeft: '50px', marginRight: '50px' }}
+        >
+          <div className="Cart-Maintitle">장바구니</div>
+          <div className="Cart-MainImage"></div>
+          {cartItems.length === 0 ? (
+              <div className="Cart-empty-message">장바구니가 비어있습니다.</div>
+          ) : (
+              <>
+                <table className="cart-table">
+                  <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Total</th>
+                    <th>Remove</th>
+                    <th>Select</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="cart-totals">
-              <div className="cart-totals-item">
-                <label>총상품금액</label>
-                {totalProductsPrice}원
-              </div>
-              <div className="cart-totals-item">
-                <label>할인금액</label>- {totalDiscount}원
-              </div>
-              <div className="cart-totals-item cart-totals-item-total">
-                <label>총합계</label>
-                {totalAmount}원
-              </div>
-              <button className="purchase-button" onClick={handlePurchase}>
-                결제하기
-              </button>
-            </div>
-          </>
-        )}
+                  </thead>
+                  <tbody>
+                  {cartItems.map((item) => (
+                      <tr key={item.cartCode}>
+                        <td className="cart-product-image">
+                          <Link to={`/product/${item.product.productCode}`}>
+                            <img
+                                src={`${API_URL}/getProductImage/${item.product.productCode}`}
+                                alt={item.product.productName}
+                            />
+                          </Link>
+                        </td>
+                        <td className="cart-product-details">
+                          {item.product.productName} / 색상 : {item.cartColor} /
+                          사이즈 : {item.cartSize}
+                        </td>
+                        <td className="cart-product-price">
+                          {item.product.productPrice}원
+                        </td>
+                        <td className="cart-product-quantity">
+                          <input
+                              type="number"
+                              value={item.quantity}
+                              min="1"
+                              onChange={(e) =>
+                                  handleQuantityChange(
+                                      item.cartCode,
+                                      parseInt(e.target.value),
+                                  )
+                              }
+                          />
+                        </td>
+                        <td className="cart-product-line-price">
+                          {item.product.productPrice * item.quantity}원
+                        </td>
+                        <td className="cart-product-removal">
+                          <button
+                              className="cart-remove-product"
+                              onClick={() =>
+                                  handleDeleteItem(item.product.productCode)
+                              }
+                          >
+                            Remove
+                          </button>
+                        </td>
+                        <td className="cart-product-checkbox">
+                          <input
+                              type="checkbox"
+                              checked={selectedProducts.includes(item)}
+                              onChange={() => handleCheckboxChange(item)}
+                              style={{ transform: 'scale(1.5)' }}
+                          />
+                        </td>
+                      </tr>
+                  ))}
+                  </tbody>
+                </table>
+                <div className="cart-totals">
+                  <div className="cart-totals-item">
+                    <label>총상품금액</label>
+                    {totalProductsPrice}원
+                  </div>
+                  <div className="cart-totals-item">
+                    <label>할인금액</label>- {totalDiscount}원
+                  </div>
+                  <div className="cart-totals-item cart-totals-item-total">
+                    <label>총합계</label>
+                    {totalAmount}원
+                  </div>
+                  <button className="purchase-button" onClick={handlePurchase}>
+                    결제하기
+                  </button>
+                </div>
+              </>
+          )}
+        </div>
       </div>
-    </div>
   );
 };
 

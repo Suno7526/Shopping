@@ -7,11 +7,13 @@ const Search = () => {
   const { query } = useParams(); // URL에서 검색어 가져오기
   const [products, setProducts] = useState(null);
 
+  const API_URL = process.env.REACT_APP_API_URL; // Define API_URL here
+
   useEffect(() => {
     const fetchSearchResults = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/searchProducts/${query}`,
+            `${API_URL}/searchProducts/${query}`, // 사용한 API_URL
         ); // 검색어를 서버로 전달
         setProducts(response.data.sort((a, b) => b.viewCount - a.viewCount)); // 조회수 순으로 정렬
       } catch (error) {
@@ -24,7 +26,7 @@ const Search = () => {
     } else {
       setProducts(null); // 검색어가 없으면 검색 결과 초기화
     }
-  }, [query]);
+  }, [query, API_URL]);
 
   const handleClickProduct = (productCode) => {
     const userCode = sessionStorage.getItem('userCode');
@@ -40,57 +42,57 @@ const Search = () => {
   }
 
   return (
-    <div>
-      <div id="Category-recommended-properties">
-        <div className="Search-item">Search</div>
-        <div className="Secend-Category-item">Item</div>
-        <div className="Category-item-line"></div>
+      <div>
+        <div id="Category-recommended-properties">
+          <div className="Search-item">Search</div>
+          <div className="Secend-Category-item">Item</div>
+          <div className="Category-item-line"></div>
 
-        <div id="Category-guides-properties">
-          <div className="Category-guides-section">
-            {products.length > 0 ? (
-              products.map((product, index) => (
-                <div
-                  className="Category-guides-card"
-                  data-rank={index + 1}
-                  key={product.productCode}
-                >
-                  <Link to={`/product/${product.productCode}`}>
-                    <img
-                      src={`http://localhost:8000/getProductImage/${product.productCode}`}
-                      alt={`코디 ${product.productCode}`}
-                      className="property-image"
-                      onClick={() => handleClickProduct(product.productCode)}
-                    />
-                  </Link>
+          <div id="Category-guides-properties">
+            <div className="Category-guides-section">
+              {products.length > 0 ? (
+                  products.map((product, index) => (
+                      <div
+                          className="Category-guides-card"
+                          data-rank={index + 1}
+                          key={product.productCode}
+                      >
+                        <Link to={`/product/${product.productCode}`}>
+                          <img
+                              src={`${API_URL}/getProductImage/${product.productCode}`} // 사용한 API_URL
+                              alt={`코디 ${product.productCode}`}
+                              className="property-image"
+                              onClick={() => handleClickProduct(product.productCode)}
+                          />
+                        </Link>
 
-                  <div className="Category-product-info">
-                    <div>{product.companyName}</div>
-                    <div className="Category-productName">
-                      {product.productName}
-                    </div>
-                    <div className="Category-productPrice">
-                      {product.productPrice}
-                    </div>
+                        <div className="Category-product-info">
+                          <div>{product.companyName}</div>
+                          <div className="Category-productName">
+                            {product.productName}
+                          </div>
+                          <div className="Category-productPrice">
+                            {product.productPrice}
+                          </div>
 
-                    <div className="Category-viewCount">
-                      <img
-                        src="https://i.postimg.cc/XNRxQKLY/download.png"
-                        className="views-icon"
-                        alt="조회수"
-                      />
-                      {product.viewCount}
-                    </div>
-                  </div>
-                </div>
-              ))
-            ) : (
-              <p>검색 결과가 없습니다.</p>
-            )}
+                          <div className="Category-viewCount">
+                            <img
+                                src="https://i.postimg.cc/XNRxQKLY/download.png"
+                                className="views-icon"
+                                alt="조회수"
+                            />
+                            {product.viewCount}
+                          </div>
+                        </div>
+                      </div>
+                  ))
+              ) : (
+                  <p>검색 결과가 없습니다.</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
