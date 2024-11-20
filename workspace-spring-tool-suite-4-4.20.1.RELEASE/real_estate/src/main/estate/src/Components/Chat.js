@@ -24,6 +24,9 @@ function Chat() {
     }
   };
 
+  const API_URL = process.env.REACT_APP_API_URL;
+
+
   const connect = () => {
     const socket = new WebSocket('ws://localhost:8000/ws');
     stompClient.current = Stomp.over(socket);
@@ -45,7 +48,7 @@ function Chat() {
   // 메시지 가져오기 메소드 변환
   const fetchMessages = async () => {
     try {
-      const response = await axios.get(`http://localhost:8000/chat/${roomId}`);
+      const response = await axios.get(`${API_URL}/chat/${roomId}`);
       setMessages(response.data);
     } catch (error) {
       console.error('Failed to fetch messages:', error);
@@ -55,7 +58,7 @@ function Chat() {
   // 채팅방 목록 가져오기 메소드 변환
   const fetchChatRooms = async () => {
     try {
-      const response = await axios.get('http://localhost:8000/chatrooms');
+      const response = await axios.get(`${API_URL}/chatrooms`);
       setChatRooms(response.data);
     } catch (error) {
       console.error('Failed to fetch chat rooms:', error);
@@ -67,7 +70,7 @@ function Chat() {
     const room = { name: '새 채팅방' };
     try {
       const response = await axios.post(
-        'http://localhost:8000/chatrooms',
+        `${API_URL}/chatrooms`,
         room,
       );
       console.log('채팅방 생성 성공:', response.data);
@@ -139,19 +142,17 @@ function Chat() {
         <div className="message-area" ref={messageAreaRef}>
           <ul>
             {messages.map((item, index) => (
-              <li
-                key={index}
-                className={`message ${
-                  item.user.isSender ? 'sender' : 'receiver'
-                }`}
-              >
-                <div className="usernameDiv">
-                  <div className="username">
-                    {formatSenderName(item.user.name)}
+                <li
+                    key={index}
+                    className={`message ${item.user && item.user.isSender ? 'sender' : 'receiver'}`} // Check if item.user exists
+                >
+                  <div className="usernameDiv">
+                    <div className="username">
+                      {formatSenderName(item.user ? item.user.name : 'Unknown')} {/* Ensure item.user exists */}
+                    </div>
                   </div>
-                </div>
-                <div className="text">{item.message}</div>
-              </li>
+                  <div className="text">{item.message}</div>
+                </li>
             ))}
           </ul>
         </div>
