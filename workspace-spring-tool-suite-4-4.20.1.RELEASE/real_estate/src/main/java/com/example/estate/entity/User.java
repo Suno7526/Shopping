@@ -39,7 +39,7 @@ public class User {
     private String userGrade = "BRONZE"; // Java에서 기본값 설정
 
     @Enumerated(EnumType.STRING)
-    private RoleType role = RoleType.USER; // 기본 값을 USER로 설정
+    private RoleType role = RoleType.USER;
 
     @CreationTimestamp
     private Timestamp createDate;
