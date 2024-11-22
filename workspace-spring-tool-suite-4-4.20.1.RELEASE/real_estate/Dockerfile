@@ -5,7 +5,7 @@ FROM openjdk:17-jdk-slim
 WORKDIR /real_estate
 
 # JAR 파일을 컨테이너에 복사(jar파일이 하나만 생기도록 설정해줘야 함.)
-COPY build/libs/*.jar real_estate.jar
+COPY build/libs/*.jar real_estate-0.0.1-SNAPSHOT.jar
 
 # 포트 설정
 EXPOSE 8000
