@@ -1,11 +1,16 @@
-FROM node:16-alpine as builder
-WORKDIR /usr/src/estate
+FROM node:16 AS builder
+WORKDIR /estate
 COPY package.json .
 RUN npm install
-COPY ./ ./
+
+COPY . .
 RUN npm run build
 
-FROM nginx
-EXPOSE 3000
-COPY ./default.conf /etc/nginx/conf.d/default.conf
-COPY --from=builder usr/src/estate/build  /usr/share/nginx/html
+FROM nginx:latest
+RUN rm /etc/nginx/conf.d/default.conf
+RUN rm -rf /etc/nginx/conf.d/*
+COPY ./nginx.conf /etc/nginx/conf.d/
+
+COPY --from=builder frontend/build /usr/share/nginx/html
+EXPOSE 80
+CMD [ "nginx", "-g", "daemon off;"]
