@@ -14,8 +14,7 @@ const UserLogin = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const location = useLocation();
-  const previousPath = location.state?.from?.pathname || '/Home';
+  const location = useLocation()
 
   const API_URL = process.env.REACT_APP_API_URL; // Define API_URL here
 
@@ -42,7 +41,7 @@ const UserLogin = () => {
           sessionStorage.setItem('userRole', userData.role);
           sessionStorage.setItem('userPhone', userData.phoneNumber);
           // Redirect to previous page or Home page
-          navigate(previousPath);
+          navigate("/");
           window.location.reload(); // 페이지 새로고침
         } else {
           alert('로그인 실패');
