@@ -154,6 +154,7 @@ function App() {
       )}
 
       <Routes>
+          <Route path="/" element={<Home />} />
         <Route path="/Like" element={<Like />} />
         <Route path="/RecentItem" element={<RecentItem />} />
         <Route path="/UserLogin" element={<UserLogin />} />
