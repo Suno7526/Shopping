@@ -23,7 +23,7 @@ const Refund = () => {
   });
   const [editingOrder, setEditingOrder] = useState(null);
   const navigate = useNavigate();
-  const API_URL = process.env.REACT_APP_API_URL;  // Get API URL from environment variable
+  const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     fetchNonInitialRefundOrders();
@@ -36,11 +36,15 @@ const Refund = () => {
   const fetchNonInitialRefundOrders = async () => {
     try {
       const response = await axios.get(`${API_URL}/getNonInitialRefundOrders`);
-      setOrders(response.data);
+      const sortedOrders = response.data.sort((a, b) => {
+        return new Date(b.orderDate) - new Date(a.orderDate);
+      });
+      setOrders(sortedOrders);
     } catch (error) {
       console.error('Error fetching orders:', error);
     }
   };
+
 
   const handleSearchChange = (e) => {
     const { name, value } = e.target;
@@ -110,7 +114,7 @@ const Refund = () => {
 
   const searchOrders = async () => {
     try {
-      const response = await axios.get(`${API_URL}/orderSearch`, {
+      const response = await axios.get('${API_URL}/orderSearch', {
         params: searchParams,
       });
       setOrders(response.data);
@@ -159,13 +163,6 @@ const Refund = () => {
       <div className="product-update-container">
         <ManageAside />
         <div className="search-filters">
-          <input
-              type="text"
-              name="orderCode"
-              placeholder="Search by Order Code"
-              value={searchParams.orderCode}
-              onChange={handleSearchChange}
-          />
           <input
               type="text"
               name="userCode"
@@ -256,10 +253,10 @@ const Refund = () => {
         <table className="product-table">
           <thead>
           <tr>
-            <th style={{ width: '4.9%' }}>주문코드</th>
-            <th style={{ width: '4.9%' }}>유저코드</th>
+            <th style={{ width: '6%' }}>주문날짜</th>
+            <th style={{ width: '4.9%' }}>이름</th>
             <th style={{ width: '3.9%' }}>제품명</th>
-            <th style={{ width: '4.9%' }}>배송주소</th>
+            <th style={{ width: '7%' }}>배송주소</th>
             <th style={{ width: '4.9%' }}>주문상태</th>
             <th style={{ width: '4.9%' }}>환불사유</th>
             <th style={{ width: '4.9%' }}>요청사항</th>
@@ -278,21 +275,137 @@ const Refund = () => {
           <tbody>
           {orders.map((order) => (
               <tr key={order.orderCode}>
-                <td>{order.orderCode}</td>
-                <td>{order.user.userCode}</td>
+                <td>{order.orderDate}</td>
+                <td>{order.user.name}</td>
                 <td>{order.product.productName}</td>
-                <td>{order.shippingAddress}</td>
-                <td>{order.orderStatus}</td>
-                <td>{order.refundReason}</td>
-                <td>{order.request}</td>
-                <td>{order.orderPrice}</td>
-                <td>{order.refundState}</td>
-                <td>{order.productSize}</td>
-                <td>{order.productColor}</td>
-                <td>{order.reviewCheck ? '리뷰 완료' : '리뷰 미완료'}</td>
-                <td>{order.product.manufacturer}</td>
                 <td>
-                  <button onClick={() => handleEditClick(order)}>수정</button>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="shippingAddress"
+                          value={editingOrder.shippingAddress}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.shippingAddress
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="orderStatus"
+                          value={editingOrder.orderStatus}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.orderStatus
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="refundReason"
+                          value={editingOrder.refundReason}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.refundReason
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="request"
+                          value={editingOrder.request}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.request
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="orderPrice"
+                          value={editingOrder.orderPrice}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.orderPrice
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="refundState"
+                          value={editingOrder.refundState}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.refundState
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="productSize"
+                          value={editingOrder.productSize}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.productSize
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="productColor"
+                          value={editingOrder.productColor}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.productColor
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="reviewCheck"
+                          value={editingOrder.reviewCheck}
+                          onChange={handleInputChange}
+                      />
+                  ) : order.reviewCheck ? (
+                      'Y'
+                  ) : (
+                      'N'
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <input
+                          type="text"
+                          name="impUid"
+                          value={editingOrder.impUid}
+                          onChange={handleInputChange}
+                      />
+                  ) : (
+                      order.impUid
+                  )}
+                </td>
+                <td>
+                  {editingOrder && editingOrder.orderCode === order.orderCode ? (
+                      <button onClick={handleSaveClick}>Save</button>
+                  ) : (
+                      <button onClick={() => handleEditClick(order)}>수정</button>
+                  )}
                 </td>
                 <td>
                   <button onClick={() => handleApproveClick(order)}>승인</button>
@@ -301,37 +414,13 @@ const Refund = () => {
                   <button onClick={() => handleRejectClick(order)}>거절</button>
                 </td>
                 <td>
-                  <button onClick={() => updateOrderStatus(order)}>주문상태 변경</button>
+                  <button onClick={() => updateOrderStatus(order)}>변경</button>{' '}
+                  {/* 상태 업데이트 버튼 추가 */}
                 </td>
               </tr>
           ))}
           </tbody>
         </table>
-
-        {editingOrder && (
-            <div className="order-editor">
-              <h2>Edit Order</h2>
-              <input
-                  type="text"
-                  name="orderCode"
-                  value={editingOrder.orderCode}
-                  onChange={handleInputChange}
-              />
-              <input
-                  type="text"
-                  name="orderStatus"
-                  value={editingOrder.orderStatus}
-                  onChange={handleInputChange}
-              />
-              <input
-                  type="text"
-                  name="refundState"
-                  value={editingOrder.refundState}
-                  onChange={handleInputChange}
-              />
-              <button onClick={handleSaveClick}>Save</button>
-            </div>
-        )}
       </div>
   );
 };

@@ -2,6 +2,7 @@ package com.example.estate.entity;
 
 import java.sql.Timestamp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.annotations.CreationTimestamp;
 
 import jakarta.persistence.Column;
@@ -65,7 +66,9 @@ public class Orders {
     @Column
     private String impUid; // 가맹점 번호
 
+
     @CreationTimestamp
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Timestamp orderDate; // 등록일
 
 }

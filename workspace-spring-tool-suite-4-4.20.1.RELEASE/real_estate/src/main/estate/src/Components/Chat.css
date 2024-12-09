@@ -177,7 +177,7 @@
 .chat-container{
   padding: 10px;
   position: fixed;
-  bottom: 200px;
+  top: 140px;
   right: 20px;
   width: 600px;
   height: 650px;

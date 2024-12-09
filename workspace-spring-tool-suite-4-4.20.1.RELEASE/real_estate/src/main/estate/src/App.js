@@ -109,8 +109,8 @@ function App() {
       <button
         style={{
           position: 'fixed', // 화면에 고정
-          bottom: '20px', // 화면 하단으로부터 20px 위에 위치
-          right: '100px', // 화면 오른쪽으로부터 100px 왼쪽에 위치
+          top: '80px', // 화면 하단으로부터 20px 위에 위치
+          right: '30px', // 화면 오른쪽으로부터 100px 왼쪽에 위치
           padding: '10px 20px',
           color: 'black',
           fontWeight: 'bold',
@@ -137,20 +137,7 @@ function App() {
 
       {/* 채팅 창 - 페이지 스크롤에도 고정 */}
       {isChatVisible && (
-        <div
-          style={{
-            padding: '10px',
-            position: 'fixed', // 화면에 고정
-            bottom: '180px', // 화면 하단으로부터 80px 위에 위치
-            right: '20px', // 화면 오른쪽으로부터 20px 왼쪽에 위치
-            width: '450px',
-            height: '650px',
-            borderRadius: '5px',
-            zIndex: '1000', // 다른 요소들 위에 표시되도록 설정
-          }}
-        >
           <Chat />
-        </div>
       )}
 
       <Routes>

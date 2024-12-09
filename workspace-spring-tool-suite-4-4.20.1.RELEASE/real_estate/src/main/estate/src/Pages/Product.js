@@ -90,7 +90,6 @@ const Product = () => {
   };
 
   const handleClick = (index, imageUrl) => {
-    setSelectedOption(index);
     setMainImage(convertToBlobUrl(imageUrl)); // 클릭된 서브 이미지를 메인 이미지로 설정
   };
 
@@ -347,7 +346,7 @@ const Product = () => {
                   <img
                     src={convertToBlobUrl(imageUrl)}
                     alt={`서브 이미지 ${index}`}
-                    onClick={() => handleImageClick(convertToBlobUrl(imageUrl))} // Click to view sub image
+                    onClick={() => handleClick(index, imageUrl)}
                   />
                 </li>
               ))}

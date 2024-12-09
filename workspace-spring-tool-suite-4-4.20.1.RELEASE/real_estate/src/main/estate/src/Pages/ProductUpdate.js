@@ -25,8 +25,11 @@ const ProductUpdate = () => {
 
   const fetchProducts = async () => {
     try {
-      const response = await axios.get(`${API_URL}/getProducts`); // Use API_URL here
-      setProducts(response.data);
+      const response = await axios.get(`${API_URL}/getProducts`);
+      const sortedProducts = response.data.sort((a, b) => {
+        return new Date(b.registerDate) - new Date(a.registerDate);
+      });
+      setProducts(sortedProducts);
     } catch (error) {
       console.error('Error fetching products:', error);
     }

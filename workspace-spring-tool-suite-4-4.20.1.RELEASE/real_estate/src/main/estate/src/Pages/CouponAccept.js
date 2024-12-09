@@ -28,11 +28,15 @@ const CouponAccept = () => {
   const fetchCoupons = async () => {
     try {
       const response = await axios.get(`${API_URL}/getCoupons`);
-      setCoupons(response.data);
+      const sortedCoupons = response.data.sort((a, b) => {
+        return new Date(b.issueDate) - new Date(a.issueDate);
+      });
+      setCoupons(sortedCoupons);
     } catch (error) {
       console.error('Error fetching coupons:', error);
     }
   };
+
 
   const handleSearchChange = (e) => {
     const { name, value } = e.target;

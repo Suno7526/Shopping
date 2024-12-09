@@ -139,7 +139,7 @@ const DeliveryTracking = () => {
             </table>
           </div>
           <div className="delivery-exchange-buttons">
-            <button className="exchange-return">교환, 반품 신청</button>
+            {/*<button className="exchange-return">교환, 반품 신청</button>*/}
           </div>
         </div>
       </div>
