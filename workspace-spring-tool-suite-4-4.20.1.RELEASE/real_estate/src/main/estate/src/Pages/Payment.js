@@ -18,7 +18,6 @@ const Payment = () => {
   const [selectedCoupon, setSelectedCoupon] = useState(null);
   const navigate = useNavigate();
 
-  // API_URL 환경 변수를 사용
   const API_URL = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -259,44 +258,93 @@ const Payment = () => {
                     {sessionStorage.getItem('userEmail')}
                   </p>
                 </div>
-                <button className="Orderer-address" onClick={handlePostcode}>
-                  주소입력
-                </button>
               </div>
             </div>
-            <div className="Payment-discount-section">
-              <label htmlFor="couponSelect">사용할 쿠폰:</label>
-              <select
-                  id="couponSelect"
-                  onChange={handleCouponChange}
-                  value={selectedCoupon ? selectedCoupon.couponCode : ''}
-              >
-                <option value="">쿠폰 선택</option>
-                {coupons.map((coupon) => (
-                    <option key={coupon.couponCode} value={coupon.couponCode}>
-                      {coupon.couponName} ({coupon.discountAmount}원 할인)
+
+            <div className="Delivery-section">
+              <p className="Delivery-title">배송지 정보</p>
+              <div className="DeliveryAndButton">
+                <div className="  ">
+                  <input
+                      type="text"
+                      value={shippingAddress}
+                      readOnly={true}
+                      className="Delivery-address-input"
+                  />
+                  <input
+                      type="button"
+                      onClick={handlePostcode}
+                      value="우편번호 찾기"
+                  />
+                  <input
+                      type="text"
+                      placeholder="나머지 주소를 입력하세요"
+                      value={extraAddress}
+                      onChange={(e) => setExtraAddress(e.target.value)}
+                      className="Delivery-extra-address-input"
+                  />
+                  <select
+                      id="Delivery-ListBox"
+                      name="Delivery-ListBox"
+                      className="Delivery-ListBox-input"
+                      value={deliveryMemo}
+                      onChange={(e) => setDeliveryMemo(e.target.value)}
+                  >
+                    <option value="">배송메모를 선택하세요</option>
+                    <option value="문 앞">문 앞</option>
+                    <option value="직접 받고 부재 시 문 앞">
+                      직접 받고 부재 시 문 앞
                     </option>
-                ))}
-              </select>
+                    <option value="경비실">경비실</option>
+                    <option value="택배함">택배함</option>
+                    <option value="기타사항">기타사항</option>
+                  </select>
+                  {deliveryMemo === '기타사항' && (
+                      <input
+                          type="text"
+                          placeholder="기타 사항을 입력하세요"
+                          value={customMemo}
+                          className="Delivery-ListBox-input-onother"
+                          onChange={(e) => setCustomMemo(e.target.value)}
+                      />
+                  )}
+                </div>
+              </div>
             </div>
-            <div className="Payment-summary">
-              <div className="Payment-summary-row">
-                <span>총 상품 가격</span>
-                <span>{totalPrice}원</span>
-              </div>
-              {selectedCoupon && (
-                  <div className="Payment-summary-row">
-                    <span>쿠폰 할인</span>
-                    <span>-{selectedCoupon.discountAmount}원</span>
-                  </div>
-              )}
-              <div className="Payment-summary-row">
-                <span>최종 결제 금액</span>
-                <span>{finalPrice}원</span>
-              </div>
-              <div className="Payment-summary-row">
-                <button className="payment-submit-button" onClick={handlePurchase}>
-                  결제하기
+          </div>
+
+          <div className="Final-paymentamount-section">
+            <p className="Final-paymentamount-title">최종 결제금액</p>
+            <div className="Final-paymentamountAndButton">
+              <div className="Final-paymentamount-info">
+                <div className="Final-paymentamount-price">
+                  상품가격: {total}원
+                </div>
+                <div className="Final-paymentamount-delivery-fee">
+                  배송비: 2500원
+                </div>
+                <div className="Final-paymentamount-discount">
+                  <select
+                      onChange={handleCouponChange}
+                      value={selectedCoupon ? selectedCoupon.couponCode : ''}
+                  >
+                    <option value="">쿠폰 선택</option>
+                    {coupons.map((coupon) => (
+                        <option key={coupon.couponCode} value={coupon.couponCode}>
+                          - {coupon.discountAmount}원 할인
+                        </option>
+                    ))}
+                  </select>
+                  {selectedCoupon && (
+                      <p>선택된 쿠폰: - {selectedCoupon.discountAmount}원 할인</p>
+                  )}
+                </div>
+                <div className="Final-payment-total-div">
+                  <p className="Final-paymentamount-total">총 결제금액</p>
+                  <p className="Final-paymentmount-total-won">{finalPrice}원</p>
+                </div>
+                <button className="Payment-button" onClick={handlePurchase}>
+                  결제
                 </button>
               </div>
             </div>
