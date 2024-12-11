@@ -112,20 +112,24 @@ function Home() {
               centerMode={false}
               centerPadding="0px"
           >
-            {products.slice(0, 10).map((product, index) => (
-                <div key={product.productCode} className="Home-property-wrapper">
-                  <Link to={`/product/${product.productCode}`}>
-                    <img
-                        src={`${API_URL}/getProductImage/${product.productCode}`}
-                        alt={`Product ${index}`}
-                        className="property-image"
-                        onClick={() => handleClickProduct(product.productCode)}
-                    />
-                  </Link>
-                </div>
-            ))}
+            {products
+                .sort((a, b) => new Date(b.registerDate) - new Date(a.registerDate)) // 최신순 정렬
+                .slice(0, 10) // 슬라이더에 표시할 10개 항목 선택
+                .map((product, index) => (
+                    <div key={product.productCode} className="Home-property-wrapper">
+                      <Link to={`/product/${product.productCode}`}>
+                        <img
+                            src={`${API_URL}/getProductImage/${product.productCode}`}
+                            alt={`Product ${index}`}
+                            className="property-image"
+                            onClick={() => handleClickProduct(product.productCode)}
+                        />
+                      </Link>
+                    </div>
+                ))}
           </Slider>
         </div>
+
 
         <div className="Home-text">
           <h1 className="Home-text-Products">Products</h1>
